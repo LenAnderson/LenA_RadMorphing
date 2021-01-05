@@ -19,6 +19,7 @@ Group Properties
 	GenericDoctorsScript Property DialogueGenericDoctors Auto Const
 
 	Sound Property LenARM_DropClothesSound Auto Const
+	Sound Property LenARM_MorphSound Auto Const
 
 	Faction Property CurrentCompanionFaction Auto Const
 	Faction Property PlayerAllyFation Auto Const
@@ -835,6 +836,7 @@ Function ApplyAllCompanionMorphs()
 	int idxComp = 0
 	While (idxComp < CurrentCompanions.Length)
 		BodyGen.UpdateMorphs(CurrentCompanions[idxComp])
+		PlayMorphSound(CurrentCompanions[idxComp])
 		idxComp += 1
 	EndWhile
 EndFunction
@@ -952,6 +954,7 @@ Function TimerMorphTick()
 			EndWhile
 			If (changedMorphs)
 				BodyGen.UpdateMorphs(PlayerRef)
+				PlayMorphSound(PlayerRef)
 				ApplyAllCompanionMorphs()
 				TriggerUnequipSlots()
 			EndIf
@@ -1038,4 +1041,9 @@ Function ShowEquippedClothes()
 	EndWhile
 
 	Debug.MessageBox(LL_FourPlay.StringJoin(items, "\n"))
+EndFunction
+
+Function PlayMorphSound(Actor akSender)	
+	Log("  playing morph sound")
+	LenARM_MorphSound.PlayAndWait(akSender)
 EndFunction
