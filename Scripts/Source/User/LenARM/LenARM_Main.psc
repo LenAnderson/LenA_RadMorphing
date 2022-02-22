@@ -1009,29 +1009,33 @@ Function UnequipSlots()
 				int unequipSlotOffset = SliderSet_GetUnequipSlotOffset(idxSet)
 				int idxSlot = unequipSlotOffset
 				While (idxSlot < unequipSlotOffset + sliderSet.NumberOfUnequipSlots)
-					Actor:WornItem item = PlayerRef.GetWornItem(UnequipSlots[idxSlot])
-					If (item.item && LL_Fourplay.StringSubstring(item.modelName, 0, 6) != "Actors" && LL_Fourplay.StringSubstring(item.modelName, 0, 6) != "Pipboy")
-						Log("  unequipping slot " + UnequipSlots[idxSlot] + " (" + item.item.GetName() + " / " + item.modelName + ")")
-						PlayerRef.UnequipItemSlot(UnequipSlots[idxSlot])
-						If (!found && !PlayerRef.IsEquipped(item.item))
-							Log("  playing sound")
-							LenARM_DropClothesSound.PlayAndWait(PlayerRef)
-							found = true
+					If (!PlayerRef.IsInPowerArmor())
+						Actor:WornItem item = PlayerRef.GetWornItem(UnequipSlots[idxSlot])
+						If (item.item && LL_Fourplay.StringSubstring(item.modelName, 0, 6) != "Actors" && LL_Fourplay.StringSubstring(item.modelName, 0, 6) != "Pipboy")
+							Log("  unequipping slot " + UnequipSlots[idxSlot] + " (" + item.item.GetName() + " / " + item.modelName + ")")
+							PlayerRef.UnequipItemSlot(UnequipSlots[idxSlot])
+							If (!found && !PlayerRef.IsEquipped(item.item))
+								Log("  playing sound")
+								LenARM_DropClothesSound.PlayAndWait(PlayerRef)
+								found = true
+							EndIf
 						EndIf
 					EndIf
 					int idxComp = 0
 					While (idxComp < CurrentCompanions.Length)
 						Actor companion = CurrentCompanions[idxComp]
-						int sex = companion.GetLeveledActorBase().GetSex()
-						If (sliderSet.ApplyCompanion == EApplyCompanionAll || (sex == ESexFemale && sliderSet.ApplyCompanion == EApplyCompanionFemale) || (sex == ESexMale && sliderSet.ApplyCompanion == EApplyCompanionMale))
-							Actor:WornItem compItem = companion.GetWornItem(UnequipSlots[idxSlot])
-							If (compItem.item && LL_Fourplay.StringSubstring(compItem.modelName, 0, 6) != "Actors" && LL_Fourplay.StringSubstring(compItem.modelName, 0, 6) != "Pipboy")
-								Log("  unequipping companion(" + companion + ") slot " + UnequipSlots[idxSlot] + " (" + compItem.item.GetName() + " / " + compItem.modelName + ")")
-								companion.UnequipItem(compItem.item)
-								If (!compFound[idxComp] && !companion.IsEquipped(compItem.item))
-									Log("  playing companion sound")
-									LenARM_DropClothesSound.PlayAndWait(CurrentCompanions[idxComp])
-									compFound[idxComp] = true
+						If (!companion.IsInPowerArmor())
+							int sex = companion.GetLeveledActorBase().GetSex()
+							If (sliderSet.ApplyCompanion == EApplyCompanionAll || (sex == ESexFemale && sliderSet.ApplyCompanion == EApplyCompanionFemale) || (sex == ESexMale && sliderSet.ApplyCompanion == EApplyCompanionMale))
+								Actor:WornItem compItem = companion.GetWornItem(UnequipSlots[idxSlot])
+								If (compItem.item && LL_Fourplay.StringSubstring(compItem.modelName, 0, 6) != "Actors" && LL_Fourplay.StringSubstring(compItem.modelName, 0, 6) != "Pipboy")
+									Log("  unequipping companion(" + companion + ") slot " + UnequipSlots[idxSlot] + " (" + compItem.item.GetName() + " / " + compItem.modelName + ")")
+									companion.UnequipItem(compItem.item)
+									If (!compFound[idxComp] && !companion.IsEquipped(compItem.item))
+										Log("  playing companion sound")
+										LenARM_DropClothesSound.PlayAndWait(CurrentCompanions[idxComp])
+										compFound[idxComp] = true
+									EndIf
 								EndIf
 							EndIf
 						EndIf
