@@ -126,6 +126,8 @@ bool IsForgetStateBusy
 
 bool IsShuttingDown
 
+bool IsInCombat
+
 
 string Version
 
@@ -401,6 +403,9 @@ Function Startup()
 		RegisterForRemoteEvent(DLC04SettlementDoctor_EndScene, "OnBegin")
 		RegisterForRemoteEvent(DLC04SettlementDoctor_EndScene, "OnEnd")
 
+		; start listening for combat state
+		RegisterForRemoteEvent(PlayerRef, "OnCombatStateChanged")
+
 		If (RadsDetectionType == ERadsDetectionTypeRandom)
 			; start listening for rads damage
 			RegisterForRadiationDamageEvent(PlayerRef)
@@ -543,6 +548,9 @@ Function Shutdown(bool withRestore=true)
 		; stop listening for doctor scene
 		UnregisterForRemoteEvent(DoctorMedicineScene03_AllDone, "OnBegin")
 		UnregisterForRemoteEvent(DoctorMedicineScene03_AllDone, "OnEnd")
+
+		; start listening for combat state
+		UnregisterForRemoteEvent(PlayerRef, "OnCombatStateChanged")
 		
 		If (withRestore)
 			StartTimer(Math.Max(UpdateDelay + 0.5, 2.0), ETimerShutdownRestoreMorphs)
@@ -650,6 +658,19 @@ Event Actor.OnItemEquipped(Actor akSender, Form akBaseObject, ObjectReference ak
 	;TODO if slot is not allowed -> unequip
 	Utility.Wait(1.0)
 	TriggerUnequipSlots()
+EndEvent
+
+Event Actor.OnCombatStateChanged(Actor akSender, Actor akTarget, int aeCombatState)
+	; aeCombatState: The combat state we just entered, which will be one of the following:
+    ; 0: Not in combat
+    ; 1: In combat
+    ; 2: Searching
+    ; leaving combat while we are in combat
+	If (IsInCombat && aeCombatState == 0)
+		IsInCombat = false
+	ElseIf (!IsInCombat && aeCombatState == 1)
+		IsInCombat = true
+	EndIf
 EndEvent
 
 
@@ -899,10 +920,14 @@ EndFunction
 
 Function UpdateCompanions()
 	Log("UpdateCompanions")
-	Actor[] newComps = GetCompanions()
-	RemoveDismissedCompanions(newComps)
-	AddNewCompanions(newComps)
-	Log("  CurrentCompanions: " + CurrentCompanions)
+	If (IsInCombat)
+		Log("  don't update companions while in combat")
+	Else
+		Actor[] newComps = GetCompanions()
+		RemoveDismissedCompanions(newComps)
+		AddNewCompanions(newComps)
+		Log("  CurrentCompanions: " + CurrentCompanions)
+	EndIf
 EndFunction
 
 
