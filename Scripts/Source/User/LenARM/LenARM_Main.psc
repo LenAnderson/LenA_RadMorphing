@@ -822,9 +822,15 @@ EndFunction
 
 Function RetrieveOriginalCompanionMorphs(Actor companion)
 	Log("RetrieveOriginalCompanionMorphs: " + companion)
+	int idxComp = CurrentCompanions.Find(companion)
+	int offsetIdx = SliderNames.Length * idxComp
 	int idxSlider = 0
 	While (idxSlider < SliderNames.Length)
-		OriginalCompanionMorphs.Add(BodyGen.GetMorph(companion, True, SliderNames[idxSlider], None))
+		If (OriginalCompanionMorphs.Length < offsetIdx + idxSlider + 1)
+			OriginalCompanionMorphs.Add(BodyGen.GetMorph(companion, True, SliderNames[idxSlider], None))
+		Else
+			OriginalCompanionMorphs[offsetIdx + idxSlider] = BodyGen.GetMorph(companion, True, SliderNames[idxSlider], None)
+		EndIf
 		idxSlider += 1
 	EndWhile
 EndFunction
