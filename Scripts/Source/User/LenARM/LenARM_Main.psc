@@ -58,6 +58,12 @@ Group EnumSex
 	int Property ESexFemale = 1 Auto Const
 EndGroup
 
+Group EnumOverrideBool
+	int Property EOverrideBoolNoOverride = 0 Auto Const
+	int Property EOverrideBoolTrue = 1 Auto Const
+	int Property EOverrideBoolFalse = 2 Auto Const
+EndGroup
+
 
 Group Constants
 	int Property _NUMBER_OF_SLIDERSETS_ = 20 Auto Const
@@ -111,6 +117,11 @@ float UpdateDelay
 int RadsDetectionType
 float RandomRadsLower
 float RandomRadsUpper
+
+int OverrideOnlyDoctorCanReset
+int OverrideIsAdditive
+int OverrideHasAdditiveLimit
+float OverrideAdditiveLimit
 
 bool IgnoreDeviousDevices
 string[] AdditionalDeviousDevices
@@ -373,6 +384,47 @@ EndFunction
 
 
 
+;
+; overrides
+;
+
+bool Function GetOnlyDoctorCanReset(SliderSet set)
+	If (OverrideOnlyDoctorCanReset != EOverrideBoolNoOverride)
+		return OverrideOnlyDoctorCanReset == EOverrideBoolTrue
+	Else
+		return set.OnlyDoctorCanReset
+	EndIf
+EndFunction
+
+bool Function GetIsAdditive(SliderSet set)
+	If (OverrideIsAdditive != EOverrideBoolNoOverride)
+		return OverrideIsAdditive == EOverrideBoolTrue
+	Else
+		return set.IsAdditive
+	EndIf
+EndFunction
+
+bool Function GetHasAdditiveLimit(SliderSet set)
+	If (OverrideHasAdditiveLimit != EOverrideBoolNoOverride)
+		return OverrideHasAdditiveLimit == EOverrideBoolTrue
+	Else
+		return set.HasAdditiveLimit
+	EndIf
+EndFunction
+
+float Function GetAdditiveLimit(SliderSet set)
+	If (OverrideHasAdditiveLimit != EOverrideBoolNoOverride)
+		return OverrideAdditiveLimit
+	Else
+		return set.AdditiveLimit
+	EndIf
+EndFunction
+;
+; END: overrides
+
+
+
+
 Function Startup()
 	Log("Startup")
 	If (MCM.GetModSettingBool("LenA_RadMorphing", "bIsEnabled:General"))
@@ -391,6 +443,12 @@ Function Startup()
 		RadsDetectionType = MCM.GetModSettingInt("LenA_RadMorphing", "iRadiationDetection:General")
 		RandomRadsLower = MCM.GetModSettingFloat("LenA_RadMorphing", "fRandomRadsLower:General")
 		RandomRadsUpper = MCM.GetModSettingFloat("LenA_RadMorphing", "fRandomRadsUpper:General")
+
+		; get global overrides from MCM
+		OverrideOnlyDoctorCanReset = MCM.GetModSettingInt("LenA_RadMorphing", "iOnlyDoctorCanReset:Override")
+		OverrideIsAdditive = MCM.GetModSettingInt("LenA_RadMorphing", "iIsAdditive:Override")
+		OverrideHasAdditiveLimit = MCM.GetModSettingInt("LenA_RadMorphing", "iHasAdditiveLimit:Override")
+		OverrideAdditiveLimit = MCM.GetModSettingFloat("LenA_RadMorphing", "fAdditiveLimit:Override")
 
 		; get DeviousDevices settings from MCM
 		IgnoreDeviousDevices = MCM.GetModSettingBool("LenA_RadMorphing", "bIgnoreDeviousDevices:General")
@@ -449,7 +507,7 @@ Function Startup()
 		int idxSet = 0
 		While (idxSet < SliderSets.Length)
 			SliderSet set = SliderSets[idxSet]
-			If (set.OnlyDoctorCanReset && set.IsAdditive && set.BaseMorph > 0)
+			If (GetOnlyDoctorCanReset(set) && GetIsAdditive(set) && set.BaseMorph > 0)
 				SetMorphs(idxSet, set, set.BaseMorph)
 				SetCompanionMorphs(idxSet, set.BaseMorph, set.ApplyCompanion)
 			EndIf
@@ -986,12 +1044,12 @@ Function TimerMorphTick()
 					float newMorph = GetNewMorph(newRads, sliderSet)
 
 					Log("    morph " + idxSet + ": " + sliderSet.CurrentMorph + " -> " + newMorph)
-					If (newMorph > sliderSet.CurrentMorph || (!sliderSet.OnlyDoctorCanReset && newMorph != sliderSet.CurrentMorph))
+					If (newMorph > sliderSet.CurrentMorph || (!GetOnlyDoctorCanReset(sliderSet) && newMorph != sliderSet.CurrentMorph))
 						float fullMorph = newMorph
-						If (sliderSet.IsAdditive)
+						If (GetIsAdditive(sliderSet))
 							fullMorph += sliderSet.BaseMorph
-							If (sliderSet.HasAdditiveLimit)
-								fullMorph = Math.Min(fullMorph, 1.0 + sliderSet.AdditiveLimit)
+							If (GetHasAdditiveLimit(sliderSet))
+								fullMorph = Math.Min(fullMorph, 1.0 + GetAdditiveLimit(sliderSet))
 							EndIf
 						EndIf
 						Log("    morph " + idxSet + ": " + sliderSet.CurrentMorph + " -> " + newMorph + " -> " + fullMorph)
@@ -999,7 +1057,7 @@ Function TimerMorphTick()
 						changedMorphs = true
 						sliderSet.CurrentMorph = newMorph
 						Log("    setting currentMorph " + idxSet + " to " + sliderSet.CurrentMorph)
-					ElseIf (sliderSet.IsAdditive)
+					ElseIf (GetIsAdditive(sliderSet))
 						sliderSet.BaseMorph += sliderSet.CurrentMorph - newMorph
 						Log("    setting baseMorph " + idxSet + " to " + sliderSet.BaseMorph)
 						sliderSet.CurrentMorph = newMorph
