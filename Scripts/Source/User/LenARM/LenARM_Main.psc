@@ -112,6 +112,10 @@ int RadsDetectionType
 float RandomRadsLower
 float RandomRadsUpper
 
+bool IgnoreDeviousDevices
+string[] AdditionalDeviousDevices
+int[] AdditionalDeviousDevicesLengths
+
 
 float CurrentRads
 float FakeRads
@@ -387,6 +391,29 @@ Function Startup()
 		RadsDetectionType = MCM.GetModSettingInt("LenA_RadMorphing", "iRadiationDetection:General")
 		RandomRadsLower = MCM.GetModSettingFloat("LenA_RadMorphing", "fRandomRadsLower:General")
 		RandomRadsUpper = MCM.GetModSettingFloat("LenA_RadMorphing", "fRandomRadsUpper:General")
+
+		; get DeviousDevices settings from MCM
+		IgnoreDeviousDevices = MCM.GetModSettingBool("LenA_RadMorphing", "bIgnoreDeviousDevices:General")
+		string addDD = MCM.GetModSettingString("LenA_RadMorphing", "sAdditionalDeviousDevices:General")
+		If (addDD == "")
+			AdditionalDeviousDevices = new string[0]
+			AdditionalDeviousDevicesLengths = new int[0]
+		Else
+			AdditionalDeviousDevices = StringSplit(addDD, "|")
+			AdditionalDeviousDevicesLengths = new int[AdditionalDeviousDevices.Length]
+			int ddIdx = 0
+			int ddOffset = 0
+			string ddText = addDD + "|"
+			While (ddIdx < AdditionalDeviousDevices.Length)
+				AdditionalDeviousDevicesLengths[ddIdx] = LL_Fourplay.StringFind(ddText, "|", ddOffset)
+				ddOffset = AdditionalDeviousDevicesLengths[ddIdx] + 1
+				ddIdx += 1
+			EndWhile
+			Log("DD Integration")
+			Log("  MCM:     " + addDD)
+			Log("  Devices: " + AdditionalDeviousDevices)
+			Log("  Lengths: " + AdditionalDeviousDevicesLengths)
+		EndIf
 
 		; start listening for equipping items
 		RegisterForRemoteEvent(PlayerRef, "OnItemEquipped")
@@ -996,6 +1023,25 @@ Function TimerMorphTick()
 EndFunction
 
 
+bool Function CheckIgnoreItem(string modelName)
+	bool ignoreItem = LL_Fourplay.StringSubstring(modelName, 0, 6) == "Actors" || LL_Fourplay.StringSubstring(modelName, 0, 6) == "Pipboy"
+	If (IgnoreDeviousDevices)
+		If (LL_Fourplay.StringSubstring(modelName, 0, 14) == "DeviousDevices")
+			ignoreItem = true
+		ElseIf (AdditionalDeviousDevices.Length > 0)
+			int idxDd = 0
+			While (!ignoreItem && idxDd < AdditionalDeviousDevices.Length)
+				string dd = AdditionalDeviousDevices[idxDd]
+				If (LL_Fourplay.StringSubstring(modelName, 0, AdditionalDeviousDevicesLengths[idxDd]) == AdditionalDeviousDevices[idxDd])
+					ignoreItem = true
+				EndIf
+				idxDd += 1
+			EndWhile
+		EndIf
+	EndIf
+	return ignoreItem
+EndFunction
+
 Function UnequipSlots()
 	Log("UnequipSlots (stack=" + UnequipStackSize + ")")
 	UnequipStackSize += 1
@@ -1013,13 +1059,17 @@ Function UnequipSlots()
 						Log("  checking slot " + UnequipSlots[idxSlot])
 						Actor:WornItem item = PlayerRef.GetWornItem(UnequipSlots[idxSlot])
 						Log("    -->  " + item)
-						If (item && item.item && LL_Fourplay.StringSubstring(item.modelName, 0, 6) != "Actors" && LL_Fourplay.StringSubstring(item.modelName, 0, 6) != "Pipboy")
-							Log("  unequipping slot " + UnequipSlots[idxSlot] + " (" + item.item.GetName() + " / " + item.modelName + ")")
-							PlayerRef.UnequipItemSlot(UnequipSlots[idxSlot])
-							If (!found && !PlayerRef.IsEquipped(item.item))
-								Log("  playing sound")
-								LenARM_DropClothesSound.PlayAndWait(PlayerRef)
-								found = true
+						If (item && item.item)
+							bool ignoreItem = CheckIgnoreItem(item.modelName)
+							Log("  ignoreItem: " + ignoreItem)
+							If (!ignoreItem)
+								Log("  unequipping slot " + UnequipSlots[idxSlot] + " (" + item.item.GetName() + " / " + item.modelName + ")")
+								PlayerRef.UnequipItemSlot(UnequipSlots[idxSlot])
+								If (!found && !PlayerRef.IsEquipped(item.item))
+									Log("  playing sound")
+									LenARM_DropClothesSound.PlayAndWait(PlayerRef)
+									found = true
+								EndIf
 							EndIf
 						EndIf
 					EndIf
@@ -1030,13 +1080,17 @@ Function UnequipSlots()
 							int sex = companion.GetLeveledActorBase().GetSex()
 							If (sliderSet.ApplyCompanion == EApplyCompanionAll || (sex == ESexFemale && sliderSet.ApplyCompanion == EApplyCompanionFemale) || (sex == ESexMale && sliderSet.ApplyCompanion == EApplyCompanionMale))
 								Actor:WornItem compItem = companion.GetWornItem(UnequipSlots[idxSlot])
-								If (compItem && compItem.item && LL_Fourplay.StringSubstring(compItem.modelName, 0, 6) != "Actors" && LL_Fourplay.StringSubstring(compItem.modelName, 0, 6) != "Pipboy")
-									Log("  unequipping companion(" + companion + ") slot " + UnequipSlots[idxSlot] + " (" + compItem.item.GetName() + " / " + compItem.modelName + ")")
-									companion.UnequipItem(compItem.item)
-									If (!compFound[idxComp] && !companion.IsEquipped(compItem.item))
-										Log("  playing companion sound")
-										LenARM_DropClothesSound.PlayAndWait(CurrentCompanions[idxComp])
-										compFound[idxComp] = true
+								If (compItem && compItem.item)
+									bool compIgnoreItem = CheckIgnoreItem(compItem.modelName)
+									Log("  ignoreItem: " + compIgnoreItem)
+									If (!compIgnoreItem)
+										Log("  unequipping companion(" + companion + ") slot " + UnequipSlots[idxSlot] + " (" + compItem.item.GetName() + " / " + compItem.modelName + ")")
+										companion.UnequipItem(compItem.item)
+										If (!compFound[idxComp] && !companion.IsEquipped(compItem.item))
+											Log("  playing companion sound")
+											LenARM_DropClothesSound.PlayAndWait(CurrentCompanions[idxComp])
+											compFound[idxComp] = true
+										EndIf
 									EndIf
 								EndIf
 							EndIf

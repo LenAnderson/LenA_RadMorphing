@@ -114,6 +114,53 @@
 	],
 	"pages": [
 		{
+			"pageDisplayName": "Mod Integration",
+			"content": [
+				{
+					"text": "Devious Devices",
+					"type": "section"
+				},
+				{
+					"text": "Don't try to unequip Devious Devices",
+					"help": "Equipment where the path to its model starts with \"DeviousDevices\" will not be unqeuipped by this mod.",
+					"type": "switcher",
+					"id": "bIgnoreDeviousDevices:General",
+					"valueOptions": {
+						"sourceType": "ModSettingBool"
+					}
+				},
+				{
+					"text": "<font size='11'>The file path for all item models from DD look like this:</font>",
+					"type": "text",
+					"html": true
+				},
+				{
+					"text": "<font size='11'>&nbsp;&nbsp;&nbsp;&nbsp;\"DeviousDevices/TypeOfDevice/ModelName.nif\"</font>",
+					"type": "text",
+					"html": true
+				},
+				{
+					"text": "<font size='11'>example: \"DeviousDevices/Hoods/LatexHood.nif\"</font>",
+					"type": "text",
+					"html": true
+				},
+				{
+					"text": "<font size='11'>To avoid trying to unequip DDs, items where the model's path starts with \"DeviousDevices\" are ignored. If you are using mods that add additional devices using the DD features, add the beginning of their models' paths below in a similar fashion.</font>",
+					"type": "text",
+					"html": true
+				},
+				{
+					"text": "Additional Devious Devices",
+					"help": "Enter the beginning of the model paths, separated by \"|\" (e.g. MoreDeviousDevices|MyOwnDDs). Make sure there is no leading or trailing space.",
+					"type": "textinput",
+					"id": "sAdditionalDeviousDevices:General",
+					"valueOptions": {
+						"sourceType": "ModSettingString"
+					}
+				}
+			]
+		},
+		{
 			"pageDisplayName": "Debug Tools",
 			"content": [
 				{
