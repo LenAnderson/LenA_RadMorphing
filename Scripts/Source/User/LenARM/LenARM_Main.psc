@@ -959,7 +959,9 @@ Function TimerMorphTick()
 			Log("skipping due to player in power armor")
 		EndIf
 	EndIf
-	StartTimer(UpdateDelay, ETimerMorphTick)
+	If (!IsShuttingDown)
+		StartTimer(UpdateDelay, ETimerMorphTick)
+	EndIf
 EndFunction
 
 
