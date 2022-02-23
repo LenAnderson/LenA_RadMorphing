@@ -169,6 +169,20 @@
 			"pageDisplayName": "Mod Integration",
 			"content": [
 				{
+					"text": "Bugfixes",
+					"type": "section"
+				},
+				{
+					"text": "Call ClearDialogueConditions after doctor heals rads.",
+					"help": "Fixes Fallout 4 not resetting previous doctor actions.",
+					"type": "switcher",
+					"id": "bCallClearDialogueConditions:General",
+					"valueOptions": {
+						"sourceType": "ModSettingBool"
+					}
+				},
+
+				{
 					"text": "Devious Devices",
 					"type": "section"
 				},

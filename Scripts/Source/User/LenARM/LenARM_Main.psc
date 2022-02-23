@@ -123,6 +123,7 @@ int OverrideIsAdditive
 int OverrideHasAdditiveLimit
 float OverrideAdditiveLimit
 
+bool CallClearDialogueConditions
 bool IgnoreDeviousDevices
 string[] AdditionalDeviousDevices
 int[] AdditionalDeviousDevicesLengths
@@ -450,6 +451,9 @@ Function Startup()
 		OverrideHasAdditiveLimit = MCM.GetModSettingInt("LenA_RadMorphing", "iHasAdditiveLimit:Override")
 		OverrideAdditiveLimit = MCM.GetModSettingFloat("LenA_RadMorphing", "fAdditiveLimit:Override")
 
+		; get bugfix settings from MCM
+		CallClearDialogueConditions = MCM.GetModSettingBool("LenA_RadMorphing", "bCallClearDialogueConditions:General")
+
 		; get DeviousDevices settings from MCM
 		IgnoreDeviousDevices = MCM.GetModSettingBool("LenA_RadMorphing", "bIgnoreDeviousDevices:General")
 		string addDD = MCM.GetModSettingString("LenA_RadMorphing", "sAdditionalDeviousDevices:General")
@@ -771,6 +775,11 @@ Event Scene.OnEnd(Scene akSender)
 		ResetMorphs()
 		FakeRads = 0
 		TakeFakeRads = false
+		Log("CallClearDialogueConditions: " + CallClearDialogueConditions)
+		If (CallClearDialogueConditions)
+			DialogueGenericDoctors.ClearDialogueConditions()
+			Log("  -->  called DialogueGenericDoctors.ClearDialogueConditions()")
+		EndIf
 	EndIf
 EndEvent
 
