@@ -4,7 +4,7 @@
     "minMcmVersion": 1,
     "content": [
         {
-            "text": "<font size='24'>Rad Morphing Redux</font> <font id='version' size='10'>v0.7.1</font>",
+            "text": "<font size='24'>Rad Morphing Redux</font> <font id='version' size='10'>v1.0.0</font>",
             "type": "text",
             "html": true
         },
@@ -115,6 +115,88 @@
         }
     ],
     "pages": [
+        {
+            "pageDisplayName": "Global Overrides",
+            "content": [
+                {
+                    "text": "Only doctors can reset morphs",
+                    "help": "With this enabled only doctors can restore your base shape. Reducing rads with RadAway or other means will have no effect on the sliders.",
+                    "type": "stepper",
+                    "id": "iOnlyDoctorCanReset:Override",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "No Override",
+                            "Enabled",
+                            "Disabled"
+                        ]
+                    }
+                },
+                {
+                    "text": "Additive morphing",
+                    "help": "Enabled: rads gained after taking RadAway further increase morphs. Disabled: rads gained after taking RadAway only increase morphs if irradiation is higher than before taking RadAway.",
+                    "type": "stepper",
+                    "id": "iIsAdditive:Override",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "No Override",
+                            "Enabled",
+                            "Disabled"
+                        ]
+                    }
+                },
+                {
+                    "text": "Limit additive morphing",
+                    "help": "Disabled: Unlimited additive morphing. Use at own risk!",
+                    "type": "stepper",
+                    "id": "iHasAdditiveLimit:Override",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "No Override",
+                            "Enabled",
+                            "Disabled"
+                        ]
+                    }
+                },
+                {
+                    "text": "Additive morphing limit",
+                    "help": "How far additive morphing can exceed the target size increase (% of target size increase). 0 = cannot exceed target; 100 = cannot exceed 2x target",
+                    "type": "slider",
+                    "id": "fAdditiveLimit:Override",
+                    "valueOptions": {
+                        "sourceType": "ModSettingFloat",
+                        "min": 0.0,
+                        "max": 600.0,
+                        "step": 10.0
+                    }
+                },
+                {
+                    "text": "<b>Warning!</b> Additive morphing without a limit can lead to insane morphs!",
+                    "type": "text",
+                    "html": true
+                }
+            ]
+        },
+        {
+            "pageDisplayName": "Bugfixes",
+            "content": [
+                {
+                    "text": "Bugfixes",
+                    "type": "section"
+                },
+                {
+                    "text": "Call ClearDialogueConditions after doctor heals rads.",
+                    "help": "Fixes Fallout 4 not resetting previous doctor actions.",
+                    "type": "switcher",
+                    "id": "bCallClearDialogueConditions:General",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
+                    }
+                }
+            ]
+        },
         {
             "pageDisplayName": "Debug Tools",
             "content": [

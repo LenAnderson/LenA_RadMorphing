@@ -65,7 +65,7 @@ newVarsMatched.each{newVar ->
 		if (!newVars[section]) {
 			newVars[section] = [:]
 		}
-		newVars[section][newVar[1]] = oldVars[section ==~ /Slider\d+/ ? 'Slider0' : section][newVar[1]]
+		newVars[section][newVar[1]] = oldVars.getAt(section ==~ /Slider\d+/ ? 'Slider0' : section)?.getAt(newVar[1])
 	}
 }
 StringBuilder sb = new StringBuilder()

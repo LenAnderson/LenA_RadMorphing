@@ -17,6 +17,10 @@ Group Properties
 	Scene Property DLC04SettlementDoctor_EndScene Auto Const
 
 	GenericDoctorsScript Property DialogueGenericDoctors Auto Const
+	GenericDoctorsScript Property DialogueGenericDoctorsAcadia Auto Const
+	GenericDoctorsScript Property DialogueGenericDoctorsArchemist Auto Const
+	GenericDoctorsScript Property DialogueGenericDoctorsFarHarbor Auto Const
+	DLC04:DLC04SettlementDoctorScript Property DialogueGenericDoctorsNukaWorld Auto Const
 
 	Sound Property LenARM_DropClothesSound Auto Const
 
@@ -56,6 +60,12 @@ EndGroup
 Group EnumSex
 	int Property ESexMale = 0 Auto Const
 	int Property ESexFemale = 1 Auto Const
+EndGroup
+
+Group EnumOverrideBool
+	int Property EOverrideBoolNoOverride = 0 Auto Const
+	int Property EOverrideBoolTrue = 1 Auto Const
+	int Property EOverrideBoolFalse = 2 Auto Const
 EndGroup
 
 
@@ -112,6 +122,13 @@ int RadsDetectionType
 float RandomRadsLower
 float RandomRadsUpper
 
+int OverrideOnlyDoctorCanReset
+int OverrideIsAdditive
+int OverrideHasAdditiveLimit
+float OverrideAdditiveLimit
+
+bool CallClearDialogueConditions
+
 
 float CurrentRads
 float FakeRads
@@ -125,6 +142,10 @@ int ForgetStateCalledByUserCount
 bool IsForgetStateBusy
 
 bool IsShuttingDown
+
+bool IsInCombat
+
+FormList DD_FL_All
 
 
 string Version
@@ -182,7 +203,7 @@ EndFunction
 
 
 string Function GetVersion()
-	return "0.7.1"; Thu Dec 17 09:11:27 CET 2020
+	return "1.0.0"; Fri Apr 08 09:44:20 CEST 2022
 EndFunction
 
 
@@ -367,6 +388,47 @@ EndFunction
 
 
 
+;
+; overrides
+;
+
+bool Function GetOnlyDoctorCanReset(SliderSet set)
+	If (OverrideOnlyDoctorCanReset != EOverrideBoolNoOverride)
+		return OverrideOnlyDoctorCanReset == EOverrideBoolTrue
+	Else
+		return set.OnlyDoctorCanReset
+	EndIf
+EndFunction
+
+bool Function GetIsAdditive(SliderSet set)
+	If (OverrideIsAdditive != EOverrideBoolNoOverride)
+		return OverrideIsAdditive == EOverrideBoolTrue
+	Else
+		return set.IsAdditive
+	EndIf
+EndFunction
+
+bool Function GetHasAdditiveLimit(SliderSet set)
+	If (OverrideHasAdditiveLimit != EOverrideBoolNoOverride)
+		return OverrideHasAdditiveLimit == EOverrideBoolTrue
+	Else
+		return set.HasAdditiveLimit
+	EndIf
+EndFunction
+
+float Function GetAdditiveLimit(SliderSet set)
+	If (OverrideHasAdditiveLimit != EOverrideBoolNoOverride)
+		return OverrideAdditiveLimit
+	Else
+		return set.AdditiveLimit
+	EndIf
+EndFunction
+;
+; END: overrides
+
+
+
+
 Function Startup()
 	Log("Startup")
 	If (MCM.GetModSettingBool("LenA_RadMorphing", "bIsEnabled:General"))
@@ -386,6 +448,21 @@ Function Startup()
 		RandomRadsLower = MCM.GetModSettingFloat("LenA_RadMorphing", "fRandomRadsLower:General")
 		RandomRadsUpper = MCM.GetModSettingFloat("LenA_RadMorphing", "fRandomRadsUpper:General")
 
+		; get global overrides from MCM
+		OverrideOnlyDoctorCanReset = MCM.GetModSettingInt("LenA_RadMorphing", "iOnlyDoctorCanReset:Override")
+		OverrideIsAdditive = MCM.GetModSettingInt("LenA_RadMorphing", "iIsAdditive:Override")
+		OverrideHasAdditiveLimit = MCM.GetModSettingInt("LenA_RadMorphing", "iHasAdditiveLimit:Override")
+		OverrideAdditiveLimit = MCM.GetModSettingFloat("LenA_RadMorphing", "fAdditiveLimit:Override")
+
+		; get bugfix settings from MCM
+		CallClearDialogueConditions = MCM.GetModSettingBool("LenA_RadMorphing", "bCallClearDialogueConditions:General")
+
+		; check for DD
+		If (Game.IsPluginInstalled("Devious Devices.esm"))
+			Log("found DD")
+			DD_FL_All = Game.getFormFromFile(0x0905E95B, "Devious Devices.esm") as FormList
+		EndIf
+
 		; start listening for equipping items
 		RegisterForRemoteEvent(PlayerRef, "OnItemEquipped")
 
@@ -400,6 +477,9 @@ Function Startup()
 		RegisterForRemoteEvent(DLC03AcadiaDialogueAsterPostExamScene, "OnEnd")
 		RegisterForRemoteEvent(DLC04SettlementDoctor_EndScene, "OnBegin")
 		RegisterForRemoteEvent(DLC04SettlementDoctor_EndScene, "OnEnd")
+
+		; start listening for combat state
+		RegisterForRemoteEvent(PlayerRef, "OnCombatStateChanged")
 
 		If (RadsDetectionType == ERadsDetectionTypeRandom)
 			; start listening for rads damage
@@ -417,7 +497,7 @@ Function Startup()
 		int idxSet = 0
 		While (idxSet < SliderSets.Length)
 			SliderSet set = SliderSets[idxSet]
-			If (set.OnlyDoctorCanReset && set.IsAdditive && set.BaseMorph > 0)
+			If (GetOnlyDoctorCanReset(set) && GetIsAdditive(set) && set.BaseMorph > 0)
 				SetMorphs(idxSet, set, set.BaseMorph)
 				SetCompanionMorphs(idxSet, set.BaseMorph, set.ApplyCompanion)
 			EndIf
@@ -543,6 +623,9 @@ Function Shutdown(bool withRestore=true)
 		; stop listening for doctor scene
 		UnregisterForRemoteEvent(DoctorMedicineScene03_AllDone, "OnBegin")
 		UnregisterForRemoteEvent(DoctorMedicineScene03_AllDone, "OnEnd")
+
+		; start listening for combat state
+		UnregisterForRemoteEvent(PlayerRef, "OnCombatStateChanged")
 		
 		If (withRestore)
 			StartTimer(Math.Max(UpdateDelay + 0.5, 2.0), ETimerShutdownRestoreMorphs)
@@ -652,6 +735,19 @@ Event Actor.OnItemEquipped(Actor akSender, Form akBaseObject, ObjectReference ak
 	TriggerUnequipSlots()
 EndEvent
 
+Event Actor.OnCombatStateChanged(Actor akSender, Actor akTarget, int aeCombatState)
+	; aeCombatState: The combat state we just entered, which will be one of the following:
+    ; 0: Not in combat
+    ; 1: In combat
+    ; 2: Searching
+    ; leaving combat while we are in combat
+	If (IsInCombat && aeCombatState == 0)
+		IsInCombat = false
+	ElseIf (!IsInCombat && aeCombatState == 1)
+		IsInCombat = true
+	EndIf
+EndEvent
+
 
 Event Scene.OnBegin(Scene akSender)
 	float radsBeforeDoc = PlayerRef.GetValue(Rads)
@@ -661,10 +757,71 @@ EndEvent
 Event Scene.OnEnd(Scene akSender)
 	float radsNow = PlayerRef.GetValue(Rads)
 	Log("Scene.OnEnd: " + akSender + " (rads: " + radsNow + ")")
-	If (DialogueGenericDoctors.DoctorJustCuredRads == 1)
-		ResetMorphs()
-		FakeRads = 0
-		TakeFakeRads = false
+	If (akSender == DoctorMedicineScene03_AllDone)
+		Log("  doctor scene: base game")
+		If (DialogueGenericDoctors.DoctorJustCuredRads == 1)
+			Log("  cured rads")
+			ResetMorphs()
+			FakeRads = 0
+			TakeFakeRads = false
+			Log("CallClearDialogueConditions: " + CallClearDialogueConditions)
+			If (CallClearDialogueConditions)
+				DialogueGenericDoctors.ClearDialogueConditions()
+				Log("  -->  called DialogueGenericDoctors.ClearDialogueConditions()")
+			EndIf
+		EndIf
+	ElseIf (akSender == DLC03DialogueFarHarbor_TeddyFinished)
+		Log("  doctor scene: far harbor (teddy)")
+		If (DialogueGenericDoctorsAcadia.DoctorJustCuredRads == 1)
+			Log("  cured rads")
+			ResetMorphs()
+			FakeRads = 0
+			TakeFakeRads = false
+			Log("CallClearDialogueConditions: " + CallClearDialogueConditions)
+			If (CallClearDialogueConditions)
+				DialogueGenericDoctorsAcadia.ClearDialogueConditions()
+				Log("  -->  called DialogueGenericDoctorsAcadia.ClearDialogueConditions()")
+			EndIf
+		EndIf
+	ElseIf (akSender == DialogueNucleusArchemist_GreetScene03_AllDone)
+		Log("  doctor scene: far harbor (archemist)")
+		If (DialogueGenericDoctorsArchemist.DoctorJustCuredRads == 1)
+			Log("  cured rads")
+			ResetMorphs()
+			FakeRads = 0
+			TakeFakeRads = false
+			Log("CallClearDialogueConditions: " + CallClearDialogueConditions)
+			If (CallClearDialogueConditions)
+				DialogueGenericDoctorsArchemist.ClearDialogueConditions()
+				Log("  -->  called DialogueGenericDoctorsArchemist.ClearDialogueConditions()")
+			EndIf
+		EndIf
+	ElseIf (akSender == DLC03AcadiaDialogueAsterPostExamScene)
+		Log("  doctor scene: far harbor (acadia)")
+		If (DialogueGenericDoctorsFarHarbor.DoctorJustCuredRads == 1)
+			Log("  cured rads")
+			ResetMorphs()
+			FakeRads = 0
+			TakeFakeRads = false
+			Log("CallClearDialogueConditions: " + CallClearDialogueConditions)
+			If (CallClearDialogueConditions)
+				DialogueGenericDoctorsFarHarbor.ClearDialogueConditions()
+				Log("  -->  called DialogueGenericDoctorsFarHarbor.ClearDialogueConditions()")
+			EndIf
+		EndIf
+	ElseIf (akSender == DLC04SettlementDoctor_EndScene)
+		Log("  doctor scene: nuka world")
+		If (DialogueGenericDoctorsNukaWorld.DoctorJustCuredRads == 1)
+			Log("  cured rads")
+			ResetMorphs()
+			FakeRads = 0
+			TakeFakeRads = false
+			Log("CallClearDialogueConditions: " + CallClearDialogueConditions)
+			If (CallClearDialogueConditions)
+				DialogueGenericDoctorsNukaWorld.ClearDialogueConditions()
+				Log("  -->  called DialogueGenericDoctorsNukaWorld.ClearDialogueConditions()")
+			EndIf
+		EndIf
 	EndIf
 EndEvent
 
@@ -801,9 +958,15 @@ EndFunction
 
 Function RetrieveOriginalCompanionMorphs(Actor companion)
 	Log("RetrieveOriginalCompanionMorphs: " + companion)
+	int idxComp = CurrentCompanions.Find(companion)
+	int offsetIdx = SliderNames.Length * idxComp
 	int idxSlider = 0
 	While (idxSlider < SliderNames.Length)
-		OriginalCompanionMorphs.Add(BodyGen.GetMorph(companion, True, SliderNames[idxSlider], None))
+		If (OriginalCompanionMorphs.Length < offsetIdx + idxSlider + 1)
+			OriginalCompanionMorphs.Add(BodyGen.GetMorph(companion, True, SliderNames[idxSlider], None))
+		Else
+			OriginalCompanionMorphs[offsetIdx + idxSlider] = BodyGen.GetMorph(companion, True, SliderNames[idxSlider], None)
+		EndIf
 		idxSlider += 1
 	EndWhile
 EndFunction
@@ -899,10 +1062,14 @@ EndFunction
 
 Function UpdateCompanions()
 	Log("UpdateCompanions")
-	Actor[] newComps = GetCompanions()
-	RemoveDismissedCompanions(newComps)
-	AddNewCompanions(newComps)
-	Log("  CurrentCompanions: " + CurrentCompanions)
+	If (IsInCombat)
+		Log("  don't update companions while in combat")
+	Else
+		Actor[] newComps = GetCompanions()
+		RemoveDismissedCompanions(newComps)
+		AddNewCompanions(newComps)
+		Log("  CurrentCompanions: " + CurrentCompanions)
+	EndIf
 EndFunction
 
 
@@ -928,12 +1095,12 @@ Function TimerMorphTick()
 					float newMorph = GetNewMorph(newRads, sliderSet)
 
 					Log("    morph " + idxSet + ": " + sliderSet.CurrentMorph + " -> " + newMorph)
-					If (newMorph > sliderSet.CurrentMorph || (!sliderSet.OnlyDoctorCanReset && newMorph != sliderSet.CurrentMorph))
+					If (newMorph > sliderSet.CurrentMorph || (!GetOnlyDoctorCanReset(sliderSet) && newMorph != sliderSet.CurrentMorph))
 						float fullMorph = newMorph
-						If (sliderSet.IsAdditive)
+						If (GetIsAdditive(sliderSet))
 							fullMorph += sliderSet.BaseMorph
-							If (sliderSet.HasAdditiveLimit)
-								fullMorph = Math.Min(fullMorph, 1.0 + sliderSet.AdditiveLimit)
+							If (GetHasAdditiveLimit(sliderSet))
+								fullMorph = Math.Min(fullMorph, 1.0 + GetAdditiveLimit(sliderSet))
 							EndIf
 						EndIf
 						Log("    morph " + idxSet + ": " + sliderSet.CurrentMorph + " -> " + newMorph + " -> " + fullMorph)
@@ -941,7 +1108,7 @@ Function TimerMorphTick()
 						changedMorphs = true
 						sliderSet.CurrentMorph = newMorph
 						Log("    setting currentMorph " + idxSet + " to " + sliderSet.CurrentMorph)
-					ElseIf (sliderSet.IsAdditive)
+					ElseIf (GetIsAdditive(sliderSet))
 						sliderSet.BaseMorph += sliderSet.CurrentMorph - newMorph
 						Log("    setting baseMorph " + idxSet + " to " + sliderSet.BaseMorph)
 						sliderSet.CurrentMorph = newMorph
@@ -959,9 +1126,23 @@ Function TimerMorphTick()
 			Log("skipping due to player in power armor")
 		EndIf
 	EndIf
-	StartTimer(UpdateDelay, ETimerMorphTick)
+	If (!IsShuttingDown)
+		StartTimer(UpdateDelay, ETimerMorphTick)
+	EndIf
 EndFunction
 
+
+bool Function CheckIgnoreItem(Actor:WornItem item)
+	If (LL_Fourplay.StringSubstring(item.modelName, 0, 6) == "Actors" || LL_Fourplay.StringSubstring(item.modelName, 0, 6) == "Pipboy")
+		return true
+	EndIf
+
+	If (DD_FL_All != None && DD_FL_All.Find(item.item) > -1)
+		return true
+	EndIf
+	
+	return false
+EndFunction
 
 Function UnequipSlots()
 	Log("UnequipSlots (stack=" + UnequipStackSize + ")")
@@ -976,29 +1157,43 @@ Function UnequipSlots()
 				int unequipSlotOffset = SliderSet_GetUnequipSlotOffset(idxSet)
 				int idxSlot = unequipSlotOffset
 				While (idxSlot < unequipSlotOffset + sliderSet.NumberOfUnequipSlots)
-					Actor:WornItem item = PlayerRef.GetWornItem(UnequipSlots[idxSlot])
-					If (item.item && LL_Fourplay.StringSubstring(item.modelName, 0, 6) != "Actors" && LL_Fourplay.StringSubstring(item.modelName, 0, 6) != "Pipboy")
-						Log("  unequipping slot " + UnequipSlots[idxSlot] + " (" + item.item.GetName() + " / " + item.modelName + ")")
-						PlayerRef.UnequipItemSlot(UnequipSlots[idxSlot])
-						If (!found && !PlayerRef.IsEquipped(item.item))
-							Log("  playing sound")
-							LenARM_DropClothesSound.PlayAndWait(PlayerRef)
-							found = true
+					If (!PlayerRef.IsInPowerArmor())
+						Log("  checking slot " + UnequipSlots[idxSlot])
+						Actor:WornItem item = PlayerRef.GetWornItem(UnequipSlots[idxSlot])
+						Log("    -->  " + item)
+						If (item && item.item)
+							bool ignoreItem = CheckIgnoreItem(item)
+							Log("  ignoreItem: " + ignoreItem)
+							If (!ignoreItem)
+								Log("  unequipping slot " + UnequipSlots[idxSlot] + " (" + item.item.GetName() + " / " + item.modelName + ")")
+								PlayerRef.UnequipItemSlot(UnequipSlots[idxSlot])
+								If (!found && !PlayerRef.IsEquipped(item.item))
+									Log("  playing sound")
+									LenARM_DropClothesSound.PlayAndWait(PlayerRef)
+									found = true
+								EndIf
+							EndIf
 						EndIf
 					EndIf
 					int idxComp = 0
 					While (idxComp < CurrentCompanions.Length)
 						Actor companion = CurrentCompanions[idxComp]
-						int sex = companion.GetLeveledActorBase().GetSex()
-						If (sliderSet.ApplyCompanion == EApplyCompanionAll || (sex == ESexFemale && sliderSet.ApplyCompanion == EApplyCompanionFemale) || (sex == ESexMale && sliderSet.ApplyCompanion == EApplyCompanionMale))
-							Actor:WornItem compItem = companion.GetWornItem(UnequipSlots[idxSlot])
-							If (compItem.item && LL_Fourplay.StringSubstring(compItem.modelName, 0, 6) != "Actors" && LL_Fourplay.StringSubstring(compItem.modelName, 0, 6) != "Pipboy")
-								Log("  unequipping companion(" + companion + ") slot " + UnequipSlots[idxSlot] + " (" + compItem.item.GetName() + " / " + compItem.modelName + ")")
-								companion.UnequipItem(compItem.item)
-								If (!compFound[idxComp] && !companion.IsEquipped(compItem.item))
-									Log("  playing companion sound")
-									LenARM_DropClothesSound.PlayAndWait(CurrentCompanions[idxComp])
-									compFound[idxComp] = true
+						If (!companion.IsInPowerArmor())
+							int sex = companion.GetLeveledActorBase().GetSex()
+							If (sliderSet.ApplyCompanion == EApplyCompanionAll || (sex == ESexFemale && sliderSet.ApplyCompanion == EApplyCompanionFemale) || (sex == ESexMale && sliderSet.ApplyCompanion == EApplyCompanionMale))
+								Actor:WornItem compItem = companion.GetWornItem(UnequipSlots[idxSlot])
+								If (compItem && compItem.item)
+									bool compIgnoreItem = CheckIgnoreItem(compItem)
+									Log("  ignoreItem: " + compIgnoreItem)
+									If (!compIgnoreItem)
+										Log("  unequipping companion(" + companion + ") slot " + UnequipSlots[idxSlot] + " (" + compItem.item.GetName() + " / " + compItem.modelName + ")")
+										companion.UnequipItem(compItem.item)
+										If (!compFound[idxComp] && !companion.IsEquipped(compItem.item))
+											Log("  playing companion sound")
+											LenARM_DropClothesSound.PlayAndWait(CurrentCompanions[idxComp])
+											compFound[idxComp] = true
+										EndIf
+									EndIf
 								EndIf
 							EndIf
 						EndIf
