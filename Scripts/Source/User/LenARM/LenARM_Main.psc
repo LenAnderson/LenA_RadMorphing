@@ -17,6 +17,10 @@ Group Properties
 	Scene Property DLC04SettlementDoctor_EndScene Auto Const
 
 	GenericDoctorsScript Property DialogueGenericDoctors Auto Const
+	GenericDoctorsScript Property DialogueGenericDoctorsAcadia Auto Const
+	GenericDoctorsScript Property DialogueGenericDoctorsArchemist Auto Const
+	GenericDoctorsScript Property DialogueGenericDoctorsFarHarbor Auto Const
+	DLC04:DLC04SettlementDoctorScript Property DialogueGenericDoctorsNukaWorld Auto Const
 
 	Sound Property LenARM_DropClothesSound Auto Const
 
@@ -753,14 +757,70 @@ EndEvent
 Event Scene.OnEnd(Scene akSender)
 	float radsNow = PlayerRef.GetValue(Rads)
 	Log("Scene.OnEnd: " + akSender + " (rads: " + radsNow + ")")
-	If (DialogueGenericDoctors.DoctorJustCuredRads == 1)
-		ResetMorphs()
-		FakeRads = 0
-		TakeFakeRads = false
-		Log("CallClearDialogueConditions: " + CallClearDialogueConditions)
-		If (CallClearDialogueConditions)
-			DialogueGenericDoctors.ClearDialogueConditions()
-			Log("  -->  called DialogueGenericDoctors.ClearDialogueConditions()")
+	If (akSender == DoctorMedicineScene03_AllDone)
+		Log("  doctor scene: base game")
+		If (DialogueGenericDoctors.DoctorJustCuredRads == 1)
+			Log("  cured rads")
+			ResetMorphs()
+			FakeRads = 0
+			TakeFakeRads = false
+			Log("CallClearDialogueConditions: " + CallClearDialogueConditions)
+			If (CallClearDialogueConditions)
+				DialogueGenericDoctors.ClearDialogueConditions()
+				Log("  -->  called DialogueGenericDoctors.ClearDialogueConditions()")
+			EndIf
+		EndIf
+	ElseIf (akSender == DLC03DialogueFarHarbor_TeddyFinished)
+		Log("  doctor scene: far harbor (teddy)")
+		If (DialogueGenericDoctorsAcadia.DoctorJustCuredRads == 1)
+			Log("  cured rads")
+			ResetMorphs()
+			FakeRads = 0
+			TakeFakeRads = false
+			Log("CallClearDialogueConditions: " + CallClearDialogueConditions)
+			If (CallClearDialogueConditions)
+				DialogueGenericDoctorsAcadia.ClearDialogueConditions()
+				Log("  -->  called DialogueGenericDoctorsAcadia.ClearDialogueConditions()")
+			EndIf
+		EndIf
+	ElseIf (akSender == DialogueNucleusArchemist_GreetScene03_AllDone)
+		Log("  doctor scene: far harbor (archemist)")
+		If (DialogueGenericDoctorsArchemist.DoctorJustCuredRads == 1)
+			Log("  cured rads")
+			ResetMorphs()
+			FakeRads = 0
+			TakeFakeRads = false
+			Log("CallClearDialogueConditions: " + CallClearDialogueConditions)
+			If (CallClearDialogueConditions)
+				DialogueGenericDoctorsArchemist.ClearDialogueConditions()
+				Log("  -->  called DialogueGenericDoctorsArchemist.ClearDialogueConditions()")
+			EndIf
+		EndIf
+	ElseIf (akSender == DLC03AcadiaDialogueAsterPostExamScene)
+		Log("  doctor scene: far harbor (acadia)")
+		If (DialogueGenericDoctorsFarHarbor.DoctorJustCuredRads == 1)
+			Log("  cured rads")
+			ResetMorphs()
+			FakeRads = 0
+			TakeFakeRads = false
+			Log("CallClearDialogueConditions: " + CallClearDialogueConditions)
+			If (CallClearDialogueConditions)
+				DialogueGenericDoctorsFarHarbor.ClearDialogueConditions()
+				Log("  -->  called DialogueGenericDoctorsFarHarbor.ClearDialogueConditions()")
+			EndIf
+		EndIf
+	ElseIf (akSender == DLC04SettlementDoctor_EndScene)
+		Log("  doctor scene: nuka world")
+		If (DialogueGenericDoctorsNukaWorld.DoctorJustCuredRads == 1)
+			Log("  cured rads")
+			ResetMorphs()
+			FakeRads = 0
+			TakeFakeRads = false
+			Log("CallClearDialogueConditions: " + CallClearDialogueConditions)
+			If (CallClearDialogueConditions)
+				DialogueGenericDoctorsNukaWorld.ClearDialogueConditions()
+				Log("  -->  called DialogueGenericDoctorsNukaWorld.ClearDialogueConditions()")
+			EndIf
 		EndIf
 	EndIf
 EndEvent
