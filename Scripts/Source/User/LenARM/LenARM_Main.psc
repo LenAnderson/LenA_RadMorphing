@@ -737,10 +737,10 @@ EndEvent
 
 Event Actor.OnCombatStateChanged(Actor akSender, Actor akTarget, int aeCombatState)
 	; aeCombatState: The combat state we just entered, which will be one of the following:
-    ; 0: Not in combat
-    ; 1: In combat
-    ; 2: Searching
-    ; leaving combat while we are in combat
+	; 0: Not in combat
+	; 1: In combat
+	; 2: Searching
+	; leaving combat while we are in combat
 	If (IsInCombat && aeCombatState == 0)
 		IsInCombat = false
 	ElseIf (!IsInCombat && aeCombatState == 1)
