@@ -10,6 +10,10 @@
     Final="false">
     <Imports>
         <Import>.</Import>
+        <!-- Replace the following <Import> values with the paths to your FO4 scripts. -->
+        <!-- Base should be automatically unpacked when starting CreationKit for the first time. -->
+        <!-- The DLC script can be found as .zip files in Data\Scripts\Source\DLC## and may have to -->
+        <!-- be moved into the "Base" directory after unpacking for CK to recognize them. -->
         <Import>E:\Games\Steam\SteamApps\common\Fallout 4\Data\Scripts\Source\User</Import>
         <Import>E:\Games\Steam\SteamApps\common\Fallout 4\Data\Scripts\Source\DLC06</Import>
         <Import>E:\Games\Steam\SteamApps\common\Fallout 4\Data\Scripts\Source\DLC05</Import>
