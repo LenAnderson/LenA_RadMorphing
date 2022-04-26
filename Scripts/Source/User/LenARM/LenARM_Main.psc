@@ -41,7 +41,7 @@ bool IsShuttingDown = false
 ; versioning
 
 string Version
-{Holds the version the mod was last run with.}
+{version the mod was last run with}
 
 ;
 ; Get the current version of this mod.
