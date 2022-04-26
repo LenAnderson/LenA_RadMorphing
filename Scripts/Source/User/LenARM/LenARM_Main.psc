@@ -19,6 +19,13 @@ EndGroup
 
 
 ;-----------------------------------------------------------------------------------------------------
+; proxy scripts
+; Group Proxy
+	;TODO add proxy for devious devices
+; EndGroup
+
+
+;-----------------------------------------------------------------------------------------------------
 ; this mod's resources
 Group LenARM
 	LenARM_Debug Property D Auto Const
