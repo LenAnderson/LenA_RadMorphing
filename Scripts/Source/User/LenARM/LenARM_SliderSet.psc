@@ -141,9 +141,10 @@ SliderSet Function Constructor(int idxSliderSet)
 	return set
 EndFunction
 
-
+;
+; Get the offset in the flattened SliderNames array for SliderSet number @idxSliderSet.
+;
 int Function GetSliderNameOffset(int idxSliderSet)
-	{gets the offset in the flattened SliderNames array for SliderSet number @idxSliderSet}
 	int offset = 0
 	int index = 0
 	While (index < idxSliderSet)
@@ -154,8 +155,10 @@ int Function GetSliderNameOffset(int idxSliderSet)
 EndFunction
 
 
+;
+; Get the offset in the flattened UnequipSlots array for SliderSet number @idxSliderSet.
+;
 int Function GetUnequipSlotOffset(int idxSliderSet)
-	{gets the offset in the flattened UnequipSlots array for SliderSet number @idxSliderSet}
 	int offset = 0
 	int index = 0
 	While (index < idxSliderSet)
@@ -166,6 +169,9 @@ int Function GetUnequipSlotOffset(int idxSliderSet)
 EndFunction
 
 
+;
+; Load all slider sets from MCM values and populate related arrays.
+;
 Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	D.Log("LoadSliderSets")
 	; create empty arrays
