@@ -79,7 +79,7 @@ EndStruct
 ;-----------------------------------------------------------------------------------------------------
 ; instances
 
-SliderSet[] Sets
+SliderSet[] SliderSets
 {the slider sets}
 
 string[] SliderNames
@@ -147,7 +147,7 @@ int Function GetSliderNameOffset(int idxSliderSet)
 	int offset = 0
 	int index = 0
 	While (index < idxSliderSet)
-		offset += Sets[index].NumberOfSliderNames
+		offset += SliderSets[index].NumberOfSliderNames
 		index += 1
 	EndWhile
 	return offset
@@ -159,7 +159,7 @@ int Function GetUnequipSlotOffset(int idxSliderSet)
 	int offset = 0
 	int index = 0
 	While (index < idxSliderSet)
-		offset += Sets[index].NumberOfUnequipSlots
+		offset += SliderSets[index].NumberOfUnequipSlots
 		index += 1
 	EndWhile
 	return offset
@@ -169,8 +169,8 @@ EndFunction
 Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	D.Log("LoadSliderSets")
 	; create empty arrays
-	If (!Sets)
-		Sets = new SliderSet[0]
+	If (!SliderSets)
+		SliderSets = new SliderSet[0]
 	EndIf
 	If (!SliderNames)
 		SliderNames = new string[0]
@@ -188,9 +188,9 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	; create SliderSets
 	int idxSliderSet = 0
 	While (idxSliderSet < numberOfSliderSets)
-		SliderSet oldSet = Sets[idxSliderSet]
+		SliderSet oldSet = SliderSets[idxSliderSet]
 		SliderSet newSet = Constructor(idxSliderSet)
-		Sets[idxSliderSet] = newSet
+		SliderSets[idxSliderSet] = newSet
 
 		If (oldSet)
 			; keep BaseMorph and CurrentMorph from existing SliderSet
@@ -249,7 +249,7 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 		idxSliderSet += 1
 	EndWhile
 
-	D.Log("  SliderSets:     " + Sets)
+	D.Log("  SliderSets:     " + SliderSets)
 	D.Log("  SliderNames:    " + SliderNames)
 	D.Log("  OriginalMorphs: " + OriginalMorphs)
 	D.Log("  UnequipSlots:   " + UnequipSlots)
