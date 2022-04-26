@@ -27,6 +27,10 @@ string[] Function StringSplit(string target, string delimiter)
 	return result
 EndFunction
 
+bool Function StringStartsWith(string target, string toFind)
+	return LL_Fourplay.StringFind(target, toFind) == 0
+EndFunction
+
 
 ;
 ; Clamp @value between @limit1 and @limit2
