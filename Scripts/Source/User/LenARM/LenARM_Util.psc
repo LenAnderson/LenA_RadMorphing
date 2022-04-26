@@ -27,6 +27,9 @@ string[] Function StringSplit(string target, string delimiter)
 	return result
 EndFunction
 
+;
+; Check if @target begins with @toFind
+;
 bool Function StringStartsWith(string target, string toFind)
 	return LL_Fourplay.StringFind(target, toFind) == 0
 EndFunction
