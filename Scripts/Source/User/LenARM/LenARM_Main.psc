@@ -30,11 +30,23 @@ EndGroup
 Group LenARM
 	LenARM_Debug Property D Auto Const
 	LenARM_Util Property Util Auto Const
+	LenARM_SliderSet Property SliderSet Auto Const
 EndGroup
 
 
 ;-----------------------------------------------------------------------------------------------------
 ; enums
+Group EnumTimerId
+	int Property ETimerMorph = 1 Auto Const
+	{timer for applying morphs}
+EndGroup
+
+Group EnumUpdateType
+	int Property EUpdateTypeInterval = 1 Auto Const
+	{update each time the morph timer is up}
+	int Property EUpdateTypeOnSleep = 2 Auto Const
+	{update after sleeping}
+EndGroup
 
 
 ;-----------------------------------------------------------------------------------------------------
@@ -42,6 +54,12 @@ EndGroup
 
 bool IsShuttingDown = false
 {TRUE while the mod is stopping.}
+
+float UpdateDelay
+{seconds between applying morphs}
+
+int UpdateType
+{when to apply morphs; see EnumUpdateType}
 
 
 ;-----------------------------------------------------------------------------------------------------
@@ -87,6 +105,18 @@ Event Actor.OnPlayerLoadGame(Actor akSender)
 	PerformUpdateIfNecessary()
 EndEvent
 
+Event OnPlayerSleepStop(bool abInterrupted, ObjectReference akBed)
+	D.Log("OnPlayerSleepStop: abInterrupted=" + abInterrupted + ";  akBed=" + akBed)
+	ApplySleepMorphs()
+EndEvent
+
+
+Event OnTimer(int timerId)
+	If (timerId == ETimerMorph)
+		ApplyIntervalMorphs()
+	EndIf
+EndEvent
+
 
 ;-----------------------------------------------------------------------------------------------------
 ; MCM events
@@ -118,11 +148,40 @@ Function Startup()
 	D.Log("Startup")
 	RegisterForRemoteEvent(Player, "OnPlayerLoadGame")
 	If (MCM.GetModSettingBool("LenA_RadMorphing", "bIsEnabled:General"))
+		; mod is enabled in MCM: start setting everything up
 		D.Log("  is enabled")
+		
+		; get update type from MCM
+		UpdateType = MCM.GetModSettingInt("LenA_RadMorphing", "iUpdateType:General")
+		
+		; get update delay from MCM
+		UpdateDelay = MCM.GetModSettingFloat("LenA_RadMorphing", "fUpdateDelay:General")
+
+		; load slider sets
+		SliderSet.LoadSliderSets(MCM.GetModSettingInt("LenA_RadMorphing", "iNumberOfSliderSets"), Player)
+
+		;TODO get global overrides from MCM
+		;TODO listen for item equip
+		;TODO listen for combat state (helper script/quest?)
+		;TODO prepare companion arrays
+		;TODO reapply base morphs (additive morphing)
+		
+		If (UpdateType == EUpdateTypeInterval)
+			; start timer
+			ApplyIntervalMorphs()
+		ElseIf (UpdateType == EUpdateTypeOnSleep)
+			; listen for sleep events
+			RegisterForPlayerSleep()
+		Else
+			; unknown update type
+			D.Log("unknown update type: '" + UpdateType + "'")
+		EndIf
 	ElseIf (MCM.GetModSettingBool("LenA_RadMorphing", "bWarnDisabled:General"))
+		; mod is disabled in MCM, warning is enabled: let the player know that the mod is disabled
 		D.Log("  is disabled, with warning")
 		Debug.MessageBox("Rad Morphing is currently disabled. You can enable it in MCM > Rad Morphing > Enable Rad Morphing")
 	Else
+		; mod is disabled in MCM, warning is disabled
 		D.Log("  is disabled, no warning")
 	EndIf
 EndFunction
@@ -136,6 +195,7 @@ Function Shutdown()
 		D.Log("Shutdown")
 		IsShuttingDown = true
 		UnregisterForRemoteEvent(Player, "OnPlayerLoadGame")
+		UnregisterForPlayerSleep()
 		FinishShutdown()
 	EndIf
 EndFunction
@@ -153,6 +213,7 @@ EndFunction
 ; Restart the mod.
 ;
 Function Restart()
+	D.Log("Restart")
 	Shutdown()
 	While (IsShuttingDown)
 		Utility.Wait(1.0)
@@ -183,4 +244,35 @@ Function PerformUpdateIfNecessary()
 	Else
 		D.Log("  no update")
 	EndIf
+EndFunction
+
+
+
+
+;-----------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------
+; mod logic
+
+;
+; Applies morphs at regular intervals.
+; This is used when UpdateType is set to EUpdateTypeInterval
+;
+Function ApplyIntervalMorphs()
+	D.Log("ApplyIntervalMorphs")
+	;TODO loop through slider sets, check trigger values, apply morphing...
+	If (!IsShuttingDown)
+		; restart the timer if not shutting down
+		StartTimer(UpdateDelay, ETimerMorph)
+	EndIf
+EndFunction
+
+
+;
+; Applies morphs after sleeping.
+; This is used when UpdateType is set to EUpdateTypeOnSleep
+;
+Function ApplySleepMorphs()
+	D.Log("ApplySleepMorphs")
+	;TODO loop through slider sets, check trigger values, apply morphing...
 EndFunction

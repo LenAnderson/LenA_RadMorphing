@@ -2,7 +2,7 @@ Scriptname LenARM:LenARM_Util extends Quest
 {Utility functions.}
 
 Group LenARM
-	LenARM_Debug Property D AUto Const
+	LenARM_Debug Property D Auto Const
 EndGroup
 
 ;
