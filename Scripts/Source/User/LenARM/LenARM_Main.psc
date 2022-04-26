@@ -160,6 +160,10 @@ EndFunction
 Function PerformUpdateIfNecessary()
 	D.Log("PerformUpdateIfNecessary: " + Version + " != " + GetVersion() + " -> " + (Version != GetVersion()))
 	If (Version != GetVersion())
+		If (Util.StringStartsWith(Version, "1.") || Util.StringStartsWith(Version, "0."))
+			Debug.MessageBox("Rad Morphing Redux version " + Version + " is too old to update. Please load a save with the old version removed or start a new game.")
+			return
+		EndIf
 		D.Log("  update")
 		D.Note("Updating Rad Morphing Redux from version " + Version + " to " + GetVersion())
 		Shutdown()
