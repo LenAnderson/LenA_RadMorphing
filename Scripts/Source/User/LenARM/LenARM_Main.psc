@@ -5,15 +5,16 @@ Scriptname LenARM:LenARM_Main extends Quest
 ;-----------------------------------------------------------------------------------------------------
 ; general properties
 Group Properties
-	; reference to the player
 	Actor Property Player Auto Const
+	{reference to the player}
 
-	; keyword required for looksmenu morphing
 	Keyword Property kwMorph Auto Const
+	{keyword required for looksmenu morphing}
 
-	; factions used to find companions
 	Faction Property CurrentCompanionFaction Auto Const
+	{one of the factions used to find companions}
 	Faction Property PlayerAllyFaction Auto Const
+	{one of the factions used to find companions}
 EndGroup
 
 
@@ -31,16 +32,16 @@ EndGroup
 
 ;-----------------------------------------------------------------------------------------------------
 ; variables
+
 bool IsShuttingDown = false
+{TRUE while the mod is stopping.}
 
 
 ;-----------------------------------------------------------------------------------------------------
 ; versioning
 
-;
-; holds the version the mod was last run with
-;
 string Version
+{Holds the version the mod was last run with.}
 
 ;
 ; Get the current version of this mod.
