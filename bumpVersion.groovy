@@ -27,6 +27,7 @@ if (newVersion) {
 	x.main(null)
 
 	println "$oldVersion --> $newVersion"
+	println "compile scripts in CreationKit, then run copyToFomod"
 } else {
 	println "no version change"
 }
