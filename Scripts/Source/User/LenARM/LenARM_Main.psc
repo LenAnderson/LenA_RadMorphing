@@ -42,7 +42,7 @@ Group EnumTimerId
 EndGroup
 
 Group EnumUpdateType
-	int Property EUpdateTypeInterval = 1 Auto Const
+	int Property EUpdateTypePeriodic = 1 Auto Const
 	{update each time the morph timer is up}
 	int Property EUpdateTypeOnSleep = 2 Auto Const
 	{update after sleeping}
@@ -180,7 +180,7 @@ Function Startup()
 		;TODO prepare companion arrays
 		;TODO reapply base morphs (additive morphing)
 		
-		If (UpdateType == EUpdateTypeInterval)
+		If (UpdateType == EUpdateTypePeriodic)
 			; start timer
 			ApplyIntervalMorphs()
 		ElseIf (UpdateType == EUpdateTypeOnSleep)
@@ -274,7 +274,7 @@ EndFunction
 
 ;
 ; Applies morphs at regular intervals.
-; This is used when UpdateType is set to EUpdateTypeInterval
+; This is used when UpdateType is set to EUpdateTypePeriodic
 ;
 Function ApplyIntervalMorphs()
 	D.Log("ApplyIntervalMorphs")
