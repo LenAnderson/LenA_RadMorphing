@@ -7,11 +7,11 @@ Group LenARM
 EndGroup
 
 Group EnumUpdateType
-	int Property EUpdateTypePeriodic = 1 Auto Const
+	int Property EUpdateTypePeriodic = 0 Auto Const
 	{update each time the morph timer is up}
-	int Property EUpdateTypeOnSleep = 2 Auto Const
+	int Property EUpdateTypeOnSleep = 1 Auto Const
 	{update after sleeping}
-	int Property EUpdateTypeImmediate = 3 Auto Const
+	int Property EUpdateTypeImmediate = 2 Auto Const
 	{update immediately when the trigger value changes}
 EndGroup
 
@@ -32,7 +32,7 @@ EndGroup
 Struct Slider
 	string Name
 	{name of the LooksMenu slider}
-	string Value
+	float Value
 	{value of the LooksMenu slider}
 EndStruct
 
@@ -261,6 +261,7 @@ Slider[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 					update.Name = slider.Name
 					update.Value = slider.Value + this.FullMorph * this.TargetMorph
 					updates.Add(update)
+					idxSlider += 1
 				EndWhile
 			EndIf
 			this.CurrentMorph = newMorph
@@ -343,9 +344,16 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	; create SliderSets
 	int idxSliderSet = 0
 	While (idxSliderSet < numberOfSliderSets)
-		SliderSet oldSet = SliderSets[idxSliderSet]
+		SliderSet oldSet = None
+		If (SliderSets.Length > idxSliderSet)
+			SliderSets[idxSliderSet]
+		EndIf
 		SliderSet newSet = SliderSet_Constructor(idxSliderSet)
-		SliderSets[idxSliderSet] = newSet
+		If (SliderSets.Length < idxSliderSet + 1)
+			SliderSets.Add(newSet)
+		Else
+			SliderSets[idxSliderSet] = newSet
+		EndIf
 
 		If (oldSet)
 			; keep BaseMorph and CurrentMorph from existing SliderSet
