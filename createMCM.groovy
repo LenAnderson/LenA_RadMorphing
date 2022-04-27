@@ -3,46 +3,31 @@ import groovy.json.*
 JsonSlurper slurper = new JsonSlurper()
 JsonOutput builder = new JsonOutput()
 
-File output = new File("MCM/config/LenA_RadMorphing/config.json")
-File outputOpt = new File(".options/mcm_SlidersOnePage/MCM/config/LenA_RadMorphing/config.json")
+// FOMOD options for number of sliders
+XmlSlurper xml = new XmlSlurper()
+def fomod = xml.parse(new File(".fomod/fomod/ModuleConfig.xml"))
+def counts = fomod
+		.installSteps
+		.installStep
+		.find{it.@name=="MCM Layout"}
+		.optionalFileGroups
+		.group
+		.plugins
+		.plugin
+		.@name
+		*.toString()
+		*.substring(13)
+		*.toInteger()
 
-File ini = new File("MCM/config/LenA_RadMorphing/settings.ini")
 
 
-def tpl = slurper.parse(new File("MCM/config/LenA_RadMorphing/config.tpl.json"))
-
-def numSliders = new File("Scripts/Source/User/LenARM/LenARM_Main.psc").text.replaceAll(~/(?s)^.*int Property _NUMBER_OF_SLIDERSETS_ = (\d+) Auto Const.*$/, '$1') as Integer
-def tplSliderText = new File("MCM/config/LenA_RadMorphing/config.sliderSet.tpl.json").text
+// json templates
+def tplText = new File("MCM/config/LenA_RadMorphing/config.tpl.json").text
 def tplSliderPageText = new File("MCM/config/LenA_RadMorphing/config.sliderSet.page.tpl.json").text
+def tplSliderText = new File("MCM/config/LenA_RadMorphing/config.sliderSet.tpl.json").text
 
-
-
-
-
-// default config (one page per slider)
-numSliders.times{idx ->
-	def page = slurper.parseText(tplSliderPageText.replaceAll(~/\{\{idxLbl\}\}/, "${idx + 1}").replaceAll(~/\{\{idx\}\}/, "${idx}"))
-	page.content += slurper.parseText(tplSliderText.replaceAll(~/\{\{idxLbl\}\}/, "${idx + 1}").replaceAll(~/\{\{idx\}\}/, "${idx}"))
-	tpl.pages << page
-}
-output.text = builder.prettyPrint(builder.toJson(tpl))
-
-
-
-// alternative config (all sliders on one "Slider Sets" page)
-tpl = slurper.parse(new File("MCM/config/LenA_RadMorphing/config.tpl.json"))
-def onePage = slurper.parseText(tplSliderPageText)
-onePage.pageDisplayName = "Slider Sets"
-numSliders.times{idx ->
-	onePage.content += slurper.parseText(tplSliderText.replaceAll(~/\{\{idxLbl\}\}/, "${idx + 1}").replaceAll(~/\{\{idx\}\}/, "${idx}"))
-}
-tpl.pages << onePage
-outputOpt.text = builder.prettyPrint(builder.toJson(tpl))
-
-
-
-// ini
-def oldVarsMatched = ini.text =~ /(?:\[([^\]\r\n]+)\])|(?:([^;=\r\n]+?)=([^;\r\n]*?)(?:\s*[;\r\n]))/
+// old ini
+def oldVarsMatched = new File("MCM/config/LenA_RadMorphing/settings.ini").text =~ /(?:\[([^\]\r\n]+)\])|(?:([^;=\r\n]+?)=([^;\r\n]*?)(?:\s*[;\r\n]))/
 def oldVars = [:]
 def curSection
 oldVarsMatched.each{oldVar ->
@@ -57,22 +42,48 @@ oldVarsMatched.each{oldVar ->
 		oldVars[curSection][oldVar[2]] = oldVar[3]
 	}
 }
-def newVarsMatched = output.text =~ /"id"\s*:\s*"([^"]+?)(?::([^"]+))?"/
-def newVars = [:]
-newVarsMatched.each{newVar ->
-	def section = newVar[2]
-	if (section) {
-		if (!newVars[section]) {
-			newVars[section] = [:]
+
+
+// create json and ini files
+counts.eachWithIndex{count, idxCount ->
+	// json
+	def tpl = slurper.parseText(tplText)
+	count.times{idx->
+		def page = slurper.parseText(tplSliderPageText.replaceAll(~/\{\{idxLbl\}\}/, "${idx + 1}").replaceAll(~/\{\{idx\}\}/, "${idx}"))
+		page.content += slurper.parseText(tplSliderText.replaceAll(~/\{\{idxLbl\}\}/, "${idx + 1}").replaceAll(~/\{\{idx\}\}/, "${idx}"))
+		tpl.pages << page
+	}
+	new File(".options/mcm_SliderSets_${count}/MCM/config/LenA_RadMorphing").mkdirs()
+	File output = new File(".options/mcm_SliderSets_${count}/MCM/config/LenA_RadMorphing/config.json")
+	output.text = builder.prettyPrint(builder.toJson(tpl))
+
+	// ini
+	def newVarsMatched = output.text =~ /"id"\s*:\s*"([^"]+?)(?::([^"]+))?"/
+	def newVars = ["Static":["iNumberOfSliderSets":count]]
+	newVarsMatched.each{newVar ->
+		def section = newVar[2]
+		if (section) {
+			if (!newVars[section]) {
+				newVars[section] = [:]
+			}
+			newVars[section][newVar[1]] = oldVars.getAt(section ==~ /Slider\d+/ ? 'Slider0' : section)?.getAt(newVar[1])
 		}
-		newVars[section][newVar[1]] = oldVars.getAt(section ==~ /Slider\d+/ ? 'Slider0' : section)?.getAt(newVar[1])
+	}
+	StringBuilder sb = new StringBuilder()
+	newVars.each{section, vars ->
+		sb << "\n\n\n[${section}]\n"
+		vars.each{name, val ->
+			sb << "${name}=${val}\n"
+		}
+	}
+	File ini = new File(".options/mcm_SliderSets_${count}/MCM/config/LenA_RadMorphing/settings.ini")
+	ini.text = sb
+
+	// first option is used as default
+	if (idxCount == 0) {
+		File outputDefault = new File("MCM/config/LenA_RadMorphing/config.json")
+		outputDefault.text = output.text
+		File iniDefault = new File("MCM/config/LenA_RadMorphing/settings.ini")
+		iniDefault.text = ini.text
 	}
 }
-StringBuilder sb = new StringBuilder()
-newVars.each{section, vars ->
-	sb << "\n\n\n[${section}]\n"
-	vars.each{name, val ->
-		sb << "${name}=${val}\n"
-	}
-}
-ini.text = sb

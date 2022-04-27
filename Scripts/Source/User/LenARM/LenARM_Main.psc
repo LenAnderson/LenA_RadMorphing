@@ -165,7 +165,7 @@ Function Startup()
 		UpdateDelay = MCM.GetModSettingFloat("LenA_RadMorphing", "fUpdateDelay:General")
 
 		; get number of available SliderSets
-		NumberOfSliderSets = MCM.GetModSettingInt("LenA_RadMorphing", "iNumberOfSliderSets")
+		NumberOfSliderSets = MCM.GetModSettingInt("LenA_RadMorphing", "iNumberOfSliderSets:Static")
 
 		; load SliderSets
 		SliderSets.LoadSliderSets(NumberOfSliderSets, Player)

@@ -22,6 +22,21 @@
 		}
 	},
 	{
+		"text": "Update type",
+		"help": "Whether to update periodically, after sleeping, or immediately. Default: Periodically",
+		"type": "stepper",
+		"id": "iUpdateType:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingInt",
+			"options": ["Periodically", "After sleeping", "Immediately"]
+		}
+	},
+	{
+		"text": "<b>Periodic updates:</b> Checks rads every x seconds (update delay) and changes morphs according to current rads level.<br><b>Update after sleeping:</b> Every time you go to sleep you get additional morphs according to the current rads. In this update mode you can only restore your body by visiting a doctor.<br>",
+		"type": "text",
+		"html": true
+	},
+	{
 		"text": "Target size increase",
 		"help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
 		"type": "slider",
