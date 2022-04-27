@@ -2,6 +2,12 @@ Scriptname LenARM:LenARM_Debug extends Quest
 {Functions for logging and notifications.}
 
 ;
+; For some reason doc comments from the first function after variable declarations are not picked up.
+;
+Function DummyFunction()
+EndFunction
+
+;
 ; Show message as notification on screen and write to papyrus log
 ;
 ; Prefixed with "[LenARM]".

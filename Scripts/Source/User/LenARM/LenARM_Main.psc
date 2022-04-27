@@ -69,6 +69,12 @@ string Version
 {version the mod was last run with}
 
 ;
+; For some reason doc comments from the first function after variable declarations are not picked up.
+;
+Function DummyFunction()
+EndFunction
+
+;
 ; Get the current version of this mod.
 ;
 string Function GetVersion()

@@ -6,6 +6,12 @@ Group LenARM
 EndGroup
 
 ;
+; For some reason doc comments from the first function after variable declarations are not picked up.
+;
+Function DummyFunction()
+EndFunction
+
+;
 ; Split string @target into array at @delimiter
 ;
 string[] Function StringSplit(string target, string delimiter)

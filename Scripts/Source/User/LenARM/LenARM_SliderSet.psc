@@ -105,8 +105,16 @@ Actor[] Companions
 ;-----------------------------------------------------------------------------------------------------
 ; methods
 
+;
+; For some reason doc comments from the first function after variable declarations are not picked up.
+;
+Function DummyFunction()
+EndFunction
+
+;
+; creates a new SliderSet with the MCM values for SliderSet number @idxSliderSet
+;
 SliderSet Function Constructor(int idxSliderSet)
-	{creates a new SliderSet with the MCM values for SliderSet number @idxSliderSet}
 	D.Log("SliderSet Constructor: " + idxSliderSet)
 	SliderSet set = new SliderSet
 	set.SliderName = MCM.GetModSettingString("LenA_RadMorphing", "sSliderName:Slider" + idxSliderSet)
