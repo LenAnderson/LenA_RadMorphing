@@ -30,7 +30,7 @@ EndGroup
 Group LenARM
 	LenARM_Debug Property D Auto Const
 	LenARM_Util Property Util Auto Const
-	LenARM_SliderSet Property SliderSet Auto Const
+	LenARM_SliderSet Property SliderSets Auto Const
 EndGroup
 
 
@@ -41,25 +41,21 @@ Group EnumTimerId
 	{timer for applying morphs}
 EndGroup
 
-Group EnumUpdateType
-	int Property EUpdateTypePeriodic = 1 Auto Const
-	{update each time the morph timer is up}
-	int Property EUpdateTypeOnSleep = 2 Auto Const
-	{update after sleeping}
-EndGroup
-
 
 ;-----------------------------------------------------------------------------------------------------
 ; variables
 
+; TRUE while the mod is stopping.
 bool IsShuttingDown = false
-{TRUE while the mod is stopping.}
 
+; seconds between applying morphs
 float UpdateDelay
-{seconds between applying morphs}
 
+; when to apply morphs; see EnumUpdateType
 int UpdateType
-{when to apply morphs; see EnumUpdateType}
+
+; how many slider sets are available
+int NumberOfSliderSets
 
 
 ;-----------------------------------------------------------------------------------------------------
@@ -73,8 +69,8 @@ CustomEvent OnMorphChange
 ;-----------------------------------------------------------------------------------------------------
 ; versioning
 
+; version the mod was last run with
 string Version
-{version the mod was last run with}
 
 ;
 ; For some reason doc comments from the first function after variable declarations are not picked up.
@@ -127,7 +123,7 @@ EndEvent
 
 Event OnTimer(int timerId)
 	If (timerId == ETimerMorph)
-		ApplyIntervalMorphs()
+		ApplyPeriodicMorphs()
 	EndIf
 EndEvent
 
@@ -165,31 +161,25 @@ Function Startup()
 		; mod is enabled in MCM: start setting everything up
 		D.Log("  is enabled")
 		
-		; get update type from MCM
-		UpdateType = MCM.GetModSettingInt("LenA_RadMorphing", "iUpdateType:General")
-		
 		; get update delay from MCM
 		UpdateDelay = MCM.GetModSettingFloat("LenA_RadMorphing", "fUpdateDelay:General")
 
-		; load slider sets
-		SliderSet.LoadSliderSets(MCM.GetModSettingInt("LenA_RadMorphing", "iNumberOfSliderSets"), Player)
+		; get number of available SliderSets
+		NumberOfSliderSets = MCM.GetModSettingInt("LenA_RadMorphing", "iNumberOfSliderSets")
 
-		;TODO get global overrides from MCM
+		; load SliderSets
+		SliderSets.LoadSliderSets(NumberOfSliderSets, Player)
+
+		;TODO get global overrides from MCM --> apply these directly in SliderSet_Constructor
 		;TODO listen for item equip
 		;TODO listen for combat state (helper script/quest?)
-		;TODO prepare companion arrays
+		;TODO prepare companion arrays --> handled in SliderSet
 		;TODO reapply base morphs (additive morphing)
 		
-		If (UpdateType == EUpdateTypePeriodic)
-			; start timer
-			ApplyIntervalMorphs()
-		ElseIf (UpdateType == EUpdateTypeOnSleep)
-			; listen for sleep events
-			RegisterForPlayerSleep()
-		Else
-			; unknown update type
-			D.Log("unknown update type: '" + UpdateType + "'")
-		EndIf
+		; start timer
+		ApplyPeriodicMorphs()
+		; listen for sleep events
+		RegisterForPlayerSleep()
 
 		SendCustomEvent("OnStartup")
 	ElseIf (MCM.GetModSettingBool("LenA_RadMorphing", "bWarnDisabled:General"))
@@ -273,12 +263,32 @@ EndFunction
 ; mod logic
 
 ;
+; Update the value of a morph trigger.
+;
+Function SetTriggerValue(string triggerName, float value)
+	D.Log("SetTriggerValue: " + triggerName + " = " + value)
+	SliderSets.SetTriggerValue(triggerName, value)
+	ApplyImmediateMorphs()
+EndFunction
+
+;
+; Applies morphs immediately when the trigger value changes.
+; This is used when UpdateType is set to EUpdateTypeImmediate
+;
+Function ApplyImmediateMorphs()
+	D.Log("ApplyImmediateMorphs")
+	LenARM_SliderSet:Slider[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypeImmediate)
+	;TODO loop through morph updates and apply morphs
+EndFunction
+
+;
 ; Applies morphs at regular intervals.
 ; This is used when UpdateType is set to EUpdateTypePeriodic
 ;
-Function ApplyIntervalMorphs()
-	D.Log("ApplyIntervalMorphs")
-	;TODO loop through slider sets, check trigger values, apply morphing...
+Function ApplyPeriodicMorphs()
+	D.Log("ApplyPeriodicMorphs")
+	LenARM_SliderSet:Slider[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypePeriodic)
+	;TODO loop through morph updates and apply morphs
 	If (!IsShuttingDown)
 		; restart the timer if not shutting down
 		StartTimer(UpdateDelay, ETimerMorph)
@@ -292,7 +302,8 @@ EndFunction
 ;
 Function ApplySleepMorphs()
 	D.Log("ApplySleepMorphs")
-	;TODO loop through slider sets, check trigger values, apply morphing...
+	LenARM_SliderSet:Slider[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypeOnSleep)
+	;TODO loop through morph updates and apply morphs
 EndFunction
 
 

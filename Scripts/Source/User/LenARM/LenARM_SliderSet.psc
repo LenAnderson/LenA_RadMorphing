@@ -6,6 +6,15 @@ Group LenARM
 	LenARM_Util Property Util Auto Const
 EndGroup
 
+Group EnumUpdateType
+	int Property EUpdateTypePeriodic = 1 Auto Const
+	{update each time the morph timer is up}
+	int Property EUpdateTypeOnSleep = 2 Auto Const
+	{update after sleeping}
+	int Property EUpdateTypeImmediate = 3 Auto Const
+	{update immediately when the trigger value changes}
+EndGroup
+
 Group EnumApplyCompanion
 	int Property EApplyCompanionNone = 0 Auto Const
 	int Property EApplyCompanionFemale = 1 Auto Const
@@ -19,11 +28,28 @@ EndGroup
 ;-----------------------------------------------------------------------------------------------------
 ;-----------------------------------------------------------------------------------------------------
 ;-----------------------------------------------------------------------------------------------------
+; Slider definition
+Struct Slider
+	string Name
+	{name of the LooksMenu slider}
+	string Value
+	{value of the LooksMenu slider}
+EndStruct
+
+
+
+
+;-----------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------
 ; SliderSet definition
 
 Struct SliderSet
+	int Index
+	{SliderSet number}
+
 	bool IsUsed
-	{TRUE if this SliderSet has been set up through MCM}
+	{TRUE if this SliderSet has been this up through MCM}
 
 
 	;
@@ -34,6 +60,9 @@ Struct SliderSet
 
 	string TriggerName
 	{name of the trigger value that is used to determine morphing}
+
+	int UpdateType
+	{when to update / apply morphs, see EnumUpdateType}
 	
 	float TargetMorph
 	{how far to morph the sliders when the trigger value is maxed, 1.0 = 100%}
@@ -65,10 +94,23 @@ Struct SliderSet
 
 
 	int NumberOfSliderNames
+	{how many slider names are used in this this}
 	int NumberOfUnequipSlots
+	{how many unequip slots are used in this this}
 
 	float BaseMorph
+	{base morph value for additive morphing; additive morphs are applied on top of this value}
 	float CurrentMorph
+	{current morph value}
+	float FullMorph
+	{full morph value, BaseMorph + CurrentMorph while respecting additive limits}
+
+	float CurrentTriggerValue
+	{latest trigger value that has been applied (i.e. morphed)}
+	float NewTriggerValue
+	{new trigger value that will be applied next time morphs are updated}
+	bool HasNewTriggerValue
+	{whether the new trigger value is still unapplied / unmorphed}
 EndStruct
 
 
@@ -79,23 +121,19 @@ EndStruct
 ;-----------------------------------------------------------------------------------------------------
 ; instances
 
+; the slider sets
 SliderSet[] SliderSets
-{the slider sets}
 
-string[] SliderNames
-{flattened two-dimensional array[idxSliderSet][idxSliderName]}
+; flattened array[idxSliderSet][idxSlider] (name and original morph)
+Slider[] Sliders
 
+; flattened array[idxSliderSet][idxSlotName]
 string[] UnequipSlots
-{flattened two-dimensional array[idxSliderSet][idxSlotName]}
+; flattened array[idxCompanion][idxSliderSet][idxSlider] (name and original morph)
+Slider[] OriginalCompanionMorphs
 
-float[] OriginalMorphs
-{flattened two-dimensional array[idxSliderSet][idxSliderName]}
-
-float[] OriginalCompanionMorphs
-{flattened three-dimensional array[idxCompanion][idxSliderSet][idxSliderName]}
-
+; list of companions with saved original morphs
 Actor[] Companions
-{list of companions with saved original morphs}
 
 
 
@@ -103,51 +141,150 @@ Actor[] Companions
 ;-----------------------------------------------------------------------------------------------------
 ;-----------------------------------------------------------------------------------------------------
 ;-----------------------------------------------------------------------------------------------------
-; methods
+; getters
 
-;
 ; For some reason doc comments from the first function after variable declarations are not picked up.
-;
 Function DummyFunction()
 EndFunction
 
 ;
-; creates a new SliderSet with the MCM values for SliderSet number @idxSliderSet
+; Get the list of SliderSets.
 ;
-SliderSet Function Constructor(int idxSliderSet)
-	D.Log("SliderSet Constructor: " + idxSliderSet)
-	SliderSet set = new SliderSet
-	set.SliderName = MCM.GetModSettingString("LenA_RadMorphing", "sSliderName:Slider" + idxSliderSet)
-	If (set.SliderName != "")
-		set.IsUsed = true
-		set.TriggerName = MCM.GetModSettingString("LenA_RadMorphing", "sTriggerName:Slider" + idxSliderSet)
-		set.TargetMorph = MCM.GetModSettingFloat("LenA_RadMorphing", "fTargetMorph:Slider" + idxSliderSet) / 100.0
-		set.ThresholdMin = MCM.GetModSettingFloat("LenA_RadMorphing", "fThresholdMin:Slider" + idxSliderSet) / 100.0
-		set.ThresholdMax = MCM.GetModSettingFloat("LenA_RadMorphing", "fThresholdMax:Slider" + idxSliderSet) / 100.0
-		set.UnequipSlot = MCM.GetModSettingString("LenA_RadMorphing", "sUnequipSlot:Slider" + idxSliderSet)
-		set.ThresholdUnequip = MCM.GetModSettingFloat("LenA_RadMorphing", "fThresholdUnequip:Slider" + idxSliderSet) / 100.0
-		set.ApplyCompanion = MCM.GetModSettingInt("LenA_RadMorphing", "iApplyCompanion:Slider" + idxSliderSet)
-		set.OnlyDoctorCanReset = MCM.GetModSettingBool("LenA_RadMorphing", "bOnlyDoctorCanReset:Slider" + idxSliderSet)
-		set.IsAdditive = MCM.GetModSettingBool("LenA_RadMorphing", "bIsAdditive:Slider" + idxSliderSet)
-		set.HasAdditiveLimit = MCM.GetModSettingBool("LenA_RadMorphing", "bHasAdditiveLimit:Slider" + idxSliderSet)
-		set.AdditiveLimit = MCM.GetModSettingFloat("LenA_RadMorphing", "fAdditiveLimit:Slider" + idxSliderSet) / 100.0
+SliderSet[] Function GetSliderSets()
+	return SliderSets
+EndFunction
 
-		string[] names = Util.StringSplit(set.SliderName, "|")
-		set.NumberOfSliderNames = names.Length
+;
+; Get SliderSet number @idxSliderSet
+;
+SliderSet Function Get(int idxSliderSet)
+	return SliderSets[idxSliderSet]
+EndFunction
 
-		If (set.UnequipSlot != "")
-			string[] slots = Util.StringSplit(set.UnequipSlot, "|")
-			set.NumberOfUnequipSlots = slots.Length
+
+
+
+;-----------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------
+; instance methods
+
+;
+; Create and return a new SliderSet with the MCM values for SliderSet number @idxSliderSet
+;
+SliderSet Function SliderSet_Constructor(int idxSliderSet)
+	D.Log("SliderSet_Constructor: " + idxSliderSet)
+	SliderSet this = new SliderSet
+	this.SliderName = MCM.GetModSettingString("LenA_RadMorphing", "sSliderName:Slider" + idxSliderSet)
+	If (this.SliderName != "")
+		this.Index = idxSliderSet
+		this.IsUsed = true
+		this.TriggerName = MCM.GetModSettingString("LenA_RadMorphing", "sTriggerName:Slider" + idxSliderSet)
+		this.UpdateType = MCM.GetModSettingInt("LenA_RadMorphing", "iUpdateType:Slider" + idxSliderSet)
+		this.TargetMorph = MCM.GetModSettingFloat("LenA_RadMorphing", "fTargetMorph:Slider" + idxSliderSet) / 100.0
+		this.ThresholdMin = MCM.GetModSettingFloat("LenA_RadMorphing", "fThresholdMin:Slider" + idxSliderSet) / 100.0
+		this.ThresholdMax = MCM.GetModSettingFloat("LenA_RadMorphing", "fThresholdMax:Slider" + idxSliderSet) / 100.0
+		this.UnequipSlot = MCM.GetModSettingString("LenA_RadMorphing", "sUnequipSlot:Slider" + idxSliderSet)
+		this.ThresholdUnequip = MCM.GetModSettingFloat("LenA_RadMorphing", "fThresholdUnequip:Slider" + idxSliderSet) / 100.0
+		this.ApplyCompanion = MCM.GetModSettingInt("LenA_RadMorphing", "iApplyCompanion:Slider" + idxSliderSet)
+		this.OnlyDoctorCanReset = MCM.GetModSettingBool("LenA_RadMorphing", "bOnlyDoctorCanReset:Slider" + idxSliderSet)
+		this.IsAdditive = MCM.GetModSettingBool("LenA_RadMorphing", "bIsAdditive:Slider" + idxSliderSet)
+		this.HasAdditiveLimit = MCM.GetModSettingBool("LenA_RadMorphing", "bHasAdditiveLimit:Slider" + idxSliderSet)
+		this.AdditiveLimit = MCM.GetModSettingFloat("LenA_RadMorphing", "fAdditiveLimit:Slider" + idxSliderSet) / 100.0
+
+		string[] names = Util.StringSplit(this.SliderName, "|")
+		this.NumberOfSliderNames = names.Length
+
+		If (this.UnequipSlot != "")
+			string[] slots = Util.StringSplit(this.UnequipSlot, "|")
+			this.NumberOfUnequipSlots = slots.Length
 		Else
-			set.NumberOfUnequipSlots = 0
+			this.NumberOfUnequipSlots = 0
 		EndIf
 	Else
-		set.IsUsed = false
+		this.IsUsed = false
 	EndIf
 
-	D.Log(set)
-	return set
+	D.Log(this)
+	return this
 EndFunction
+
+
+;
+; Update the value of a morph trigger for SliderSet number @idxSliderSet
+;
+Function SliderSet_SetTriggerValue(int idxSliderSet, string triggerName, float value)
+	SliderSet this = SliderSets[idxSliderSet]
+	If (this.TriggerName == triggerName && this.NewTriggerValue != value)
+		D.Log("  SliderSet" + this.Index + ": CurrentTriggerValue=" + this.CurrentTriggerValue + "  NewTriggerValue=" + this.NewTriggerValue + " -> " + value)
+		this.NewTriggerValue = value
+		this.HasNewTriggerValue = true
+	EndIf
+EndFunction
+
+
+Slider[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
+	SliderSet this = SliderSets[idxSliderSet]
+	Slider[] updates = new Slider[0]
+	; check whether SliderSet is in use and whether a new / unapplied trigger value is available
+	If (this.IsUsed && (this.HasNewTriggerValue))
+		D.Log("SliderSet_CalculateMorphUpdates: " + this.Index)
+		; calculate new morph value based on trigger value and thresholds
+		float newMorph
+		If (this.NewTriggerValue < this.ThresholdMin)
+			newMorph = 0.0
+		ElseIf (this.NewTriggerValue > this.ThresholdMax)
+			newMorph = 1.0
+		Else
+			newMorph = (this.NewTriggerValue - this.ThresholdMin) / (this.ThresholdMax - this.ThresholdMin)
+		EndIf
+		D.Log("  morph " + this.Index + ": " + this.CurrentMorph + " -> " + newMorph)
+		; check whether new morph value is different from current value (or higher when only doctors can reset morphs)
+		If (newMorph > this.CurrentMorph || (!this.OnlyDoctorCanReset && newMorph != this.CurrentMorph))
+			float fullMorph = newMorph
+			; add base morph if SliderSet is additive
+			If (this.IsAdditive)
+				fullMorph += this.BaseMorph
+				If (this.HasAdditiveLimit)
+					fullMorph = Math.Min(fullMorph, 1.0 + this.AdditiveLimit)
+				EndIf
+			EndIf
+			D.Log("  morph " + this.Index + ": " + this.CurrentMorph + " -> " + newMorph + " -> " + fullMorph)
+			If (this.FullMorph != fullMorph)
+				this.FullMorph = fullMorph
+				int sliderNameOffset = GetSliderNameOffset(this.Index)
+				int idxSlider = 0
+				While (idxSlider < this.NumberOfSliderNames)
+					Slider update = new Slider
+					Slider slider = Sliders[sliderNameOffset + idxSlider]
+					update.Name = slider.Name
+					update.Value = slider.Value + this.FullMorph * this.TargetMorph
+					updates.Add(update)
+				EndWhile
+			EndIf
+			this.CurrentMorph = newMorph
+			D.Log("  setting CurrentMorph " + this.Index + " to " + this.CurrentMorph)
+		ElseIf (this.IsAdditive)
+			this.BaseMorph += this.CurrentMorph - newMorph
+			D.Log("  setting BaseMorph " + this.Index + " to " + this.BaseMorph)
+			this.CurrentMorph = newMorph
+			D.Log("  setting CurrentMorph " + this.Index + " to " + this.CurrentMorph)
+		EndIf
+		this.CurrentTriggerValue = this.NewTriggerValue
+		this.HasNewTriggerValue = false
+	EndIf
+
+	return updates
+EndFunction
+
+
+
+
+;-----------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------
+; list functions
+
 
 ;
 ; Get the offset in the flattened SliderNames array for SliderSet number @idxSliderSet.
@@ -186,24 +323,21 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	If (!SliderSets)
 		SliderSets = new SliderSet[0]
 	EndIf
-	If (!SliderNames)
-		SliderNames = new string[0]
+	If (!Sliders)
+		Sliders = new Slider[0]
 	EndIf
 	If (!UnequipSlots)
 		UnequipSlots = new string[0]
 	EndIf
-	If (!OriginalMorphs)
-		OriginalMorphs = new float[0]
-	EndIf
 	If (!OriginalCompanionMorphs)
-		OriginalCompanionMorphs = new float[0]
+		OriginalCompanionMorphs = new Slider[0]
 	EndIf
 
 	; create SliderSets
 	int idxSliderSet = 0
 	While (idxSliderSet < numberOfSliderSets)
 		SliderSet oldSet = SliderSets[idxSliderSet]
-		SliderSet newSet = Constructor(idxSliderSet)
+		SliderSet newSet = SliderSet_Constructor(idxSliderSet)
 		SliderSets[idxSliderSet] = newSet
 
 		If (oldSet)
@@ -222,12 +356,15 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 				int currentIdx = sliderNameOffset + idxSlider
 				If (!oldSet || idxSlider >= oldSet.NumberOfSliderNames)
 					; insert into array
-					SliderNames.Insert(names[idxSlider], currentIdx)
-					OriginalMorphs.Insert(morph, currentIdx)
+					Slider slider = new Slider
+					slider.Name = names[idxSlider]
+					slider.Value = morph
+					Sliders.Insert(slider, currentIdx)
 				Else
 					; replace item
-					SliderNames[currentIdx] = names[idxSlider]
-					OriginalMorphs[currentIdx] = morph
+					Slider slider = Sliders[currentIdx]
+					slider.Name = names[idxSlider]
+					slider.Value = morph
 				EndIf
 				idxSlider += 1
 			EndWhile
@@ -235,7 +372,7 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 
 		; remove unused items
 		If (oldSet && newSet.NumberOfSliderNames < oldSet.NumberOfSliderNames)
-			SliderNames.Remove(sliderNameOffset + newSet.NumberOfSliderNames, oldset.NumberOfSliderNames - newset.NumberOfSliderNames)
+			Sliders.Remove(sliderNameOffset + newSet.NumberOfSliderNames, oldset.NumberOfSliderNames - newset.NumberOfSliderNames)
 		EndIf
 
 		int uneqipSlotOffset = GetUnequipSlotOffset(idxSliderSet)
@@ -263,8 +400,41 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 		idxSliderSet += 1
 	EndWhile
 
-	D.Log("  SliderSets:     " + SliderSets)
-	D.Log("  SliderNames:    " + SliderNames)
-	D.Log("  OriginalMorphs: " + OriginalMorphs)
-	D.Log("  UnequipSlots:   " + UnequipSlots)
+	D.Log("  SliderSets:   " + SliderSets)
+	D.Log("  Sliders:      " + Sliders)
+	D.Log("  UnequipSlots: " + UnequipSlots)
+EndFunction
+
+
+;
+; Update the value of a morph trigger.
+;
+Function SetTriggerValue(string triggerName, float value)
+	D.Log("SliderSet.SetTriggerValue: " + triggerName + " = " + value)
+	int idxSliderSet = 0
+	While (idxSliderSet < SliderSets.Length)
+		SliderSet_SetTriggerValue(idxSliderSet, triggerName, value)
+		idxSliderSet += 1
+	EndWhile
+EndFunction
+
+
+Slider[] Function CalculateMorphUpdates(int updateType)
+	Slider[] updates = new Slider[0]
+	int idxSliderSet = 0
+	While (idxSliderSet < SliderSets.Length)
+		SliderSet sliderSet = SliderSets[idxSliderSet]
+		If (sliderSet.UpdateType == updateType)
+			Slider[] sliderSetUpdates = SliderSet_CalculateMorphUpdates(idxSliderSet)
+			int idxUpdate = 0
+			While (idxUpdate < sliderSetUpdates.Length)
+				Slider update = sliderSetUpdates[idxUpdate]
+				updates.Add(update)
+				idxUpdate += 1
+			EndWhile
+		EndIf
+		idxSliderSet += 1
+	EndWhile
+
+	return updates
 EndFunction

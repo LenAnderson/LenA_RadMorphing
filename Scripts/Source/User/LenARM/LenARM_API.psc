@@ -77,6 +77,7 @@ EndFunction
 ; Get the overal progress of morphs.
 ;
 float Function GetMorphPercentage()
+	D.Log("API.GetMorphPercentage")
 	float morph = 0.0
 	;TODO GetMorphPercentage()
 	return morph
@@ -86,6 +87,7 @@ EndFunction
 ;
 ; Update the value of a morph trigger.
 ;
-Function SetTriggerValue(string trigger, float value)
-	;TODO SetTriggerValue(trigger, value)
+Function SetTriggerValue(string triggerName, float value)
+	D.Log("API.SetTriggerValue: " + triggerName + " = " + value)
+	Main.SetTriggerValue(triggerName, value)
 EndFunction
