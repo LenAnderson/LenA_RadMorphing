@@ -63,6 +63,14 @@ int UpdateType
 
 
 ;-----------------------------------------------------------------------------------------------------
+; custom events
+
+CustomEvent OnStartup
+CustomEvent OnShutdown
+CustomEvent OnMorphChange
+
+
+;-----------------------------------------------------------------------------------------------------
 ; versioning
 
 string Version
@@ -87,7 +95,7 @@ EndFunction
 ;-----------------------------------------------------------------------------------------------------
 ;-----------------------------------------------------------------------------------------------------
 ;-----------------------------------------------------------------------------------------------------
-; events
+; event listeners
 
 
 ;-----------------------------------------------------------------------------------------------------
@@ -182,6 +190,8 @@ Function Startup()
 			; unknown update type
 			D.Log("unknown update type: '" + UpdateType + "'")
 		EndIf
+
+		SendCustomEvent("OnStartup")
 	ElseIf (MCM.GetModSettingBool("LenA_RadMorphing", "bWarnDisabled:General"))
 		; mod is disabled in MCM, warning is enabled: let the player know that the mod is disabled
 		D.Log("  is disabled, with warning")
@@ -203,6 +213,8 @@ Function Shutdown()
 		UnregisterForRemoteEvent(Player, "OnPlayerLoadGame")
 		UnregisterForPlayerSleep()
 		FinishShutdown()
+
+		SendCustomEvent("OnShutdown")
 	EndIf
 EndFunction
 
