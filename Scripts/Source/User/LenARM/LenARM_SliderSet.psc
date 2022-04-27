@@ -279,6 +279,12 @@ Slider[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 EndFunction
 
 
+float Function SliderSet_GetMorphPercentage(int idxSliderSet)
+	SliderSet this = SliderSets[idxSliderSet]
+	return this.BaseMorph + this.CurrentMorph
+EndFunction
+
+
 
 
 ;-----------------------------------------------------------------------------------------------------
@@ -438,4 +444,15 @@ Slider[] Function CalculateMorphUpdates(int updateType)
 	EndWhile
 
 	return updates
+EndFunction
+
+
+float Function GetMorphPercentage()
+	float morph = 0.0
+	int idxSliderSet = 0
+	While (idxSliderSet < SliderSets.Length)
+		morph = Math.Max(morph, SliderSet_GetMorphPercentage(idxSliderSet))
+		idxSliderSet += 1
+	EndWhile
+	return morph
 EndFunction

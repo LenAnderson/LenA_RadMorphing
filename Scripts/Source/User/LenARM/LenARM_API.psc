@@ -78,9 +78,7 @@ EndFunction
 ;
 float Function GetMorphPercentage()
 	D.Log("API.GetMorphPercentage")
-	float morph = 0.0
-	;TODO GetMorphPercentage()
-	return morph
+	return Main.GetMorphPercentage()
 EndFunction
 
 

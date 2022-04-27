@@ -262,6 +262,12 @@ EndFunction
 ;-----------------------------------------------------------------------------------------------------
 ; mod logic
 
+float Function GetMorphPercentage()
+	D.Log("GetMorphPercentage")
+	return SliderSets.GetMorphPercentage()
+EndFunction
+
+
 ;
 ; Update the value of a morph trigger.
 ;
