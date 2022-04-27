@@ -196,15 +196,14 @@ EndFunction
 ;
 ; Stop the mod.
 ;
-Function Shutdown()
+Function Shutdown()s
 	If (!IsShuttingDown)
 		D.Log("Shutdown")
 		IsShuttingDown = true
+		SendCustomEvent("OnShutdown")
 		UnregisterForRemoteEvent(Player, "OnPlayerLoadGame")
 		UnregisterForPlayerSleep()
 		FinishShutdown()
-
-		SendCustomEvent("OnShutdown")
 	EndIf
 EndFunction
 
