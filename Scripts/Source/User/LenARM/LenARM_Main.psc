@@ -291,7 +291,6 @@ Function ApplyImmediateMorphs()
 	LenARM_SliderSet:Slider[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypeImmediate)
 	D.Log(" updates: " + updates)
 
-	;TODO loop through morph updates and apply morphs
 	ApplyMorphUpdates(updates)
 EndFunction
 
@@ -304,7 +303,6 @@ Function ApplyPeriodicMorphs()
 	LenARM_SliderSet:Slider[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypePeriodic)
 	D.Log(" updates: " + updates)
 
-	;TODO loop through morph updates and apply morphs
 	ApplyMorphUpdates(updates)
 
 	If (!IsShuttingDown)
@@ -323,7 +321,6 @@ Function ApplySleepMorphs()
 	LenARM_SliderSet:Slider[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypeOnSleep)
 	D.Log(" updates: " + updates)
 
-	;TODO loop through morph updates and apply morphs
 	ApplyMorphUpdates(updates)
 EndFunction
 
