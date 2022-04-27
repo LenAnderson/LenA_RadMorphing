@@ -294,3 +294,32 @@ Function ApplySleepMorphs()
 	D.Log("ApplySleepMorphs")
 	;TODO loop through slider sets, check trigger values, apply morphing...
 EndFunction
+
+
+
+
+;-----------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------
+; helpers / MCM
+
+;
+; Show a message box with all the currently equipped items and their slots.
+;
+Function ShowEquippedClothes()
+	D.Log("ShowEquippedClothes")
+	string[] items = new string[0]
+	int slot = 0
+	While (slot < 62)
+		Actor:WornItem item = Player.GetWornItem(slot)
+		If (item != None && item.item != None)
+			items.Add(slot + ": " + item.item.GetName())
+			D.Log("  " + slot + ": " + item.item.GetName() + " (" + item.modelName + ")")
+		Else
+			D.Log("  Slot " + slot + " is empty")
+		EndIf
+		slot += 1
+	EndWhile
+
+	Debug.MessageBox(LL_FourPlay.StringJoin(items, "\n"))
+EndFunction
