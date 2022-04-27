@@ -129,6 +129,7 @@ Slider[] Sliders
 
 ; flattened array[idxSliderSet][idxSlotName]
 string[] UnequipSlots
+
 ; flattened array[idxCompanion][idxSliderSet][idxSlider] (name and original morph)
 Slider[] OriginalCompanionMorphs
 
