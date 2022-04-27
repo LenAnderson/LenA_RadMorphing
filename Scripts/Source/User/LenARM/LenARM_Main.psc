@@ -41,6 +41,12 @@ Group EnumTimerId
 	{timer for applying morphs}
 EndGroup
 
+Group EnumSex
+	int Property ESexNone = -1 Auto Const
+	int Property ESexMale = 0 Auto Const
+	int Property ESexFemale = 1 Auto Const
+EndGroup
+
 
 ;-----------------------------------------------------------------------------------------------------
 ; variables
@@ -286,6 +292,7 @@ Function ApplyImmediateMorphs()
 	D.Log(" updates: " + updates)
 
 	;TODO loop through morph updates and apply morphs
+	ApplyMorphUpdates(updates)
 EndFunction
 
 ;
@@ -298,6 +305,7 @@ Function ApplyPeriodicMorphs()
 	D.Log(" updates: " + updates)
 
 	;TODO loop through morph updates and apply morphs
+	ApplyMorphUpdates(updates)
 
 	If (!IsShuttingDown)
 		; restart the timer if not shutting down
@@ -316,6 +324,22 @@ Function ApplySleepMorphs()
 	D.Log(" updates: " + updates)
 
 	;TODO loop through morph updates and apply morphs
+	ApplyMorphUpdates(updates)
+EndFunction
+
+
+Function ApplyMorphUpdates(LenARM_SliderSet:Slider[] updates)
+	If (updates.Length > 0)
+		D.Log("ApplyMorphUpdates: " + updates)
+		int idxUpdate = 0
+		While (idxUpdate < updates.Length)
+			LenARM_SliderSet:Slider update = updates[idxUpdate]
+			int sex = Player.GetLeveledActorBase().GetSex()
+			BodyGen.SetMorph(Player, sex==ESexFemale, update.Name, kwMorph, update.Value)
+			idxUpdate += 1
+		EndWhile
+		BodyGen.UpdateMorphs(Player)
+	EndIf
 EndFunction
 
 
