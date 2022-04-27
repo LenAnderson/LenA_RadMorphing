@@ -196,7 +196,7 @@ EndFunction
 ;
 ; Stop the mod.
 ;
-Function Shutdown()s
+Function Shutdown()
 	If (!IsShuttingDown)
 		D.Log("Shutdown")
 		IsShuttingDown = true
@@ -284,7 +284,7 @@ Function ApplyImmediateMorphs()
 	D.Log("ApplyImmediateMorphs")
 	LenARM_SliderSet:Slider[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypeImmediate)
 	D.Log(" updates: " + updates)
-	
+
 	;TODO loop through morph updates and apply morphs
 EndFunction
 
