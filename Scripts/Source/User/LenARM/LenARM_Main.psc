@@ -11,6 +11,9 @@ Group Properties
 	Keyword Property kwMorph Auto Const
 	{keyword required for looksmenu morphing}
 
+	Scene Property DoctorGreetScene Auto Const
+	Scene Property DoctorMedicineScene02_Exam Auto Const
+
 	Faction Property CurrentCompanionFaction Auto Const
 	{one of the factions used to find companions}
 	Faction Property PlayerAllyFaction Auto Const
@@ -27,6 +30,11 @@ EndGroup
 
 ;-----------------------------------------------------------------------------------------------------
 ; this mod's resources
+
+Group MessageBoxes
+	Message Property HealMorphMessage Auto Const
+EndGroup
+
 Group LenARM
 	LenARM_Debug Property D Auto Const
 	LenARM_Util Property Util Auto Const
@@ -53,6 +61,11 @@ Group EnumSex
 	int Property ESexFemale = 1 Auto Const
 EndGroup
 
+Group EnumHealMorphChoice
+	int Property EHealMorphChoiceYes = 0 Auto Const
+	int Property EHealMorphChoiceNo = 1 Auto Const
+EndGroup
+
 
 ;-----------------------------------------------------------------------------------------------------
 ; variables
@@ -70,6 +83,9 @@ int UpdateType
 
 ; how many slider sets are available
 int NumberOfSliderSets
+
+; whether the heal morph message box has just been shown
+bool HealMorphMessageShown = false
 
 
 ;-----------------------------------------------------------------------------------------------------
@@ -134,6 +150,33 @@ EndEvent
 Event OnPlayerSleepStop(bool abInterrupted, ObjectReference akBed)
 	D.Log("OnPlayerSleepStop: abInterrupted=" + abInterrupted + ";  akBed=" + akBed)
 	ApplySleepMorphs()
+EndEvent
+
+
+Event Scene.OnBegin(Scene akSender)
+	D.Log("Scene.OnBegin: " + akSender)
+	If (akSender == DoctorGreetScene)
+		D.Log("  DoctorGreetScene --> setting HealMorphMessageShown to false")
+		HealMorphMessageShown = false
+	ElseIf (!HealMorphMessageShown && akSender == DoctorMedicineScene02_Exam)
+		D.Log("  DoctorMedicineScene02_Exam --> setting HealMorphMessageShown to true")
+		HealMorphMessageShown = true
+		float baseMorphs = GetBaseMorphPercentage() * 100.0
+		float morphs = GetMorphPercentage() * 100.0
+		float cost = baseMorphs * 10.0
+		D.Log("    morphs:     " + morphs + "%")
+		D.Log("    baseMorphs: " + baseMorphs + "%")
+		D.Log("    cost:       " + cost + " caps")
+		int choice = HealMorphMessage.Show(morphs, baseMorphs, cost)
+		D.Log("    choice: " + choice)
+		If (choice == EHealMorphChoiceYes)
+			D.Log("      -> heal morphs")
+		ElseIf (choice == EHealMorphChoiceNo)
+			D.Log("      -> don't heal morphs")
+		Else
+			D.Log("      -> unknown choice")
+		EndIf
+	EndIf
 EndEvent
 
 
@@ -203,6 +246,10 @@ Function Startup()
 		;TODO listen for combat state (helper script/quest?)
 		
 		;TODO prepare companion arrays --> handled in SliderSet
+
+		; listen for doctor scenes
+		RegisterForRemoteEvent(DoctorGreetScene, "OnBegin")
+		RegisterForRemoteEvent(DoctorMedicineScene02_Exam, "OnBegin")
 
 		; reapply base morphs (additive morphing)
 		ApplyBaseMorphs()
