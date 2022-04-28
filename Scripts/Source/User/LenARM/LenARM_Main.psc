@@ -182,8 +182,11 @@ Function Startup()
 		SliderSets.LoadSliderSets(NumberOfSliderSets, Player)
 
 		;TODO get global overrides from MCM --> apply these directly in SliderSet_Constructor
+
 		;TODO listen for item equip
+		
 		;TODO listen for combat state (helper script/quest?)
+		
 		;TODO prepare companion arrays --> handled in SliderSet
 
 		; reapply base morphs (additive morphing)
@@ -214,7 +217,7 @@ Function Shutdown(bool withRestoreMorphs=true)
 	If (!IsShuttingDown)
 		D.Log("Shutdown")
 		IsShuttingDown = true
-		
+
 		; notify plugins that mod has stopped
 		SendCustomEvent("OnShutdown")
 
