@@ -44,6 +44,30 @@ oldVarsMatched.each{oldVar ->
 }
 
 
+def replacer
+replacer = {json ->
+	if (json instanceof Map) {
+		def remove = []
+		def add = [:]
+		json.each{k,v->
+			if (k ==~ /^(.+)--join\(([^\)]+)\)$/ && v instanceof List) {
+				def nk = k.replaceAll(/^(.+)--join\(([^\)]+)\)$/, '$1')
+				def nv = v.join(k.replaceAll(/^(.+)--join\(([^\)]+)\)$/, '$2'))
+				remove << k
+				add[nk] = nv
+			} else {
+				json[k] = replacer(json[k])
+			}
+		}
+		json.removeAll{rk,kv->remove.contains(rk)}
+		json += add
+	} else if (json instanceof List) {
+		json.eachWithIndex{child,idx->json[idx]=replacer(child)}
+	}
+	return json
+}
+
+
 // create json and ini files
 counts.eachWithIndex{count, idxCount ->
 	// json
@@ -53,6 +77,7 @@ counts.eachWithIndex{count, idxCount ->
 		page.content += slurper.parseText(tplSliderText.replaceAll(~/\{\{idxLbl\}\}/, "${idx + 1}").replaceAll(~/\{\{idx\}\}/, "${idx}"))
 		tpl.pages << page
 	}
+	tpl = replacer(tpl)
 	new File(".options/mcm_SliderSets_${count}/MCM/config/LenA_RadMorphing").mkdirs()
 	File output = new File(".options/mcm_SliderSets_${count}/MCM/config/LenA_RadMorphing/config.json")
 	output.text = builder.prettyPrint(builder.toJson(tpl))
