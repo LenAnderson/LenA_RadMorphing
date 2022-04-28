@@ -189,10 +189,15 @@
                 {
                     "text": "Trigger Name",
                     "help": "Name of the trigger value that is used to determine morphing.",
-                    "type": "textinput",
-                    "id": "sTriggerName:Slider0",
+                    "type": "dropdown",
+                    "id": "iTriggerNameIndex:Slider0",
                     "valueOptions": {
-                        "sourceType": "ModSettingString"
+                        "listFromProperty": {
+                            "form": "LenA_RadMorphing.esp|4C50",
+                            "scriptName": "LenARM:LenARM_Main",
+                            "propertyName": "MCM_TriggerNames"
+                        },
+                        "sourceType": "ModSettingInt"
                     }
                 },
                 {
@@ -394,10 +399,15 @@
                 {
                     "text": "Trigger Name",
                     "help": "Name of the trigger value that is used to determine morphing.",
-                    "type": "textinput",
-                    "id": "sTriggerName:Slider1",
+                    "type": "dropdown",
+                    "id": "iTriggerNameIndex:Slider1",
                     "valueOptions": {
-                        "sourceType": "ModSettingString"
+                        "listFromProperty": {
+                            "form": "LenA_RadMorphing.esp|4C50",
+                            "scriptName": "LenARM:LenARM_Main",
+                            "propertyName": "MCM_TriggerNames"
+                        },
+                        "sourceType": "ModSettingInt"
                     }
                 },
                 {
@@ -599,10 +609,15 @@
                 {
                     "text": "Trigger Name",
                     "help": "Name of the trigger value that is used to determine morphing.",
-                    "type": "textinput",
-                    "id": "sTriggerName:Slider2",
+                    "type": "dropdown",
+                    "id": "iTriggerNameIndex:Slider2",
                     "valueOptions": {
-                        "sourceType": "ModSettingString"
+                        "listFromProperty": {
+                            "form": "LenA_RadMorphing.esp|4C50",
+                            "scriptName": "LenARM:LenARM_Main",
+                            "propertyName": "MCM_TriggerNames"
+                        },
+                        "sourceType": "ModSettingInt"
                     }
                 },
                 {
@@ -804,10 +819,15 @@
                 {
                     "text": "Trigger Name",
                     "help": "Name of the trigger value that is used to determine morphing.",
-                    "type": "textinput",
-                    "id": "sTriggerName:Slider3",
+                    "type": "dropdown",
+                    "id": "iTriggerNameIndex:Slider3",
                     "valueOptions": {
-                        "sourceType": "ModSettingString"
+                        "listFromProperty": {
+                            "form": "LenA_RadMorphing.esp|4C50",
+                            "scriptName": "LenARM:LenARM_Main",
+                            "propertyName": "MCM_TriggerNames"
+                        },
+                        "sourceType": "ModSettingInt"
                     }
                 },
                 {
@@ -1009,10 +1029,15 @@
                 {
                     "text": "Trigger Name",
                     "help": "Name of the trigger value that is used to determine morphing.",
-                    "type": "textinput",
-                    "id": "sTriggerName:Slider4",
+                    "type": "dropdown",
+                    "id": "iTriggerNameIndex:Slider4",
                     "valueOptions": {
-                        "sourceType": "ModSettingString"
+                        "listFromProperty": {
+                            "form": "LenA_RadMorphing.esp|4C50",
+                            "scriptName": "LenARM:LenARM_Main",
+                            "propertyName": "MCM_TriggerNames"
+                        },
+                        "sourceType": "ModSettingInt"
                     }
                 },
                 {
@@ -1214,10 +1239,15 @@
                 {
                     "text": "Trigger Name",
                     "help": "Name of the trigger value that is used to determine morphing.",
-                    "type": "textinput",
-                    "id": "sTriggerName:Slider5",
+                    "type": "dropdown",
+                    "id": "iTriggerNameIndex:Slider5",
                     "valueOptions": {
-                        "sourceType": "ModSettingString"
+                        "listFromProperty": {
+                            "form": "LenA_RadMorphing.esp|4C50",
+                            "scriptName": "LenARM:LenARM_Main",
+                            "propertyName": "MCM_TriggerNames"
+                        },
+                        "sourceType": "ModSettingInt"
                     }
                 },
                 {
@@ -1419,10 +1449,15 @@
                 {
                     "text": "Trigger Name",
                     "help": "Name of the trigger value that is used to determine morphing.",
-                    "type": "textinput",
-                    "id": "sTriggerName:Slider6",
+                    "type": "dropdown",
+                    "id": "iTriggerNameIndex:Slider6",
                     "valueOptions": {
-                        "sourceType": "ModSettingString"
+                        "listFromProperty": {
+                            "form": "LenA_RadMorphing.esp|4C50",
+                            "scriptName": "LenARM:LenARM_Main",
+                            "propertyName": "MCM_TriggerNames"
+                        },
+                        "sourceType": "ModSettingInt"
                     }
                 },
                 {
@@ -1624,10 +1659,15 @@
                 {
                     "text": "Trigger Name",
                     "help": "Name of the trigger value that is used to determine morphing.",
-                    "type": "textinput",
-                    "id": "sTriggerName:Slider7",
+                    "type": "dropdown",
+                    "id": "iTriggerNameIndex:Slider7",
                     "valueOptions": {
-                        "sourceType": "ModSettingString"
+                        "listFromProperty": {
+                            "form": "LenA_RadMorphing.esp|4C50",
+                            "scriptName": "LenARM:LenARM_Main",
+                            "propertyName": "MCM_TriggerNames"
+                        },
+                        "sourceType": "ModSettingInt"
                     }
                 },
                 {
@@ -1829,10 +1869,15 @@
                 {
                     "text": "Trigger Name",
                     "help": "Name of the trigger value that is used to determine morphing.",
-                    "type": "textinput",
-                    "id": "sTriggerName:Slider8",
+                    "type": "dropdown",
+                    "id": "iTriggerNameIndex:Slider8",
                     "valueOptions": {
-                        "sourceType": "ModSettingString"
+                        "listFromProperty": {
+                            "form": "LenA_RadMorphing.esp|4C50",
+                            "scriptName": "LenARM:LenARM_Main",
+                            "propertyName": "MCM_TriggerNames"
+                        },
+                        "sourceType": "ModSettingInt"
                     }
                 },
                 {
@@ -2034,10 +2079,15 @@
                 {
                     "text": "Trigger Name",
                     "help": "Name of the trigger value that is used to determine morphing.",
-                    "type": "textinput",
-                    "id": "sTriggerName:Slider9",
+                    "type": "dropdown",
+                    "id": "iTriggerNameIndex:Slider9",
                     "valueOptions": {
-                        "sourceType": "ModSettingString"
+                        "listFromProperty": {
+                            "form": "LenA_RadMorphing.esp|4C50",
+                            "scriptName": "LenARM:LenARM_Main",
+                            "propertyName": "MCM_TriggerNames"
+                        },
+                        "sourceType": "ModSettingInt"
                     }
                 },
                 {

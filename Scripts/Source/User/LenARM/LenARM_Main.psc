@@ -33,6 +33,10 @@ Group LenARM
 	LenARM_SliderSet Property SliderSets Auto Const
 EndGroup
 
+Group MCM
+	string[] Property MCM_TriggerNames Auto
+EndGroup
+
 
 ;-----------------------------------------------------------------------------------------------------
 ; enums
@@ -154,6 +158,15 @@ Function OnMCMSettingChange(string modName, string id)
 			Debug.MessageBox(msg)
 		EndIf
 	EndIf
+	If (Util.StringStartsWith(id, "iTriggerNameIndex:Slider"))
+		string sliderName = Util.StringSplit(id, ":")[1]
+		int idxTriggerName = MCM.GetModSettingInt("LenA_RadMorphing", id)
+		string triggerName = MCM_TriggerNames[idxTriggerName]
+		D.Log("  " + idxTriggerName + " --> " + triggerName)
+		D.Log("  setting MCM: " + "sTriggerName:" + sliderName + " -> " + triggerName)
+		MCM.SetModSettingString("LenA_RadMorphing", "sTriggerName:" + sliderName, triggerName)
+		D.Log("    check MCM: " + MCM.GetModSettingString("LenA_RadMorphing", "sTriggerName:" + sliderName))
+	EndIf
 	Restart()
 EndFunction
 
@@ -198,6 +211,15 @@ Function Startup()
 		ApplyPeriodicMorphs()
 		; listen for sleep events, for on sleep updates
 		RegisterForPlayerSleep()
+
+		; set up trigger names for MCM
+		MCM_TriggerNames = new string[0]
+		MCM_TriggerNames.Add("-- SELECT A TRIGGER --")
+		int idxSliderSet = 0
+		While (idxSliderSet < NumberOfSliderSets)
+			MCM.SetModSettingInt("LenA_RadMorphing", "iTriggerNameIndex:Slider" + idxSliderSet, -1)
+			idxSliderSet += 1
+		EndWhile
 
 		; notify plugins that mod is running
 		SendCustomEvent("OnStartup")
@@ -310,6 +332,30 @@ EndFunction
 ;-----------------------------------------------------------------------------------------------------
 ;-----------------------------------------------------------------------------------------------------
 ; mod logic
+
+;
+; Register a trigger name with RMR.
+; Returns false if the name is already registered, otherwise true.
+;
+bool Function AddTriggerName(string triggerName)
+	D.Log("AddTriggerName: " + triggerName)
+	If (MCM_TriggerNames.Find(triggerName) < 0)
+		MCM_TriggerNames.Add(triggerName)
+		int triggerNameIndex = MCM_TriggerNames.Length - 1
+		int idxSliderSet = 0
+		While (idxSliderSet < NumberOfSliderSets)
+			If (MCM.GetModSettingString("LenA_RadMorphing", "sTriggerName:Slider" + idxSliderSet) == triggerName)
+				D.Log("  updating MCM for SliderSet " + idxSliderSet)
+				MCM.SetModSettingInt("LenA_RadMorphing", "iTriggerNameIndex:Slider" + idxSliderSet, triggerNameIndex)
+			EndIf
+			idxSliderSet += 1
+		EndWhile
+		return true
+	Else
+		D.Log("  trigger already exists")
+		return false
+	EndIf
+EndFunction
 
 float Function GetMorphPercentage()
 	D.Log("GetMorphPercentage")

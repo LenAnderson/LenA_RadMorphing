@@ -85,6 +85,9 @@ counts.eachWithIndex{count, idxCount ->
 	// ini
 	def newVarsMatched = output.text =~ /"id"\s*:\s*"([^"]+?)(?::([^"]+))?"/
 	def newVars = ["Static":["iNumberOfSliderSets":count]]
+	count.times{idx->
+		newVars["Slider${idx}"] = ["sTriggerName":""]
+	}
 	newVarsMatched.each{newVar ->
 		def section = newVar[2]
 		if (section) {

@@ -15,10 +15,15 @@
 	{
 		"text": "Trigger Name",
 		"help": "Name of the trigger value that is used to determine morphing.",
-		"type": "textinput",
-		"id": "sTriggerName:Slider{{idx}}",
+		"type": "dropdown",
+		"id": "iTriggerNameIndex:Slider{{idx}}",
 		"valueOptions": {
-			"sourceType": "ModSettingString"
+			"listFromProperty": {
+				"form": "LenA_RadMorphing.esp|4C50",
+				"scriptName": "LenARM:LenARM_Main",
+				"propertyName": "MCM_TriggerNames"
+			},
+			"sourceType": "ModSettingInt"
 		}
 	},
 	{

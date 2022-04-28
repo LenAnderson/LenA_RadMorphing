@@ -84,6 +84,16 @@ EndFunction
 
 
 ;
+; Register a trigger name with RMR.
+; Returns false if the name is already registered, otherwise true.
+;
+bool Function RegisterTriggerName(string triggerName)
+	D.Log("API.RegisterTriggerName: " + triggerName)
+	return Main.AddTriggerName(triggerName)
+EndFunction
+
+
+;
 ; Update the value of a morph trigger.
 ;
 Function SetTriggerValue(string triggerName, float value)
