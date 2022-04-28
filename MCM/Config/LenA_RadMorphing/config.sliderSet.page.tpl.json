@@ -12,7 +12,7 @@
 			"help": "Show the worn clothing / armor items and their slots",
 			"action": {
 				"type": "CallFunction",
-				"form": "LenA_RadMorphing.esp|03004C50",
+				"form": "LenA_RadMorphing.esp|4C50",
 				"function": "ShowEquippedClothes",
 				"params": []
 			}
