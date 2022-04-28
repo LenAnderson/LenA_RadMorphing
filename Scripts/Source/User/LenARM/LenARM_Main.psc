@@ -357,9 +357,15 @@ bool Function AddTriggerName(string triggerName)
 	EndIf
 EndFunction
 
+
 float Function GetMorphPercentage()
 	D.Log("GetMorphPercentage")
 	return SliderSets.GetMorphPercentage()
+EndFunction
+
+float Function GetBaseMorphPercentage()
+	D.Log("GetBaseMorphPercentage")
+	return SliderSets.GetBaseMorphPercentage()
 EndFunction
 
 

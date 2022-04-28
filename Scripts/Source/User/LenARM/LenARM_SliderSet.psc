@@ -317,6 +317,11 @@ float Function SliderSet_GetMorphPercentage(int idxSliderSet)
 	return this.BaseMorph + this.CurrentMorph
 EndFunction
 
+float Function SliderSet_GetBaseMorphPercentage(int idxSliderSet)
+	SliderSet this = SliderSets[idxSliderSet]
+	return this.BaseMorph
+EndFunction
+
 
 Slider[] Function SliderSet_GetBaseMorphs(int idxSliderSet)
 	SliderSet this = SliderSets[idxSliderSet]
@@ -526,6 +531,19 @@ float Function GetMorphPercentage()
 	int idxSliderSet = 0
 	While (idxSliderSet < SliderSets.Length)
 		morph = Math.Max(morph, SliderSet_GetMorphPercentage(idxSliderSet))
+		idxSliderSet += 1
+	EndWhile
+	return morph
+EndFunction
+
+;
+; Get the amount of base morphs (permanent morphs)
+;
+float Function GetBaseMorphPercentage()
+	float morph = 0.0
+	int idxSliderSet = 0
+	While (idxSliderSet < SliderSets.Length)
+		morph = Math.Max(morph, SliderSet_GetBaseMorphPercentage(idxSliderSet))
 		idxSliderSet += 1
 	EndWhile
 	return morph
