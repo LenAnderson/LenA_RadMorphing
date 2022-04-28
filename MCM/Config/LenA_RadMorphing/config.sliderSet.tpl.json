@@ -32,7 +32,11 @@
 		}
 	},
 	{
-		"text": "<b>Periodic updates:</b> Checks rads every x seconds (update delay) and changes morphs according to current rads level.<br><b>Update after sleeping:</b> Every time you go to sleep you get additional morphs according to the current rads. In this update mode you can only restore your body by visiting a doctor.<br>",
+		"text--join(<br>)": [
+			"<b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.",
+			"<b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor.",
+			"<b>Immediately:</b> Changes morphs the moment a trigger value changes."
+		],
 		"type": "text",
 		"html": true
 	},
