@@ -151,7 +151,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -162,6 +167,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 1",
@@ -241,6 +251,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -262,6 +277,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -275,6 +295,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -331,7 +356,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -342,6 +372,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 2",
@@ -421,6 +456,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -442,6 +482,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -455,6 +500,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -511,7 +561,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -522,6 +577,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 3",
@@ -601,6 +661,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -622,6 +687,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -635,6 +705,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -691,7 +766,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -702,6 +782,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 4",
@@ -781,6 +866,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -802,6 +892,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -815,6 +910,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -871,7 +971,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -882,6 +987,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 5",
@@ -961,6 +1071,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -982,6 +1097,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -995,6 +1115,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -1051,7 +1176,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -1062,6 +1192,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 6",
@@ -1141,6 +1276,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -1162,6 +1302,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -1175,6 +1320,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -1231,7 +1381,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -1242,6 +1397,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 7",
@@ -1321,6 +1481,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -1342,6 +1507,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -1355,6 +1525,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -1411,7 +1586,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -1422,6 +1602,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 8",
@@ -1501,6 +1686,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -1522,6 +1712,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -1535,6 +1730,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -1591,7 +1791,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -1602,6 +1807,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 9",
@@ -1681,6 +1891,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -1702,6 +1917,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -1715,6 +1935,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -1771,7 +1996,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -1782,6 +2012,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 10",
@@ -1861,6 +2096,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -1882,6 +2122,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -1895,6 +2140,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -1951,7 +2201,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -1962,6 +2217,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 11",
@@ -2041,6 +2301,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -2062,6 +2327,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -2075,6 +2345,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -2131,7 +2406,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -2142,6 +2422,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 12",
@@ -2221,6 +2506,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -2242,6 +2532,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -2255,6 +2550,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -2311,7 +2611,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -2322,6 +2627,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 13",
@@ -2401,6 +2711,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -2422,6 +2737,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -2435,6 +2755,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -2491,7 +2816,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -2502,6 +2832,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 14",
@@ -2581,6 +2916,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -2602,6 +2942,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -2615,6 +2960,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -2671,7 +3021,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -2682,6 +3037,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 15",
@@ -2761,6 +3121,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -2782,6 +3147,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -2795,6 +3165,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -2851,7 +3226,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -2862,6 +3242,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 16",
@@ -2941,6 +3326,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -2962,6 +3352,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -2975,6 +3370,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -3031,7 +3431,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -3042,6 +3447,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 17",
@@ -3121,6 +3531,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -3142,6 +3557,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -3155,6 +3575,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -3211,7 +3636,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -3222,6 +3652,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 18",
@@ -3301,6 +3736,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -3322,6 +3762,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -3335,6 +3780,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -3391,7 +3841,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -3402,6 +3857,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 19",
@@ -3481,6 +3941,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -3502,6 +3967,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -3515,6 +3985,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -3571,7 +4046,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -3582,6 +4062,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 20",
@@ -3661,6 +4146,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -3682,6 +4172,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -3695,6 +4190,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -3751,7 +4251,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -3762,6 +4267,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 21",
@@ -3841,6 +4351,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -3862,6 +4377,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -3875,6 +4395,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -3931,7 +4456,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -3942,6 +4472,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 22",
@@ -4021,6 +4556,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -4042,6 +4582,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -4055,6 +4600,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -4111,7 +4661,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -4122,6 +4677,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 23",
@@ -4201,6 +4761,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -4222,6 +4787,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -4235,6 +4805,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -4291,7 +4866,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -4302,6 +4882,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 24",
@@ -4381,6 +4966,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -4402,6 +4992,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -4415,6 +5010,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -4471,7 +5071,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -4482,6 +5087,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 25",
@@ -4561,6 +5171,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -4582,6 +5197,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -4595,6 +5215,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -4651,7 +5276,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -4662,6 +5292,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 26",
@@ -4741,6 +5376,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -4762,6 +5402,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -4775,6 +5420,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -4831,7 +5481,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -4842,6 +5497,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 27",
@@ -4921,6 +5581,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -4942,6 +5607,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -4955,6 +5625,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -5011,7 +5686,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -5022,6 +5702,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 28",
@@ -5101,6 +5786,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -5122,6 +5812,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -5135,6 +5830,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -5191,7 +5891,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -5202,6 +5907,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 29",
@@ -5281,6 +5991,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -5302,6 +6017,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -5315,6 +6035,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -5371,7 +6096,12 @@
                     "html": true
                 },
                 {
-                    "text": "Show worn clothes",
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Click to show worn clothes",
                     "type": "button",
                     "help": "Show the worn clothing / armor items and their slots",
                     "action": {
@@ -5382,6 +6112,11 @@
                             
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Slider Set 30",
@@ -5461,6 +6196,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -5482,6 +6222,11 @@
                     }
                 },
                 {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
                     "type": "stepper",
@@ -5495,6 +6240,11 @@
                             "All"
                         ]
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Only doctors can reset morphs",

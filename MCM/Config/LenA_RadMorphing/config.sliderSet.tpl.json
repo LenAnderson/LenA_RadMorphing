@@ -77,6 +77,13 @@
 		}
 	},
 	{
+		"text": "<br>",
+		"type": "text",
+		"html": true
+	},
+
+
+	{
 		"text": "Armor slots to unequip",
 		"help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
 		"type": "textinput",
@@ -98,6 +105,13 @@
 		}
 	},
 	{
+		"text": "<br>",
+		"type": "text",
+		"html": true
+	},
+
+
+	{
 		"text": "Apply to companions",
 		"help": "Applies this slider set to your companions (based on your rads).",
 		"type": "stepper",
@@ -107,6 +121,13 @@
 			"options": ["None", "Female", "Male", "All"]
 		}
 	},
+	{
+		"text": "<br>",
+		"type": "text",
+		"html": true
+	},
+	
+
 	{
 		"text": "Only doctors can reset morphs",
 		"help": "With this enabled only doctors can restore your base shape. Reducing the trigger value by other means will have no effect on the sliders.",
