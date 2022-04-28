@@ -162,6 +162,32 @@ SliderSet Function Get(int idxSliderSet)
 	return SliderSets[idxSliderSet]
 EndFunction
 
+;
+; Get the list of Sliders (name and original morph)
+;
+Slider[] Function GetSliders()
+	return Sliders
+EndFunction
+
+;
+; Get the list of base morphs (permanent morphs from additive SliderSets)
+;
+Slider[] Function GetBaseMorphs()
+	D.Log("SliderSet.GetBaseMorphs")
+	Slider[] baseMorphs = new Slider[0]
+	int idxSliderSet = 0
+	While (idxSliderSet < SliderSets.Length)
+		Slider[] sliderSetBaseMorphs = SliderSet_GetBaseMorphs(idxSliderSet)
+		int idxSlider = 0
+		While (idxSlider < sliderSetBaseMorphs.Length)
+			baseMorphs.Add(sliderSetBaseMorphs[idxSlider])
+			idxSlider += 1
+		EndWhile
+		idxSliderSet += 1
+	EndWhile
+	return baseMorphs
+EndFunction
+
 
 
 
@@ -283,6 +309,24 @@ EndFunction
 float Function SliderSet_GetMorphPercentage(int idxSliderSet)
 	SliderSet this = SliderSets[idxSliderSet]
 	return this.BaseMorph + this.CurrentMorph
+EndFunction
+
+
+Slider[] Function SliderSet_GetBaseMorphs(int idxSliderSet)
+	SliderSet this = SliderSets[idxSliderSet]
+	If (this.OnlyDoctorCanReset && this.IsAdditive && this.BaseMorph != 0.0)
+		Slider[] baseMorphs = new Slider[0]
+		int sliderNameOffset = GetSliderNameOffset(this.Index)
+		int idxSlider = 0
+		While (idxSlider < this.NumberOfSliderNames)
+			Slider baseMorph = new Slider
+			Slider slider = Sliders[sliderNameOffset + idxSlider]
+			baseMorph.Name = slider.Name
+			baseMorph.Value = slider.Value + this.BaseMorph * this.TargetMorph
+			baseMorphs.Add(baseMorph)
+			idxSlider += 1
+		EndWhile
+	EndIf
 EndFunction
 
 

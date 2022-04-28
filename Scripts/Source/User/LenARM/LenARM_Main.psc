@@ -39,6 +39,8 @@ EndGroup
 Group EnumTimerId
 	int Property ETimerMorph = 1 Auto Const
 	{timer for applying morphs}
+	int Property ETimerShutdownRestoreMorphs = 2 Auto Const
+	{timer for restoring original morphs on shutdown}
 EndGroup
 
 Group EnumSex
@@ -106,12 +108,14 @@ EndFunction
 Event OnQuestInit()
 	D.Log("OnQuestInit")
 	RegisterForExternalEvent("OnMCMSettingChange|LenA_RadMorphing", "OnMCMSettingChange")
+	RegisterForRemoteEvent(Player, "OnPlayerLoadGame")
 	Startup()
 EndEvent
 
 Event OnQuestShutdown()
 	D.Log("OnQuestShutdown")
 	UnregisterForExternalEvent("OnMCMSettingChange|LenA_RadMorphing")
+	UnregisterForRemoteEvent(Player, "OnPlayerLoadGame")
 	Shutdown()
 EndEvent
 
@@ -130,6 +134,8 @@ EndEvent
 Event OnTimer(int timerId)
 	If (timerId == ETimerMorph)
 		ApplyPeriodicMorphs()
+	ElseIf (timerId == ETimerShutdownRestoreMorphs)
+		ShutdownRestoreMorphs()
 	EndIf
 EndEvent
 
@@ -162,7 +168,6 @@ EndFunction
 ;
 Function Startup()
 	D.Log("Startup")
-	RegisterForRemoteEvent(Player, "OnPlayerLoadGame")
 	If (MCM.GetModSettingBool("LenA_RadMorphing", "bIsEnabled:General"))
 		; mod is enabled in MCM: start setting everything up
 		D.Log("  is enabled")
@@ -180,13 +185,16 @@ Function Startup()
 		;TODO listen for item equip
 		;TODO listen for combat state (helper script/quest?)
 		;TODO prepare companion arrays --> handled in SliderSet
-		;TODO reapply base morphs (additive morphing)
+
+		; reapply base morphs (additive morphing)
+		ApplyBaseMorphs()
 		
-		; start timer
+		; start timer for periodic updates
 		ApplyPeriodicMorphs()
-		; listen for sleep events
+		; listen for sleep events, for on sleep updates
 		RegisterForPlayerSleep()
 
+		; notify plugins that mod is running
 		SendCustomEvent("OnStartup")
 	ElseIf (MCM.GetModSettingBool("LenA_RadMorphing", "bWarnDisabled:General"))
 		; mod is disabled in MCM, warning is enabled: let the player know that the mod is disabled
@@ -202,15 +210,38 @@ EndFunction
 ;
 ; Stop the mod.
 ;
-Function Shutdown()
+Function Shutdown(bool withRestoreMorphs=true)
 	If (!IsShuttingDown)
 		D.Log("Shutdown")
 		IsShuttingDown = true
+		
+		; notify plugins that mod has stopped
 		SendCustomEvent("OnShutdown")
-		UnregisterForRemoteEvent(Player, "OnPlayerLoadGame")
+
+		; stop listening for sleep events
 		UnregisterForPlayerSleep()
-		FinishShutdown()
+
+		; stop timer
+		CancelTimer(ETimerMorph)
+
+		;TODO stop listening for equipping items
+		
+		;TODO stop listening for doctor scenes
+
+		;TODO stop listening for combat state
+
+		If (withRestoreMorphs)
+			StartTimer(Math.Max(UpdateDelay + 0.5, 2.0), ETimerShutdownRestoreMorphs)
+		Else
+			FinishShutdown()
+		EndIf
 	EndIf
+EndFunction
+
+Function ShutdownRestoreMorphs()
+	D.Log("ShutdownRestoreMorphs")
+	RestoreOriginalMorphs()
+	FinishShutdown()
 EndFunction
 
 ;
@@ -328,10 +359,10 @@ EndFunction
 Function ApplyMorphUpdates(LenARM_SliderSet:Slider[] updates)
 	If (updates.Length > 0)
 		D.Log("ApplyMorphUpdates: " + updates)
+		int sex = Player.GetLeveledActorBase().GetSex()
 		int idxUpdate = 0
 		While (idxUpdate < updates.Length)
 			LenARM_SliderSet:Slider update = updates[idxUpdate]
-			int sex = Player.GetLeveledActorBase().GetSex()
 			BodyGen.SetMorph(Player, sex==ESexFemale, update.Name, kwMorph, update.Value)
 			idxUpdate += 1
 		EndWhile
@@ -340,6 +371,36 @@ Function ApplyMorphUpdates(LenARM_SliderSet:Slider[] updates)
 		eventArgs[0] = GetMorphPercentage()
 		SendCustomEvent("OnMorphChange", eventArgs)
 	EndIf
+EndFunction
+
+
+Function ApplyBaseMorphs()
+	D.Log("ApplyBaseMorphs")
+	int sex = Player.GetLeveledActorBase().GetSex()
+	LenARM_SliderSet:Slider[] baseMorphs = SliderSets.GetBaseMorphs()
+	If (baseMorphs.Length > 0)
+		int idxSlider = 0
+		While (idxSlider < baseMorphs.Length)
+			LenARM_SliderSet:Slider slider = baseMorphs[idxSlider]
+			BodyGen.SetMorph(Player, sex==ESexFemale, slider.Name, kwMorph, slider.Value)
+			idxSlider += 1
+		EndWhile
+		BodyGen.UpdateMorphs(Player)
+	EndIf
+EndFunction
+
+
+Function RestoreOriginalMorphs()
+	D.Log("RestoreOriginalMorphs")
+	int sex = Player.GetLeveledActorBase().GetSex()
+	LenARM_SliderSet:Slider[] sliders = SliderSets.GetSliders()
+	int idxSlider = 0
+	While (idxSlider < sliders.Length)
+		LenARM_SliderSet:Slider slider = sliders[idxSlider]
+		BodyGen.SetMorph(Player, sex==ESexFemale, slider.Name, kwMorph, slider.Value)
+		idxSlider += 1
+	EndWhile
+	BodyGen.UpdateMorphs(Player)
 EndFunction
 
 
