@@ -217,7 +217,7 @@ Function Startup()
 		MCM_TriggerNames.Add("-- SELECT A TRIGGER --")
 		int idxSliderSet = 0
 		While (idxSliderSet < NumberOfSliderSets)
-			MCM.SetModSettingInt("LenA_RadMorphing", "iTriggerNameIndex:Slider" + idxSliderSet, -1)
+			MCM.SetModSettingInt("LenA_RadMorphing", "iTriggerNameIndex:Slider" + idxSliderSet, 0)
 			idxSliderSet += 1
 		EndWhile
 
