@@ -22,6 +22,12 @@ Group EnumApplyCompanion
 	int Property EApplyCompanionAll = 3 Auto Const
 EndGroup
 
+Group EnumOverrideBool
+	int Property EOverrideBoolNoOverride = 0 Auto Const
+	int Property EOverrideBoolTrue = 1 Auto Const
+	int Property EOverrideBoolFalse = 2 Auto Const
+EndGroup
+
 
 
 
@@ -371,6 +377,13 @@ EndFunction
 ;
 Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	D.Log("LoadSliderSets")
+	
+	; get overrides from MCM
+	int overrideOnlyDoctorCanReset = MCM.GetModSettingInt("LenA_RadMorphing", "iOnlyDoctorCanReset:Override")
+	int overrideIsAdditive = MCM.GetModSettingInt("LenA_RadMorphing", "iIsAdditive:Override")
+	int overrideHasAdditiveLimit = MCM.GetModSettingInt("LenA_RadMorphing", "iHasAdditiveLimit:Override")
+	float overrideAdditiveLimit = MCM.GetModSettingFloat("LenA_RadMorphing", "fAdditiveLimit:Override")
+
 	; create empty arrays
 	If (!SliderSets)
 		SliderSets = new SliderSet[0]
@@ -403,6 +416,15 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 			; keep BaseMorph and CurrentMorph from existing SliderSet
 			newSet.BaseMorph = oldSet.BaseMorph
 			newset.CurrentMorph = oldSet.CurrentMorph
+		EndIf
+
+		; apply overrides
+		If (overrideOnlyDoctorCanReset != EOverrideBoolNoOverride)
+			newSet.OnlyDoctorCanReset = overrideOnlyDoctorCanReset == EOverrideBoolTrue
+		EndIf
+		If (overrideHasAdditiveLimit != EOverrideBoolNoOverride)
+			newSet.HasAdditiveLimit = overrideHasAdditiveLimit == EOverrideBoolTrue
+			newSet.AdditiveLimit = overrideAdditiveLimit
 		EndIf
 
 		; populate flattened arrays
