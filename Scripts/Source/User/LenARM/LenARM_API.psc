@@ -54,7 +54,8 @@ Event LenARM:LenARM_Main.OnShutdown(LenARM:LenARM_Main sender, var[] args)
 	SendCustomEvent("OnShutdown")
 EndEvent
 
-Event LenARM:LenARM_Main.OnMorphChange(LenARM:LenARM_Main sender, Var[] args)
+Event LenARM:LenARM_Main.OnMorphChange(LenARM:LenARM_Main sender, var[] args)
+	D.Log("API.OnMorphChange: " + args)
 	SendCustomEvent("OnMorphChange", args)
 EndEvent
 

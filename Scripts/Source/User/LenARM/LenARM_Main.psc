@@ -336,6 +336,9 @@ Function ApplyMorphUpdates(LenARM_SliderSet:Slider[] updates)
 			idxUpdate += 1
 		EndWhile
 		BodyGen.UpdateMorphs(Player)
+		var[] eventArgs = new var[1]
+		eventArgs[0] = GetMorphPercentage()
+		SendCustomEvent("OnMorphChange", eventArgs)
 	EndIf
 EndFunction
 
