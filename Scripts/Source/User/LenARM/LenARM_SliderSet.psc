@@ -263,7 +263,7 @@ Slider[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 	SliderSet this = SliderSets[idxSliderSet]
 	Slider[] updates = new Slider[0]
 	; check whether SliderSet is in use and whether a new / unapplied trigger value is available
-	If (this.IsUsed && (this.HasNewTriggerValue))
+	If (this.IsUsed && this.HasNewTriggerValue)
 		D.Log("SliderSet_CalculateMorphUpdates: " + this.Index)
 		; calculate new morph value based on trigger value and thresholds
 		float newMorph
