@@ -457,7 +457,7 @@ EndFunction
 Function ApplyImmediateMorphs()
 	D.Log("ApplyImmediateMorphs")
 	LenARM_SliderSet:Slider[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypeImmediate)
-	D.Log(" updates: " + updates)
+	D.Log("  updates: " + updates)
 
 	ApplyMorphUpdates(updates)
 EndFunction

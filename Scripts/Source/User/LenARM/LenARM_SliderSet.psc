@@ -404,6 +404,7 @@ EndFunction
 
 ;
 ; Get the list of base morphs (sliderName:currentBaseMorphValue) for SliderSet number @idxSliderSet.
+;
 Slider[] Function SliderSet_GetBaseMorphs(int idxSliderSet)
 	SliderSet this = SliderSets[idxSliderSet]
 	If (this.OnlyDoctorCanReset && this.IsAdditive && this.BaseMorph != 0.0)
