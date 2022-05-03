@@ -314,6 +314,33 @@ Slider[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 	return updates
 EndFunction
 
+Function SliderSet_Print(int idxSliderSet)
+	D.Log("SliderSet_Print: " + idxSliderSet)
+	SliderSet this = SliderSets[idxSliderSet]
+	D.Log("  Index: " + this.Index)
+	D.Log("  IsUsed: " + this.IsUsed)
+	D.Log("  SliderName: " + this.SliderName)
+	D.Log("  TriggerName: " + this.TriggerName)
+	D.Log("  UpdateType: " + this.UpdateType)
+	D.Log("  TargetMorph: " + this.TargetMorph)
+	D.Log("  ThresholdMin: " + this.ThresholdMin)
+	D.Log("  ThresholdMax: " + this.ThresholdMax)
+	D.Log("  UnequipSlot: " + this.UnequipSlot)
+	D.Log("  ThresholdUnequip: " + this.ThresholdUnequip)
+	D.Log("  ApplyCompanion: " + this.ApplyCompanion)
+	D.Log("  OnlyDoctorCanReset: " + this.OnlyDoctorCanReset)
+	D.Log("  IsAdditive: " + this.IsAdditive)
+	D.Log("  HasAdditiveLimit: " + this.HasAdditiveLimit)
+	D.Log("  AdditiveLimit: " + this.AdditiveLimit)
+	D.Log("  NumberOfSliderNames: " + this.NumberOfSliderNames)
+	D.Log("  NumberOfUnequipSlots: " + this.NumberOfUnequipSlots)
+	D.Log("  BaseMorph: " + this.BaseMorph)
+	D.Log("  CurrentMorph: " + this.CurrentMorph)
+	D.Log("  FullMorph: " + this.FullMorph)
+	D.Log("  CurrentTriggerValue: " + this.CurrentTriggerValue)
+	D.Log("  NewTriggerValue: " + this.NewTriggerValue)
+	D.Log("  HasNewTriggerValue: " + this.HasNewTriggerValue)
+EndFunction
 
 
 ;
