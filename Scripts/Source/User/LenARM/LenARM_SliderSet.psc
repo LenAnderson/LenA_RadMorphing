@@ -497,6 +497,9 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 		If (overrideOnlyDoctorCanReset != EOverrideBoolNoOverride)
 			newSet.OnlyDoctorCanReset = overrideOnlyDoctorCanReset == EOverrideBoolTrue
 		EndIf
+		If (overrideIsAdditive != EOverrideBoolNoOverride)
+			newSet.IsAdditive = overrideIsAdditive == EOverrideBoolTrue
+		EndIf
 		If (overrideHasAdditiveLimit != EOverrideBoolNoOverride)
 			newSet.HasAdditiveLimit = overrideHasAdditiveLimit == EOverrideBoolTrue
 			newSet.AdditiveLimit = overrideAdditiveLimit
