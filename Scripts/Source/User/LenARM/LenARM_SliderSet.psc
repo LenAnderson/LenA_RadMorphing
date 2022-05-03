@@ -457,7 +457,7 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	int overrideOnlyDoctorCanReset = MCM.GetModSettingInt("LenA_RadMorphing", "iOnlyDoctorCanReset:Override")
 	int overrideIsAdditive = MCM.GetModSettingInt("LenA_RadMorphing", "iIsAdditive:Override")
 	int overrideHasAdditiveLimit = MCM.GetModSettingInt("LenA_RadMorphing", "iHasAdditiveLimit:Override")
-	float overrideAdditiveLimit = MCM.GetModSettingFloat("LenA_RadMorphing", "fAdditiveLimit:Override")
+	float overrideAdditiveLimit = MCM.GetModSettingFloat("LenA_RadMorphing", "fAdditiveLimit:Override") / 100.0
 
 	; create empty arrays
 	If (!SliderSets)
