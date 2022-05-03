@@ -256,6 +256,9 @@ Function SliderSet_SetTriggerValue(int idxSliderSet, string triggerName, float v
 EndFunction
 
 
+;
+; Get the list of morph updates (sliderName:newValue) for SliderSet number @idxSliderSet.
+;
 Slider[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 	SliderSet this = SliderSets[idxSliderSet]
 	Slider[] updates = new Slider[0]
@@ -312,17 +315,30 @@ Slider[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 EndFunction
 
 
+;
+; Get the percentage of morphs (base + current) currently applied for SliderSet number @idxSliderSet.
+; Relative to lower and upper threshold.
+; 
+; When SliderSet.TargetMorph has been reached, morph percentage is 100% (=1.0).
+; With additive morphing the value may go above 100%.
+;
 float Function SliderSet_GetMorphPercentage(int idxSliderSet)
 	SliderSet this = SliderSets[idxSliderSet]
 	return this.BaseMorph + this.CurrentMorph
 EndFunction
 
+;
+; Get the percentage of base morphs (permanent morphs) currently applied for SliderSet number @idxSliderSet.
+; Relative to lower and upper threshold.
+;
 float Function SliderSet_GetBaseMorphPercentage(int idxSliderSet)
 	SliderSet this = SliderSets[idxSliderSet]
 	return this.BaseMorph
 EndFunction
 
 
+;
+; Get the list of base morphs (sliderName:currentBaseMorphValue) for SliderSet number @idxSliderSet.
 Slider[] Function SliderSet_GetBaseMorphs(int idxSliderSet)
 	SliderSet this = SliderSets[idxSliderSet]
 	If (this.OnlyDoctorCanReset && this.IsAdditive && this.BaseMorph != 0.0)
@@ -505,6 +521,9 @@ Function SetTriggerValue(string triggerName, float value)
 EndFunction
 
 
+;
+; Get the list of morph updates (sliderName:newValue) for all SliderSets with @updateType.
+;
 Slider[] Function CalculateMorphUpdates(int updateType)
 	Slider[] updates = new Slider[0]
 	int idxSliderSet = 0
@@ -526,6 +545,13 @@ Slider[] Function CalculateMorphUpdates(int updateType)
 EndFunction
 
 
+;
+; Get the total (max) percentage of morphs (base + current) currently applied for all SliderSets.
+; Relative to lower and upper threshold.
+; 
+; When SliderSet.TargetMorph has been reached, morph percentage is 100% (=1.0).
+; With additive morphing the value may go above 100%.
+;
 float Function GetMorphPercentage()
 	float morph = 0.0
 	int idxSliderSet = 0
@@ -537,7 +563,7 @@ float Function GetMorphPercentage()
 EndFunction
 
 ;
-; Get the amount of base morphs (permanent morphs)
+; Get the amount of base morphs (permanent morphs) for all SliderSets.
 ;
 float Function GetBaseMorphPercentage()
 	float morph = 0.0

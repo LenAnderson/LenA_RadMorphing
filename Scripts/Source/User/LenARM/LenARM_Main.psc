@@ -403,11 +403,22 @@ bool Function AddTriggerName(string triggerName)
 EndFunction
 
 
+;
+; Get the total (max) percentage of morphs (base + current) currently applied.
+; Relative to lower and upper threshold.
+; 
+; When SliderSet.TargetMorph has been reached, morph percentage is 100% (=1.0).
+; With additive morphing the value may go above 100%.
+;
 float Function GetMorphPercentage()
 	D.Log("GetMorphPercentage")
 	return SliderSets.GetMorphPercentage()
 EndFunction
 
+;
+; Get the total (max) percentage of base morphs (permanent morphs) currently applied.
+; Relative to lower and upper threshold.
+;
 float Function GetBaseMorphPercentage()
 	D.Log("GetBaseMorphPercentage")
 	return SliderSets.GetBaseMorphPercentage()
@@ -424,8 +435,8 @@ Function SetTriggerValue(string triggerName, float value)
 EndFunction
 
 ;
-; Applies morphs immediately when the trigger value changes.
-; This is used when UpdateType is set to EUpdateTypeImmediate
+; Apply morphs immediately when the trigger value changes.
+; This is used when UpdateType is set to EUpdateTypeImmediate.
 ;
 Function ApplyImmediateMorphs()
 	D.Log("ApplyImmediateMorphs")
@@ -436,8 +447,8 @@ Function ApplyImmediateMorphs()
 EndFunction
 
 ;
-; Applies morphs at regular intervals.
-; This is used when UpdateType is set to EUpdateTypePeriodic
+; Apply morphs at regular intervals.
+; This is used when UpdateType is set to EUpdateTypePeriodic.
 ;
 Function ApplyPeriodicMorphs()
 	D.Log("ApplyPeriodicMorphs")
@@ -454,8 +465,8 @@ EndFunction
 
 
 ;
-; Applies morphs after sleeping.
-; This is used when UpdateType is set to EUpdateTypeOnSleep
+; Apply morphs after sleeping.
+; This is used when UpdateType is set to EUpdateTypeOnSleep.
 ;
 Function ApplySleepMorphs()
 	D.Log("ApplySleepMorphs")
@@ -466,6 +477,9 @@ Function ApplySleepMorphs()
 EndFunction
 
 
+;
+; Apply a list of morph updates (sliderName:newValue) through BodyGen.
+;
 Function ApplyMorphUpdates(LenARM_SliderSet:Slider[] updates)
 	If (updates.Length > 0)
 		D.Log("ApplyMorphUpdates: " + updates)
@@ -484,6 +498,9 @@ Function ApplyMorphUpdates(LenARM_SliderSet:Slider[] updates)
 EndFunction
 
 
+;
+; Apply base morphs (permanent morphs) through BodyGen.
+;
 Function ApplyBaseMorphs()
 	D.Log("ApplyBaseMorphs")
 	int sex = Player.GetLeveledActorBase().GetSex()
@@ -500,6 +517,9 @@ Function ApplyBaseMorphs()
 EndFunction
 
 
+;
+; Restore the original (unmorphed) slider values through BodyGen.
+;
 Function RestoreOriginalMorphs()
 	D.Log("RestoreOriginalMorphs")
 	int sex = Player.GetLeveledActorBase().GetSex()
