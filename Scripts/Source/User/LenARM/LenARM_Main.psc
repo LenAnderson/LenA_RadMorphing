@@ -16,6 +16,9 @@ Group Properties
 	Scene Property DoctorMedicineScene02_Exam Auto Const
 	{examining part of a doctor dialogue scene}
 
+	MiscObject Property Caps Auto Const
+	{caps (currency)}
+
 	Faction Property CurrentCompanionFaction Auto Const
 	{one of the factions used to find companions}
 	Faction Property PlayerAllyFaction Auto Const
@@ -165,7 +168,7 @@ Event Scene.OnBegin(Scene akSender)
 		HealMorphMessageShown = true
 		float baseMorphs = GetBaseMorphPercentage() * 100.0
 		float morphs = GetMorphPercentage() * 100.0
-		float cost = baseMorphs * 10.0
+		int cost = (baseMorphs * 10.0) as int
 		D.Log("    morphs:     " + morphs + "%")
 		D.Log("    baseMorphs: " + baseMorphs + "%")
 		D.Log("    cost:       " + cost + " caps")
@@ -173,6 +176,17 @@ Event Scene.OnBegin(Scene akSender)
 		D.Log("    choice: " + choice)
 		If (choice == EHealMorphChoiceYes)
 			D.Log("      -> heal morphs")
+			int capsCount = Player.GetItemCount(caps)
+			If (capsCount >= cost)
+				D.Log("        -> healing")
+				;TODO how to heal DoctorOnly morphs without additive morphs?
+				HealBaseMorphs()
+				D.Log("        -> removing " + cost + " caps")
+				Player.RemoveItem(caps, cost)
+			Else
+				D.Log("        -> not enough caps (" + capsCount + " < " + cost + ")")
+				Debug.MessageBox("You don't have enough caps.")
+			EndIf
 		ElseIf (choice == EHealMorphChoiceNo)
 			D.Log("      -> don't heal morphs")
 		Else
@@ -533,6 +547,18 @@ Function RestoreOriginalMorphs()
 		idxSlider += 1
 	EndWhile
 	BodyGen.UpdateMorphs(Player)
+EndFunction
+
+
+;
+; Remove the base morphs (permanent morphs) through BodyGen.
+;
+Function HealBaseMorphs()
+	D.Log("HealBaseMorphs")
+	int sex = Player.GetLeveledActorBase().GetSex()
+	SliderSets.ClearBaseMorphs()
+	LenARM_SliderSet:Slider[] fullMorphs = SliderSets.CalculateFullMorphs()
+	ApplyMorphUpdates(fullMorphs)
 EndFunction
 
 

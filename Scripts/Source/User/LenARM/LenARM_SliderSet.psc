@@ -315,6 +315,44 @@ Slider[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 EndFunction
 
 
+
+;
+; Get the list of full morphs based on a CurrentMorph and BaseMorph
+;
+Slider[] Function SliderSet_CalculateFullMorphs(int idxSliderSet)
+	D.Log("SliderSet_CalculateFullMorphs: " + idxSliderSet)
+	SliderSet this = SliderSets[idxSliderSet]
+	Slider[] updates = new Slider[0]
+	float newMorph = this.CurrentMorph
+	float fullMorph = newMorph
+	; add base morph if SliderSet is additive
+	If (this.IsAdditive)
+		fullMorph += this.BaseMorph
+		If (this.HasAdditiveLimit)
+			fullMorph = Math.Min(fullMorph, 1.0 + this.AdditiveLimit)
+		EndIf
+	EndIf
+	D.Log("  morph " + this.Index + ": newMorph=" + newMorph + " -> fullMorph=" + fullMorph + "  TargetMorph=" + this.TargetMorph)
+	If (this.FullMorph != fullMorph)
+		this.FullMorph = fullMorph
+		int sliderNameOffset = GetSliderNameOffset(this.Index)
+		int idxSlider = 0
+		While (idxSlider < this.NumberOfSliderNames)
+			Slider update = new Slider
+			Slider slider = Sliders[sliderNameOffset + idxSlider]
+			update.Name = slider.Name
+			D.Log("    slider.Value=" + slider.Value + "  fullMorph=" + fullMorph + "  this.TargetMorph=" + this.TargetMorph)
+			D.Log("      -> " + slider.Value + " + " + (fullMorph * this.TargetMorph) + " = " + (slider.Value + fullMorph * this.TargetMorph))
+			update.Value = slider.Value + fullMorph * this.TargetMorph
+			D.Log("      -> " + update)
+			updates.Add(update)
+			idxSlider += 1
+		EndWhile
+	EndIf
+	return updates
+EndFunction
+
+
 ;
 ; Get the percentage of morphs (base + current) currently applied for SliderSet number @idxSliderSet.
 ; Relative to lower and upper threshold.
@@ -354,6 +392,15 @@ Slider[] Function SliderSet_GetBaseMorphs(int idxSliderSet)
 			idxSlider += 1
 		EndWhile
 	EndIf
+EndFunction
+
+
+;
+; Remove the BaseMorph for SliderSet number @idxSliderSet.
+;
+Function SliderSet_ClearBaseMorph(int idxSliderSet)
+	SliderSet this = SliderSets[idxSliderSet]
+	this.BaseMorph = 0
 EndFunction
 
 
@@ -573,4 +620,32 @@ float Function GetBaseMorphPercentage()
 		idxSliderSet += 1
 	EndWhile
 	return morph
+EndFunction
+
+
+Function ClearBaseMorphs()
+	Slider[] updates = new Slider[0]
+	int idxSliderSet = 0
+	While (idxSliderSet < SliderSets.Length)
+		SliderSet_ClearBaseMorph(idxSliderSet)
+		idxSliderSet += 1
+	EndWhile
+EndFunction
+
+
+Slider[] Function CalculateFullMorphs()
+	Slider[] updates = new Slider[0]
+	int idxSliderSet = 0
+	While (idxSliderSet < SliderSets.Length)
+		Slider[] sliderSetUpdates = SliderSet_CalculateFullMorphs(idxSliderSet)
+		int idxUpdate = 0
+		While (idxUpdate < sliderSetUpdates.Length)
+			Slider update = sliderSetUpdates[idxUpdate]
+			updates.Add(update)
+			idxUpdate += 1
+		EndWhile
+		idxSliderSet += 1
+	EndWhile
+
+	return updates
 EndFunction
