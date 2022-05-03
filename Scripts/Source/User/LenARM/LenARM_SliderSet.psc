@@ -274,33 +274,12 @@ Slider[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 		Else
 			newMorph = (this.NewTriggerValue - this.ThresholdMin) / (this.ThresholdMax - this.ThresholdMin)
 		EndIf
-		D.Log("  morph " + this.Index + ": " + this.CurrentMorph + " -> " + newMorph)
+		D.Log("  morph " + this.Index + ": CurrentMorph=" + this.CurrentMorph + " -> newMorph=" + newMorph)
 		; check whether new morph value is different from current value (or higher when only doctors can reset morphs)
 		If (newMorph > this.CurrentMorph || (!this.OnlyDoctorCanReset && newMorph != this.CurrentMorph))
-			float fullMorph = newMorph
-			; add base morph if SliderSet is additive
-			If (this.IsAdditive)
-				fullMorph += this.BaseMorph
-				If (this.HasAdditiveLimit)
-					fullMorph = Math.Min(fullMorph, 1.0 + this.AdditiveLimit)
-				EndIf
-			EndIf
-			D.Log("  morph " + this.Index + ": " + this.CurrentMorph + " -> " + newMorph + " -> " + fullMorph)
-			If (this.FullMorph != fullMorph)
-				this.FullMorph = fullMorph
-				int sliderNameOffset = GetSliderNameOffset(this.Index)
-				int idxSlider = 0
-				While (idxSlider < this.NumberOfSliderNames)
-					Slider update = new Slider
-					Slider slider = Sliders[sliderNameOffset + idxSlider]
-					update.Name = slider.Name
-					update.Value = slider.Value + this.FullMorph * this.TargetMorph
-					updates.Add(update)
-					idxSlider += 1
-				EndWhile
-			EndIf
 			this.CurrentMorph = newMorph
 			D.Log("  setting CurrentMorph " + this.Index + " to " + this.CurrentMorph)
+			updates = SliderSet_CalculateFullMorphs(this.Index)
 		ElseIf (this.IsAdditive)
 			this.BaseMorph += this.CurrentMorph - newMorph
 			D.Log("  setting BaseMorph " + this.Index + " to " + this.BaseMorph)
