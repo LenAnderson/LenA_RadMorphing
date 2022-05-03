@@ -521,15 +521,7 @@ Function ApplyBaseMorphs()
 	D.Log("ApplyBaseMorphs")
 	int sex = Player.GetLeveledActorBase().GetSex()
 	LenARM_SliderSet:Slider[] baseMorphs = SliderSets.GetBaseMorphs()
-	If (baseMorphs.Length > 0)
-		int idxSlider = 0
-		While (idxSlider < baseMorphs.Length)
-			LenARM_SliderSet:Slider slider = baseMorphs[idxSlider]
-			BodyGen.SetMorph(Player, sex==ESexFemale, slider.Name, kwMorph, slider.Value)
-			idxSlider += 1
-		EndWhile
-		BodyGen.UpdateMorphs(Player)
-	EndIf
+	ApplyMorphUpdates(baseMorphs)
 EndFunction
 
 
