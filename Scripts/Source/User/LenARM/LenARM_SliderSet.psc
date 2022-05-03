@@ -274,18 +274,94 @@ Slider[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 		Else
 			newMorph = (this.NewTriggerValue - this.ThresholdMin) / (this.ThresholdMax - this.ThresholdMin)
 		EndIf
-		D.Log("  morph " + this.Index + ": CurrentMorph=" + this.CurrentMorph + " -> newMorph=" + newMorph)
-		; check whether new morph value is different from current value (or higher when only doctors can reset morphs)
-		If (newMorph > this.CurrentMorph || (!this.OnlyDoctorCanReset && newMorph != this.CurrentMorph))
-			this.CurrentMorph = newMorph
-			D.Log("  setting CurrentMorph " + this.Index + " to " + this.CurrentMorph)
-			updates = SliderSet_CalculateFullMorphs(this.Index)
-		ElseIf (this.IsAdditive)
-			this.BaseMorph += this.CurrentMorph - newMorph
-			D.Log("  setting BaseMorph " + this.Index + " to " + this.BaseMorph)
-			this.CurrentMorph = newMorph
-			D.Log("  setting CurrentMorph " + this.Index + " to " + this.CurrentMorph)
+
+		string baseMorphUpdate =    "  BaseMorph:      " + this.BaseMorph + " -> "
+		string currentMorphUpdate = "  CurrentMorph:   " + this.CurrentMorph + " -> "
+		string fullMorphUpdate =    "  FullMorph:      " + this.FullMorph + " -> "
+		
+		bool updateFullMorph = false
+		If (this.OnlyDoctorCanReset)
+			If (this.IsAdditive)
+				; only doctors (base morphs), additive
+				D.Log("  only doctors (base morphs), additive")
+				If (newMorph > this.FullMorph)
+					; new morph is higher than all applied morphs
+					D.Log("  new morph is higher than all applied morphs")
+					; increase current morph, don't change base morph, apply
+					D.Log("  increase current morph, don't change base morph, apply")
+					this.CurrentMorph = newMorph
+					updateFullMorph = true
+				ElseIf (newMorph > this.CurrentMorph)
+					; new morph is lower than all applied morphs, but higher than the part linked to the previous trigger value
+					D.Log("  new morph is lower than all applied morphs, but higher than the part linked to the previous trigger value")
+					; increase current morph, don't change base morph, apply
+					D.Log("  increase current morph, don't change base morph, apply")
+					this.CurrentMorph = newMorph
+					updateFullMorph = true
+				Else
+					; new morph is lower than all applied morphs and lower then the part linked to the previous trigger value
+					D.Log("  new morph is lower than all applied morphs and lower then the part linked to the previous trigger value")
+					; decrease current morph, increase base morph, don't apply
+					D.Log("  decrease current morph, increase base morph, don't apply")
+					this.BaseMorph += this.CurrentMorph - newMorph
+					this.CurrentMorph = newMorph
+				EndIf
+			Else
+				; only doctors, not additive
+				D.Log("  only doctors, not additive")
+				If (newMorph > this.FullMorph)
+					; new morph is higher than all applied morphs
+					D.Log("  new morph is higher than all applied morphs")
+					; increase current morph, don't change base morph, apply
+					D.Log("  increase current morph, don't change base morph, apply")
+					this.CurrentMorph = newMorph
+					updateFullMorph = true
+				ElseIf (newMorph > this.CurrentMorph)
+					; new morph is lower than all applied morphs, but higher than the part linked to the previous trigger value
+					D.Log("  new morph is lower than all applied morphs, but higher than the part linked to the previous trigger value")
+					; increase current morph, decrease base morph, don't apply
+					D.Log("  increase current morph, decrease base morph, don't apply")
+					this.BaseMorph -= Math.Min(this.BaseMorph, newMorph - this.CurrentMorph)
+					this.CurrentMorph = newMorph
+				Else
+					; new morph is lower than all applied morphs and lower then the part linked to the previous trigger value
+					D.Log("  new morph is lower than all applied morphs and lower then the part linked to the previous trigger value")
+					; decrease current morph, increase base morph, don't apply
+					D.Log("  decrease current morph, increase base morph, don't apply")
+					this.BaseMorph += this.CurrentMorph - newMorph
+					this.CurrentMorph = newMorph
+				EndIf
+			EndIf
+		Else
+			; no base morphs
+			D.Log("  no base morphs")
+			If (newMorph != this.CurrentMorph)
+				; new morph is different than current morph
+				D.Log("  new morph is different than current morph")
+				; change current morph, apply
+				D.Log("  change current morph, apply")
+				this.CurrentMorph = newMorph
+				updateFullMorph = true
+			Else
+				; new morph is same as current morph
+				D.Log("  new morph is same as current morph")
+				; don't change current morph, don't apply
+				D.Log("  don't change current morph, don't apply")
+			EndIf
 		EndIf
+
+		If (updateFullMorph)
+			updates = SliderSet_CalculateFullMorphs(this.Index)
+		EndIf
+
+		baseMorphUpdate += this.BaseMorph
+		currentMorphUpdate += this.CurrentMorph
+		fullMorphUpdate += this.FullMorph
+		D.Log("  TargetMorph:    " + this.TargetMorph)
+		D.Log(baseMorphUpdate)
+		D.Log(currentMorphUpdate)
+		D.Log(fullMorphUpdate)
+
 		this.CurrentTriggerValue = this.NewTriggerValue
 		this.HasNewTriggerValue = false
 	EndIf
@@ -331,26 +407,27 @@ Slider[] Function SliderSet_CalculateFullMorphs(int idxSliderSet)
 	Slider[] updates = new Slider[0]
 	float newMorph = this.CurrentMorph
 	float fullMorph = newMorph
-	; add base morph if SliderSet is additive
-	If (this.IsAdditive)
+
+	If (this.OnlyDoctorCanReset)
 		fullMorph += this.BaseMorph
-		If (this.HasAdditiveLimit)
+		If (this.IsAdditive && this.HasAdditiveLimit)
 			fullMorph = Math.Min(fullMorph, 1.0 + this.AdditiveLimit)
+			D.Log("  additive limit: " + this.AdditiveLimit)
 		EndIf
 	EndIf
-	D.Log("  morph " + this.Index + ": newMorph=" + newMorph + " -> fullMorph=" + fullMorph + "  TargetMorph=" + this.TargetMorph)
+
 	If (this.FullMorph != fullMorph)
 		this.FullMorph = fullMorph
 		int sliderNameOffset = GetSliderNameOffset(this.Index)
 		int idxSlider = 0
+		float fullMorphValue = fullMorph * this.TargetMorph
+		D.Log("  sliders:        " + this.SliderName)
 		While (idxSlider < this.NumberOfSliderNames)
 			Slider update = new Slider
 			Slider slider = Sliders[sliderNameOffset + idxSlider]
 			update.Name = slider.Name
-			D.Log("    slider.Value=" + slider.Value + "  fullMorph=" + fullMorph + "  this.TargetMorph=" + this.TargetMorph)
-			D.Log("      -> " + slider.Value + " + " + (fullMorph * this.TargetMorph) + " = " + (slider.Value + fullMorph * this.TargetMorph))
-			update.Value = slider.Value + fullMorph * this.TargetMorph
-			D.Log("      -> " + update)
+			D.Log("    slider value: " + slider.Value)
+			update.Value = slider.Value + fullMorphValue
 			updates.Add(update)
 			idxSlider += 1
 		EndWhile
