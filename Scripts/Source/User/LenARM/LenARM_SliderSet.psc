@@ -248,7 +248,7 @@ EndFunction
 ;
 Function SliderSet_SetTriggerValue(int idxSliderSet, string triggerName, float value)
 	SliderSet this = SliderSets[idxSliderSet]
-	If (this.TriggerName == triggerName && this.NewTriggerValue != value)
+	If (this.TriggerName == triggerName && this.NewTriggerValue != value && this.CurrentTriggerValue != value)
 		D.Log("  SliderSet" + this.Index + ": CurrentTriggerValue=" + this.CurrentTriggerValue + "  NewTriggerValue=" + this.NewTriggerValue + " -> " + value)
 		this.NewTriggerValue = value
 		this.HasNewTriggerValue = true
