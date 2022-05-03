@@ -12,7 +12,9 @@ Group Properties
 	{keyword required for looksmenu morphing}
 
 	Scene Property DoctorGreetScene Auto Const
+	{first part of a doctor dialogue scene: greeting}
 	Scene Property DoctorMedicineScene02_Exam Auto Const
+	{examining part of a doctor dialogue scene}
 
 	Faction Property CurrentCompanionFaction Auto Const
 	{one of the factions used to find companions}
