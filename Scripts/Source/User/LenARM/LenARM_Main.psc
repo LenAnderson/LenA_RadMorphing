@@ -239,8 +239,6 @@ Function Startup()
 		; load SliderSets
 		SliderSets.LoadSliderSets(NumberOfSliderSets, Player)
 
-		;TODO get global overrides from MCM --> apply these directly in SliderSet_Constructor
-
 		;TODO listen for item equip
 		
 		;TODO listen for combat state (helper script/quest?)
