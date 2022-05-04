@@ -206,7 +206,7 @@ EndFunction
 ; Create and return a new SliderSet with the MCM values for SliderSet number @idxSliderSet
 ;
 SliderSet Function SliderSet_Constructor(int idxSliderSet)
-	D.Log("SliderSet_Constructor: " + idxSliderSet)
+	D.Log("SliderSet.SliderSet_Constructor: " + idxSliderSet)
 	SliderSet this = new SliderSet
 	this.SliderName = MCM.GetModSettingString("LenA_RadMorphing", "sSliderName:Slider" + idxSliderSet)
 	If (this.SliderName != "")
@@ -264,7 +264,7 @@ Slider[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 	Slider[] updates = new Slider[0]
 	; check whether SliderSet is in use and whether a new / unapplied trigger value is available
 	If (this.IsUsed && this.HasNewTriggerValue)
-		D.Log("SliderSet_CalculateMorphUpdates: " + this.Index)
+		D.Log("SliderSet.SliderSet_CalculateMorphUpdates: " + this.Index)
 		; calculate new morph value based on trigger value and thresholds
 		float newMorph
 		If (this.NewTriggerValue < this.ThresholdMin)
@@ -370,7 +370,7 @@ Slider[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 EndFunction
 
 Function SliderSet_Print(int idxSliderSet)
-	D.Log("SliderSet_Print: " + idxSliderSet)
+	D.Log("SliderSet.SliderSet_Print: " + idxSliderSet)
 	SliderSet this = SliderSets[idxSliderSet]
 	D.Log("  Index: " + this.Index)
 	D.Log("  IsUsed: " + this.IsUsed)
@@ -402,7 +402,7 @@ EndFunction
 ; Get the list of full morphs based on a CurrentMorph and BaseMorph
 ;
 Slider[] Function SliderSet_CalculateFullMorphs(int idxSliderSet)
-	D.Log("SliderSet_CalculateFullMorphs: " + idxSliderSet)
+	D.Log("SliderSet.SliderSet_CalculateFullMorphs: " + idxSliderSet)
 	SliderSet this = SliderSets[idxSliderSet]
 	Slider[] updates = new Slider[0]
 	float newMorph = this.CurrentMorph
@@ -528,7 +528,7 @@ EndFunction
 ; Load all slider sets from MCM values and populate related arrays.
 ;
 Function LoadSliderSets(int numberOfSliderSets, Actor player)
-	D.Log("LoadSliderSets")
+	D.Log("SliderSet.LoadSliderSets")
 	
 	; get overrides from MCM
 	int overrideOnlyDoctorCanReset = MCM.GetModSettingInt("LenA_RadMorphing", "iOnlyDoctorCanReset:Override")
