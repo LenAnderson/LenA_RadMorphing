@@ -28,19 +28,19 @@
 	},
 	{
 		"text": "Update type",
-		"help": "Whether to update periodically, after sleeping, or immediately. Default: Periodically",
-		"type": "stepper",
+		"help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+		"type": "dropdown",
 		"id": "iUpdateType:Slider{{idx}}",
 		"valueOptions": {
 			"sourceType": "ModSettingInt",
-			"options": ["Periodically", "After sleeping", "Immediately"]
+			"options": ["Immediately", "Periodically", "After sleeping"]
 		}
 	},
 	{
 		"text--join(<br>)": [
+			"<b>Immediately:</b> Changes morphs the moment a trigger value changes.",
 			"<b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.",
-			"<b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor.",
-			"<b>Immediately:</b> Changes morphs the moment a trigger value changes."
+			"<b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
 		],
 		"type": "text",
 		"html": true
@@ -119,7 +119,7 @@
 	{
 		"text": "Apply to companions",
 		"help": "Applies this slider set to your companions (based on your rads).",
-		"type": "stepper",
+		"type": "dropdown",
 		"id": "iApplyCompanion:Slider{{idx}}",
 		"valueOptions": {
 			"sourceType": "ModSettingInt",

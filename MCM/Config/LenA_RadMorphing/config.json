@@ -62,7 +62,7 @@
                 {
                     "text": "Only doctors can reset morphs",
                     "help": "With this enabled only doctors can restore your base shape. Reducing rads with RadAway or other means will have no effect on the sliders.",
-                    "type": "stepper",
+                    "type": "dropdown",
                     "id": "iOnlyDoctorCanReset:Override",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
@@ -76,7 +76,7 @@
                 {
                     "text": "Additive morphing",
                     "help": "Enabled: rads gained after taking RadAway further increase morphs. Disabled: rads gained after taking RadAway only increase morphs if irradiation is higher than before taking RadAway.",
-                    "type": "stepper",
+                    "type": "dropdown",
                     "id": "iIsAdditive:Override",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
@@ -90,7 +90,7 @@
                 {
                     "text": "Limit additive morphing",
                     "help": "Disabled: Unlimited additive morphing. Use at own risk!",
-                    "type": "stepper",
+                    "type": "dropdown",
                     "id": "iHasAdditiveLimit:Override",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
@@ -202,22 +202,22 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update periodically, after sleeping, or immediately. Default: Periodically",
-                    "type": "stepper",
+                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "type": "dropdown",
                     "id": "iUpdateType:Slider0",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
                         "options": [
+                            "Immediately",
                             "Periodically",
-                            "After sleeping",
-                            "Immediately"
+                            "After sleeping"
                         ]
                     }
                 },
                 {
                     "type": "text",
                     "html": true,
-                    "text": "<b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor.<br><b>Immediately:</b> Changes morphs the moment a trigger value changes."
+                    "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
                 },
                 {
                     "text": "Target size increase",
@@ -289,7 +289,7 @@
                 {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "stepper",
+                    "type": "dropdown",
                     "id": "iApplyCompanion:Slider0",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
@@ -412,22 +412,22 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update periodically, after sleeping, or immediately. Default: Periodically",
-                    "type": "stepper",
+                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "type": "dropdown",
                     "id": "iUpdateType:Slider1",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
                         "options": [
+                            "Immediately",
                             "Periodically",
-                            "After sleeping",
-                            "Immediately"
+                            "After sleeping"
                         ]
                     }
                 },
                 {
                     "type": "text",
                     "html": true,
-                    "text": "<b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor.<br><b>Immediately:</b> Changes morphs the moment a trigger value changes."
+                    "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
                 },
                 {
                     "text": "Target size increase",
@@ -499,7 +499,7 @@
                 {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "stepper",
+                    "type": "dropdown",
                     "id": "iApplyCompanion:Slider1",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
@@ -622,22 +622,22 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update periodically, after sleeping, or immediately. Default: Periodically",
-                    "type": "stepper",
+                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "type": "dropdown",
                     "id": "iUpdateType:Slider2",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
                         "options": [
+                            "Immediately",
                             "Periodically",
-                            "After sleeping",
-                            "Immediately"
+                            "After sleeping"
                         ]
                     }
                 },
                 {
                     "type": "text",
                     "html": true,
-                    "text": "<b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor.<br><b>Immediately:</b> Changes morphs the moment a trigger value changes."
+                    "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
                 },
                 {
                     "text": "Target size increase",
@@ -709,7 +709,7 @@
                 {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "stepper",
+                    "type": "dropdown",
                     "id": "iApplyCompanion:Slider2",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
@@ -832,22 +832,22 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update periodically, after sleeping, or immediately. Default: Periodically",
-                    "type": "stepper",
+                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "type": "dropdown",
                     "id": "iUpdateType:Slider3",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
                         "options": [
+                            "Immediately",
                             "Periodically",
-                            "After sleeping",
-                            "Immediately"
+                            "After sleeping"
                         ]
                     }
                 },
                 {
                     "type": "text",
                     "html": true,
-                    "text": "<b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor.<br><b>Immediately:</b> Changes morphs the moment a trigger value changes."
+                    "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
                 },
                 {
                     "text": "Target size increase",
@@ -919,7 +919,7 @@
                 {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "stepper",
+                    "type": "dropdown",
                     "id": "iApplyCompanion:Slider3",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
@@ -1042,22 +1042,22 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update periodically, after sleeping, or immediately. Default: Periodically",
-                    "type": "stepper",
+                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "type": "dropdown",
                     "id": "iUpdateType:Slider4",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
                         "options": [
+                            "Immediately",
                             "Periodically",
-                            "After sleeping",
-                            "Immediately"
+                            "After sleeping"
                         ]
                     }
                 },
                 {
                     "type": "text",
                     "html": true,
-                    "text": "<b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor.<br><b>Immediately:</b> Changes morphs the moment a trigger value changes."
+                    "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
                 },
                 {
                     "text": "Target size increase",
@@ -1129,7 +1129,7 @@
                 {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "stepper",
+                    "type": "dropdown",
                     "id": "iApplyCompanion:Slider4",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
@@ -1252,22 +1252,22 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update periodically, after sleeping, or immediately. Default: Periodically",
-                    "type": "stepper",
+                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "type": "dropdown",
                     "id": "iUpdateType:Slider5",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
                         "options": [
+                            "Immediately",
                             "Periodically",
-                            "After sleeping",
-                            "Immediately"
+                            "After sleeping"
                         ]
                     }
                 },
                 {
                     "type": "text",
                     "html": true,
-                    "text": "<b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor.<br><b>Immediately:</b> Changes morphs the moment a trigger value changes."
+                    "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
                 },
                 {
                     "text": "Target size increase",
@@ -1339,7 +1339,7 @@
                 {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "stepper",
+                    "type": "dropdown",
                     "id": "iApplyCompanion:Slider5",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
@@ -1462,22 +1462,22 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update periodically, after sleeping, or immediately. Default: Periodically",
-                    "type": "stepper",
+                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "type": "dropdown",
                     "id": "iUpdateType:Slider6",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
                         "options": [
+                            "Immediately",
                             "Periodically",
-                            "After sleeping",
-                            "Immediately"
+                            "After sleeping"
                         ]
                     }
                 },
                 {
                     "type": "text",
                     "html": true,
-                    "text": "<b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor.<br><b>Immediately:</b> Changes morphs the moment a trigger value changes."
+                    "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
                 },
                 {
                     "text": "Target size increase",
@@ -1549,7 +1549,7 @@
                 {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "stepper",
+                    "type": "dropdown",
                     "id": "iApplyCompanion:Slider6",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
@@ -1672,22 +1672,22 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update periodically, after sleeping, or immediately. Default: Periodically",
-                    "type": "stepper",
+                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "type": "dropdown",
                     "id": "iUpdateType:Slider7",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
                         "options": [
+                            "Immediately",
                             "Periodically",
-                            "After sleeping",
-                            "Immediately"
+                            "After sleeping"
                         ]
                     }
                 },
                 {
                     "type": "text",
                     "html": true,
-                    "text": "<b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor.<br><b>Immediately:</b> Changes morphs the moment a trigger value changes."
+                    "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
                 },
                 {
                     "text": "Target size increase",
@@ -1759,7 +1759,7 @@
                 {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "stepper",
+                    "type": "dropdown",
                     "id": "iApplyCompanion:Slider7",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
@@ -1882,22 +1882,22 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update periodically, after sleeping, or immediately. Default: Periodically",
-                    "type": "stepper",
+                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "type": "dropdown",
                     "id": "iUpdateType:Slider8",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
                         "options": [
+                            "Immediately",
                             "Periodically",
-                            "After sleeping",
-                            "Immediately"
+                            "After sleeping"
                         ]
                     }
                 },
                 {
                     "type": "text",
                     "html": true,
-                    "text": "<b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor.<br><b>Immediately:</b> Changes morphs the moment a trigger value changes."
+                    "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
                 },
                 {
                     "text": "Target size increase",
@@ -1969,7 +1969,7 @@
                 {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "stepper",
+                    "type": "dropdown",
                     "id": "iApplyCompanion:Slider8",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
@@ -2092,22 +2092,22 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update periodically, after sleeping, or immediately. Default: Periodically",
-                    "type": "stepper",
+                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "type": "dropdown",
                     "id": "iUpdateType:Slider9",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",
                         "options": [
+                            "Immediately",
                             "Periodically",
-                            "After sleeping",
-                            "Immediately"
+                            "After sleeping"
                         ]
                     }
                 },
                 {
                     "type": "text",
                     "html": true,
-                    "text": "<b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor.<br><b>Immediately:</b> Changes morphs the moment a trigger value changes."
+                    "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
                 },
                 {
                     "text": "Target size increase",
@@ -2179,7 +2179,7 @@
                 {
                     "text": "Apply to companions",
                     "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "stepper",
+                    "type": "dropdown",
                     "id": "iApplyCompanion:Slider9",
                     "valueOptions": {
                         "sourceType": "ModSettingInt",

@@ -7,12 +7,12 @@ Group LenARM
 EndGroup
 
 Group EnumUpdateType
-	int Property EUpdateTypePeriodic = 0 Auto Const
-	{update each time the morph timer is up}
-	int Property EUpdateTypeOnSleep = 1 Auto Const
-	{update after sleeping}
-	int Property EUpdateTypeImmediate = 2 Auto Const
+	int Property EUpdateTypeImmediate = 0 Auto Const
 	{update immediately when the trigger value changes}
+	int Property EUpdateTypePeriodic = 1 Auto Const
+	{update each time the morph timer is up}
+	int Property EUpdateTypeOnSleep = 2 Auto Const
+	{update after sleeping}
 EndGroup
 
 Group EnumApplyCompanion
