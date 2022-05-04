@@ -179,7 +179,6 @@ Event Scene.OnBegin(Scene akSender)
 			int capsCount = Player.GetItemCount(caps)
 			If (capsCount >= cost)
 				D.Log("        -> healing")
-				;TODO how to heal DoctorOnly morphs without additive morphs?
 				HealBaseMorphs()
 				D.Log("        -> removing " + cost + " caps")
 				Player.RemoveItem(caps, cost)
