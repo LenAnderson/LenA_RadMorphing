@@ -163,34 +163,10 @@ Event Scene.OnBegin(Scene akSender)
 	If (akSender == DoctorGreetScene)
 		D.Log("  DoctorGreetScene --> setting HealMorphMessageShown to false")
 		HealMorphMessageShown = false
-	ElseIf (!HealMorphMessageShown && akSender == DoctorMedicineScene02_Exam)
+	ElseIf (SliderSets.HasDoctorOnly() && !HealMorphMessageShown && akSender == DoctorMedicineScene02_Exam)
 		D.Log("  DoctorMedicineScene02_Exam --> setting HealMorphMessageShown to true")
 		HealMorphMessageShown = true
-		float baseMorphs = GetBaseMorphPercentage() * 100.0
-		float morphs = GetMorphPercentage() * 100.0
-		int cost = (baseMorphs * 10.0) as int
-		D.Log("    morphs:     " + morphs + "%")
-		D.Log("    baseMorphs: " + baseMorphs + "%")
-		D.Log("    cost:       " + cost + " caps")
-		int choice = HealMorphMessage.Show(morphs, baseMorphs, cost)
-		D.Log("    choice: " + choice)
-		If (choice == EHealMorphChoiceYes)
-			D.Log("      -> heal morphs")
-			int capsCount = Player.GetItemCount(caps)
-			If (capsCount >= cost)
-				D.Log("        -> healing")
-				HealBaseMorphs()
-				D.Log("        -> removing " + cost + " caps")
-				Player.RemoveItem(caps, cost)
-			Else
-				D.Log("        -> not enough caps (" + capsCount + " < " + cost + ")")
-				Debug.MessageBox("You don't have enough caps.")
-			EndIf
-		ElseIf (choice == EHealMorphChoiceNo)
-			D.Log("      -> don't heal morphs")
-		Else
-			D.Log("      -> unknown choice")
-		EndIf
+		ShowHealMorphDialog()
 	EndIf
 EndEvent
 
@@ -538,6 +514,39 @@ Function RestoreOriginalMorphs()
 	BodyGen.UpdateMorphs(Player)
 EndFunction
 
+
+;
+; Interrupts doctor exam scene and shows morph healing dialog when the player has base morphs.
+;
+Function ShowHealMorphDialog()
+	float baseMorphs = GetBaseMorphPercentage() * 100.0
+	If (baseMorphs > 0.0)
+		float morphs = GetMorphPercentage() * 100.0
+		int cost = (baseMorphs * 10.0) as int
+		int capsCount = Player.GetItemCount(caps)
+		D.Log("    morphs:     " + morphs + "%")
+		D.Log("    baseMorphs: " + baseMorphs + "%")
+		D.Log("    cost:       " + cost + " caps")
+		int choice = HealMorphMessage.Show(morphs, baseMorphs, cost, capsCount)
+		D.Log("    choice: " + choice)
+		If (choice == EHealMorphChoiceYes)
+			D.Log("      -> heal morphs")
+			If (capsCount >= cost)
+				D.Log("        -> healing")
+				HealBaseMorphs()
+				D.Log("        -> removing " + cost + " caps")
+				Player.RemoveItem(caps, cost)
+			Else
+				D.Log("        -> not enough caps (" + capsCount + " < " + cost + ")")
+				Debug.MessageBox("You don't have enough caps.")
+			EndIf
+		ElseIf (choice == EHealMorphChoiceNo)
+			D.Log("      -> don't heal morphs")
+		Else
+			D.Log("      -> unknown choice")
+		EndIf
+	EndIf
+EndFunction
 
 ;
 ; Remove the base morphs (permanent morphs) through BodyGen.
