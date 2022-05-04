@@ -323,14 +323,12 @@ Function Restart()
 	RestartStackSize += 1
 	Utility.Wait(1.0)
 	If (RestartStackSize <= 1)
-		D.Log("Restart")
 		D.Note("Restarting Rad Morphing Redux")
 		Shutdown()
 		While (IsShuttingDown)
 			Utility.Wait(1.0)
 		EndWhile
 		Startup()
-		D.Log("Restart completed")
 		D.Note("Rad Morphing Redux has been restarted")
 	Else
 		D.Log("RestartStackSize: " + RestartStackSize)
