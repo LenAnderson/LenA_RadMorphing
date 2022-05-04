@@ -467,10 +467,8 @@ EndFunction
 ; This is used when UpdateType is set to EUpdateTypePeriodic.
 ;
 Function ApplyPeriodicMorphs()
-	D.Log("ApplyPeriodicMorphs")
 	LenARM_SliderSet:Slider[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypePeriodic)
-	D.Log(" updates: " + updates)
-
+	
 	ApplyMorphUpdates(updates)
 
 	If (!IsShuttingDown)
