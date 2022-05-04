@@ -742,3 +742,19 @@ Slider[] Function CalculateFullMorphs()
 
 	return updates
 EndFunction
+
+
+;
+; Check whether a slider set with OnlyDoctorCanReset exists.
+;
+bool Function HasDoctorOnly()
+	int idxSliderSet = 0
+	While (idxSliderSet < SliderSets.Length)
+		SliderSet sliderSet = SliderSets[idxSliderSet]
+		If (sliderSet.IsUsed && sliderSet.OnlyDoctorCanReset)
+			return true
+		EndIf
+		idxSliderSet += 1
+	EndWhile
+	return false
+EndFunction
