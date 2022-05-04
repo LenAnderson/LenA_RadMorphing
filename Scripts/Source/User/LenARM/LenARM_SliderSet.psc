@@ -710,6 +710,9 @@ float Function GetBaseMorphPercentage()
 EndFunction
 
 
+;
+; Remove the BaseMorph for all SliderSets.
+;
 Function ClearBaseMorphs()
 	Slider[] updates = new Slider[0]
 	int idxSliderSet = 0
@@ -720,6 +723,9 @@ Function ClearBaseMorphs()
 EndFunction
 
 
+;
+; Get the list of full morphs based on a CurrentMorph and BaseMorph for all slider sets.
+;
 Slider[] Function CalculateFullMorphs()
 	Slider[] updates = new Slider[0]
 	int idxSliderSet = 0
