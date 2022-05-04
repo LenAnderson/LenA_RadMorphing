@@ -75,7 +75,7 @@ EndFunction
 
 
 ;
-; Get the overal progress of morphs.
+; Get the overall progress of morphs.
 ;
 float Function GetMorphPercentage()
 	D.Log("API.GetMorphPercentage")
