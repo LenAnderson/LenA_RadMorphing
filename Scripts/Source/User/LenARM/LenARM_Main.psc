@@ -420,8 +420,9 @@ EndFunction
 ; Update the value of a morph trigger.
 ;
 Function SetTriggerValue(string triggerName, float value)
-	D.Log("SetTriggerValue: " + triggerName + " = " + value)
-	SliderSets.SetTriggerValue(triggerName, value)
+	float clampedValue = Util.Clamp(value, 0.0, 1.0)
+	D.Log("SetTriggerValue: " + triggerName + " = " + value + " --> " + clampedValue)
+	SliderSets.SetTriggerValue(triggerName, clampedValue)
 	ApplyImmediateMorphs()
 EndFunction
 
