@@ -67,6 +67,9 @@ Struct SliderSet
 	string TriggerName
 	{name of the trigger value that is used to determine morphing}
 
+	bool InvertTriggerValue
+	{whether to use inverted trigger value for morphing (1.0 - value)}
+
 	int UpdateType
 	{when to update / apply morphs, see EnumUpdateType}
 	
@@ -213,6 +216,7 @@ SliderSet Function SliderSet_Constructor(int idxSliderSet)
 		this.Index = idxSliderSet
 		this.IsUsed = true
 		this.TriggerName = MCM.GetModSettingString("LenA_RadMorphing", "sTriggerName:Slider" + idxSliderSet)
+		this.InvertTriggerValue = MCM.GetModSettingBool("LenA_RadMorphing", "bInvertTriggerValue:Slider" + idxSliderSet)
 		this.UpdateType = MCM.GetModSettingInt("LenA_RadMorphing", "iUpdateType:Slider" + idxSliderSet)
 		this.TargetMorph = MCM.GetModSettingFloat("LenA_RadMorphing", "fTargetMorph:Slider" + idxSliderSet) / 100.0
 		this.ThresholdMin = MCM.GetModSettingFloat("LenA_RadMorphing", "fThresholdMin:Slider" + idxSliderSet) / 100.0
@@ -248,6 +252,9 @@ EndFunction
 ;
 Function SliderSet_SetTriggerValue(int idxSliderSet, string triggerName, float value)
 	SliderSet this = SliderSets[idxSliderSet]
+	If (this.InvertTriggerValue)
+		value = 1.0 - value
+	EndIf
 	If (this.TriggerName == triggerName && this.NewTriggerValue != value && this.CurrentTriggerValue != value)
 		D.Log("  SliderSet" + this.Index + ": CurrentTriggerValue=" + this.CurrentTriggerValue + "  NewTriggerValue=" + this.NewTriggerValue + " -> " + value)
 		this.NewTriggerValue = value
@@ -376,6 +383,7 @@ Function SliderSet_Print(int idxSliderSet)
 	D.Log("  IsUsed: " + this.IsUsed)
 	D.Log("  SliderName: " + this.SliderName)
 	D.Log("  TriggerName: " + this.TriggerName)
+	D.Log("  InvertTriggerValue: " + this.InvertTriggerValue)
 	D.Log("  UpdateType: " + this.UpdateType)
 	D.Log("  TargetMorph: " + this.TargetMorph)
 	D.Log("  ThresholdMin: " + this.ThresholdMin)
