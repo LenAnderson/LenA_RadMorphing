@@ -178,7 +178,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider0",
@@ -187,7 +187,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider0",
@@ -198,6 +198,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider0",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -388,7 +397,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider1",
@@ -397,7 +406,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider1",
@@ -408,6 +417,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider1",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -598,7 +616,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider2",
@@ -607,7 +625,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider2",
@@ -618,6 +636,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider2",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -808,7 +835,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider3",
@@ -817,7 +844,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider3",
@@ -828,6 +855,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider3",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -1018,7 +1054,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider4",
@@ -1027,7 +1063,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider4",
@@ -1038,6 +1074,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider4",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -1228,7 +1273,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider5",
@@ -1237,7 +1282,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider5",
@@ -1248,6 +1293,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider5",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -1438,7 +1492,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider6",
@@ -1447,7 +1501,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider6",
@@ -1458,6 +1512,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider6",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -1648,7 +1711,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider7",
@@ -1657,7 +1720,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider7",
@@ -1668,6 +1731,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider7",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -1858,7 +1930,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider8",
@@ -1867,7 +1939,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider8",
@@ -1878,6 +1950,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider8",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -2068,7 +2149,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider9",
@@ -2077,7 +2158,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider9",
@@ -2088,6 +2169,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider9",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -2278,7 +2368,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider10",
@@ -2287,7 +2377,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider10",
@@ -2298,6 +2388,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider10",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -2488,7 +2587,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider11",
@@ -2497,7 +2596,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider11",
@@ -2508,6 +2607,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider11",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -2698,7 +2806,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider12",
@@ -2707,7 +2815,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider12",
@@ -2718,6 +2826,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider12",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -2908,7 +3025,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider13",
@@ -2917,7 +3034,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider13",
@@ -2928,6 +3045,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider13",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -3118,7 +3244,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider14",
@@ -3127,7 +3253,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider14",
@@ -3138,6 +3264,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider14",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -3328,7 +3463,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider15",
@@ -3337,7 +3472,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider15",
@@ -3348,6 +3483,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider15",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -3538,7 +3682,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider16",
@@ -3547,7 +3691,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider16",
@@ -3558,6 +3702,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider16",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -3748,7 +3901,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider17",
@@ -3757,7 +3910,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider17",
@@ -3768,6 +3921,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider17",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -3958,7 +4120,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider18",
@@ -3967,7 +4129,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider18",
@@ -3978,6 +4140,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider18",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -4168,7 +4339,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider19",
@@ -4177,7 +4348,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider19",
@@ -4188,6 +4359,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider19",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -4378,7 +4558,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider20",
@@ -4387,7 +4567,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider20",
@@ -4398,6 +4578,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider20",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -4588,7 +4777,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider21",
@@ -4597,7 +4786,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider21",
@@ -4608,6 +4797,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider21",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -4798,7 +4996,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider22",
@@ -4807,7 +5005,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider22",
@@ -4818,6 +5016,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider22",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -5008,7 +5215,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider23",
@@ -5017,7 +5224,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider23",
@@ -5028,6 +5235,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider23",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -5218,7 +5434,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider24",
@@ -5227,7 +5443,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider24",
@@ -5238,6 +5454,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider24",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -5428,7 +5653,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider25",
@@ -5437,7 +5662,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider25",
@@ -5448,6 +5673,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider25",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -5638,7 +5872,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider26",
@@ -5647,7 +5881,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider26",
@@ -5658,6 +5892,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider26",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -5848,7 +6091,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider27",
@@ -5857,7 +6100,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider27",
@@ -5868,6 +6111,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider27",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -6058,7 +6310,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider28",
@@ -6067,7 +6319,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider28",
@@ -6078,6 +6330,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider28",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -6268,7 +6529,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider29",
@@ -6277,7 +6538,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider29",
@@ -6288,6 +6549,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider29",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -6478,7 +6748,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider30",
@@ -6487,7 +6757,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider30",
@@ -6498,6 +6768,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider30",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -6688,7 +6967,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider31",
@@ -6697,7 +6976,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider31",
@@ -6708,6 +6987,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider31",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -6898,7 +7186,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider32",
@@ -6907,7 +7195,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider32",
@@ -6918,6 +7206,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider32",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -7108,7 +7405,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider33",
@@ -7117,7 +7414,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider33",
@@ -7128,6 +7425,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider33",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -7318,7 +7624,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider34",
@@ -7327,7 +7633,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider34",
@@ -7338,6 +7644,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider34",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -7528,7 +7843,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider35",
@@ -7537,7 +7852,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider35",
@@ -7548,6 +7863,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider35",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -7738,7 +8062,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider36",
@@ -7747,7 +8071,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider36",
@@ -7758,6 +8082,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider36",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -7948,7 +8281,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider37",
@@ -7957,7 +8290,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider37",
@@ -7968,6 +8301,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider37",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -8158,7 +8500,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider38",
@@ -8167,7 +8509,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider38",
@@ -8178,6 +8520,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider38",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -8368,7 +8719,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider39",
@@ -8377,7 +8728,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider39",
@@ -8388,6 +8739,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider39",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -8578,7 +8938,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider40",
@@ -8587,7 +8947,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider40",
@@ -8598,6 +8958,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider40",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -8788,7 +9157,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider41",
@@ -8797,7 +9166,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider41",
@@ -8808,6 +9177,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider41",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -8998,7 +9376,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider42",
@@ -9007,7 +9385,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider42",
@@ -9018,6 +9396,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider42",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -9208,7 +9595,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider43",
@@ -9217,7 +9604,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider43",
@@ -9228,6 +9615,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider43",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -9418,7 +9814,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider44",
@@ -9427,7 +9823,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider44",
@@ -9438,6 +9834,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider44",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -9628,7 +10033,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider45",
@@ -9637,7 +10042,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider45",
@@ -9648,6 +10053,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider45",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -9838,7 +10252,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider46",
@@ -9847,7 +10261,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider46",
@@ -9858,6 +10272,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider46",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -10048,7 +10471,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider47",
@@ -10057,7 +10480,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider47",
@@ -10068,6 +10491,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider47",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -10258,7 +10690,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider48",
@@ -10267,7 +10699,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider48",
@@ -10278,6 +10710,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider48",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
@@ -10468,7 +10909,7 @@
                     "type": "section"
                 },
                 {
-                    "text": "Slider Names",
+                    "text": "Slider names",
                     "help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
                     "type": "textinput",
                     "id": "sSliderName:Slider49",
@@ -10477,7 +10918,7 @@
                     }
                 },
                 {
-                    "text": "Trigger Name",
+                    "text": "Trigger name",
                     "help": "Name of the trigger value that is used to determine morphing.",
                     "type": "dropdown",
                     "id": "iTriggerNameIndex:Slider49",
@@ -10488,6 +10929,15 @@
                             "propertyName": "MCM_TriggerNames"
                         },
                         "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "text": "Invert trigger",
+                    "help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+                    "type": "switcher",
+                    "id": "bInvertTriggerValue:Slider49",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 },
                 {
