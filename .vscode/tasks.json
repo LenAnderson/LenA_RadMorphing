@@ -3,6 +3,19 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Bak FPLib",
+            "group": "none",
+            "type": "shell",
+            "command": "mv LL_FourPlay.pex LL_FourPlay.pex.bak",
+            "options": {
+                "shell": {
+                    "executable": "powershell.exe"
+                },
+                "cwd": "${workspaceFolder}\\Scripts"
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "Compile",
             "group": "none",
             "type": "process",
@@ -32,10 +45,23 @@
             "problemMatcher": []
         },
         {
+            "label": "Unbak FPLib",
+            "group": "none",
+            "type": "shell",
+            "command": "mv LL_FourPlay.pex.bak LL_FourPlay.pex",
+            "options": {
+                "shell": {
+                    "executable": "powershell.exe"
+                },
+                "cwd": "${workspaceFolder}\\Scripts"
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "Build",
             "group": "build",
             "dependsOrder": "sequence",
-            "dependsOn": ["Compile", "Cleanup"]
+            "dependsOn": ["Bak FPLib", "Compile", "Cleanup", "Unbak FPLib"]
         }
     ]
 }
