@@ -46,11 +46,12 @@ as `fallout4.ppj`.
 │   ├── LenARM/                              compiled .pex files
 │   └── Source/                              
 │       ├── User/                            
-│       │   ├── LenARM_API.psc               API script
-│       │   ├── LenARM_Debug.psc             debug functions (logging etc.)
-│       │   ├── LenARM_Main.psc              main script, entry point for this mod
-│       │   ├── LenARM_SliderSet.psc         slider set logic
-│       │   └── LenARM_Util.psc              utility functions (e.g. string splitting)
+│       │   └── LenARM/                      
+│       │       ├── LenARM_API.psc           API script
+│       │       ├── LenARM_Debug.psc         debug functions (logging etc.)
+│       │       ├── LenARM_Main.psc          main script, entry point for this mod
+│       │       ├── LenARM_SliderSet.psc     slider set logic
+│       │       └── LenARM_Util.psc          utility functions (e.g. string splitting)
 │       ├── BodyGen.psc                      definition of BodyGen functions
 │       ├── fallout4.ppj.sample              Papyrus project file for Papyrus extension
 │       └── LL_FourPlay.psc                  definition FourPlay library functions
