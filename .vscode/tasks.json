@@ -116,7 +116,7 @@
 			"detail": "Create a new FOMOD release with a new version number.",
 			"group": "build",
 			"dependsOrder": "sequence",
-			"dependsOn": ["bumpVersion", "Build", "copyToFomod"]
+			"dependsOn": ["bumpVersion", "Build", "copyToFomod", "zipFomod"]
 		}
 	]
 }
