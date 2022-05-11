@@ -1,67 +1,122 @@
 {
-    // created by vscode papyrus-lang papyrus.skyrimSpecialEdition.generateProject
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "Bak FPLib",
-            "group": "none",
-            "type": "shell",
-            "command": "mv LL_FourPlay.pex LL_FourPlay.pex.bak",
-            "options": {
-                "shell": {
-                    "executable": "powershell.exe"
-                },
-                "cwd": "${workspaceFolder}\\Scripts"
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Compile",
-            "group": "none",
-            "type": "process",
-            "command": "${config:papyrus.fallout4.installPath}\\Papyrus Compiler\\PapyrusCompiler.exe",
-            "options": {
-                "cwd": "${config:papyrus.fallout4.installPath}\\Papyrus Compiler"
-            },
-            "args": [
-                {
-                    "value": "${workspaceFolder}\\Scripts\\Source\\User\\fallout4.ppj",
-                    "quoting": "strong"
-                }
-            ],
-            "problemMatcher": "$PapyrusCompiler"
-        },
-        {
-            "label": "Cleanup",
-            "group": "none",
-            "type": "shell",
-            "command": "rm *.pex",
-            "options": {
-                "shell": {
-                    "executable": "powershell.exe"
-                },
-                "cwd": "${workspaceFolder}\\Scripts"
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Unbak FPLib",
-            "group": "none",
-            "type": "shell",
-            "command": "mv LL_FourPlay.pex.bak LL_FourPlay.pex",
-            "options": {
-                "shell": {
-                    "executable": "powershell.exe"
-                },
-                "cwd": "${workspaceFolder}\\Scripts"
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Build",
-            "group": "build",
-            "dependsOrder": "sequence",
-            "dependsOn": ["Bak FPLib", "Compile", "Cleanup", "Unbak FPLib"]
-        }
-    ]
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Bak FPLib",
+			"group": "none",
+			"type": "shell",
+			"command": "mv LL_FourPlay.pex LL_FourPlay.pex.bak",
+			"options": {
+				"shell": {
+					"executable": "powershell.exe"
+				},
+				"cwd": "${workspaceFolder}\\Scripts"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Unbak FPLib",
+			"group": "none",
+			"type": "shell",
+			"command": "mv LL_FourPlay.pex.bak LL_FourPlay.pex",
+			"options": {
+				"shell": {
+					"executable": "powershell.exe"
+				},
+				"cwd": "${workspaceFolder}\\Scripts"
+			},
+			"problemMatcher": []
+		},
+
+
+		{
+			"label": "Compile",
+			"group": "none",
+			"type": "process",
+			"command": "${config:papyrus.fallout4.installPath}\\Papyrus Compiler\\PapyrusCompiler.exe",
+			"options": {
+				"cwd": "${config:papyrus.fallout4.installPath}\\Papyrus Compiler"
+			},
+			"args": [
+				{
+					"value": "${workspaceFolder}\\Scripts\\Source\\User\\fallout4.ppj",
+					"quoting": "strong"
+				}
+			],
+			"problemMatcher": "$PapyrusCompiler"
+		},
+		{
+			"label": "Cleanup",
+			"group": "none",
+			"type": "shell",
+			"command": "rm *.pex",
+			"options": {
+				"shell": {
+					"executable": "powershell.exe"
+				},
+				"cwd": "${workspaceFolder}\\Scripts"
+			},
+			"problemMatcher": []
+		},
+
+
+		{
+			"label": "bumpVersion",
+			"group": "none",
+			"type": "shell",
+			"command": "groovy",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"args": [
+				{
+					"value": "bumpVersion.groovy",
+					"quoting": "strong"
+				}
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "copyToFomod",
+			"group": "none",
+			"type": "shell",
+			"command": "groovy",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"args": [
+				{
+					"value": "copyToFomod.groovy",
+					"quoting": "strong"
+				}
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "zipFomod",
+			"group": "none",
+			"type": "shell",
+			"command": "& ($env:PROGRAMFILES + '\\7-Zip\\7z.exe') a ('LenA_RadMorphing-' + (Get-Content .version) + '.7z') .\\.fomod\\*",
+			"problemMatcher": []
+		},
+
+
+
+
+		{
+			"label": "Build",
+			"detail": "Compile all Papyrus scripts",
+			"group": "build",
+			"dependsOrder": "sequence",
+			"dependsOn": ["Bak FPLib", "Compile", "Cleanup", "Unbak FPLib"]
+		},
+
+		{
+			"label": "Release",
+			"detail": "Create a new FOMOD release with a new version number.",
+			"group": "build",
+			"dependsOrder": "sequence",
+			"dependsOn": ["bumpVersion", "Build", "copyToFomod"]
+		}
+	]
 }
