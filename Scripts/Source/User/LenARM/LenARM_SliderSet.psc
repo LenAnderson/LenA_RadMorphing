@@ -442,8 +442,8 @@ EndFunction
 ;
 Slider[] Function SliderSet_GetBaseMorphs(int idxSliderSet)
 	SliderSet this = SliderSets[idxSliderSet]
+	Slider[] baseMorphs = new Slider[0]
 	If (this.OnlyDoctorCanReset && this.IsAdditive && this.BaseMorph != 0.0)
-		Slider[] baseMorphs = new Slider[0]
 		int sliderNameOffset = GetSliderNameOffset(this.Index)
 		int idxSlider = 0
 		While (idxSlider < this.NumberOfSliderNames)
@@ -455,6 +455,7 @@ Slider[] Function SliderSet_GetBaseMorphs(int idxSliderSet)
 			idxSlider += 1
 		EndWhile
 	EndIf
+	return baseMorphs
 EndFunction
 
 
