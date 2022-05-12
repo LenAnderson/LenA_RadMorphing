@@ -288,10 +288,12 @@ Function Shutdown(bool withRestoreMorphs=true)
 		CancelTimer(ETimerMorph)
 
 		;TODO stop listening for equipping items
-		
-		;TODO stop listening for doctor scenes
 
 		;TODO stop listening for combat state
+		
+		; stop listening for doctor scenes
+		UnregisterForRemoteEvent(DoctorGreetScene, "OnBegin")
+		UnregisterForRemoteEvent(DoctorMedicineScene02_Exam, "OnBegin")
 
 		If (withRestoreMorphs)
 			StartTimer(Math.Max(UpdateDelay + 0.5, 2.0), ETimerShutdownRestoreMorphs)
