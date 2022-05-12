@@ -134,7 +134,7 @@ EndStruct
 SliderSet[] SliderSets
 
 ; flattened array[idxSliderSet][idxSlider] (name and original morph)
-Slider[] Sliders
+string[] SliderNames
 
 ; flattened array[idxSliderSet][idxSlotName]
 string[] UnequipSlots
@@ -172,10 +172,10 @@ SliderSet Function Get(int idxSliderSet)
 EndFunction
 
 ;
-; Get the list of Sliders (name and original morph)
+; Get the list of slider names
 ;
-Slider[] Function GetSliders()
-	return Sliders
+string[] Function GetSliderNames()
+	return SliderNames
 EndFunction
 
 ;
@@ -403,10 +403,8 @@ Slider[] Function SliderSet_CalculateFullMorphs(int idxSliderSet)
 		D.Log("  sliders:        " + this.SliderName)
 		While (idxSlider < this.NumberOfSliderNames)
 			Slider update = new Slider
-			Slider slider = Sliders[sliderNameOffset + idxSlider]
-			update.Name = slider.Name
-			D.Log("    slider value: " + slider.Value)
-			update.Value = slider.Value + fullMorphValue
+			update.Name = SliderNames[sliderNameOffset + idxSlider]
+			update.Value = fullMorphValue
 			updates.Add(update)
 			idxSlider += 1
 		EndWhile
@@ -448,9 +446,8 @@ Slider[] Function SliderSet_GetBaseMorphs(int idxSliderSet)
 		int idxSlider = 0
 		While (idxSlider < this.NumberOfSliderNames)
 			Slider baseMorph = new Slider
-			Slider slider = Sliders[sliderNameOffset + idxSlider]
-			baseMorph.Name = slider.Name
-			baseMorph.Value = slider.Value + this.BaseMorph * this.TargetMorph
+			baseMorph.Name = SliderNames[sliderNameOffset + idxSlider]
+			baseMorph.Value = this.BaseMorph * this.TargetMorph
 			baseMorphs.Add(baseMorph)
 			idxSlider += 1
 		EndWhile
@@ -550,8 +547,8 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	If (!SliderSets)
 		SliderSets = new SliderSet[0]
 	EndIf
-	If (!Sliders)
-		Sliders = new Slider[0]
+	If (!SliderNames)
+		SliderNames = new string[0]
 	EndIf
 	If (!UnequipSlots)
 		UnequipSlots = new string[0]
@@ -565,7 +562,7 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	While (idxSliderSet < numberOfSliderSets)
 		SliderSet oldSet = None
 		If (SliderSets.Length > idxSliderSet)
-			SliderSets[idxSliderSet]
+			oldSet = SliderSets[idxSliderSet]
 		EndIf
 		SliderSet newSet = SliderSet_Constructor(idxSliderSet)
 		If (SliderSets.Length < idxSliderSet + 1)
@@ -598,19 +595,15 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 			string[] names = Util.StringSplit(newSet.SliderName, "|")
 			int idxSlider = 0
 			While (idxSlider < newset.NumberOfSliderNames)
-				float morph = BodyGen.GetMorph(player, True, names[idxSlider], None)
 				int currentIdx = sliderNameOffset + idxSlider
-				If (!oldSet || idxSlider >= oldSet.NumberOfSliderNames)
+				If (SliderNames.Length < currentIdx + 1)
+					SliderNames.Add(names[idxSlider])
+				ElseIf (!oldSet || idxSlider >= oldSet.NumberOfSliderNames)
 					; insert into array
-					Slider slider = new Slider
-					slider.Name = names[idxSlider]
-					slider.Value = morph
-					Sliders.Insert(slider, currentIdx)
+					SliderNames.Insert(names[idxSlider], currentIdx)
 				Else
 					; replace item
-					Slider slider = Sliders[currentIdx]
-					slider.Name = names[idxSlider]
-					slider.Value = morph
+					SliderNames[currentIdx] = names[idxSlider]
 				EndIf
 				idxSlider += 1
 			EndWhile
@@ -618,7 +611,7 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 
 		; remove unused items
 		If (oldSet && newSet.NumberOfSliderNames < oldSet.NumberOfSliderNames)
-			Sliders.Remove(sliderNameOffset + newSet.NumberOfSliderNames, oldset.NumberOfSliderNames - newset.NumberOfSliderNames)
+			SliderNames.Remove(sliderNameOffset + newSet.NumberOfSliderNames, oldset.NumberOfSliderNames - newset.NumberOfSliderNames)
 		EndIf
 
 		int uneqipSlotOffset = GetUnequipSlotOffset(idxSliderSet)
@@ -627,7 +620,9 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 			int idxSlot = 0
 			While (idxSlot < newset.NumberOfUnequipSlots)
 				int currentIdx = uneqipSlotOffset + idxSlot
-				If (!oldSet || idxSlot >= oldSet.NumberOfUnequipSlots)
+				If (UnequipSlots.Length < currentIdx + 1)
+					UnequipSlots.Add(slots[idxSlot] as int)
+				ElseIf (!oldSet || idxSlot >= oldSet.NumberOfUnequipSlots)
 					; insert into array
 					UnequipSlots.Insert(slots[idxSlot] as int, currentIdx)
 				Else
@@ -647,7 +642,7 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	EndWhile
 
 	D.Log("  SliderSets:   " + SliderSets)
-	D.Log("  Sliders:      " + Sliders)
+	D.Log("  Sliders:      " + SliderNames)
 	D.Log("  UnequipSlots: " + UnequipSlots)
 EndFunction
 

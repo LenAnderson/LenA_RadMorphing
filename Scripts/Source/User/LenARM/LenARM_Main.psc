@@ -505,11 +505,11 @@ EndFunction
 Function RestoreOriginalMorphs()
 	D.Log("RestoreOriginalMorphs")
 	int sex = Player.GetLeveledActorBase().GetSex()
-	LenARM_SliderSet:Slider[] sliders = SliderSets.GetSliders()
+	string[] sliderNames = SliderSets.GetSliderNames()
 	int idxSlider = 0
-	While (idxSlider < sliders.Length)
-		LenARM_SliderSet:Slider slider = sliders[idxSlider]
-		BodyGen.SetMorph(Player, sex==ESexFemale, slider.Name, kwMorph, slider.Value)
+	While (idxSlider < sliderNames.Length)
+		string sliderName = sliderNames[idxSlider]
+		BodyGen.SetMorph(Player, sex==ESexFemale, sliderName, kwMorph, 0)
 		idxSlider += 1
 	EndWhile
 	BodyGen.UpdateMorphs(Player)
