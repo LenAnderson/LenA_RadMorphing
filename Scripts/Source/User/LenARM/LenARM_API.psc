@@ -77,8 +77,8 @@ EndFunction
 ;
 ; Get the overall progress of morphs.
 ;
-float Function GetMorphPercentage()
-	D.Log("API.GetMorphPercentage")
+float Function GetMorphProgress()
+	D.Log("API.GetMorphProgress")
 	return Main.GetMorphPercentage()
 EndFunction
 
@@ -87,8 +87,8 @@ EndFunction
 ; Register a trigger name with RMR.
 ; Returns false if the name is already registered, otherwise true.
 ;
-bool Function RegisterTriggerName(string triggerName)
-	D.Log("API.RegisterTriggerName: " + triggerName)
+bool Function RegisterTrigger(string triggerName)
+	D.Log("API.RegisterTrigger: " + triggerName)
 	return Main.AddTriggerName(triggerName)
 EndFunction
 
@@ -96,7 +96,7 @@ EndFunction
 ;
 ; Update the value of a morph trigger.
 ;
-Function SetTriggerValue(string triggerName, float value)
-	D.Log("API.SetTriggerValue: " + triggerName + " = " + value)
+Function UpdateTrigger(string triggerName, float value)
+	D.Log("API.UpdateTrigger: " + triggerName + " = " + value)
 	Main.SetTriggerValue(triggerName, value)
 EndFunction
