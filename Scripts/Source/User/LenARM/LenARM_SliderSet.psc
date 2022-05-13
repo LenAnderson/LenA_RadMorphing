@@ -139,9 +139,6 @@ string[] SliderNames
 ; flattened array[idxSliderSet][idxSlotName]
 string[] UnequipSlots
 
-; flattened array[idxCompanion][idxSliderSet][idxSlider] (name and original morph)
-Slider[] OriginalCompanionMorphs
-
 ; list of companions with saved original morphs
 Actor[] Companions
 
@@ -552,9 +549,6 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	EndIf
 	If (!UnequipSlots)
 		UnequipSlots = new string[0]
-	EndIf
-	If (!OriginalCompanionMorphs)
-		OriginalCompanionMorphs = new Slider[0]
 	EndIf
 
 	; create SliderSets
