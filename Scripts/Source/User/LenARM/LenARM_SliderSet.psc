@@ -35,11 +35,13 @@ EndGroup
 ;-----------------------------------------------------------------------------------------------------
 ;-----------------------------------------------------------------------------------------------------
 ; Slider definition
-Struct Slider
+Struct MorphUpdate
 	string Name
 	{name of the LooksMenu slider}
 	float Value
 	{value of the LooksMenu slider}
+	int ApplyCompanion
+	{whether to apply to none/female/male/all companions (see: EnumApplyCompanion)}
 EndStruct
 
 
@@ -178,20 +180,43 @@ EndFunction
 ;
 ; Get the list of base morphs (permanent morphs from additive SliderSets)
 ;
-Slider[] Function GetBaseMorphs()
+MorphUpdate[] Function GetBaseMorphs()
 	D.Log("SliderSet.GetBaseMorphs")
-	Slider[] baseMorphs = new Slider[0]
+	MorphUpdate[] baseMorphs = new MorphUpdate[0]
 	int idxSliderSet = 0
 	While (idxSliderSet < SliderSets.Length)
-		Slider[] sliderSetBaseMorphs = SliderSet_GetBaseMorphs(idxSliderSet)
-		int idxSlider = 0
-		While (idxSlider < sliderSetBaseMorphs.Length)
-			baseMorphs.Add(sliderSetBaseMorphs[idxSlider])
-			idxSlider += 1
-		EndWhile
+		If (SliderSets[idxSliderSet].IsUsed)
+			MorphUpdate[] sliderSetBaseMorphs = SliderSet_GetBaseMorphs(idxSliderSet)
+			int idxSlider = 0
+			While (idxSlider < sliderSetBaseMorphs.Length)
+				baseMorphs.Add(sliderSetBaseMorphs[idxSlider])
+				idxSlider += 1
+			EndWhile
+		EndIf
 		idxSliderSet += 1
 	EndWhile
 	return baseMorphs
+EndFunction
+
+;
+; Get the list of full morphs without recalculating
+;
+MorphUpdate[] Function GetFullMorphs()
+	D.Log("SliderSet.GetFullMorphs")
+	MorphUpdate[] fullMorphs = new MorphUpdate[0]
+	int idxSliderSet = 0
+	While (idxSliderSet < SliderSets.Length)
+		If (SliderSets[idxSliderSet].IsUsed)
+			MorphUpdate[] sliderSetFullMorphs = SliderSet_GetFullMorphs(idxSliderSet)
+			int idxSlider = 0
+			While (idxSlider < sliderSetFullMorphs.Length)
+				fullMorphs.Add(sliderSetFullMorphs[idxSlider])
+				idxSlider += 1
+			EndWhile
+		EndIf
+		idxSliderSet += 1
+	EndWhile
+	return fullMorphs
 EndFunction
 
 
@@ -263,9 +288,9 @@ EndFunction
 ;
 ; Get the list of morph updates (sliderName:newValue) for SliderSet number @idxSliderSet.
 ;
-Slider[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
+MorphUpdate[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 	SliderSet this = SliderSets[idxSliderSet]
-	Slider[] updates = new Slider[0]
+	MorphUpdate[] updates = new MorphUpdate[0]
 	; check whether SliderSet is in use and whether a new / unapplied trigger value is available
 	If (this.IsUsed && this.HasNewTriggerValue)
 		D.Log("SliderSet.SliderSet_CalculateMorphUpdates: " + this.Index)
@@ -377,10 +402,10 @@ EndFunction
 ;
 ; Get the list of full morphs based on a CurrentMorph and BaseMorph
 ;
-Slider[] Function SliderSet_CalculateFullMorphs(int idxSliderSet)
+MorphUpdate[] Function SliderSet_CalculateFullMorphs(int idxSliderSet)
 	D.Log("SliderSet.SliderSet_CalculateFullMorphs: " + idxSliderSet)
 	SliderSet this = SliderSets[idxSliderSet]
-	Slider[] updates = new Slider[0]
+	MorphUpdate[] updates = new MorphUpdate[0]
 	float newMorph = this.CurrentMorph
 	float fullMorph = newMorph
 
@@ -399,9 +424,10 @@ Slider[] Function SliderSet_CalculateFullMorphs(int idxSliderSet)
 		float fullMorphValue = fullMorph * this.TargetMorph
 		D.Log("  sliders:        " + this.SliderName)
 		While (idxSlider < this.NumberOfSliderNames)
-			Slider update = new Slider
+			MorphUpdate update = new MorphUpdate
 			update.Name = SliderNames[sliderNameOffset + idxSlider]
 			update.Value = fullMorphValue
+			update.ApplyCompanion = this.ApplyCompanion
 			updates.Add(update)
 			idxSlider += 1
 		EndWhile
@@ -435,21 +461,42 @@ EndFunction
 ;
 ; Get the list of base morphs (sliderName:currentBaseMorphValue) for SliderSet number @idxSliderSet.
 ;
-Slider[] Function SliderSet_GetBaseMorphs(int idxSliderSet)
+MorphUpdate[] Function SliderSet_GetBaseMorphs(int idxSliderSet)
 	SliderSet this = SliderSets[idxSliderSet]
-	Slider[] baseMorphs = new Slider[0]
+	MorphUpdate[] baseMorphs = new MorphUpdate[0]
 	If (this.OnlyDoctorCanReset && this.IsAdditive && this.BaseMorph != 0.0)
 		int sliderNameOffset = GetSliderNameOffset(this.Index)
 		int idxSlider = 0
 		While (idxSlider < this.NumberOfSliderNames)
-			Slider baseMorph = new Slider
+			MorphUpdate baseMorph = new MorphUpdate
 			baseMorph.Name = SliderNames[sliderNameOffset + idxSlider]
 			baseMorph.Value = this.BaseMorph * this.TargetMorph
+			baseMorph.ApplyCompanion = this.ApplyCompanion
 			baseMorphs.Add(baseMorph)
 			idxSlider += 1
 		EndWhile
 	EndIf
 	return baseMorphs
+EndFunction
+
+
+;
+; Get the list of full morphs for SliderSet number @idxSliderSet without recalculating.
+;
+MorphUpdate[] Function SliderSet_GetFullMorphs(int idxSliderSet)
+	SliderSet this = SliderSets[idxSliderSet]
+	MorphUpdate[] fullMorphs = new MorphUpdate[0]
+	int sliderNameOffset = GetSliderNameOffset(this.Index)
+	int idxSlider = 0
+	While (idxSlider < this.NumberOfSliderNames)
+		MorphUpdate fullMorph = new MorphUpdate
+		fullMorph.Name = SliderNames[sliderNameOffset + idxSlider]
+		fullMorph.Value = this.FullMorph * this.TargetMorph
+		fullMorph.ApplyCompanion = this.ApplyCompanion
+		fullMorphs.Add(fullMorph)
+		idxSlider += 1
+	EndWhile
+	return fullMorphs
 EndFunction
 
 
@@ -657,16 +704,16 @@ EndFunction
 ;
 ; Get the list of morph updates (sliderName:newValue) for all SliderSets with @updateType.
 ;
-Slider[] Function CalculateMorphUpdates(int updateType)
-	Slider[] updates = new Slider[0]
+MorphUpdate[] Function CalculateMorphUpdates(int updateType)
+	MorphUpdate[] updates = new MorphUpdate[0]
 	int idxSliderSet = 0
 	While (idxSliderSet < SliderSets.Length)
 		SliderSet sliderSet = SliderSets[idxSliderSet]
 		If (sliderSet.UpdateType == updateType)
-			Slider[] sliderSetUpdates = SliderSet_CalculateMorphUpdates(idxSliderSet)
+			MorphUpdate[] sliderSetUpdates = SliderSet_CalculateMorphUpdates(idxSliderSet)
 			int idxUpdate = 0
 			While (idxUpdate < sliderSetUpdates.Length)
-				Slider update = sliderSetUpdates[idxUpdate]
+				MorphUpdate update = sliderSetUpdates[idxUpdate]
 				updates.Add(update)
 				idxUpdate += 1
 			EndWhile
@@ -713,7 +760,7 @@ EndFunction
 ; Remove the BaseMorph for all SliderSets.
 ;
 Function ClearBaseMorphs()
-	Slider[] updates = new Slider[0]
+	MorphUpdate[] updates = new MorphUpdate[0]
 	int idxSliderSet = 0
 	While (idxSliderSet < SliderSets.Length)
 		SliderSet_ClearBaseMorph(idxSliderSet)
@@ -725,14 +772,14 @@ EndFunction
 ;
 ; Get the list of full morphs based on a CurrentMorph and BaseMorph for all slider sets.
 ;
-Slider[] Function CalculateFullMorphs()
-	Slider[] updates = new Slider[0]
+MorphUpdate[] Function CalculateFullMorphs()
+	MorphUpdate[] updates = new MorphUpdate[0]
 	int idxSliderSet = 0
 	While (idxSliderSet < SliderSets.Length)
-		Slider[] sliderSetUpdates = SliderSet_CalculateFullMorphs(idxSliderSet)
+		MorphUpdate[] sliderSetUpdates = SliderSet_CalculateFullMorphs(idxSliderSet)
 		int idxUpdate = 0
 		While (idxUpdate < sliderSetUpdates.Length)
-			Slider update = sliderSetUpdates[idxUpdate]
+			MorphUpdate update = sliderSetUpdates[idxUpdate]
 			updates.Add(update)
 			idxUpdate += 1
 		EndWhile

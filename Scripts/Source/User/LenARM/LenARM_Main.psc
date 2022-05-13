@@ -16,13 +16,11 @@ Group Properties
 	Scene Property DoctorMedicineScene02_Exam Auto Const
 	{examining part of a doctor dialogue scene}
 
+	FollowersScript Property Followers Auto Const
+	{script for handling follower and companion systems}
+
 	MiscObject Property Caps Auto Const
 	{caps (currency)}
-
-	Faction Property CurrentCompanionFaction Auto Const
-	{one of the factions used to find companions}
-	Faction Property PlayerAllyFaction Auto Const
-	{one of the factions used to find companions}
 EndGroup
 
 
@@ -80,17 +78,21 @@ bool IsShuttingDown = false
 
 int RestartStackSize = 0
 
-; seconds between applying morphs
-float UpdateDelay
-
-; when to apply morphs; see EnumUpdateType
-int UpdateType
-
 ; how many slider sets are available
 int NumberOfSliderSets
 
 ; whether the heal morph message box has just been shown
 bool HealMorphMessageShown = false
+
+; list of current companions
+Actor[] CompanionList
+
+
+; MCM: seconds between applying morphs
+float UpdateDelay
+
+; MCM: whether to restore companions on dismiss
+bool RestoreCompanionsOnDismiss
 
 
 ;-----------------------------------------------------------------------------------------------------
@@ -171,6 +173,27 @@ Event Scene.OnBegin(Scene akSender)
 EndEvent
 
 
+Event FollowersScript.CompanionChange(FollowersScript akSender, Var[] eventArgs)
+	Actor companion = eventArgs[0] as Actor
+	bool isNowCompanion = eventArgs[1] as bool
+	D.Log("FollowersScript.CompanionChange: " + companion + "  -->  " + isNowCompanion)
+	If (isNowCompanion)
+		If (CompanionList == None)
+			CompanionList = new Actor[0]
+		EndIf
+		CompanionList.Add(companion)
+		LenARM_SliderSet:MorphUpdate[] updates = SliderSets.GetFullMorphs()
+		ApplyMorphUpdates(updates)
+	Else
+		int idxCompanion = CompanionList.Find(companion)
+		CompanionList.Remove(idxCompanion)
+		If (RestoreCompanionsOnDismiss)
+			RestoreOriginalMorphs(companion)
+		EndIf
+	EndIf
+EndEvent
+
+
 Event OnTimer(int timerId)
 	If (timerId == ETimerMorph)
 		ApplyPeriodicMorphs()
@@ -221,24 +244,26 @@ Function Startup()
 		; mod is enabled in MCM: start setting everything up
 		D.Log("  is enabled")
 		
+		; get number of available SliderSets
+		NumberOfSliderSets = MCM.GetModSettingInt("LenA_RadMorphing", "iNumberOfSliderSets:Static")
+		
 		; get update delay from MCM
 		UpdateDelay = MCM.GetModSettingFloat("LenA_RadMorphing", "fUpdateDelay:General")
 
-		; get number of available SliderSets
-		NumberOfSliderSets = MCM.GetModSettingInt("LenA_RadMorphing", "iNumberOfSliderSets:Static")
+		; get whether to restore companions on dismiss from MCM
+		RestoreCompanionsOnDismiss = MCM.GetModSettingBool("LenA_RadMorphing", "bRestoreCompanionsOnDismiss:General")
 
 		; load SliderSets
 		SliderSets.LoadSliderSets(NumberOfSliderSets, Player)
 
 		;TODO listen for item equip
-		
-		;TODO listen for combat state (helper script/quest?)
-		
-		;TODO prepare companion arrays --> handled in SliderSet
 
 		; listen for doctor scenes
 		RegisterForRemoteEvent(DoctorGreetScene, "OnBegin")
 		RegisterForRemoteEvent(DoctorMedicineScene02_Exam, "OnBegin")
+
+		; listen for companion changes
+		RegisterForCustomEvent(Followers, "CompanionChange")
 
 		; reapply base morphs (additive morphing)
 		ApplyBaseMorphs()
@@ -288,12 +313,13 @@ Function Shutdown(bool withRestoreMorphs=true)
 		CancelTimer(ETimerMorph)
 
 		;TODO stop listening for equipping items
-
-		;TODO stop listening for combat state
 		
 		; stop listening for doctor scenes
 		UnregisterForRemoteEvent(DoctorGreetScene, "OnBegin")
 		UnregisterForRemoteEvent(DoctorMedicineScene02_Exam, "OnBegin")
+
+		; stop listening for companion changes
+		UnregisterForCustomEvent(Followers, "CompanionChange")
 
 		If (withRestoreMorphs)
 			StartTimer(Math.Max(UpdateDelay + 0.5, 2.0), ETimerShutdownRestoreMorphs)
@@ -305,7 +331,12 @@ EndFunction
 
 Function ShutdownRestoreMorphs()
 	D.Log("ShutdownRestoreMorphs")
-	RestoreOriginalMorphs()
+	RestoreOriginalMorphs(Player)
+	int idxCompanion = 0
+	While (idxCompanion < CompanionList.Length)
+		RestoreOriginalMorphs(CompanionList[idxCompanion])
+		idxCompanion += 1
+	EndWhile
 	FinishShutdown()
 EndFunction
 
@@ -434,7 +465,7 @@ EndFunction
 ;
 Function ApplyImmediateMorphs()
 	D.Log("ApplyImmediateMorphs")
-	LenARM_SliderSet:Slider[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypeImmediate)
+	LenARM_SliderSet:MorphUpdate[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypeImmediate)
 	D.Log("  updates: " + updates)
 
 	ApplyMorphUpdates(updates)
@@ -445,7 +476,7 @@ EndFunction
 ; This is used when UpdateType is set to EUpdateTypePeriodic.
 ;
 Function ApplyPeriodicMorphs()
-	LenARM_SliderSet:Slider[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypePeriodic)
+	LenARM_SliderSet:MorphUpdate[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypePeriodic)
 	
 	ApplyMorphUpdates(updates)
 
@@ -462,7 +493,7 @@ EndFunction
 ;
 Function ApplySleepMorphs()
 	D.Log("ApplySleepMorphs")
-	LenARM_SliderSet:Slider[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypeOnSleep)
+	LenARM_SliderSet:MorphUpdate[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypeOnSleep)
 	D.Log(" updates: " + updates)
 
 	ApplyMorphUpdates(updates)
@@ -472,20 +503,63 @@ EndFunction
 ;
 ; Apply a list of morph updates (sliderName:newValue) through BodyGen.
 ;
-Function ApplyMorphUpdates(LenARM_SliderSet:Slider[] updates)
+Function ApplyMorphUpdates(LenARM_SliderSet:MorphUpdate[] updates)
 	If (updates.Length > 0)
 		D.Log("ApplyMorphUpdates: " + updates)
+		LenARM_SliderSet:MorphUpdate[] femaleUpdates = new LenARM_SliderSet:MorphUpdate[0]
+		LenARM_SliderSet:MorphUpdate[] maleUpdates = new LenARM_SliderSet:MorphUpdate[0]
 		int sex = Player.GetLeveledActorBase().GetSex()
 		int idxUpdate = 0
 		While (idxUpdate < updates.Length)
-			LenARM_SliderSet:Slider update = updates[idxUpdate]
+			LenARM_SliderSet:MorphUpdate update = updates[idxUpdate]
+			If (update.ApplyCompanion == SliderSets.EApplyCompanionFemale || update.ApplyCompanion == SliderSets.EApplyCompanionAll)
+				femaleUpdates.Add(update)
+			EndIf
+			If (update.ApplyCompanion == SliderSets.EApplyCompanionMale || update.ApplyCompanion == SliderSets.EApplyCompanionAll)
+				maleUpdates.Add(update)
+			EndIf
 			BodyGen.SetMorph(Player, sex==ESexFemale, update.Name, kwMorph, update.Value)
 			idxUpdate += 1
 		EndWhile
 		BodyGen.UpdateMorphs(Player)
+
+		ApplyMorphUpdatesToCompanions(femaleUpdates, maleUpdates)
+
 		var[] eventArgs = new var[1]
 		eventArgs[0] = GetMorphPercentage()
 		SendCustomEvent("OnMorphChange", eventArgs)
+	EndIf
+EndFunction
+
+;
+; Apply a list of morph updates (sliderName:newValue) through BodyGen on all companions.
+;
+Function ApplyMorphUpdatesToCompanions(LenARM_SliderSet:MorphUpdate[] femaleUpdates, LenARM_SliderSet:MorphUpdate[] maleUpdates)
+	If (CompanionList.Length > 0 && (femaleUpdates.Length > 0 || maleUpdates.Length > 0))
+		D.Log("ApplyMorphUpdatesToCompanions: female=" + femaleUpdates + "  male=" + maleUpdates)
+		int idxCompanion = 0
+		While (idxCompanion < CompanionList.Length)
+			Actor companion = CompanionList[idxCompanion]
+			D.Log("  " + companion.GetLeveledActorBase().GetName() + " (" + companion + ")")
+			LenARM_SliderSet:MorphUpdate[] updates = new LenARM_SliderSet:MorphUpdate[0]
+			int sex = companion.GetLeveledActorBase().GetSex()
+			If (sex == ESexFemale)
+				updates = femaleUpdates
+			ElseIf (sex == ESexMale)
+				updates = maleUpdates
+			EndIf
+			D.Log("    " + updates)
+			If (updates.Length > 0)
+				int idxUpdate = 0
+				While (idxUpdate < updates.Length)
+					LenARM_SliderSet:MorphUpdate update = updates[idxUpdate]
+					BodyGen.SetMorph(companion, sex==ESexFemale, update.Name, kwMorph, update.Value)
+					idxUpdate += 1
+				EndWhile
+				BodyGen.UpdateMorphs(companion)
+			EndIf
+			idxCompanion += 1
+		EndWhile
 	EndIf
 EndFunction
 
@@ -496,7 +570,7 @@ EndFunction
 Function ApplyBaseMorphs()
 	D.Log("ApplyBaseMorphs")
 	int sex = Player.GetLeveledActorBase().GetSex()
-	LenARM_SliderSet:Slider[] baseMorphs = SliderSets.GetBaseMorphs()
+	LenARM_SliderSet:MorphUpdate[] baseMorphs = SliderSets.GetBaseMorphs()
 	ApplyMorphUpdates(baseMorphs)
 EndFunction
 
@@ -504,17 +578,17 @@ EndFunction
 ;
 ; Restore the original (unmorphed) slider values through BodyGen.
 ;
-Function RestoreOriginalMorphs()
-	D.Log("RestoreOriginalMorphs")
-	int sex = Player.GetLeveledActorBase().GetSex()
+Function RestoreOriginalMorphs(Actor target)
+	D.Log("RestoreOriginalMorphs: " + target)
+	int sex = target.GetLeveledActorBase().GetSex()
 	string[] sliderNames = SliderSets.GetSliderNames()
 	int idxSlider = 0
 	While (idxSlider < sliderNames.Length)
 		string sliderName = sliderNames[idxSlider]
-		BodyGen.SetMorph(Player, sex==ESexFemale, sliderName, kwMorph, 0)
+		BodyGen.SetMorph(target, sex==ESexFemale, sliderName, kwMorph, 0)
 		idxSlider += 1
 	EndWhile
-	BodyGen.UpdateMorphs(Player)
+	BodyGen.UpdateMorphs(target)
 EndFunction
 
 
@@ -558,7 +632,7 @@ Function HealBaseMorphs()
 	D.Log("HealBaseMorphs")
 	int sex = Player.GetLeveledActorBase().GetSex()
 	SliderSets.ClearBaseMorphs()
-	LenARM_SliderSet:Slider[] fullMorphs = SliderSets.CalculateFullMorphs()
+	LenARM_SliderSet:MorphUpdate[] fullMorphs = SliderSets.CalculateFullMorphs()
 	ApplyMorphUpdates(fullMorphs)
 EndFunction
 

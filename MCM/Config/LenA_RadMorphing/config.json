@@ -53,6 +53,19 @@
         {
             "text": "<br>",
             "html": true
+        },
+        {
+            "text": "Companions",
+            "type": "section"
+        },
+        {
+            "text": "Restore companion morphs when dismissed",
+            "help": "Restore the original companion body when they are dismissed. Default: ON",
+            "type": "switcher",
+            "id": "bRestoreCompanionsOnDismiss:General",
+            "valueOptions": {
+                "sourceType": "ModSettingBool"
+            }
         }
     ],
     "pages": [
