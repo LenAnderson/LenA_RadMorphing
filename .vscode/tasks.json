@@ -2,6 +2,20 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "printDone",
+			"group": "none",
+			"type": "shell",
+			"command": "Write-Host -ForegroundColor White -BackgroundColor DarkGreen \"`n`n`t== DONE ==`n\"",
+			"options": {
+				"shell": {
+					"executable": "powershell.exe"
+				},
+				"cwd": "${workspaceFolder}\\Scripts"
+			},
+			"problemMatcher": []
+		},
+
+		{
 			"label": "Bak FPLib",
 			"group": "none",
 			"type": "shell",
@@ -104,11 +118,22 @@
 
 
 		{
+			"label": "Build without DONE",
+			"detail": "Compile all Papyrus scripts",
+			"group": "none",
+			"dependsOrder": "sequence",
+			"dependsOn": ["Bak FPLib", "Compile", "Cleanup", "Unbak FPLib"]
+		},
+
+
+
+
+		{
 			"label": "Build",
 			"detail": "Compile all Papyrus scripts",
 			"group": "build",
 			"dependsOrder": "sequence",
-			"dependsOn": ["Bak FPLib", "Compile", "Cleanup", "Unbak FPLib"]
+			"dependsOn": ["Bak FPLib", "Compile", "Cleanup", "Unbak FPLib", "printDone"]
 		},
 
 		{
@@ -116,7 +141,7 @@
 			"detail": "Create a new FOMOD release with a new version number.",
 			"group": "build",
 			"dependsOrder": "sequence",
-			"dependsOn": ["bumpVersion", "Build", "copyToFomod", "zipFomod"]
+			"dependsOn": ["bumpVersion", "Build without DONE", "copyToFomod", "zipFomod", "printDone"]
 		}
 	]
 }
