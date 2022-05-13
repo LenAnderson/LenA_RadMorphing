@@ -2,18 +2,21 @@
 <!-- Created by vscode papyrus-lang papyrus.fallout4.generateProject -->
 <PapyrusProject xmlns="PapyrusProject.xsd" 
     Flags="Institute_Papyrus_Flags.flg" 
-    Output="..\..\" 
-    Game="fo4" 
+    Output="..\..\"
     Asm="Discard" 
     Optimize="false" 
     Release="false" 
     Final="false">
     <Imports>
         <Import>.</Import>
-        <!-- Replace the following <Import> values with the paths to your FO4 scripts. -->
-        <!-- Base should be automatically unpacked when starting CreationKit for the first time. -->
-        <!-- The DLC script can be found as .zip files in Data\Scripts\Source\DLC## and may have to -->
-        <!-- be moved into the "Base" directory after unpacking for CK to recognize them. -->
+        <!-- 
+            Replace the following <Import> values with the paths to your FO4 scripts.
+            Base should be automatically unpacked when starting CreationKit for the first time.
+            The DLC script can be found as .zip files in Data\Scripts\Source\DLC## and may have to
+            be moved into the "Base" directory after unpacking for CK to recognize them.
+
+            !! You also must remove this comment or the compiler will complain !!
+            -->
         <Import>E:\Games\Steam\SteamApps\common\Fallout 4\Data\Scripts\Source\User</Import>
         <Import>E:\Games\Steam\SteamApps\common\Fallout 4\Data\Scripts\Source\DLC06</Import>
         <Import>E:\Games\Steam\SteamApps\common\Fallout 4\Data\Scripts\Source\DLC05</Import>
