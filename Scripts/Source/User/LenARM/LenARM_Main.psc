@@ -176,7 +176,7 @@ EndEvent
 Event FollowersScript.CompanionChange(FollowersScript akSender, Var[] eventArgs)
 	Actor companion = eventArgs[0] as Actor
 	bool isNowCompanion = eventArgs[1] as bool
-	D.Log("FollowersScript.CompanionChange: " + companion + "  -->  " + isNowCompanion)
+	D.Log("FollowersScript.CompanionChange: " + companion.GetLeveledActorBase().GetName() + "(" + companion + ")  -->  " + isNowCompanion)
 	If (isNowCompanion)
 		If (CompanionList == None)
 			CompanionList = new Actor[0]
