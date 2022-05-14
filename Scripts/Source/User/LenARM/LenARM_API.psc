@@ -101,3 +101,11 @@ Function UpdateTrigger(string triggerName, float value)
 	D.Log("API.UpdateTrigger: " + triggerName + " = " + value)
 	Main.SetTriggerValue(triggerName, value)
 EndFunction
+
+
+;
+; Returns true if RMR is currently active / running.
+;
+bool Function IsRunning()
+	return Main.GetIsRunning()
+EndFunction

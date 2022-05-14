@@ -76,6 +76,9 @@ EndGroup
 ; TRUE while the mod is stopping.
 bool IsShuttingDown = false
 
+; TRUE while the mod is active.
+bool IsRunning = false
+
 int RestartStackSize = 0
 
 ; how many slider sets are available
@@ -283,6 +286,7 @@ Function Startup()
 		EndWhile
 
 		; notify plugins that mod is running
+		IsRunning = true
 		SendCustomEvent("OnStartup")
 	ElseIf (MCM.GetModSettingBool("RadMorphingRedux", "bWarnDisabled:General"))
 		; mod is disabled in MCM, warning is enabled: let the player know that the mod is disabled
@@ -304,6 +308,7 @@ Function Shutdown(bool withRestoreMorphs=true)
 		IsShuttingDown = true
 
 		; notify plugins that mod has stopped
+		IsRunning = false
 		SendCustomEvent("OnShutdown")
 
 		; stop listening for sleep events
@@ -392,6 +397,11 @@ Function PerformUpdateIfNecessary()
 	Else
 		D.Log("  no update")
 	EndIf
+EndFunction
+
+
+bool Function GetIsRunning()
+	return IsRunning
 EndFunction
 
 
