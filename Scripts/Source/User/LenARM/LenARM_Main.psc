@@ -217,12 +217,12 @@ Function OnMCMSettingChange(string modName, string id)
 	EndIf
 	If (Util.StringStartsWith(id, "iTriggerNameIndex:Slider"))
 		string sliderName = Util.StringSplit(id, ":")[1]
-		int idxTriggerName = MCM.GetModSettingInt("LenA_RadMorphing", id)
+		int idxTriggerName = MCM.GetModSettingInt("RadMorphingRedux", id)
 		string triggerName = MCM_TriggerNames[idxTriggerName]
 		D.Log("  " + idxTriggerName + " --> " + triggerName)
 		D.Log("  setting MCM: " + "sTriggerName:" + sliderName + " -> " + triggerName)
-		MCM.SetModSettingString("LenA_RadMorphing", "sTriggerName:" + sliderName, triggerName)
-		D.Log("    check MCM: " + MCM.GetModSettingString("LenA_RadMorphing", "sTriggerName:" + sliderName))
+		MCM.SetModSettingString("RadMorphingRedux", "sTriggerName:" + sliderName, triggerName)
+		D.Log("    check MCM: " + MCM.GetModSettingString("RadMorphingRedux", "sTriggerName:" + sliderName))
 	EndIf
 	Restart()
 EndFunction
@@ -240,18 +240,18 @@ EndFunction
 ;
 Function Startup()
 	D.Log("Startup")
-	If (MCM.GetModSettingBool("LenA_RadMorphing", "bIsEnabled:General"))
+	If (MCM.GetModSettingBool("RadMorphingRedux", "bIsEnabled:General"))
 		; mod is enabled in MCM: start setting everything up
 		D.Log("  is enabled")
 		
 		; get number of available SliderSets
-		NumberOfSliderSets = MCM.GetModSettingInt("LenA_RadMorphing", "iNumberOfSliderSets:Static")
+		NumberOfSliderSets = MCM.GetModSettingInt("RadMorphingRedux", "iNumberOfSliderSets:Static")
 		
 		; get update delay from MCM
-		UpdateDelay = MCM.GetModSettingFloat("LenA_RadMorphing", "fUpdateDelay:General")
+		UpdateDelay = MCM.GetModSettingFloat("RadMorphingRedux", "fUpdateDelay:General")
 
 		; get whether to restore companions on dismiss from MCM
-		RestoreCompanionsOnDismiss = MCM.GetModSettingBool("LenA_RadMorphing", "bRestoreCompanionsOnDismiss:General")
+		RestoreCompanionsOnDismiss = MCM.GetModSettingBool("RadMorphingRedux", "bRestoreCompanionsOnDismiss:General")
 
 		; load SliderSets
 		SliderSets.LoadSliderSets(NumberOfSliderSets, Player)
@@ -278,13 +278,13 @@ Function Startup()
 		MCM_TriggerNames.Add("-- SELECT A TRIGGER --")
 		int idxSliderSet = 0
 		While (idxSliderSet < NumberOfSliderSets)
-			MCM.SetModSettingInt("LenA_RadMorphing", "iTriggerNameIndex:Slider" + idxSliderSet, 0)
+			MCM.SetModSettingInt("RadMorphingRedux", "iTriggerNameIndex:Slider" + idxSliderSet, 0)
 			idxSliderSet += 1
 		EndWhile
 
 		; notify plugins that mod is running
 		SendCustomEvent("OnStartup")
-	ElseIf (MCM.GetModSettingBool("LenA_RadMorphing", "bWarnDisabled:General"))
+	ElseIf (MCM.GetModSettingBool("RadMorphingRedux", "bWarnDisabled:General"))
 		; mod is disabled in MCM, warning is enabled: let the player know that the mod is disabled
 		D.Log("  is disabled, with warning")
 		Debug.MessageBox("Rad Morphing is currently disabled. You can enable it in MCM > Rad Morphing > Enable Rad Morphing")
@@ -413,9 +413,9 @@ bool Function AddTriggerName(string triggerName)
 		int triggerNameIndex = MCM_TriggerNames.Length - 1
 		int idxSliderSet = 0
 		While (idxSliderSet < NumberOfSliderSets)
-			If (MCM.GetModSettingString("LenA_RadMorphing", "sTriggerName:Slider" + idxSliderSet) == triggerName)
+			If (MCM.GetModSettingString("RadMorphingRedux", "sTriggerName:Slider" + idxSliderSet) == triggerName)
 				D.Log("  updating MCM for SliderSet " + idxSliderSet)
-				MCM.SetModSettingInt("LenA_RadMorphing", "iTriggerNameIndex:Slider" + idxSliderSet, triggerNameIndex)
+				MCM.SetModSettingInt("RadMorphingRedux", "iTriggerNameIndex:Slider" + idxSliderSet, triggerNameIndex)
 			EndIf
 			idxSliderSet += 1
 		EndWhile

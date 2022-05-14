@@ -22,12 +22,12 @@ def counts = fomod
 
 
 // json templates
-def tplText = new File("MCM/config/LenA_RadMorphing/config.tpl.json").text
-def tplSliderPageText = new File("MCM/config/LenA_RadMorphing/config.sliderSet.page.tpl.json").text
-def tplSliderText = new File("MCM/config/LenA_RadMorphing/config.sliderSet.tpl.json").text
+def tplText = new File("MCM/config/RadMorphingRedux/config.tpl.json").text
+def tplSliderPageText = new File("MCM/config/RadMorphingRedux/config.sliderSet.page.tpl.json").text
+def tplSliderText = new File("MCM/config/RadMorphingRedux/config.sliderSet.tpl.json").text
 
 // old ini
-def oldVarsMatched = new File("MCM/config/LenA_RadMorphing/settings.ini").text =~ /(?:\[([^\]\r\n]+)\])|(?:([^;=\r\n]+?)=([^;\r\n]*?)(?:\s*[;\r\n]))/
+def oldVarsMatched = new File("MCM/config/RadMorphingRedux/settings.ini").text =~ /(?:\[([^\]\r\n]+)\])|(?:([^;=\r\n]+?)=([^;\r\n]*?)(?:\s*[;\r\n]))/
 def oldVars = [:]
 def curSection
 oldVarsMatched.each{oldVar ->
@@ -78,8 +78,8 @@ counts.eachWithIndex{count, idxCount ->
 		tpl.pages << page
 	}
 	tpl = replacer(tpl)
-	new File(".options/mcm_SliderSets_${count}/MCM/config/LenA_RadMorphing").mkdirs()
-	File output = new File(".options/mcm_SliderSets_${count}/MCM/config/LenA_RadMorphing/config.json")
+	new File(".options/mcm_SliderSets_${count}/MCM/config/RadMorphingRedux").mkdirs()
+	File output = new File(".options/mcm_SliderSets_${count}/MCM/config/RadMorphingRedux/config.json")
 	output.text = builder.prettyPrint(builder.toJson(tpl))
 
 	// ini
@@ -104,14 +104,14 @@ counts.eachWithIndex{count, idxCount ->
 			sb << "${name}=${val}\n"
 		}
 	}
-	File ini = new File(".options/mcm_SliderSets_${count}/MCM/config/LenA_RadMorphing/settings.ini")
+	File ini = new File(".options/mcm_SliderSets_${count}/MCM/config/RadMorphingRedux/settings.ini")
 	ini.text = sb
 
 	// first option is used as default
 	if (idxCount == 0) {
-		File outputDefault = new File("MCM/config/LenA_RadMorphing/config.json")
+		File outputDefault = new File("MCM/config/RadMorphingRedux/config.json")
 		outputDefault.text = output.text
-		File iniDefault = new File("MCM/config/LenA_RadMorphing/settings.ini")
+		File iniDefault = new File("MCM/config/RadMorphingRedux/settings.ini")
 		iniDefault.text = ini.text
 	}
 }
