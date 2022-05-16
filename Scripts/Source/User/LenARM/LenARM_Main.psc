@@ -11,10 +11,22 @@ Group Properties
 	Keyword Property kwMorph Auto Const
 	{keyword required for looksmenu morphing}
 
-	Scene Property DoctorGreetScene Auto Const
-	{first part of a doctor dialogue scene: greeting}
-	Scene Property DoctorMedicineScene02_Exam Auto Const
-	{examining part of a doctor dialogue scene}
+	Scene[] Property DoctorGreetScenes Auto Const
+	{first part of a doctor dialogue scene: greeting
+		- DoctorGreetScene
+		- DLC03DialogueFarHarbor_TeddyWright
+		- DialogueNucleusArchemist_GreetScene
+		- DLC03AcadiaDialogueAsterDoctorIntro
+		- DLC04SettlementDoctor_GreetScene
+	}
+	Scene[] Property DoctorExamScenes Auto Const
+	{second part of a doctor dialogue scene: exam
+		- DoctorMedicineScene02_Exam
+		- DLC03DialogueFarHarbor_TeddyExam
+		- DialogueNucleusArchemist_GreetScene02_Exam
+		- DLC03AcadiaDialogueAsterExamScene
+		- DLC04SettlementDoctor_ExamScene
+	}
 
 	FollowersScript Property Followers Auto Const
 	{script for handling follower and companion systems}
@@ -166,12 +178,12 @@ Event OnPlayerSleepStop(bool abInterrupted, ObjectReference akBed)
 EndEvent
 
 
-Event Scene.OnBegin(Scene akSender)
-	D.Log("Scene.OnBegin: " + akSender)
-	If (akSender == DoctorGreetScene)
+Event Scene.OnBegin(Scene theScene)
+	D.Log("Scene.OnBegin: " + theScene)
+	If (DoctorGreetScenes.Find(theScene) > -1)
 		D.Log("  DoctorGreetScene --> setting HealMorphMessageShown to false")
 		HealMorphMessageShown = false
-	ElseIf (SliderSets.HasDoctorOnly() && !HealMorphMessageShown && akSender == DoctorMedicineScene02_Exam)
+	ElseIf (SliderSets.HasDoctorOnly() && !HealMorphMessageShown && DoctorExamScenes.Find(theScene) > -1)
 		D.Log("  DoctorMedicineScene02_Exam --> setting HealMorphMessageShown to true")
 		HealMorphMessageShown = true
 		ShowHealMorphDialog()
@@ -268,8 +280,18 @@ Function Startup()
 		;TODO listen for item equip
 
 		; listen for doctor scenes
-		RegisterForRemoteEvent(DoctorGreetScene, "OnBegin")
-		RegisterForRemoteEvent(DoctorMedicineScene02_Exam, "OnBegin")
+		int idxDoctorGreetScene = 0
+		While (idxDoctorGreetScene < DoctorGreetScenes.Length)
+			Scene greetScene = DoctorGreetScenes[idxDoctorGreetScene]
+			RegisterForRemoteEvent(greetScene, "OnBegin")
+			idxDoctorGreetScene += 1
+		EndWhile
+		int idxDoctorExamScene = 0
+		While (idxDoctorExamScene < DoctorExamScenes.Length)
+			Scene examScene = DoctorExamScenes[idxDoctorExamScene]
+			RegisterForRemoteEvent(examScene, "OnBegin")
+			idxDoctorExamScene += 1
+		EndWhile
 
 		; listen for companion changes
 		RegisterForCustomEvent(Followers, "CompanionChange")
@@ -326,8 +348,18 @@ Function Shutdown(bool withRestoreMorphs=true)
 		;TODO stop listening for equipping items
 		
 		; stop listening for doctor scenes
-		UnregisterForRemoteEvent(DoctorGreetScene, "OnBegin")
-		UnregisterForRemoteEvent(DoctorMedicineScene02_Exam, "OnBegin")
+		int idxDoctorGreetScene = 0
+		While (idxDoctorGreetScene < DoctorGreetScenes.Length)
+			Scene greetScene = DoctorGreetScenes[idxDoctorGreetScene]
+			UnregisterForRemoteEvent(greetScene, "OnBegin")
+			idxDoctorGreetScene += 1
+		EndWhile
+		int idxDoctorExamScene = 0
+		While (idxDoctorExamScene < DoctorExamScenes.Length)
+			Scene examScene = DoctorExamScenes[idxDoctorExamScene]
+			UnregisterForRemoteEvent(examScene, "OnBegin")
+			idxDoctorExamScene += 1
+		EndWhile
 
 		; stop listening for companion changes
 		UnregisterForCustomEvent(Followers, "CompanionChange")
