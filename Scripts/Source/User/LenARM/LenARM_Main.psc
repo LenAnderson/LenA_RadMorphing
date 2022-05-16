@@ -139,14 +139,14 @@ EndFunction
 
 Event OnQuestInit()
 	D.Log("OnQuestInit")
-	RegisterForExternalEvent("OnMCMSettingChange|LenA_RadMorphing", "OnMCMSettingChange")
+	RegisterForExternalEvent("OnMCMSettingChange|RadMorphingRedux", "OnMCMSettingChange")
 	RegisterForRemoteEvent(Player, "OnPlayerLoadGame")
 	Startup()
 EndEvent
 
 Event OnQuestShutdown()
 	D.Log("OnQuestShutdown")
-	UnregisterForExternalEvent("OnMCMSettingChange|LenA_RadMorphing")
+	UnregisterForExternalEvent("OnMCMSettingChange|RadMorphingRedux")
 	UnregisterForRemoteEvent(Player, "OnPlayerLoadGame")
 	Shutdown()
 EndEvent
