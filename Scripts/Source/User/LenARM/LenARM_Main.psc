@@ -436,6 +436,24 @@ bool Function AddTriggerName(string triggerName)
 	EndIf
 EndFunction
 
+Function RemoveTriggerName(string triggerName)
+	D.Log("RemoveTriggerName: " + triggerName)
+	int idxTrigger = MCM_TriggerNames.Find(triggerName)
+	If (idxTrigger > -1)
+		MCM_TriggerNames.Remove(idxTrigger)
+		int idxSliderSet = 0
+		While (idxSliderSet < NumberOfSliderSets)
+			If (MCM.GetModSettingString("RadMorphingRedux", "sTriggerName:Slider" + idxSliderSet) == triggerName)
+				D.Log("  updating MCM for SliderSet " + idxSliderSet)
+				MCM.SetModSettingInt("RadMorphingRedux", "iTriggerNameIndex:Slider" + idxSliderSet, 0)
+			EndIf
+			idxSliderSet += 1
+		EndWhile
+	Else
+		D.Log("  trigger does not exist")
+	EndIf
+EndFunction
+
 
 ;
 ; Get the total (max) percentage of morphs (base + current) currently applied.

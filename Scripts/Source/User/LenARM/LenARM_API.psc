@@ -93,6 +93,11 @@ bool Function RegisterTrigger(string triggerName)
 	return Main.AddTriggerName(triggerName)
 EndFunction
 
+Function UnregisterTrigger(string triggerName)
+	D.Log("API.UnregisterTrigger: " + triggerName)
+	Main.RemoveTriggerName(triggerName)
+EndFunction
+
 
 ;
 ; Update the value of a morph trigger.
