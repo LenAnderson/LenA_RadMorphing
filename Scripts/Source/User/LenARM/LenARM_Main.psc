@@ -93,6 +93,8 @@ bool IsRunning = false
 
 int RestartStackSize = 0
 
+int UnequipStackSize = 0
+
 ; how many slider sets are available
 int NumberOfSliderSets
 
@@ -593,6 +595,8 @@ Function ApplyMorphUpdates(LenARM_SliderSet:MorphUpdate[] updates)
 
 		ApplyMorphUpdatesToCompanions(femaleUpdates, maleUpdates)
 
+		UnequipSlots()
+
 		var[] eventArgs = new var[1]
 		eventArgs[0] = GetMorphPercentage()
 		SendCustomEvent("OnMorphChange", eventArgs)
@@ -702,6 +706,63 @@ Function HealBaseMorphs()
 	SliderSets.ClearBaseMorphs()
 	LenARM_SliderSet:MorphUpdate[] fullMorphs = SliderSets.CalculateFullMorphs()
 	ApplyMorphUpdates(fullMorphs)
+EndFunction
+
+
+bool Function CheckIgnoreItem(Actor:WornItem item)
+	If (LL_Fourplay.StringSubstring(item.modelName, 0, 6) == "Actors" || LL_Fourplay.StringSubstring(item.modelName, 0, 6) == "Pipboy")
+		return true
+	EndIf
+
+	;TODO check DeviousDevices
+
+	return false
+EndFunction
+Function UnequipActorSlots(Actor target, int[] slots)
+	D.Log("UnequipActorSlots: target=" + target.GetLeveledActorBase().GetName() + " (" + target + ")  slots=" + slots)
+	bool playedSound = false
+	int idxSlot = 0
+	While (idxSlot < slots.Length)
+		int slot = slots[idxSlot]
+		D.Log("  checking slot " + slot)
+		Actor:WornItem item = target.GetWornItem(slot)
+		D.Log("    -->  " + item)
+		If (item && item.item)
+			bool ignoreItem = false
+			D.Log("    ignoreItem: " + ignoreItem)
+			If (!ignoreItem)
+				D.Log("    unequipping slot " + slot + " (" + item.item.GetName() + " / " + item.modelName + ")")
+				target.UnequipItemSlot(slot)
+				If (!playedSound && !target.IsEquipped(item.item))
+					D.Log("    playing sound")
+					;TODO play sound
+					playedSound = true
+				EndIf
+			EndIf
+		EndIf
+		idxSlot += 1
+	EndWhile
+EndFunction
+
+Function UnequipSlots()
+	If (!Player.IsInPowerArmor())
+		UnequipStackSize += 1
+		Utility.Wait(1.0)
+		If (UnequipStackSize <= 1 && !Player.IsInPowerArmor())
+			D.Log("UnequipSlots")
+			int[] slots = SliderSets.GetUnequipSlots()
+			UnequipActorSlots(Player, slots)
+			int idxCompanion = 0
+			While (idxCompanion < CompanionList.Length)
+				Actor companion = CompanionList[idxCompanion]
+				UnequipActorSlots(companion, slots)
+				idxCompanion += 1
+			EndWhile
+		Else
+			D.Log("UnequipStackSize: " + UnequipStackSize)
+		EndIf
+		UnequipStackSize -= 1
+	EndIf
 EndFunction
 
 

@@ -138,8 +138,8 @@ SliderSet[] SliderSets
 ; flattened array[idxSliderSet][idxSlider] (name and original morph)
 string[] SliderNames
 
-; flattened array[idxSliderSet][idxSlotName]
-string[] UnequipSlots
+; flattened array[idxSliderSet][idxSlot]
+int[] UnequipSlots
 
 ; list of companions with saved original morphs
 Actor[] Companions
@@ -595,7 +595,7 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 		SliderNames = new string[0]
 	EndIf
 	If (!UnequipSlots)
-		UnequipSlots = new string[0]
+		UnequipSlots = new int[0]
 	EndIf
 
 	; create SliderSets
@@ -803,4 +803,23 @@ bool Function HasDoctorOnly()
 		idxSliderSet += 1
 	EndWhile
 	return false
+EndFunction
+
+
+int[] Function GetUnequipSlots()
+	int[] slots = new int[0]
+	int idxSliderSet = 0
+	While (idxSliderSet < SliderSets.Length)
+		SliderSet sliderSet = SliderSets[idxSliderSet]
+		If (sliderSet.FullMorph > sliderSet.ThresholdUnequip)
+			int offset = GetUnequipSlotOffset(idxSliderSet)
+			int idxSlot = 0
+			While (idxSlot < sliderSet.NumberOfUnequipSlots)
+				slots.Add(UnequipSlots[idxSlot])
+				idxSlot += 1
+			EndWhile
+		EndIf
+		idxSliderSet += 1
+	EndWhile
+	return slots
 EndFunction
