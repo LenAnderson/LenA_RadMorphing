@@ -17,6 +17,9 @@ EndGroup
 CustomEvent OnStartup
 CustomEvent OnShutdown
 CustomEvent OnMorphChange
+CustomEvent OnTriggerAdd
+CustomEvent OnTriggerRemove
+CustomEvent OnTriggerUpdate
 
 
 
@@ -90,12 +93,25 @@ EndFunction
 ;
 bool Function RegisterTrigger(string triggerName)
 	D.Log("API.RegisterTrigger: " + triggerName)
-	return Main.AddTriggerName(triggerName)
+	bool isRegistered = Main.AddTriggerName(triggerName)
+	If (isRegistered)
+		var[] eventArgs = new var[1]
+		eventArgs[0] = triggerName
+		SendCustomEvent("OnTriggerAdd", eventArgs)
+	EndIf
+	return isRegistered
 EndFunction
 
+;
+; Unregister a trigger name from RMR.
+;
 Function UnregisterTrigger(string triggerName)
 	D.Log("API.UnregisterTrigger: " + triggerName)
 	Main.RemoveTriggerName(triggerName)
+	
+	var[] eventArgs = new var[1]
+	eventArgs[0] = triggerName
+	SendCustomEvent("OnTriggerRemove", eventArgs)
 EndFunction
 
 
@@ -104,7 +120,12 @@ EndFunction
 ;
 Function UpdateTrigger(string triggerName, float value)
 	D.Log("API.UpdateTrigger: " + triggerName + " = " + value)
-	Main.SetTriggerValue(triggerName, value)
+	float actualValue = Main.SetTriggerValue(triggerName, value)
+	
+	var[] eventArgs = new var[2]
+	eventArgs[0] = triggerName
+	eventArgs[1] = actualValue
+	SendCustomEvent("OnTriggerUpdate", eventArgs)
 EndFunction
 
 

@@ -558,12 +558,14 @@ EndFunction
 
 ;
 ; Update the value of a morph trigger.
+; Returns the value that is used on the trigger, clamped between 0.0 and 1.0
 ;
-Function SetTriggerValue(string triggerName, float value)
+float Function SetTriggerValue(string triggerName, float value)
 	float clampedValue = Util.Clamp(value, 0.0, 1.0)
 	D.Log("SetTriggerValue: " + triggerName + " = " + value + " --> " + clampedValue)
 	SliderSets.SetTriggerValue(triggerName, clampedValue)
 	ApplyImmediateMorphs()
+	return clampedValue
 EndFunction
 
 ;
