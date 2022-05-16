@@ -732,7 +732,7 @@ Function UnequipActorSlots(Actor target, int[] slots)
 		Actor:WornItem item = target.GetWornItem(slot)
 		D.Log("    -->  " + item)
 		If (item && item.item)
-			bool ignoreItem = false
+			bool ignoreItem = CheckIgnoreItem(item)
 			D.Log("    ignoreItem: " + ignoreItem)
 			If (!ignoreItem)
 				D.Log("    unequipping slot " + slot + " (" + item.item.GetName() + " / " + item.modelName + ")")
