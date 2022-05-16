@@ -195,6 +195,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -414,6 +415,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -633,6 +635,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -852,6 +855,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -1071,6 +1075,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -1290,6 +1295,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -1509,6 +1515,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -1728,6 +1735,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -1947,6 +1955,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -2166,6 +2175,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -2385,6 +2395,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -2604,6 +2615,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -2823,6 +2835,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -3042,6 +3055,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -3261,6 +3275,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -3480,6 +3495,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -3699,6 +3715,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -3918,6 +3935,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -4137,6 +4155,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -4356,6 +4375,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptname": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
