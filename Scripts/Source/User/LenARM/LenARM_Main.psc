@@ -178,6 +178,11 @@ Event Actor.OnPlayerLoadGame(Actor akSender)
 	PerformUpdateIfNecessary()
 EndEvent
 
+Event Actor.OnItemEquipped(Actor akSender, Form akBaseObject, ObjectReference akReference)
+	D.Log("Actor.OnItemEquipped: akSender=" + akSender + "  akBaseObject=" + akBaseObject + "  akReference=" + akReference)
+	UnequipSlots()
+EndEvent
+
 Event OnPlayerSleepStop(bool abInterrupted, ObjectReference akBed)
 	D.Log("OnPlayerSleepStop: abInterrupted=" + abInterrupted + ";  akBed=" + akBed)
 	ApplySleepMorphs()
@@ -206,11 +211,13 @@ Event FollowersScript.CompanionChange(FollowersScript akSender, Var[] eventArgs)
 			CompanionList = new Actor[0]
 		EndIf
 		CompanionList.Add(companion)
+		RegisterForRemoteEvent(companion, "OnItemEquipped")
 		LenARM_SliderSet:MorphUpdate[] updates = SliderSets.GetFullMorphs()
 		ApplyMorphUpdates(updates)
 	Else
 		int idxCompanion = CompanionList.Find(companion)
 		CompanionList.Remove(idxCompanion)
+		UnregisterForRemoteEvent(companion, "OnItemEquipped")
 		If (RestoreCompanionsOnDismiss)
 			RestoreOriginalMorphs(companion)
 		EndIf
@@ -283,7 +290,14 @@ Function Startup()
 		; load SliderSets
 		SliderSets.LoadSliderSets(NumberOfSliderSets, Player)
 
-		;TODO listen for item equip
+		; listen for item equip
+		RegisterForRemoteEvent(Player, "OnItemEquipped")
+		int idxCompanion = 0
+		While (idxCompanion < CompanionList.Length)
+			Actor companion = CompanionList[idxCompanion]
+			RegisterForRemoteEvent(companion, "OnItemEquipped")
+			idxCompanion += 1
+		EndWhile
 
 		; listen for doctor scenes
 		int idxDoctorGreetScene = 0
@@ -351,7 +365,14 @@ Function Shutdown(bool withRestoreMorphs=true)
 		; stop timer
 		CancelTimer(ETimerMorph)
 
-		;TODO stop listening for equipping items
+		; stop listening for equipping items
+		UnregisterForRemoteEvent(Player, "OnItemEquipped")
+		int idxCompanion = 0
+		While (idxCompanion < CompanionList.Length)
+			Actor companion = CompanionList[idxCompanion]
+			UnregisterForRemoteEvent(companion, "OnItemEquipped")
+			idxCompanion += 1
+		EndWhile
 		
 		; stop listening for doctor scenes
 		int idxDoctorGreetScene = 0
