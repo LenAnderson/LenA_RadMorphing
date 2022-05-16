@@ -15,11 +15,16 @@ Group EnumUpdateType
 	{update after sleeping}
 EndGroup
 
-Group EnumApplyCompanion
-	int Property EApplyCompanionNone = 0 Auto Const
-	int Property EApplyCompanionFemale = 1 Auto Const
-	int Property EApplyCompanionMale = 2 Auto Const
-	int Property EApplyCompanionAll = 3 Auto Const
+Group EnumApplyTo
+	int Property EApplyToPlayer = 0 Auto Const
+	int Property EApplyToCompanion = 1 Auto Const
+	int Property EApplyToAll = 2 Auto Const
+EndGroup
+
+Group EnumApplySex
+	int Property EApplySexAll = 0 Auto Const
+	int Property EApplySexFemale = 1 Auto Const
+	int Property EApplySexMale = 2 Auto Const
 EndGroup
 
 Group EnumOverrideBool
@@ -34,14 +39,34 @@ EndGroup
 ;-----------------------------------------------------------------------------------------------------
 ;-----------------------------------------------------------------------------------------------------
 ;-----------------------------------------------------------------------------------------------------
-; Slider definition
+; Other struct definitions
+
 Struct MorphUpdate
 	string Name
 	{name of the LooksMenu slider}
 	float Value
 	{value of the LooksMenu slider}
-	int ApplyCompanion
-	{whether to apply to none/female/male/all companions (see: EnumApplyCompanion)}
+	bool ApplyPlayer
+	{whether to apply to player}
+	bool ApplyCompanion
+	{whether to apply to companions}
+	bool ApplyFemale
+	{whether to apply to female actors}
+	bool ApplyMale
+	{whether to apply to male actors}
+EndStruct
+
+Struct UnequipSlot
+	int Slot
+	{slot number}
+	bool ApplyPlayer
+	{whether to unequip player}
+	bool ApplyCompanion
+	{whether to unequip companions}
+	bool ApplyFemale
+	{whether to unequip female companions}
+	bool ApplyMale
+	{whether to unequip male companions}
 EndStruct
 
 
@@ -66,6 +91,12 @@ Struct SliderSet
 	string SliderName
 	{name of the sliders to morph, multiple sliders are separated by "|"}
 
+	int ApplyTo
+	{whether to apply this slider set to player, companions, or both; see EnumApplyTo}
+
+	int Sex
+	{whether to apply this slider set to all actors, only females, or only males, see EnumApplySex}
+
 	string TriggerName
 	{name of the trigger value that is used to determine morphing}
 
@@ -86,9 +117,6 @@ Struct SliderSet
 	{IDs of the slots to unequip, multiple slots are separated by "|"}
 	float ThresholdUnequip
 	{% of TargetMorph when to unequip items, between 0.01 and 1.0, 1.0 = 100%}
-
-	int ApplyCompanion
-	{whether to apply morphs also to companions and which sex, see EnumApplyCompanion}
 
 	bool OnlyDoctorCanReset
 	{whether only doctors can reset morphs}
@@ -237,6 +265,8 @@ SliderSet Function SliderSet_Constructor(int idxSliderSet)
 	If (this.SliderName != "")
 		this.Index = idxSliderSet
 		this.IsUsed = true
+		this.ApplyTo = MCM.GetModSettingInt("RadMorphingRedux", "iApplyTo:Slider" + idxSliderSet)
+		this.Sex = MCM.GetModSettingInt("RadMorphingRedux", "iSex:Slider" + idxSliderSet)
 		this.TriggerName = MCM.GetModSettingString("RadMorphingRedux", "sTriggerName:Slider" + idxSliderSet)
 		this.InvertTriggerValue = MCM.GetModSettingBool("RadMorphingRedux", "bInvertTriggerValue:Slider" + idxSliderSet)
 		this.UpdateType = MCM.GetModSettingInt("RadMorphingRedux", "iUpdateType:Slider" + idxSliderSet)
@@ -245,7 +275,6 @@ SliderSet Function SliderSet_Constructor(int idxSliderSet)
 		this.ThresholdMax = MCM.GetModSettingFloat("RadMorphingRedux", "fThresholdMax:Slider" + idxSliderSet) / 100.0
 		this.UnequipSlot = MCM.GetModSettingString("RadMorphingRedux", "sUnequipSlot:Slider" + idxSliderSet)
 		this.ThresholdUnequip = MCM.GetModSettingFloat("RadMorphingRedux", "fThresholdUnequip:Slider" + idxSliderSet) / 100.0
-		this.ApplyCompanion = MCM.GetModSettingInt("RadMorphingRedux", "iApplyCompanion:Slider" + idxSliderSet)
 		this.OnlyDoctorCanReset = MCM.GetModSettingBool("RadMorphingRedux", "bOnlyDoctorCanReset:Slider" + idxSliderSet)
 		this.IsAdditive = MCM.GetModSettingBool("RadMorphingRedux", "bIsAdditive:Slider" + idxSliderSet)
 		this.HasAdditiveLimit = MCM.GetModSettingBool("RadMorphingRedux", "bHasAdditiveLimit:Slider" + idxSliderSet)
@@ -427,7 +456,10 @@ MorphUpdate[] Function SliderSet_CalculateFullMorphs(int idxSliderSet)
 			MorphUpdate update = new MorphUpdate
 			update.Name = SliderNames[sliderNameOffset + idxSlider]
 			update.Value = fullMorphValue
-			update.ApplyCompanion = this.ApplyCompanion
+			update.ApplyPlayer = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToPlayer
+			update.ApplyCompanion = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToCompanion
+			update.ApplyFemale = this.Sex == EApplySexAll || this.Sex == EApplySexFemale
+			update.ApplyMale = this.Sex == EApplySexAll || this.Sex == EApplySexMale
 			updates.Add(update)
 			idxSlider += 1
 		EndWhile
@@ -471,7 +503,10 @@ MorphUpdate[] Function SliderSet_GetBaseMorphs(int idxSliderSet)
 			MorphUpdate baseMorph = new MorphUpdate
 			baseMorph.Name = SliderNames[sliderNameOffset + idxSlider]
 			baseMorph.Value = this.BaseMorph * this.TargetMorph
-			baseMorph.ApplyCompanion = this.ApplyCompanion
+			baseMorph.ApplyPlayer = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToPlayer
+			baseMorph.ApplyCompanion = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToCompanion
+			baseMorph.ApplyFemale = this.Sex == EApplySexAll || this.Sex == EApplySexFemale
+			baseMorph.ApplyMale = this.Sex == EApplySexAll || this.Sex == EApplySexMale
 			baseMorphs.Add(baseMorph)
 			idxSlider += 1
 		EndWhile
@@ -492,7 +527,10 @@ MorphUpdate[] Function SliderSet_GetFullMorphs(int idxSliderSet)
 		MorphUpdate fullMorph = new MorphUpdate
 		fullMorph.Name = SliderNames[sliderNameOffset + idxSlider]
 		fullMorph.Value = this.FullMorph * this.TargetMorph
-		fullMorph.ApplyCompanion = this.ApplyCompanion
+		fullMorph.ApplyPlayer = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToPlayer
+		fullMorph.ApplyCompanion = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToCompanion
+		fullMorph.ApplyFemale = this.Sex == EApplySexAll || this.Sex == EApplySexFemale
+		fullMorph.ApplyMale = this.Sex == EApplySexAll || this.Sex == EApplySexMale
 		fullMorphs.Add(fullMorph)
 		idxSlider += 1
 	EndWhile
@@ -515,6 +553,8 @@ Function SliderSet_Print(int idxSliderSet)
 	D.Log("  Index: " + this.Index)
 	D.Log("  IsUsed: " + this.IsUsed)
 	D.Log("  SliderName: " + this.SliderName)
+	D.Log("  ApplyTo: " + this.ApplyTo)
+	D.Log("  Sex: " + this.Sex)
 	D.Log("  TriggerName: " + this.TriggerName)
 	D.Log("  InvertTriggerValue: " + this.InvertTriggerValue)
 	D.Log("  UpdateType: " + this.UpdateType)
@@ -523,7 +563,6 @@ Function SliderSet_Print(int idxSliderSet)
 	D.Log("  ThresholdMax: " + this.ThresholdMax)
 	D.Log("  UnequipSlot: " + this.UnequipSlot)
 	D.Log("  ThresholdUnequip: " + this.ThresholdUnequip)
-	D.Log("  ApplyCompanion: " + this.ApplyCompanion)
 	D.Log("  OnlyDoctorCanReset: " + this.OnlyDoctorCanReset)
 	D.Log("  IsAdditive: " + this.IsAdditive)
 	D.Log("  HasAdditiveLimit: " + this.HasAdditiveLimit)
@@ -806,8 +845,8 @@ bool Function HasDoctorOnly()
 EndFunction
 
 
-int[] Function GetUnequipSlots()
-	int[] slots = new int[0]
+UnequipSlot[] Function GetUnequipSlots()
+	UnequipSlot[] slots = new UnequipSlot[0]
 	int idxSliderSet = 0
 	While (idxSliderSet < SliderSets.Length)
 		SliderSet sliderSet = SliderSets[idxSliderSet]
@@ -815,7 +854,13 @@ int[] Function GetUnequipSlots()
 			int offset = GetUnequipSlotOffset(idxSliderSet)
 			int idxSlot = 0
 			While (idxSlot < sliderSet.NumberOfUnequipSlots)
-				slots.Add(UnequipSlots[idxSlot])
+				UnequipSlot slot = new UnequipSlot
+				slot.Slot = UnequipSlots[idxSlot]
+				slot.ApplyPlayer = sliderSet.ApplyTo == EApplyToAll || sliderSet.ApplyTo == EApplyToPlayer
+				slot.ApplyCompanion = sliderSet.ApplyTo == EApplyToAll || sliderSet.ApplyTo == EApplyToCompanion
+				slot.ApplyFemale = sliderSet.Sex == EApplySexAll || sliderSet.Sex == EApplySexFemale
+				slot.ApplyMale = sliderSet.Sex == EApplySexAll || sliderSet.Sex == EApplySexMale
+				slots.Add(slot)
 				idxSlot += 1
 			EndWhile
 		EndIf

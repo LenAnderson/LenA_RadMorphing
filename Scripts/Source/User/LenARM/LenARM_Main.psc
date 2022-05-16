@@ -605,18 +605,26 @@ Function ApplyMorphUpdates(LenARM_SliderSet:MorphUpdate[] updates)
 		LenARM_SliderSet:MorphUpdate[] maleUpdates = new LenARM_SliderSet:MorphUpdate[0]
 		int sex = Player.GetLeveledActorBase().GetSex()
 		int idxUpdate = 0
+		bool playerMorphed = false
 		While (idxUpdate < updates.Length)
 			LenARM_SliderSet:MorphUpdate update = updates[idxUpdate]
-			If (update.ApplyCompanion == SliderSets.EApplyCompanionFemale || update.ApplyCompanion == SliderSets.EApplyCompanionAll)
+			If (update.ApplyCompanion && update.ApplyFemale)
 				femaleUpdates.Add(update)
 			EndIf
-			If (update.ApplyCompanion == SliderSets.EApplyCompanionMale || update.ApplyCompanion == SliderSets.EApplyCompanionAll)
+			If (update.ApplyCompanion && update.ApplyMale)
 				maleUpdates.Add(update)
 			EndIf
-			BodyGen.SetMorph(Player, sex==ESexFemale, update.Name, kwMorph, update.Value)
+			If (update.ApplyPlayer)
+				If ((sex == ESexFemale && update.ApplyFemale) || (sex == ESexMale && update.ApplyMale))
+					BodyGen.SetMorph(Player, sex==ESexFemale, update.Name, kwMorph, update.Value)
+					playerMorphed = true
+				EndIf
+			EndIf
 			idxUpdate += 1
 		EndWhile
-		BodyGen.UpdateMorphs(Player)
+		If (playerMorphed)
+			BodyGen.UpdateMorphs(Player)
+		EndIf
 
 		ApplyMorphUpdatesToCompanions(femaleUpdates, maleUpdates)
 
@@ -737,26 +745,31 @@ bool Function CheckIgnoreItem(Actor:WornItem item)
 
 	return false
 EndFunction
-Function UnequipActorSlots(Actor target, int[] slots)
+Function UnequipActorSlots(Actor target, LenARM_SliderSet:UnequipSlot[] slots)
 	If (!target.IsInPowerArmor())
 		D.Log("UnequipActorSlots: target=" + target.GetLeveledActorBase().GetName() + " (" + target + ")  slots=" + slots)
+		int sex = target.GetLeveledActorBase().GetSex()
 		bool playedSound = false
 		int idxSlot = 0
 		While (idxSlot < slots.Length)
-			int slot = slots[idxSlot]
-			D.Log("  checking slot " + slot)
-			Actor:WornItem item = target.GetWornItem(slot)
-			D.Log("    -->  " + item)
-			If (item && item.item)
-				bool ignoreItem = CheckIgnoreItem(item)
-				D.Log("    ignoreItem: " + ignoreItem)
-				If (!ignoreItem)
-					D.Log("    unequipping slot " + slot + " (" + item.item.GetName() + " / " + item.modelName + ")")
-					target.UnequipItem(item.item)
-					If (!playedSound && !target.IsEquipped(item.item))
-						D.Log("    playing sound")
-						LenARM_DropClothesSound.PlayAndWait(target)
-						playedSound = true
+			LenARM_SliderSet:UnequipSlot slot = slots[idxSlot]
+			If ((target == Player && slot.ApplyPlayer) || (target != Player && slot.ApplyCompanion))
+				If ((sex == ESexFemale && slot.ApplyFemale) || (sex == ESexMale && slot.ApplyMale))
+					D.Log("  checking slot " + slot)
+					Actor:WornItem item = target.GetWornItem(slot.slot)
+					D.Log("    -->  " + item)
+					If (item && item.item)
+						bool ignoreItem = CheckIgnoreItem(item)
+						D.Log("    ignoreItem: " + ignoreItem)
+						If (!ignoreItem)
+							D.Log("    unequipping slot " + slot + " (" + item.item.GetName() + " / " + item.modelName + ")")
+							target.UnequipItem(item.item)
+							If (!playedSound && !target.IsEquipped(item.item))
+								D.Log("    playing sound")
+								LenARM_DropClothesSound.PlayAndWait(target)
+								playedSound = true
+							EndIf
+						EndIf
 					EndIf
 				EndIf
 			EndIf
@@ -770,7 +783,7 @@ Function UnequipSlots()
 	Utility.Wait(1.0)
 	If (UnequipStackSize <= 1 && !Player.IsInPowerArmor())
 		D.Log("UnequipSlots")
-		int[] slots = SliderSets.GetUnequipSlots()
+		LenARM_SliderSet:UnequipSlot[] slots = SliderSets.GetUnequipSlots()
 		UnequipActorSlots(Player, slots)
 		int idxCompanion = 0
 		While (idxCompanion < CompanionList.Length)

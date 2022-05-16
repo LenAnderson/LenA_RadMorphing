@@ -13,6 +13,40 @@
 		}
 	},
 	{
+		"text": "<br>",
+		"type": "text",
+		"html": true
+	},
+	
+
+	{
+		"text": "Apply to",
+		"help": "Apply this slider set to the player, companions, or both.",
+		"type": "dropdown",
+		"id": "iApplyTo:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingInt",
+			"options": ["Player only", "Companions only", "Player & Companions"]
+		}
+	},
+	{
+		"text": "Sex",
+		"help": "Apply this slider set only to actors (players and companions) of this sex.",
+		"type": "dropdown",
+		"id": "iSex:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingInt",
+			"options": ["All", "Female", "Male"]
+		}
+	},
+	{
+		"text": "<br>",
+		"type": "text",
+		"html": true
+	},
+
+
+	{
 		"text": "Trigger name",
 		"help": "Name of the trigger value that is used to determine morphing.",
 		"type": "dropdown",
@@ -54,6 +88,13 @@
 		"type": "text",
 		"html": true
 	},
+	{
+		"text": "<br>",
+		"type": "text",
+		"html": true
+	},
+	
+
 	{
 		"text": "Target size increase",
 		"help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
@@ -116,23 +157,6 @@
 			"min": 1.0,
 			"max": 100.0,
 			"step": 1.0
-		}
-	},
-	{
-		"text": "<br>",
-		"type": "text",
-		"html": true
-	},
-
-
-	{
-		"text": "Apply to companions",
-		"help": "Applies this slider set to your companions (based on your rads).",
-		"type": "dropdown",
-		"id": "iApplyCompanion:Slider{{idx}}",
-		"valueOptions": {
-			"sourceType": "ModSettingInt",
-			"options": ["None", "Female", "Male", "All"]
 		}
 	},
 	{

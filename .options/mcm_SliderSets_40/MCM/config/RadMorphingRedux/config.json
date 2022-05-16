@@ -195,7 +195,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -219,6 +219,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider0",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider0",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -261,6 +299,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -322,26 +365,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider0",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -415,7 +438,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -439,6 +462,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider1",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider1",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -481,6 +542,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -542,26 +608,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider1",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -635,7 +681,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -659,6 +705,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider2",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider2",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -701,6 +785,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -762,26 +851,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider2",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -855,7 +924,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -879,6 +948,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider3",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider3",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -921,6 +1028,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -982,26 +1094,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider3",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -1075,7 +1167,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -1099,6 +1191,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider4",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider4",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -1141,6 +1271,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -1202,26 +1337,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider4",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -1295,7 +1410,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -1319,6 +1434,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider5",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider5",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -1361,6 +1514,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -1422,26 +1580,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider5",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -1515,7 +1653,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -1539,6 +1677,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider6",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider6",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -1581,6 +1757,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -1642,26 +1823,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider6",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -1735,7 +1896,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -1759,6 +1920,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider7",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider7",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -1801,6 +2000,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -1862,26 +2066,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider7",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -1955,7 +2139,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -1979,6 +2163,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider8",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider8",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -2021,6 +2243,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -2082,26 +2309,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider8",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -2175,7 +2382,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -2199,6 +2406,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider9",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider9",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -2241,6 +2486,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -2302,26 +2552,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider9",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -2395,7 +2625,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -2419,6 +2649,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider10",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider10",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -2461,6 +2729,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -2522,26 +2795,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider10",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -2615,7 +2868,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -2639,6 +2892,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider11",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider11",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -2681,6 +2972,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -2742,26 +3038,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider11",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -2835,7 +3111,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -2859,6 +3135,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider12",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider12",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -2901,6 +3215,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -2962,26 +3281,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider12",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -3055,7 +3354,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -3079,6 +3378,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider13",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider13",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -3121,6 +3458,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -3182,26 +3524,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider13",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -3275,7 +3597,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -3299,6 +3621,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider14",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider14",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -3341,6 +3701,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -3402,26 +3767,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider14",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -3495,7 +3840,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -3519,6 +3864,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider15",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider15",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -3561,6 +3944,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -3622,26 +4010,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider15",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -3715,7 +4083,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -3739,6 +4107,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider16",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider16",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -3781,6 +4187,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -3842,26 +4253,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider16",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -3935,7 +4326,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -3959,6 +4350,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider17",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider17",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -4001,6 +4430,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -4062,26 +4496,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider17",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -4155,7 +4569,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -4179,6 +4593,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider18",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider18",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -4221,6 +4673,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -4282,26 +4739,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider18",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -4375,7 +4812,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -4399,6 +4836,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider19",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider19",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -4441,6 +4916,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -4502,26 +4982,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider19",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -4595,7 +5055,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -4619,6 +5079,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider20",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider20",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -4661,6 +5159,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -4722,26 +5225,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider20",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -4815,7 +5298,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -4839,6 +5322,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider21",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider21",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -4881,6 +5402,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -4942,26 +5468,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider21",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -5035,7 +5541,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -5059,6 +5565,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider22",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider22",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -5101,6 +5645,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -5162,26 +5711,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider22",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -5255,7 +5784,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -5279,6 +5808,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider23",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider23",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -5321,6 +5888,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -5382,26 +5954,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider23",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -5475,7 +6027,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -5499,6 +6051,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider24",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider24",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -5541,6 +6131,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -5602,26 +6197,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider24",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -5695,7 +6270,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -5719,6 +6294,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider25",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider25",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -5761,6 +6374,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -5822,26 +6440,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider25",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -5915,7 +6513,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -5939,6 +6537,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider26",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider26",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -5981,6 +6617,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -6042,26 +6683,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider26",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -6135,7 +6756,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -6159,6 +6780,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider27",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider27",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -6201,6 +6860,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -6262,26 +6926,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider27",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -6355,7 +6999,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -6379,6 +7023,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider28",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider28",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -6421,6 +7103,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -6482,26 +7169,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider28",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -6575,7 +7242,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -6599,6 +7266,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider29",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider29",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -6641,6 +7346,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -6702,26 +7412,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider29",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -6795,7 +7485,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -6819,6 +7509,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider30",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider30",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -6861,6 +7589,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -6922,26 +7655,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider30",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -7015,7 +7728,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -7039,6 +7752,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider31",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider31",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -7081,6 +7832,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -7142,26 +7898,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider31",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -7235,7 +7971,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -7259,6 +7995,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider32",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider32",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -7301,6 +8075,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -7362,26 +8141,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider32",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -7455,7 +8214,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -7479,6 +8238,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider33",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider33",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -7521,6 +8318,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -7582,26 +8384,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider33",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -7675,7 +8457,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -7699,6 +8481,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider34",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider34",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -7741,6 +8561,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -7802,26 +8627,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider34",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -7895,7 +8700,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -7919,6 +8724,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider35",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider35",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -7961,6 +8804,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -8022,26 +8870,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider35",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -8115,7 +8943,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -8139,6 +8967,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider36",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider36",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -8181,6 +9047,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -8242,26 +9113,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider36",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -8335,7 +9186,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -8359,6 +9210,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider37",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider37",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -8401,6 +9290,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -8462,26 +9356,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider37",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -8555,7 +9429,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -8579,6 +9453,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider38",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider38",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -8621,6 +9533,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -8682,26 +9599,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider38",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
@@ -8775,7 +9672,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptname": "LenARM:LenARM_Main",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -8799,6 +9696,44 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider39",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider39",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Trigger name",
@@ -8841,6 +9776,11 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "Target size increase",
@@ -8902,26 +9842,6 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider39",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
                     }
                 },
                 {
