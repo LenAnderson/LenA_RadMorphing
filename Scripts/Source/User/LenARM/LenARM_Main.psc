@@ -97,6 +97,9 @@ float UpdateDelay
 ; MCM: whether to restore companions on dismiss
 bool RestoreCompanionsOnDismiss
 
+; MCM: cost to heal morphs
+int HealCost
+
 
 ;-----------------------------------------------------------------------------------------------------
 ; custom events
@@ -255,6 +258,9 @@ Function Startup()
 
 		; get whether to restore companions on dismiss from MCM
 		RestoreCompanionsOnDismiss = MCM.GetModSettingBool("RadMorphingRedux", "bRestoreCompanionsOnDismiss:General")
+
+		; get heal cost from MCM
+		HealCost = MCM.GetModSettingInt("RadMorphingRedux", "iHealCost:General")
 
 		; load SliderSets
 		SliderSets.LoadSliderSets(NumberOfSliderSets, Player)
@@ -627,7 +633,7 @@ Function ShowHealMorphDialog()
 	float baseMorphs = GetBaseMorphPercentage() * 100.0
 	If (baseMorphs > 0.0)
 		float morphs = GetMorphPercentage() * 100.0
-		int cost = (baseMorphs * 10.0) as int
+		int cost = (baseMorphs * HealCost) as int
 		int capsCount = Player.GetItemCount(caps)
 		D.Log("    morphs:     " + morphs + "%")
 		D.Log("    baseMorphs: " + baseMorphs + "%")

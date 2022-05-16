@@ -70,6 +70,27 @@
 			"valueOptions": {
 				"sourceType": "ModSettingBool"
 			}
+		},
+		{
+			"text": "<br>",
+			"html": true
+		},
+
+		{
+			"text": "Healing (additive morphing)",
+			"type": "section"
+		},
+		{
+			"text": "Cost (in caps) to heal 1% of morphs",
+			"help": "Cost to heal each percent of rads at a doctor. Default: 10 caps",
+			"type": "slider",
+			"id": "iHealCost:General",
+			"valueOptions": {
+				"sourceType": "ModSettingInt",
+				"min": 0.0,
+				"max": 100.0,
+				"step": 1.0
+			}
 		}
 	],
 	"pages": [
