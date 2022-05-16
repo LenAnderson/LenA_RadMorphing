@@ -50,6 +50,10 @@ Group MessageBoxes
 	Message Property HealMorphMessage Auto Const
 EndGroup
 
+Group Sounds
+	Sound Property LenARM_DropClothesSound Auto Const
+EndGroup
+
 Group LenARM
 	LenARM_Debug Property D Auto Const
 	LenARM_Util Property Util Auto Const
@@ -735,7 +739,7 @@ Function UnequipActorSlots(Actor target, int[] slots)
 				target.UnequipItemSlot(slot)
 				If (!playedSound && !target.IsEquipped(item.item))
 					D.Log("    playing sound")
-					;TODO play sound
+					LenARM_DropClothesSound.PlayAndWait(target)
 					playedSound = true
 				EndIf
 			EndIf
