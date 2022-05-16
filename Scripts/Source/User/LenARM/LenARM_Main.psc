@@ -678,13 +678,7 @@ EndFunction
 Function RestoreOriginalMorphs(Actor target)
 	D.Log("RestoreOriginalMorphs: " + target)
 	int sex = target.GetLeveledActorBase().GetSex()
-	string[] sliderNames = SliderSets.GetSliderNames()
-	int idxSlider = 0
-	While (idxSlider < sliderNames.Length)
-		string sliderName = sliderNames[idxSlider]
-		BodyGen.SetMorph(target, sex==ESexFemale, sliderName, kwMorph, 0)
-		idxSlider += 1
-	EndWhile
+	BodyGen.RemoveMorphsByKeyword(target, sex==ESexFemale, kwMorph)
 	BodyGen.UpdateMorphs(target)
 EndFunction
 
