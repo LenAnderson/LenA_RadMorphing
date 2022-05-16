@@ -393,6 +393,7 @@ MorphUpdate[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 		Else
 			; no base morphs
 			D.Log("  no base morphs")
+			;TODO compare with FullMorph instead, that should re-apply morphs after a restart
 			If (newMorph != this.CurrentMorph)
 				; new morph is different than current morph
 				D.Log("  new morph is different than current morph")

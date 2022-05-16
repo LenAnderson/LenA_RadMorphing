@@ -176,6 +176,8 @@ EndEvent
 Event Actor.OnPlayerLoadGame(Actor akSender)
 	D.Log("Actor.OnPlayerLoadGame: " + akSender)
 	PerformUpdateIfNecessary()
+	;TODO should probably reset list of trigger names in case a trigger mod was uninstalled
+	; trigger mods would have to re-register their name on load game
 EndEvent
 
 Event Actor.OnItemEquipped(Actor akSender, Form akBaseObject, ObjectReference akReference)
