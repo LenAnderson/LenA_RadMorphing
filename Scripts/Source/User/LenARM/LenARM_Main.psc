@@ -738,50 +738,50 @@ bool Function CheckIgnoreItem(Actor:WornItem item)
 	return false
 EndFunction
 Function UnequipActorSlots(Actor target, int[] slots)
-	D.Log("UnequipActorSlots: target=" + target.GetLeveledActorBase().GetName() + " (" + target + ")  slots=" + slots)
-	bool playedSound = false
-	int idxSlot = 0
-	While (idxSlot < slots.Length)
-		int slot = slots[idxSlot]
-		D.Log("  checking slot " + slot)
-		Actor:WornItem item = target.GetWornItem(slot)
-		D.Log("    -->  " + item)
-		If (item && item.item)
-			bool ignoreItem = CheckIgnoreItem(item)
-			D.Log("    ignoreItem: " + ignoreItem)
-			If (!ignoreItem)
-				D.Log("    unequipping slot " + slot + " (" + item.item.GetName() + " / " + item.modelName + ")")
-				target.UnequipItem(item.item)
-				If (!playedSound && !target.IsEquipped(item.item))
-					D.Log("    playing sound")
-					LenARM_DropClothesSound.PlayAndWait(target)
-					playedSound = true
+	If (!target.IsInPowerArmor())
+		D.Log("UnequipActorSlots: target=" + target.GetLeveledActorBase().GetName() + " (" + target + ")  slots=" + slots)
+		bool playedSound = false
+		int idxSlot = 0
+		While (idxSlot < slots.Length)
+			int slot = slots[idxSlot]
+			D.Log("  checking slot " + slot)
+			Actor:WornItem item = target.GetWornItem(slot)
+			D.Log("    -->  " + item)
+			If (item && item.item)
+				bool ignoreItem = CheckIgnoreItem(item)
+				D.Log("    ignoreItem: " + ignoreItem)
+				If (!ignoreItem)
+					D.Log("    unequipping slot " + slot + " (" + item.item.GetName() + " / " + item.modelName + ")")
+					target.UnequipItem(item.item)
+					If (!playedSound && !target.IsEquipped(item.item))
+						D.Log("    playing sound")
+						LenARM_DropClothesSound.PlayAndWait(target)
+						playedSound = true
+					EndIf
 				EndIf
 			EndIf
-		EndIf
-		idxSlot += 1
-	EndWhile
+			idxSlot += 1
+		EndWhile
+	EndIf
 EndFunction
 
 Function UnequipSlots()
-	If (!Player.IsInPowerArmor())
-		UnequipStackSize += 1
-		Utility.Wait(1.0)
-		If (UnequipStackSize <= 1 && !Player.IsInPowerArmor())
-			D.Log("UnequipSlots")
-			int[] slots = SliderSets.GetUnequipSlots()
-			UnequipActorSlots(Player, slots)
-			int idxCompanion = 0
-			While (idxCompanion < CompanionList.Length)
-				Actor companion = CompanionList[idxCompanion]
-				UnequipActorSlots(companion, slots)
-				idxCompanion += 1
-			EndWhile
-		Else
-			D.Log("UnequipStackSize: " + UnequipStackSize)
-		EndIf
-		UnequipStackSize -= 1
+	UnequipStackSize += 1
+	Utility.Wait(1.0)
+	If (UnequipStackSize <= 1 && !Player.IsInPowerArmor())
+		D.Log("UnequipSlots")
+		int[] slots = SliderSets.GetUnequipSlots()
+		UnequipActorSlots(Player, slots)
+		int idxCompanion = 0
+		While (idxCompanion < CompanionList.Length)
+			Actor companion = CompanionList[idxCompanion]
+			UnequipActorSlots(companion, slots)
+			idxCompanion += 1
+		EndWhile
+	Else
+		D.Log("UnequipStackSize: " + UnequipStackSize)
 	EndIf
+	UnequipStackSize -= 1
 EndFunction
 
 
