@@ -107,6 +107,22 @@
 			"problemMatcher": []
 		},
 		{
+			"label": "createMCM",
+			"group": "none",
+			"type": "shell",
+			"command": "groovy",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"args": [
+				{
+					"value": "createMCM.groovy",
+					"quoting": "strong"
+				}
+			],
+			"problemMatcher": []
+		},
+		{
 			"label": "zipFomod",
 			"group": "none",
 			"type": "shell",
