@@ -396,10 +396,12 @@ EndFunction
 ; Restart the mod.
 ;
 Function Restart()
+	If (RestartStackSize == 0)
+		D.Note("Restarting Rad Morphing Redux")
+	EndIf
 	RestartStackSize += 1
 	Utility.Wait(1.0)
 	If (RestartStackSize <= 1)
-		D.Note("Restarting Rad Morphing Redux")
 		Shutdown()
 		While (IsShuttingDown)
 			Utility.Wait(1.0)
