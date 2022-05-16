@@ -721,7 +721,6 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 		idxSliderSet += 1
 	EndWhile
 
-	D.Log("  SliderSets:   " + SliderSets)
 	D.Log("  Sliders:      " + SliderNames)
 	D.Log("  UnequipSlots: " + UnequipSlots)
 EndFunction
