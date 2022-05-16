@@ -333,9 +333,20 @@ Function Startup()
 			idxSliderSet += 1
 		EndWhile
 
+		; get debug setting from MCM
+		bool enableLogging = MCM.GetModSettingBool("RadMorphingRedux", "bIsLoggingEnabled:Debug")
+		D.SetIsLoggingEnabled(enableLogging)
+
 		; notify plugins that mod is running
 		IsRunning = true
 		SendCustomEvent("OnStartup")
+
+		D.Log("Startup complete", true)
+		If (enableLogging)
+			D.Log("logging is enabled", true)
+		Else
+			D.Log("logging is disabled", true)
+		EndIf
 	ElseIf (MCM.GetModSettingBool("RadMorphingRedux", "bWarnDisabled:General"))
 		; mod is disabled in MCM, warning is enabled: let the player know that the mod is disabled
 		D.Log("  is disabled, with warning")
@@ -352,6 +363,7 @@ EndFunction
 ;
 Function Shutdown(bool withRestoreMorphs=true)
 	If (!IsShuttingDown)
+		D.SetIsLoggingEnabled(true)
 		D.Log("Shutdown")
 		IsShuttingDown = true
 

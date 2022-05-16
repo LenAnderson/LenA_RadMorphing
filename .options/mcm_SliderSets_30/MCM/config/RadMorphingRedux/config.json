@@ -161,6 +161,15 @@
                     "type": "section"
                 },
                 {
+                    "text": "Enable Logging",
+                    "help": "Enable this if you experience issues with this mod. Default: OFF",
+                    "type": "switcher",
+                    "id": "bIsLoggingEnabled:Debug",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
+                    }
+                },
+                {
                     "text": "Reset mod state",
                     "type": "button",
                     "help": "Resets the mod to its initial state without restoring the original body. Does not change any settings.",
