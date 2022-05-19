@@ -169,9 +169,6 @@ string[] SliderNameList
 ; flattened array[idxSliderSet][idxSlot]
 int[] UnequipSlotList
 
-; list of companions with saved original morphs
-Actor[] Companions
-
 ; list of used trigger names
 string[] TriggerNameList
 
