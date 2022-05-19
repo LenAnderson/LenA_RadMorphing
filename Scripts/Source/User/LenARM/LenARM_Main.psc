@@ -95,6 +95,9 @@ EndGroup
 ; TRUE while the mod is stopping.
 bool IsShuttingDown = false
 
+; TRUE while the mod is starting up
+bool IsStartingUp = true
+
 ; TRUE while the mod is active.
 bool IsRunning = false
 
@@ -276,6 +279,7 @@ EndFunction
 ;
 Function Startup()
 	D.Log("Startup")
+	IsStartingUp = true
 	If (MCM.GetModSettingBool("RadMorphingRedux", "bIsEnabled:General"))
 		; mod is enabled in MCM: start setting everything up
 		D.Log("  is enabled")
@@ -352,14 +356,24 @@ Function Startup()
 		Else
 			D.Log("logging is disabled", true)
 		EndIf
-	ElseIf (MCM.GetModSettingBool("RadMorphingRedux", "bWarnDisabled:General"))
-		; mod is disabled in MCM, warning is enabled: let the player know that the mod is disabled
-		D.Log("  is disabled, with warning")
-		Debug.MessageBox("Rad Morphing is currently disabled. You can enable it in MCM > Rad Morphing > Enable Rad Morphing")
 	Else
-		; mod is disabled in MCM, warning is disabled
-		D.Log("  is disabled, no warning")
+		If (MCM.GetModSettingBool("RadMorphingRedux", "bWarnDisabled:General"))
+			; mod is disabled in MCM, warning is enabled: let the player know that the mod is disabled
+			D.Log("  is disabled, with warning")
+			Debug.MessageBox("Rad Morphing is currently disabled. You can enable it in MCM > Rad Morphing > Enable Rad Morphing")
+		Else
+			; mod is disabled in MCM, warning is disabled
+			D.Log("  is disabled, no warning")
+		EndIf
+
+		; set up trigger names for MCM
+		If (MCM_TriggerNames == none)
+			MCM_TriggerNames = new string[0]
+			MCM_TriggerNames.Add("-- SELECT A TRIGGER --")
+		EndIf
 	EndIf
+
+	IsStartingUp = false
 EndFunction
 
 
@@ -509,6 +523,10 @@ EndFunction
 ;
 bool Function AddTriggerName(string triggerName)
 	D.Log("AddTriggerName: " + triggerName)
+	If (MCM_TriggerNames == None)
+		MCM_TriggerNames = new string[0]
+		MCM_TriggerNames.Add("-- SELECT A TRIGGER --")
+	EndIf
 	If (MCM_TriggerNames.Find(triggerName) < 0)
 		MCM_TriggerNames.Add(triggerName)
 		int triggerNameIndex = MCM_TriggerNames.Length - 1
