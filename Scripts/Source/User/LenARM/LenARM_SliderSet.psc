@@ -39,42 +39,6 @@ EndGroup
 ;-----------------------------------------------------------------------------------------------------
 ;-----------------------------------------------------------------------------------------------------
 ;-----------------------------------------------------------------------------------------------------
-; Other struct definitions
-
-Struct MorphUpdate
-	string Name
-	{name of the LooksMenu slider}
-	float Value
-	{value of the LooksMenu slider}
-	bool ApplyPlayer
-	{whether to apply to player}
-	bool ApplyCompanion
-	{whether to apply to companions}
-	bool ApplyFemale
-	{whether to apply to female actors}
-	bool ApplyMale
-	{whether to apply to male actors}
-EndStruct
-
-Struct UnequipSlot
-	int Slot
-	{slot number}
-	bool ApplyPlayer
-	{whether to unequip player}
-	bool ApplyCompanion
-	{whether to unequip companions}
-	bool ApplyFemale
-	{whether to unequip female companions}
-	bool ApplyMale
-	{whether to unequip male companions}
-EndStruct
-
-
-
-
-;-----------------------------------------------------------------------------------------------------
-;-----------------------------------------------------------------------------------------------------
-;-----------------------------------------------------------------------------------------------------
 ; SliderSet definition
 
 Struct SliderSet
@@ -150,6 +114,42 @@ Struct SliderSet
 	{new trigger value that will be applied next time morphs are updated}
 	bool HasNewTriggerValue
 	{whether the new trigger value is still unapplied / unmorphed}
+EndStruct
+
+
+
+
+;-----------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------
+; Other struct definitions
+
+Struct MorphUpdate
+	string Name
+	{name of the LooksMenu slider}
+	float Value
+	{value of the LooksMenu slider}
+	bool ApplyPlayer
+	{whether to apply to player}
+	bool ApplyCompanion
+	{whether to apply to companions}
+	bool ApplyFemale
+	{whether to apply to female actors}
+	bool ApplyMale
+	{whether to apply to male actors}
+EndStruct
+
+Struct UnequipSlot
+	int Slot
+	{slot number}
+	bool ApplyPlayer
+	{whether to unequip player}
+	bool ApplyCompanion
+	{whether to unequip companions}
+	bool ApplyFemale
+	{whether to unequip female companions}
+	bool ApplyMale
+	{whether to unequip male companions}
 EndStruct
 
 
