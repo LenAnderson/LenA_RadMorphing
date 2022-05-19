@@ -161,13 +161,13 @@ EndStruct
 ; instances
 
 ; the slider sets
-SliderSet[] SliderSets
+SliderSet[] SliderSetList
 
 ; flattened array[idxSliderSet][idxSlider] (name and original morph)
-string[] SliderNames
+string[] SliderNameList
 
 ; flattened array[idxSliderSet][idxSlot]
-int[] UnequipSlots
+int[] UnequipSlotList
 
 ; list of companions with saved original morphs
 Actor[] Companions
@@ -188,35 +188,35 @@ Function DummyFunction()
 EndFunction
 
 ;
-; Get the list of SliderSets.
+; Get the list of SliderSetList.
 ;
 SliderSet[] Function GetSliderSets()
-	return SliderSets
+	return SliderSetList
 EndFunction
 
 ;
 ; Get SliderSet number @idxSliderSet
 ;
 SliderSet Function Get(int idxSliderSet)
-	return SliderSets[idxSliderSet]
+	return SliderSetList[idxSliderSet]
 EndFunction
 
 ;
 ; Get the list of slider names
 ;
 string[] Function GetSliderNames()
-	return SliderNames
+	return SliderNameList
 EndFunction
 
 ;
-; Get the list of base morphs (permanent morphs from additive SliderSets)
+; Get the list of base morphs (permanent morphs from additive SliderSetList)
 ;
 MorphUpdate[] Function GetBaseMorphs()
 	D.Log("SliderSet.GetBaseMorphs")
 	MorphUpdate[] baseMorphs = new MorphUpdate[0]
 	int idxSliderSet = 0
-	While (idxSliderSet < SliderSets.Length)
-		If (SliderSets[idxSliderSet].IsUsed)
+	While (idxSliderSet < SliderSetList.Length)
+		If (SliderSetList[idxSliderSet].IsUsed)
 			MorphUpdate[] sliderSetBaseMorphs = SliderSet_GetBaseMorphs(idxSliderSet)
 			int idxSlider = 0
 			While (idxSlider < sliderSetBaseMorphs.Length)
@@ -236,8 +236,8 @@ MorphUpdate[] Function GetFullMorphs()
 	D.Log("SliderSet.GetFullMorphs")
 	MorphUpdate[] fullMorphs = new MorphUpdate[0]
 	int idxSliderSet = 0
-	While (idxSliderSet < SliderSets.Length)
-		If (SliderSets[idxSliderSet].IsUsed)
+	While (idxSliderSet < SliderSetList.Length)
+		If (SliderSetList[idxSliderSet].IsUsed)
 			MorphUpdate[] sliderSetFullMorphs = SliderSet_GetFullMorphs(idxSliderSet)
 			int idxSlider = 0
 			While (idxSlider < sliderSetFullMorphs.Length)
@@ -309,7 +309,7 @@ EndFunction
 ; Update the value of a morph trigger for SliderSet number @idxSliderSet
 ;
 Function SliderSet_SetTriggerValue(int idxSliderSet, string triggerName, float value)
-	SliderSet this = SliderSets[idxSliderSet]
+	SliderSet this = SliderSetList[idxSliderSet]
 	If (this.InvertTriggerValue)
 		value = 1.0 - value
 	EndIf
@@ -325,7 +325,7 @@ EndFunction
 ; Get the list of morph updates (sliderName:newValue) for SliderSet number @idxSliderSet.
 ;
 MorphUpdate[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
-	SliderSet this = SliderSets[idxSliderSet]
+	SliderSet this = SliderSetList[idxSliderSet]
 	MorphUpdate[] updates = new MorphUpdate[0]
 	; check whether SliderSet is in use and whether a new / unapplied trigger value is available
 	If (this.IsUsed && this.HasNewTriggerValue)
@@ -441,7 +441,7 @@ EndFunction
 ;
 MorphUpdate[] Function SliderSet_CalculateFullMorphs(int idxSliderSet)
 	D.Log("SliderSet.SliderSet_CalculateFullMorphs: " + idxSliderSet)
-	SliderSet this = SliderSets[idxSliderSet]
+	SliderSet this = SliderSetList[idxSliderSet]
 	MorphUpdate[] updates = new MorphUpdate[0]
 	float newMorph = this.CurrentMorph
 	float fullMorph = newMorph
@@ -462,7 +462,7 @@ MorphUpdate[] Function SliderSet_CalculateFullMorphs(int idxSliderSet)
 		D.Log("  sliders:        " + this.SliderName)
 		While (idxSlider < this.NumberOfSliderNames)
 			MorphUpdate update = new MorphUpdate
-			update.Name = SliderNames[sliderNameOffset + idxSlider]
+			update.Name = SliderNameList[sliderNameOffset + idxSlider]
 			update.Value = fullMorphValue
 			update.ApplyPlayer = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToPlayer
 			update.ApplyCompanion = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToCompanion
@@ -484,7 +484,7 @@ EndFunction
 ; With additive morphing the value may go above 100%.
 ;
 float Function SliderSet_GetMorphPercentage(int idxSliderSet)
-	SliderSet this = SliderSets[idxSliderSet]
+	SliderSet this = SliderSetList[idxSliderSet]
 	return this.BaseMorph + this.CurrentMorph
 EndFunction
 
@@ -493,7 +493,7 @@ EndFunction
 ; Relative to lower and upper threshold.
 ;
 float Function SliderSet_GetBaseMorphPercentage(int idxSliderSet)
-	SliderSet this = SliderSets[idxSliderSet]
+	SliderSet this = SliderSetList[idxSliderSet]
 	return this.BaseMorph
 EndFunction
 
@@ -502,14 +502,14 @@ EndFunction
 ; Get the list of base morphs (sliderName:currentBaseMorphValue) for SliderSet number @idxSliderSet.
 ;
 MorphUpdate[] Function SliderSet_GetBaseMorphs(int idxSliderSet)
-	SliderSet this = SliderSets[idxSliderSet]
+	SliderSet this = SliderSetList[idxSliderSet]
 	MorphUpdate[] baseMorphs = new MorphUpdate[0]
 	If (this.OnlyDoctorCanReset && this.IsAdditive && this.BaseMorph != 0.0)
 		int sliderNameOffset = GetSliderNameOffset(this.Index)
 		int idxSlider = 0
 		While (idxSlider < this.NumberOfSliderNames)
 			MorphUpdate baseMorph = new MorphUpdate
-			baseMorph.Name = SliderNames[sliderNameOffset + idxSlider]
+			baseMorph.Name = SliderNameList[sliderNameOffset + idxSlider]
 			baseMorph.Value = this.BaseMorph * this.TargetMorph
 			baseMorph.ApplyPlayer = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToPlayer
 			baseMorph.ApplyCompanion = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToCompanion
@@ -527,13 +527,13 @@ EndFunction
 ; Get the list of full morphs for SliderSet number @idxSliderSet without recalculating.
 ;
 MorphUpdate[] Function SliderSet_GetFullMorphs(int idxSliderSet)
-	SliderSet this = SliderSets[idxSliderSet]
+	SliderSet this = SliderSetList[idxSliderSet]
 	MorphUpdate[] fullMorphs = new MorphUpdate[0]
 	int sliderNameOffset = GetSliderNameOffset(this.Index)
 	int idxSlider = 0
 	While (idxSlider < this.NumberOfSliderNames)
 		MorphUpdate fullMorph = new MorphUpdate
-		fullMorph.Name = SliderNames[sliderNameOffset + idxSlider]
+		fullMorph.Name = SliderNameList[sliderNameOffset + idxSlider]
 		fullMorph.Value = this.FullMorph * this.TargetMorph
 		fullMorph.ApplyPlayer = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToPlayer
 		fullMorph.ApplyCompanion = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToCompanion
@@ -550,14 +550,14 @@ EndFunction
 ; Remove the BaseMorph for SliderSet number @idxSliderSet.
 ;
 Function SliderSet_ClearBaseMorph(int idxSliderSet)
-	SliderSet this = SliderSets[idxSliderSet]
+	SliderSet this = SliderSetList[idxSliderSet]
 	this.BaseMorph = 0
 EndFunction
 
 
 Function SliderSet_Print(int idxSliderSet)
 	D.Log("SliderSet.SliderSet_Print: " + idxSliderSet)
-	SliderSet this = SliderSets[idxSliderSet]
+	SliderSet this = SliderSetList[idxSliderSet]
 	D.Log("  Index: " + this.Index)
 	D.Log("  IsUsed: " + this.IsUsed)
 	D.Log("  SliderName: " + this.SliderName)
@@ -595,13 +595,13 @@ EndFunction
 
 
 ;
-; Get the offset in the flattened SliderNames array for SliderSet number @idxSliderSet.
+; Get the offset in the flattened SliderNameList array for SliderSet number @idxSliderSet.
 ;
 int Function GetSliderNameOffset(int idxSliderSet)
 	int offset = 0
 	int index = 0
 	While (index < idxSliderSet)
-		offset += SliderSets[index].NumberOfSliderNames
+		offset += SliderSetList[index].NumberOfSliderNames
 		index += 1
 	EndWhile
 	return offset
@@ -609,13 +609,13 @@ EndFunction
 
 
 ;
-; Get the offset in the flattened UnequipSlots array for SliderSet number @idxSliderSet.
+; Get the offset in the flattened UnequipSlotList array for SliderSet number @idxSliderSet.
 ;
 int Function GetUnequipSlotOffset(int idxSliderSet)
 	int offset = 0
 	int index = 0
 	While (index < idxSliderSet)
-		offset += SliderSets[index].NumberOfUnequipSlots
+		offset += SliderSetList[index].NumberOfUnequipSlots
 		index += 1
 	EndWhile
 	return offset
@@ -635,32 +635,32 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	float overrideAdditiveLimit = MCM.GetModSettingFloat("RadMorphingRedux", "fAdditiveLimit:Override") / 100.0
 
 	; create empty arrays
-	If (!SliderSets)
-		SliderSets = new SliderSet[0]
+	If (!SliderSetList)
+		SliderSetList = new SliderSet[0]
 	EndIf
-	If (!SliderNames)
-		SliderNames = new string[0]
+	If (!SliderNameList)
+		SliderNameList = new string[0]
 	EndIf
-	If (!UnequipSlots)
-		UnequipSlots = new int[0]
+	If (!UnequipSlotList)
+		UnequipSlotList = new int[0]
 	EndIf
 	TriggerNameList = new string[0]
 
-	; create SliderSets
+	; create SliderSetList
 	int idxSliderSet = 0
 	While (idxSliderSet < numberOfSliderSets)
 		SliderSet oldSet = None
-		If (SliderSets.Length > idxSliderSet)
-			oldSet = SliderSets[idxSliderSet]
+		If (SliderSetList.Length > idxSliderSet)
+			oldSet = SliderSetList[idxSliderSet]
 		EndIf
 		SliderSet newSet = SliderSet_Constructor(idxSliderSet)
 		If (TriggerNameList.Find(newSet.TriggerName) == -1)
 			TriggerNameList.Add(newSet.TriggerName)
 		EndIf
-		If (SliderSets.Length < idxSliderSet + 1)
-			SliderSets.Add(newSet)
+		If (SliderSetList.Length < idxSliderSet + 1)
+			SliderSetList.Add(newSet)
 		Else
-			SliderSets[idxSliderSet] = newSet
+			SliderSetList[idxSliderSet] = newSet
 		EndIf
 
 		If (oldSet)
@@ -688,14 +688,14 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 			int idxSlider = 0
 			While (idxSlider < newset.NumberOfSliderNames)
 				int currentIdx = sliderNameOffset + idxSlider
-				If (SliderNames.Length < currentIdx + 1)
-					SliderNames.Add(names[idxSlider])
+				If (SliderNameList.Length < currentIdx + 1)
+					SliderNameList.Add(names[idxSlider])
 				ElseIf (!oldSet || idxSlider >= oldSet.NumberOfSliderNames)
 					; insert into array
-					SliderNames.Insert(names[idxSlider], currentIdx)
+					SliderNameList.Insert(names[idxSlider], currentIdx)
 				Else
 					; replace item
-					SliderNames[currentIdx] = names[idxSlider]
+					SliderNameList[currentIdx] = names[idxSlider]
 				EndIf
 				idxSlider += 1
 			EndWhile
@@ -703,7 +703,7 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 
 		; remove unused items
 		If (oldSet && newSet.NumberOfSliderNames < oldSet.NumberOfSliderNames)
-			SliderNames.Remove(sliderNameOffset + newSet.NumberOfSliderNames, oldset.NumberOfSliderNames - newset.NumberOfSliderNames)
+			SliderNameList.Remove(sliderNameOffset + newSet.NumberOfSliderNames, oldset.NumberOfSliderNames - newset.NumberOfSliderNames)
 		EndIf
 
 		int uneqipSlotOffset = GetUnequipSlotOffset(idxSliderSet)
@@ -712,14 +712,14 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 			int idxSlot = 0
 			While (idxSlot < newset.NumberOfUnequipSlots)
 				int currentIdx = uneqipSlotOffset + idxSlot
-				If (UnequipSlots.Length < currentIdx + 1)
-					UnequipSlots.Add(slots[idxSlot] as int)
+				If (UnequipSlotList.Length < currentIdx + 1)
+					UnequipSlotList.Add(slots[idxSlot] as int)
 				ElseIf (!oldSet || idxSlot >= oldSet.NumberOfUnequipSlots)
 					; insert into array
-					UnequipSlots.Insert(slots[idxSlot] as int, currentIdx)
+					UnequipSlotList.Insert(slots[idxSlot] as int, currentIdx)
 				Else
 					; replace item
-					UnequipSlots[currentIdx] = slots[idxSlot] as int
+					UnequipSlotList[currentIdx] = slots[idxSlot] as int
 				EndIf
 				idxSlot += 1
 			EndWhile
@@ -727,14 +727,14 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 
 		; remove unused items
 		If (oldSet && newSet.NumberOfUnequipSlots < oldSet.NumberOfUnequipSlots)
-			UnequipSlots.Remove(uneqipSlotOffset + newSet.NumberOfUnequipSlots, oldset.NumberOfUnequipSlots - newset.NumberOfUnequipSlots)
+			UnequipSlotList.Remove(uneqipSlotOffset + newSet.NumberOfUnequipSlots, oldset.NumberOfUnequipSlots - newset.NumberOfUnequipSlots)
 		EndIf
 
 		idxSliderSet += 1
 	EndWhile
 
-	D.Log("  Sliders:      " + SliderNames)
-	D.Log("  UnequipSlots: " + UnequipSlots)
+	D.Log("  Sliders:      " + SliderNameList)
+	D.Log("  UnequipSlotList: " + UnequipSlotList)
 EndFunction
 
 
@@ -744,7 +744,7 @@ EndFunction
 Function SetTriggerValue(string triggerName, float value)
 	D.Log("SliderSet.SetTriggerValue: " + triggerName + " = " + value)
 	int idxSliderSet = 0
-	While (idxSliderSet < SliderSets.Length)
+	While (idxSliderSet < SliderSetList.Length)
 		SliderSet_SetTriggerValue(idxSliderSet, triggerName, value)
 		idxSliderSet += 1
 	EndWhile
@@ -752,13 +752,13 @@ EndFunction
 
 
 ;
-; Get the list of morph updates (sliderName:newValue) for all SliderSets with @updateType.
+; Get the list of morph updates (sliderName:newValue) for all SliderSetList with @updateType.
 ;
 MorphUpdate[] Function CalculateMorphUpdates(int updateType)
 	MorphUpdate[] updates = new MorphUpdate[0]
 	int idxSliderSet = 0
-	While (idxSliderSet < SliderSets.Length)
-		SliderSet sliderSet = SliderSets[idxSliderSet]
+	While (idxSliderSet < SliderSetList.Length)
+		SliderSet sliderSet = SliderSetList[idxSliderSet]
 		If (sliderSet.UpdateType == updateType)
 			MorphUpdate[] sliderSetUpdates = SliderSet_CalculateMorphUpdates(idxSliderSet)
 			int idxUpdate = 0
@@ -776,7 +776,7 @@ EndFunction
 
 
 ;
-; Get the total (max) percentage of morphs (base + current) currently applied for all SliderSets.
+; Get the total (max) percentage of morphs (base + current) currently applied for all SliderSetList.
 ; Relative to lower and upper threshold.
 ; 
 ; When SliderSet.TargetMorph has been reached, morph percentage is 100% (=1.0).
@@ -785,7 +785,7 @@ EndFunction
 float Function GetMorphPercentage()
 	float morph = 0.0
 	int idxSliderSet = 0
-	While (idxSliderSet < SliderSets.Length)
+	While (idxSliderSet < SliderSetList.Length)
 		morph = Math.Max(morph, SliderSet_GetMorphPercentage(idxSliderSet))
 		idxSliderSet += 1
 	EndWhile
@@ -793,12 +793,12 @@ float Function GetMorphPercentage()
 EndFunction
 
 ;
-; Get the amount of base morphs (permanent morphs) for all SliderSets.
+; Get the amount of base morphs (permanent morphs) for all SliderSetList.
 ;
 float Function GetBaseMorphPercentage()
 	float morph = 0.0
 	int idxSliderSet = 0
-	While (idxSliderSet < SliderSets.Length)
+	While (idxSliderSet < SliderSetList.Length)
 		morph = Math.Max(morph, SliderSet_GetBaseMorphPercentage(idxSliderSet))
 		idxSliderSet += 1
 	EndWhile
@@ -807,12 +807,12 @@ EndFunction
 
 
 ;
-; Remove the BaseMorph for all SliderSets.
+; Remove the BaseMorph for all SliderSetList.
 ;
 Function ClearBaseMorphs()
 	MorphUpdate[] updates = new MorphUpdate[0]
 	int idxSliderSet = 0
-	While (idxSliderSet < SliderSets.Length)
+	While (idxSliderSet < SliderSetList.Length)
 		SliderSet_ClearBaseMorph(idxSliderSet)
 		idxSliderSet += 1
 	EndWhile
@@ -825,7 +825,7 @@ EndFunction
 MorphUpdate[] Function CalculateFullMorphs()
 	MorphUpdate[] updates = new MorphUpdate[0]
 	int idxSliderSet = 0
-	While (idxSliderSet < SliderSets.Length)
+	While (idxSliderSet < SliderSetList.Length)
 		MorphUpdate[] sliderSetUpdates = SliderSet_CalculateFullMorphs(idxSliderSet)
 		int idxUpdate = 0
 		While (idxUpdate < sliderSetUpdates.Length)
@@ -845,8 +845,8 @@ EndFunction
 ;
 bool Function HasDoctorOnly()
 	int idxSliderSet = 0
-	While (idxSliderSet < SliderSets.Length)
-		SliderSet sliderSet = SliderSets[idxSliderSet]
+	While (idxSliderSet < SliderSetList.Length)
+		SliderSet sliderSet = SliderSetList[idxSliderSet]
 		If (sliderSet.IsUsed && sliderSet.OnlyDoctorCanReset)
 			return true
 		EndIf
@@ -859,14 +859,14 @@ EndFunction
 UnequipSlot[] Function GetUnequipSlots()
 	UnequipSlot[] slots = new UnequipSlot[0]
 	int idxSliderSet = 0
-	While (idxSliderSet < SliderSets.Length)
-		SliderSet sliderSet = SliderSets[idxSliderSet]
+	While (idxSliderSet < SliderSetList.Length)
+		SliderSet sliderSet = SliderSetList[idxSliderSet]
 		If (sliderSet.FullMorph > sliderSet.ThresholdUnequip)
 			int offset = GetUnequipSlotOffset(idxSliderSet)
 			int idxSlot = 0
 			While (idxSlot < sliderSet.NumberOfUnequipSlots)
 				UnequipSlot slot = new UnequipSlot
-				slot.Slot = UnequipSlots[idxSlot]
+				slot.Slot = UnequipSlotList[idxSlot]
 				slot.ApplyPlayer = sliderSet.ApplyTo == EApplyToAll || sliderSet.ApplyTo == EApplyToPlayer
 				slot.ApplyCompanion = sliderSet.ApplyTo == EApplyToAll || sliderSet.ApplyTo == EApplyToCompanion
 				slot.ApplyFemale = sliderSet.Sex == EApplySexAll || sliderSet.Sex == EApplySexFemale
