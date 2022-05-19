@@ -172,6 +172,9 @@ int[] UnequipSlots
 ; list of companions with saved original morphs
 Actor[] Companions
 
+; list of used trigger names
+string[] TriggerNameList
+
 
 
 
@@ -245,6 +248,10 @@ MorphUpdate[] Function GetFullMorphs()
 		idxSliderSet += 1
 	EndWhile
 	return fullMorphs
+EndFunction
+
+string[] Function GetTriggerNames()
+	return TriggerNameList
 EndFunction
 
 
@@ -637,6 +644,7 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	If (!UnequipSlots)
 		UnequipSlots = new int[0]
 	EndIf
+	TriggerNameList = new string[0]
 
 	; create SliderSets
 	int idxSliderSet = 0
@@ -646,6 +654,9 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 			oldSet = SliderSets[idxSliderSet]
 		EndIf
 		SliderSet newSet = SliderSet_Constructor(idxSliderSet)
+		If (TriggerNameList.Find(newSet.TriggerName) == -1)
+			TriggerNameList.Add(newSet.TriggerName)
+		EndIf
 		If (SliderSets.Length < idxSliderSet + 1)
 			SliderSets.Add(newSet)
 		Else

@@ -63,6 +63,9 @@ EndGroup
 Group MCM
 	string[] Property MCM_TriggerNames Auto
 EndGroup
+string[] Function GetTriggerNames()
+	return MCM_TriggerNames
+EndFunction
 
 
 ;-----------------------------------------------------------------------------------------------------
@@ -555,6 +558,10 @@ EndFunction
 float Function GetBaseMorphPercentage()
 	D.Log("GetBaseMorphPercentage")
 	return SliderSets.GetBaseMorphPercentage()
+EndFunction
+
+string[] Function GetUsedTriggerNames()
+	return SliderSets.GetTriggerNames()
 EndFunction
 
 

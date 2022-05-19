@@ -141,9 +141,7 @@ EndFunction
 ; Get the list of trigger names that are registered with RMR.
 ;
 string[] Function GetRegisteredTriggerNames()
-	string[] triggerNames = new string[0]
-	;TODO implement GetRegisteredTriggerNames
-	return triggerNames
+	return Main.GetTriggerNames()
 EndFunction
 
 
@@ -151,7 +149,5 @@ EndFunction
 ; Get the list of trigger names that are used by SliderSets.
 ;
 string[] Function GetUsedTriggerNames()
-	string[] triggerNames = new string[0]
-	;TODO implement GetUsedTriggerNames
-	return triggerNames
+	return Main.GetUsedTriggerNames()
 EndFunction
