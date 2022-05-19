@@ -163,7 +163,7 @@ EndStruct
 ; the slider sets
 SliderSet[] SliderSetList
 
-; flattened array[idxSliderSet][idxSlider] (name and original morph)
+; flattened array[idxSliderSet][idxSlider]
 string[] SliderNameList
 
 ; flattened array[idxSliderSet][idxSlot]
