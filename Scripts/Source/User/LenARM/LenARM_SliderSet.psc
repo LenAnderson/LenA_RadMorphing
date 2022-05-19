@@ -247,6 +247,9 @@ MorphUpdate[] Function GetFullMorphs()
 	return fullMorphs
 EndFunction
 
+;
+; Get the list of used trigger names.
+;
 string[] Function GetTriggerNames()
 	return TriggerNameList
 EndFunction
@@ -552,6 +555,9 @@ Function SliderSet_ClearBaseMorph(int idxSliderSet)
 EndFunction
 
 
+;
+; Print details of SliderSet number @idxSliderSet.
+;
 Function SliderSet_Print(int idxSliderSet)
 	D.Log("SliderSet.SliderSet_Print: " + idxSliderSet)
 	SliderSet this = SliderSetList[idxSliderSet]
@@ -853,6 +859,9 @@ bool Function HasDoctorOnly()
 EndFunction
 
 
+;
+; Get the list of slots that need to be unequipped due to morphs.
+;
 UnequipSlot[] Function GetUnequipSlots()
 	UnequipSlot[] slots = new UnequipSlot[0]
 	int idxSliderSet = 0

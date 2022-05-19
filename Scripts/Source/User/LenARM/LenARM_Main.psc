@@ -416,6 +416,9 @@ Function Shutdown(bool withRestoreMorphs=true)
 	EndIf
 EndFunction
 
+;
+; Continuation of Shutdown: restore morphs and then finalize shutdown.
+;
 Function ShutdownRestoreMorphs()
 	D.Log("ShutdownRestoreMorphs")
 	RestoreOriginalMorphs(Player)
@@ -460,7 +463,7 @@ EndFunction
 
 
 ;
-; check if a new version has been installed and restart the mod if necessary
+; Check if a new version has been installed and restart the mod if necessary.
 ;
 Function PerformUpdateIfNecessary()
 	D.Log("PerformUpdateIfNecessary: " + Version + " != " + GetVersion() + " -> " + (Version != GetVersion()))
@@ -484,6 +487,10 @@ Function PerformUpdateIfNecessary()
 EndFunction
 
 
+;
+; Getter for IsRunning.
+; Returns true if the mod is running, false if not.
+;
 bool Function GetIsRunning()
 	return IsRunning
 EndFunction
@@ -520,6 +527,9 @@ bool Function AddTriggerName(string triggerName)
 	EndIf
 EndFunction
 
+;
+; Unregister a trigger name.
+;
 Function RemoveTriggerName(string triggerName)
 	D.Log("RemoveTriggerName: " + triggerName)
 	int idxTrigger = MCM_TriggerNames.Find(triggerName)
@@ -560,6 +570,9 @@ float Function GetBaseMorphPercentage()
 	return SliderSets.GetBaseMorphPercentage()
 EndFunction
 
+;
+; Get the list of used (in SliderSets) trigger names.
+;
 string[] Function GetUsedTriggerNames()
 	return SliderSets.GetTriggerNames()
 EndFunction
@@ -759,6 +772,9 @@ Function HealBaseMorphs()
 EndFunction
 
 
+;
+; Check whether the worn item can be unequipped or should be ignored.
+;
 bool Function CheckIgnoreItem(Actor:WornItem item)
 	If (LL_Fourplay.StringSubstring(item.modelName, 0, 6) == "Actors" || LL_Fourplay.StringSubstring(item.modelName, 0, 6) == "Pipboy")
 		return true
@@ -768,6 +784,10 @@ bool Function CheckIgnoreItem(Actor:WornItem item)
 
 	return false
 EndFunction
+
+;
+; Unequip a list of slots on the target actor.
+;
 Function UnequipActorSlots(Actor target, LenARM_SliderSet:UnequipSlot[] slots)
 	If (!target.IsInPowerArmor())
 		D.Log("UnequipActorSlots: target=" + target.GetLeveledActorBase().GetName() + " (" + target + ")  slots=" + slots)
@@ -801,6 +821,9 @@ Function UnequipActorSlots(Actor target, LenARM_SliderSet:UnequipSlot[] slots)
 	EndIf
 EndFunction
 
+;
+; Check any slots need to be unequipped due to morphs and unequip them.
+;
 Function UnequipSlots()
 	UnequipStackSize += 1
 	Utility.Wait(1.0)
