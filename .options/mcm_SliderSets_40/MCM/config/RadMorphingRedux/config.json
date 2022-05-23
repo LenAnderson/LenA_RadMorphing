@@ -4,7 +4,7 @@
     "minMcmVersion": 1,
     "content": [
         {
-            "text": "<font size='24'>Rad Morphing Redux</font> <font id='version' size='10'>v1.0.1</font>",
+            "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
             "type": "text",
             "html": true
         },
@@ -93,6 +93,15 @@
             "pageDisplayName": "Global Overrides",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
+                },
+                {
                     "text": "Only doctors can reset morphs",
                     "help": "With this enabled only doctors can restore your base shape. Reducing rads with RadAway or other means will have no effect on the sliders.",
                     "type": "dropdown",
@@ -157,6 +166,11 @@
             "pageDisplayName": "Debug Tools",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Debugging",
                     "type": "section"
                 },
@@ -188,6 +202,11 @@
             "pageDisplayName": "Slider Set 1",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -217,7 +236,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 1",
+                    "text": "<p align='center'><b>Slider Set 1</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -233,6 +257,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -266,6 +294,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -315,6 +347,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -356,6 +392,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -380,6 +420,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -431,6 +475,11 @@
             "pageDisplayName": "Slider Set 2",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -460,7 +509,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 2",
+                    "text": "<p align='center'><b>Slider Set 2</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -476,6 +530,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -509,6 +567,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -558,6 +620,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -599,6 +665,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -623,6 +693,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -674,6 +748,11 @@
             "pageDisplayName": "Slider Set 3",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -703,7 +782,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 3",
+                    "text": "<p align='center'><b>Slider Set 3</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -719,6 +803,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -752,6 +840,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -801,6 +893,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -842,6 +938,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -866,6 +966,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -917,6 +1021,11 @@
             "pageDisplayName": "Slider Set 4",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -946,7 +1055,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 4",
+                    "text": "<p align='center'><b>Slider Set 4</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -962,6 +1076,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -995,6 +1113,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -1044,6 +1166,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -1085,6 +1211,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -1109,6 +1239,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -1160,6 +1294,11 @@
             "pageDisplayName": "Slider Set 5",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -1189,7 +1328,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 5",
+                    "text": "<p align='center'><b>Slider Set 5</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -1205,6 +1349,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -1238,6 +1386,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -1287,6 +1439,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -1328,6 +1484,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -1352,6 +1512,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -1403,6 +1567,11 @@
             "pageDisplayName": "Slider Set 6",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -1432,7 +1601,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 6",
+                    "text": "<p align='center'><b>Slider Set 6</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -1448,6 +1622,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -1481,6 +1659,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -1530,6 +1712,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -1571,6 +1757,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -1595,6 +1785,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -1646,6 +1840,11 @@
             "pageDisplayName": "Slider Set 7",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -1675,7 +1874,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 7",
+                    "text": "<p align='center'><b>Slider Set 7</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -1691,6 +1895,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -1724,6 +1932,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -1773,6 +1985,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -1814,6 +2030,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -1838,6 +2058,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -1889,6 +2113,11 @@
             "pageDisplayName": "Slider Set 8",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -1918,7 +2147,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 8",
+                    "text": "<p align='center'><b>Slider Set 8</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -1934,6 +2168,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -1967,6 +2205,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -2016,6 +2258,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -2057,6 +2303,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -2081,6 +2331,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -2132,6 +2386,11 @@
             "pageDisplayName": "Slider Set 9",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -2161,7 +2420,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 9",
+                    "text": "<p align='center'><b>Slider Set 9</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -2177,6 +2441,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -2210,6 +2478,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -2259,6 +2531,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -2300,6 +2576,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -2324,6 +2604,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -2375,6 +2659,11 @@
             "pageDisplayName": "Slider Set 10",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -2404,7 +2693,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 10",
+                    "text": "<p align='center'><b>Slider Set 10</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -2420,6 +2714,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -2453,6 +2751,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -2502,6 +2804,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -2543,6 +2849,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -2567,6 +2877,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -2618,6 +2932,11 @@
             "pageDisplayName": "Slider Set 11",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -2647,7 +2966,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 11",
+                    "text": "<p align='center'><b>Slider Set 11</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -2663,6 +2987,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -2696,6 +3024,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -2745,6 +3077,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -2786,6 +3122,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -2810,6 +3150,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -2861,6 +3205,11 @@
             "pageDisplayName": "Slider Set 12",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -2890,7 +3239,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 12",
+                    "text": "<p align='center'><b>Slider Set 12</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -2906,6 +3260,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -2939,6 +3297,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -2988,6 +3350,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -3029,6 +3395,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -3053,6 +3423,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -3104,6 +3478,11 @@
             "pageDisplayName": "Slider Set 13",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -3133,7 +3512,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 13",
+                    "text": "<p align='center'><b>Slider Set 13</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -3149,6 +3533,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -3182,6 +3570,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -3231,6 +3623,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -3272,6 +3668,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -3296,6 +3696,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -3347,6 +3751,11 @@
             "pageDisplayName": "Slider Set 14",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -3376,7 +3785,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 14",
+                    "text": "<p align='center'><b>Slider Set 14</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -3392,6 +3806,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -3425,6 +3843,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -3474,6 +3896,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -3515,6 +3941,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -3539,6 +3969,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -3590,6 +4024,11 @@
             "pageDisplayName": "Slider Set 15",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -3619,7 +4058,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 15",
+                    "text": "<p align='center'><b>Slider Set 15</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -3635,6 +4079,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -3668,6 +4116,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -3717,6 +4169,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -3758,6 +4214,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -3782,6 +4242,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -3833,6 +4297,11 @@
             "pageDisplayName": "Slider Set 16",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -3862,7 +4331,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 16",
+                    "text": "<p align='center'><b>Slider Set 16</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -3878,6 +4352,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -3911,6 +4389,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -3960,6 +4442,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -4001,6 +4487,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -4025,6 +4515,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -4076,6 +4570,11 @@
             "pageDisplayName": "Slider Set 17",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -4105,7 +4604,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 17",
+                    "text": "<p align='center'><b>Slider Set 17</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -4121,6 +4625,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -4154,6 +4662,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -4203,6 +4715,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -4244,6 +4760,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -4268,6 +4788,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -4319,6 +4843,11 @@
             "pageDisplayName": "Slider Set 18",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -4348,7 +4877,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 18",
+                    "text": "<p align='center'><b>Slider Set 18</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -4364,6 +4898,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -4397,6 +4935,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -4446,6 +4988,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -4487,6 +5033,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -4511,6 +5061,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -4562,6 +5116,11 @@
             "pageDisplayName": "Slider Set 19",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -4591,7 +5150,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 19",
+                    "text": "<p align='center'><b>Slider Set 19</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -4607,6 +5171,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -4640,6 +5208,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -4689,6 +5261,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -4730,6 +5306,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -4754,6 +5334,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -4805,6 +5389,11 @@
             "pageDisplayName": "Slider Set 20",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -4834,7 +5423,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 20",
+                    "text": "<p align='center'><b>Slider Set 20</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -4850,6 +5444,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -4883,6 +5481,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -4932,6 +5534,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -4973,6 +5579,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -4997,6 +5607,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -5048,6 +5662,11 @@
             "pageDisplayName": "Slider Set 21",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -5077,7 +5696,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 21",
+                    "text": "<p align='center'><b>Slider Set 21</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -5093,6 +5717,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -5126,6 +5754,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -5175,6 +5807,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -5216,6 +5852,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -5240,6 +5880,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -5291,6 +5935,11 @@
             "pageDisplayName": "Slider Set 22",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -5320,7 +5969,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 22",
+                    "text": "<p align='center'><b>Slider Set 22</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -5336,6 +5990,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -5369,6 +6027,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -5418,6 +6080,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -5459,6 +6125,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -5483,6 +6153,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -5534,6 +6208,11 @@
             "pageDisplayName": "Slider Set 23",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -5563,7 +6242,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 23",
+                    "text": "<p align='center'><b>Slider Set 23</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -5579,6 +6263,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -5612,6 +6300,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -5661,6 +6353,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -5702,6 +6398,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -5726,6 +6426,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -5777,6 +6481,11 @@
             "pageDisplayName": "Slider Set 24",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -5806,7 +6515,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 24",
+                    "text": "<p align='center'><b>Slider Set 24</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -5822,6 +6536,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -5855,6 +6573,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -5904,6 +6626,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -5945,6 +6671,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -5969,6 +6699,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -6020,6 +6754,11 @@
             "pageDisplayName": "Slider Set 25",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -6049,7 +6788,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 25",
+                    "text": "<p align='center'><b>Slider Set 25</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -6065,6 +6809,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -6098,6 +6846,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -6147,6 +6899,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -6188,6 +6944,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -6212,6 +6972,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -6263,6 +7027,11 @@
             "pageDisplayName": "Slider Set 26",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -6292,7 +7061,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 26",
+                    "text": "<p align='center'><b>Slider Set 26</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -6308,6 +7082,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -6341,6 +7119,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -6390,6 +7172,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -6431,6 +7217,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -6455,6 +7245,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -6506,6 +7300,11 @@
             "pageDisplayName": "Slider Set 27",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -6535,7 +7334,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 27",
+                    "text": "<p align='center'><b>Slider Set 27</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -6551,6 +7355,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -6584,6 +7392,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -6633,6 +7445,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -6674,6 +7490,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -6698,6 +7518,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -6749,6 +7573,11 @@
             "pageDisplayName": "Slider Set 28",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -6778,7 +7607,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 28",
+                    "text": "<p align='center'><b>Slider Set 28</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -6794,6 +7628,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -6827,6 +7665,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -6876,6 +7718,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -6917,6 +7763,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -6941,6 +7791,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -6992,6 +7846,11 @@
             "pageDisplayName": "Slider Set 29",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -7021,7 +7880,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 29",
+                    "text": "<p align='center'><b>Slider Set 29</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -7037,6 +7901,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -7070,6 +7938,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -7119,6 +7991,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -7160,6 +8036,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -7184,6 +8064,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -7235,6 +8119,11 @@
             "pageDisplayName": "Slider Set 30",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -7264,7 +8153,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 30",
+                    "text": "<p align='center'><b>Slider Set 30</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -7280,6 +8174,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -7313,6 +8211,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -7362,6 +8264,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -7403,6 +8309,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -7427,6 +8337,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -7478,6 +8392,11 @@
             "pageDisplayName": "Slider Set 31",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -7507,7 +8426,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 31",
+                    "text": "<p align='center'><b>Slider Set 31</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -7523,6 +8447,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -7556,6 +8484,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -7605,6 +8537,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -7646,6 +8582,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -7670,6 +8610,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -7721,6 +8665,11 @@
             "pageDisplayName": "Slider Set 32",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -7750,7 +8699,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 32",
+                    "text": "<p align='center'><b>Slider Set 32</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -7766,6 +8720,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -7799,6 +8757,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -7848,6 +8810,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -7889,6 +8855,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -7913,6 +8883,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -7964,6 +8938,11 @@
             "pageDisplayName": "Slider Set 33",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -7993,7 +8972,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 33",
+                    "text": "<p align='center'><b>Slider Set 33</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -8009,6 +8993,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -8042,6 +9030,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -8091,6 +9083,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -8132,6 +9128,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -8156,6 +9156,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -8207,6 +9211,11 @@
             "pageDisplayName": "Slider Set 34",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -8236,7 +9245,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 34",
+                    "text": "<p align='center'><b>Slider Set 34</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -8252,6 +9266,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -8285,6 +9303,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -8334,6 +9356,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -8375,6 +9401,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -8399,6 +9429,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -8450,6 +9484,11 @@
             "pageDisplayName": "Slider Set 35",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -8479,7 +9518,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 35",
+                    "text": "<p align='center'><b>Slider Set 35</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -8495,6 +9539,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -8528,6 +9576,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -8577,6 +9629,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -8618,6 +9674,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -8642,6 +9702,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -8693,6 +9757,11 @@
             "pageDisplayName": "Slider Set 36",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -8722,7 +9791,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 36",
+                    "text": "<p align='center'><b>Slider Set 36</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -8738,6 +9812,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -8771,6 +9849,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -8820,6 +9902,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -8861,6 +9947,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -8885,6 +9975,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -8936,6 +10030,11 @@
             "pageDisplayName": "Slider Set 37",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -8965,7 +10064,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 37",
+                    "text": "<p align='center'><b>Slider Set 37</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -8981,6 +10085,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -9014,6 +10122,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -9063,6 +10175,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -9104,6 +10220,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -9128,6 +10248,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -9179,6 +10303,11 @@
             "pageDisplayName": "Slider Set 38",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -9208,7 +10337,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 38",
+                    "text": "<p align='center'><b>Slider Set 38</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -9224,6 +10358,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -9257,6 +10395,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -9306,6 +10448,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -9347,6 +10493,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -9371,6 +10521,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -9422,6 +10576,11 @@
             "pageDisplayName": "Slider Set 39",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -9451,7 +10610,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 39",
+                    "text": "<p align='center'><b>Slider Set 39</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -9467,6 +10631,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -9500,6 +10668,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -9549,6 +10721,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -9590,6 +10766,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -9614,6 +10794,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -9665,6 +10849,11 @@
             "pageDisplayName": "Slider Set 40",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -9694,7 +10883,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 40",
+                    "text": "<p align='center'><b>Slider Set 40</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -9710,6 +10904,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
                 },
                 {
                     "text": "Apply to",
@@ -9743,6 +10941,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -9792,6 +10994,10 @@
                     "html": true
                 },
                 {
+                    "text": "Size",
+                    "type": "section"
+                },
+                {
                     "text": "Target size increase",
                     "help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
                     "type": "slider",
@@ -9833,6 +11039,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -9857,6 +11067,10 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",

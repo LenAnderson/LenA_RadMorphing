@@ -1,6 +1,12 @@
 [
 	{
-		"text": "Slider Set {{idxLbl}}",
+		"text": "<p align='center'><b>Slider Set {{idxLbl}}</b></p>",
+		"type": "text",
+		"html": true
+	},
+
+	{
+		"text": "Sliders",
 		"type": "section"
 	},
 	{
@@ -19,6 +25,10 @@
 	},
 	
 
+	{
+		"text": "Targets",
+		"type": "section"
+	},
 	{
 		"text": "Apply to",
 		"help": "Apply this slider set to the player, companions, or both.",
@@ -46,6 +56,10 @@
 	},
 
 
+	{
+		"text": "Trigger",
+		"type": "section"
+	},
 	{
 		"text": "Trigger name",
 		"help": "Name of the trigger value that is used to determine morphing.",
@@ -96,6 +110,10 @@
 	
 
 	{
+		"text": "Size",
+		"type": "section"
+	},
+	{
 		"text": "Target size increase",
 		"help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
 		"type": "slider",
@@ -139,6 +157,10 @@
 
 
 	{
+		"text": "Unequipping",
+		"type": "section"
+	},
+	{
 		"text": "Armor slots to unequip",
 		"help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
 		"type": "textinput",
@@ -166,6 +188,10 @@
 	},
 	
 
+	{
+		"text": "Permanent Morphs",
+		"type": "section"
+	},
 	{
 		"text": "Only doctors can reset morphs",
 		"help": "With this enabled only doctors can restore your base shape. Reducing the trigger value by other means will have no effect on the sliders.",

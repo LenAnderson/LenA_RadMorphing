@@ -22,9 +22,10 @@ def counts = fomod
 
 
 // json templates
-def tplText = new File("MCM/config/RadMorphingRedux/config.tpl.json").text
-def tplSliderPageText = new File("MCM/config/RadMorphingRedux/config.sliderSet.page.tpl.json").text
-def tplSliderText = new File("MCM/config/RadMorphingRedux/config.sliderSet.tpl.json").text
+def headerText = new File("MCM/config/RadMorphingRedux/config.header.tpl.json").text
+def tplText = new File("MCM/config/RadMorphingRedux/config.tpl.json").text.replaceAll(~/"\{\{TPL:HEADER\}\}"/, headerText)
+def tplSliderPageText = new File("MCM/config/RadMorphingRedux/config.sliderSet.page.tpl.json").text.replaceAll(~/"\{\{TPL:HEADER\}\}"/, headerText)
+def tplSliderText = new File("MCM/config/RadMorphingRedux/config.sliderSet.tpl.json").text.replaceAll(~/"\{\{TPL:HEADER\}\}"/, headerText)
 
 // old ini
 def oldVarsMatched = new File("MCM/config/RadMorphingRedux/settings.ini").text =~ /(?:\[([^\]\r\n]+)\])|(?:([^;=\r\n]+?)=([^;\r\n]*?)(?:\s*[;\r\n]))/
