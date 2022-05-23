@@ -52,11 +52,11 @@ EndEvent
 ;-----------------------------------------------------------------------------------------------------
 ; this mod's events
 
-Event LenARM:LenARM_Main.OnStartup(LenARM:LenARM_Main sender, var[] args)
+Event LenARM:LenARM_Main.OnStartup(LenARM:LenARM_Main sender, Var[] args)
 	SendCustomEvent("OnStartup")
 EndEvent
 
-Event LenARM:LenARM_Main.OnShutdown(LenARM:LenARM_Main sender, var[] args)
+Event LenARM:LenARM_Main.OnShutdown(LenARM:LenARM_Main sender, Var[] args)
 	SendCustomEvent("OnShutdown")
 EndEvent
 
@@ -65,7 +65,7 @@ Event LenARM:LenARM_Main.OnRequestTriggers(LenARM:LenARM_Main akSender, Var[] ak
 	SendCustomEvent("OnRequestTriggers")
 EndEvent
 
-Event LenARM:LenARM_Main.OnMorphChange(LenARM:LenARM_Main sender, var[] args)
+Event LenARM:LenARM_Main.OnMorphChange(LenARM:LenARM_Main sender, Var[] args)
 	D.Log("API.OnMorphChange: " + args)
 	SendCustomEvent("OnMorphChange", args)
 EndEvent
@@ -103,7 +103,7 @@ bool Function RegisterTrigger(string triggerName)
 	D.Log("API.RegisterTrigger: " + triggerName)
 	bool isRegistered = Main.AddTriggerName(triggerName)
 	If (isRegistered)
-		var[] eventArgs = new var[1]
+		Var[] eventArgs = new Var[1]
 		eventArgs[0] = triggerName
 		SendCustomEvent("OnTriggerAdd", eventArgs)
 	EndIf
@@ -117,7 +117,7 @@ Function UnregisterTrigger(string triggerName)
 	D.Log("API.UnregisterTrigger: " + triggerName)
 	Main.RemoveTriggerName(triggerName)
 	
-	var[] eventArgs = new var[1]
+	Var[] eventArgs = new Var[1]
 	eventArgs[0] = triggerName
 	SendCustomEvent("OnTriggerRemove", eventArgs)
 EndFunction
@@ -130,7 +130,7 @@ Function UpdateTrigger(string triggerName, float value)
 	D.Log("API.UpdateTrigger: " + triggerName + " = " + value)
 	float actualValue = Main.SetTriggerValue(triggerName, value)
 	
-	var[] eventArgs = new var[2]
+	Var[] eventArgs = new Var[2]
 	eventArgs[0] = triggerName
 	eventArgs[1] = actualValue
 	SendCustomEvent("OnTriggerUpdate", eventArgs)

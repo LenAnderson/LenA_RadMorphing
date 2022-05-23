@@ -694,7 +694,7 @@ Function ApplyMorphUpdates(LenARM_SliderSet:MorphUpdate[] updates)
 
 		UnequipSlots()
 
-		var[] eventArgs = new var[1]
+		Var[] eventArgs = new Var[1]
 		eventArgs[0] = GetMorphPercentage()
 		SendCustomEvent("OnMorphChange", eventArgs)
 	EndIf
