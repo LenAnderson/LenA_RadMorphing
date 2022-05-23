@@ -562,9 +562,12 @@ Function RemoveTriggerName(string triggerName)
 		MCM_TriggerNames.Remove(idxTrigger)
 		int idxSliderSet = 0
 		While (idxSliderSet < NumberOfSliderSets)
-			If (MCM.GetModSettingString("RadMorphingRedux", "sTriggerName:Slider" + idxSliderSet) == triggerName)
+			int index = MCM.GetModSettingInt("RadMorphingRedux", "iTriggerNameIndex:Slider" + idxSliderSet)
+			If (index == idxTrigger)
 				D.Log("  updating MCM for SliderSet " + idxSliderSet)
 				MCM.SetModSettingInt("RadMorphingRedux", "iTriggerNameIndex:Slider" + idxSliderSet, 0)
+			ElseIf (index > idxTrigger)
+				MCM.SetModSettingInt("RadMorphingRedux", "iTriggerNameIndex:Slider" + idxSliderSet, index - 1)
 			EndIf
 			idxSliderSet += 1
 		EndWhile
