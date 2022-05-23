@@ -16,6 +16,7 @@ EndGroup
 
 CustomEvent OnStartup
 CustomEvent OnShutdown
+CustomEvent OnRequestTriggers
 CustomEvent OnMorphChange
 CustomEvent OnTriggerAdd
 CustomEvent OnTriggerRemove
@@ -36,12 +37,14 @@ CustomEvent OnTriggerUpdate
 Event OnQuestInit()
 	RegisterForCustomEvent(Main, "OnStartup")
 	RegisterForCustomEvent(Main, "OnShutdown")
+	RegisterForCustomEvent(Main, "OnRequestTriggers")
 	RegisterForCustomEvent(Main, "OnMorphChange")
 EndEvent
 
 Event OnQuestShutdown()
 	UnregisterForCustomEvent(Main, "OnStartup")
 	UnregisterForCustomEvent(Main, "OnShutdown")
+	UnregisterForCustomEvent(Main, "OnRequestTriggers")
 	UnregisterForCustomEvent(Main, "OnMorphChange")
 EndEvent
 
@@ -55,6 +58,11 @@ EndEvent
 
 Event LenARM:LenARM_Main.OnShutdown(LenARM:LenARM_Main sender, var[] args)
 	SendCustomEvent("OnShutdown")
+EndEvent
+
+Event LenARM:LenARM_Main.OnRequestTriggers(LenARM:LenARM_Main akSender, Var[] akArgs)
+	D.Log("API.OnRequestTriggers")
+	SendCustomEvent("OnRequestTriggers")
 EndEvent
 
 Event LenARM:LenARM_Main.OnMorphChange(LenARM:LenARM_Main sender, var[] args)

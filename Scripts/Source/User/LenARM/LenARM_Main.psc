@@ -130,6 +130,7 @@ int HealCost
 
 CustomEvent OnStartup
 CustomEvent OnShutdown
+CustomEvent OnRequestTriggers
 CustomEvent OnMorphChange
 
 
@@ -181,9 +182,10 @@ EndEvent
 
 Event Actor.OnPlayerLoadGame(Actor akSender)
 	D.Log("Actor.OnPlayerLoadGame: " + akSender)
-	PerformUpdateIfNecessary()
-	;TODO should probably reset list of trigger names in case a trigger mod was uninstalled
-	; trigger mods would have to re-register their name on load game
+	If (!PerformUpdateIfNecessary())
+		MCM_TriggerNames = new string[0]
+		SendCustomEvent("OnRequestTriggers", new Var[0])
+	EndIf
 EndEvent
 
 Event Actor.OnItemEquipped(Actor akSender, Form akBaseObject, ObjectReference akReference)
@@ -341,6 +343,7 @@ Function Startup()
 			MCM.SetModSettingInt("RadMorphingRedux", "iTriggerNameIndex:Slider" + idxSliderSet, 0)
 			idxSliderSet += 1
 		EndWhile
+		SendCustomEvent("OnRequestTriggers", new Var[0])
 
 		; get debug setting from MCM
 		bool enableLogging = MCM.GetModSettingBool("RadMorphingRedux", "bIsLoggingEnabled:Debug")
@@ -370,6 +373,7 @@ Function Startup()
 		If (MCM_TriggerNames == none)
 			MCM_TriggerNames = new string[0]
 			MCM_TriggerNames.Add("-- SELECT A TRIGGER --")
+			SendCustomEvent("OnRequestTriggers", new Var[0])
 		EndIf
 	EndIf
 
@@ -478,13 +482,14 @@ EndFunction
 
 ;
 ; Check if a new version has been installed and restart the mod if necessary.
+; Returns true if an update was performed, otherwise false.
 ;
-Function PerformUpdateIfNecessary()
+bool Function PerformUpdateIfNecessary()
 	D.Log("PerformUpdateIfNecessary: " + Version + " != " + GetVersion() + " -> " + (Version != GetVersion()))
 	If (Version != GetVersion())
 		If (Util.StringStartsWith(Version, "1.") || Util.StringStartsWith(Version, "0."))
 			Debug.MessageBox("Rad Morphing Redux version " + Version + " is too old to update. Please load a save with the old version removed or start a new game.")
-			return
+			return false
 		EndIf
 		D.Log("  update")
 		D.Note("Updating Rad Morphing Redux from version " + Version + " to " + GetVersion())
@@ -495,8 +500,10 @@ Function PerformUpdateIfNecessary()
 		Startup()
 		Version = GetVersion()
 		D.Note("Rad Morphing Redux has been updated to version " + Version + ".")
+		return true
 	Else
 		D.Log("  no update")
+		return false
 	EndIf
 EndFunction
 
