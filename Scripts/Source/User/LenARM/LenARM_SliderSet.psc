@@ -328,7 +328,7 @@ MorphUpdate[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 	SliderSet this = SliderSetList[idxSliderSet]
 	MorphUpdate[] updates = new MorphUpdate[0]
 	; check whether SliderSet is in use and whether a new / unapplied trigger value is available
-	If (this.IsUsed && this.HasNewTriggerValue)
+	If (this.IsUsed && (this.HasNewTriggerValue || this.UpdateType == EUpdateTypeOnSleep))
 		D.Log("SliderSet.SliderSet_CalculateMorphUpdates: " + this.Index)
 		; calculate new morph value based on trigger value and thresholds
 		float newMorph
@@ -345,7 +345,14 @@ MorphUpdate[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 		string fullMorphUpdate =    "  FullMorph:      " + this.FullMorph + " -> "
 		
 		bool updateFullMorph = false
-		If (this.OnlyDoctorCanReset)
+		If (this.UpdateType == EUpdateTypeOnSleep)
+			; sleep morphing -> only doctors (base morphs), additive, always add current value
+			D.Log("  sleep morphing -> only doctors (base morphs), additive, always add current value")
+			; don't change current morph, increase base morph, apply
+			D.Log("  don't change current morph, increase base morph, apply")
+			this.BaseMorph += newMorph
+			updateFullMorph = true
+		ElseIf (this.OnlyDoctorCanReset)
 			If (this.IsAdditive)
 				; only doctors (base morphs), additive
 				D.Log("  only doctors (base morphs), additive")
@@ -445,9 +452,9 @@ MorphUpdate[] Function SliderSet_CalculateFullMorphs(int idxSliderSet)
 	float newMorph = this.CurrentMorph
 	float fullMorph = newMorph
 
-	If (this.OnlyDoctorCanReset)
+	If (this.OnlyDoctorCanReset || this.UpdateType == EUpdateTypeOnSleep)
 		fullMorph += this.BaseMorph
-		If (this.IsAdditive && this.HasAdditiveLimit)
+		If ((this.IsAdditive || this.UpdateType == EUpdateTypeOnSleep) && this.HasAdditiveLimit)
 			fullMorph = Math.Min(fullMorph, 1.0 + this.AdditiveLimit)
 			D.Log("  additive limit: " + this.AdditiveLimit)
 		EndIf
