@@ -19,7 +19,7 @@
 			"label": "Bak FPLib",
 			"group": "none",
 			"type": "shell",
-			"command": "mv LL_FourPlay.pex LL_FourPlay.pex.bak",
+			"command": "Move-Item -Path LL_FourPlay.pex -Destination LL_FourPlay.pex.bak -ErrorAction Ignore; exit 0",
 			"options": {
 				"shell": {
 					"executable": "powershell.exe"
