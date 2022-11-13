@@ -604,6 +604,24 @@ float Function GetBaseMorphPercentage()
 EndFunction
 
 ;
+; Get the total (max) percentage of morphs (base + current) for a specific trigger name.
+; Relative to the minimum lower threshold and maximum upper threshold across all relevant slider sets.
+;
+float Function GetMorphPercentageForTrigger(string triggerName, bool inverted)
+	D.Log("GetMorphPercentageForTrigger: " + triggerName  + ", inverted=" + inverted)
+	return SliderSets.GetMorphPercentageForTrigger(triggerName, inverted)
+EndFunction
+
+;
+; Get the total (max) percentage of base morphs (permanent morphs) for a specific trigger name.
+; Relative to the minimum lower threshold and maximum upper threshold across all relevant slider sets.
+;
+float Function GetBaseMorphPercentageForTrigger(string triggerName, bool inverted)
+	D.Log("GetBaseMorphPercentageForTrigger: " + triggerName  + ", inverted=" + inverted)
+	return SliderSets.GetBaseMorphPercentageForTrigger(triggerName, inverted)
+EndFunction
+
+;
 ; Get the list of used (in SliderSets) trigger names.
 ;
 string[] Function GetUsedTriggerNames()

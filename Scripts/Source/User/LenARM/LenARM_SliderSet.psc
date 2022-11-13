@@ -816,6 +816,94 @@ EndFunction
 
 
 ;
+; Get the total (max) percentage of morphs (base + current) for a specific trigger name.
+; Relative to the minimum lower threshold and maximum upper threshold across all relevant slider sets.
+;
+; @param triggerName - the trigger's name
+; @param inverted
+;    - true: only check slider sets that invert the trigger value;
+;    - false: only check slider sets that don't invert the trigger value
+;
+float Function GetMorphPercentageForTrigger(string triggerName, bool inverted)
+	float thresholdMin = 1.0
+	float thresholdMax = 0.0
+	float morph = 0.0
+
+	; determine the range for this trigger
+	int idxSliderSet = 0
+	While (idxSliderSet < SliderSetList.Length)
+		SliderSet item = SliderSetList[idxSliderSet]
+		If (item.TriggerName == triggerName && item.InvertTriggerValue == inverted)
+			thresholdMin = Math.Min(thresholdMin, item.ThresholdMin)
+			thresholdMax = Math.Max(thresholdMax, item.ThresholdMax)
+		EndIf
+		idxSliderSet += 1
+	EndWhile
+
+	; find the max value for this trigger
+	If (thresholdMin < thresholdMax)
+		idxSliderSet = 0
+		While (idxSliderSet < SliderSetList.Length)
+			SliderSet item = SliderSetList[idxSliderSet]
+			If (item.TriggerName == triggerName && item.InvertTriggerValue == inverted && item.FullMorph > 0)
+				float lowerOffset = item.ThresholdMin - thresholdMin
+				float upperOffset = thresholdMax - item.ThresholdMax
+				float range = 1.0 - lowerOffset - upperOffset
+				float value = item.FullMorph * range + lowerOffset
+				morph = Math.max(morph, value)
+			EndIf
+			idxSliderSet += 1
+		EndWhile
+	EndIf
+	return morph
+EndFunction
+
+
+;
+; Get the total (max) percentage of base morphs (permanent morphs) for a specific trigger name.
+; Relative to the minimum lower threshold and maximum upper threshold across all relevant slider sets.
+;
+; @param triggerName - the trigger's name
+; @param inverted
+;    - true: only check slider sets that invert the trigger value;
+;    - false: only check slider sets that don't invert the trigger value
+;
+float Function GetBaseMorphPercentageForTrigger(string triggerName, bool inverted)
+	float thresholdMin = 1.0
+	float thresholdMax = 0.0
+	float morph = 0.0
+
+	; determine the range for this trigger
+	int idxSliderSet = 0
+	While (idxSliderSet < SliderSetList.Length)
+		SliderSet item = SliderSetList[idxSliderSet]
+		If (item.TriggerName == triggerName && item.InvertTriggerValue == inverted)
+			thresholdMin = Math.Min(thresholdMin, item.ThresholdMin)
+			thresholdMax = Math.Max(thresholdMax, item.ThresholdMax)
+		EndIf
+		idxSliderSet += 1
+	EndWhile
+
+	; find the max value for this trigger
+	If (thresholdMin < thresholdMax)
+		idxSliderSet = 0
+		While (idxSliderSet < SliderSetList.Length)
+			SliderSet item = SliderSetList[idxSliderSet]
+			If (item.TriggerName == triggerName && item.InvertTriggerValue == inverted && item.FullMorph > 0)
+				float lowerOffset = item.ThresholdMin - thresholdMin
+				float upperOffset = thresholdMax - item.ThresholdMax
+				float range = 1.0 - lowerOffset - upperOffset
+				float value = item.BaseMorph * range + lowerOffset
+				morph = Math.max(morph, value)
+			EndIf
+			idxSliderSet += 1
+		EndWhile
+	EndIf
+	return morph
+EndFunction
+
+
+;
 ; Remove the BaseMorph for all SliderSetList.
 ;
 Function ClearBaseMorphs()

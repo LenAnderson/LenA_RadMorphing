@@ -94,6 +94,15 @@ float Function GetMorphProgress()
 	return Main.GetMorphPercentage()
 EndFunction
 
+;
+; Get the overall progress of morphs for a specific trigger.
+; Returns total morph percentage (0.0 - 1.0).
+;
+float Function GetMorphProgressForTrigger(string triggerName, bool inverted)
+	D.Log("API.GetMorphProgressForTrigger: " + triggerName + ", inverted=" + inverted)
+	return Main.GetMorphPercentageForTrigger(triggerName, inverted)
+EndFunction
+
 
 ;
 ; Register a trigger name with RMR.
