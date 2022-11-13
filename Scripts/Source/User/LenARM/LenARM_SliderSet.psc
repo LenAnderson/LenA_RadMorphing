@@ -944,7 +944,7 @@ bool Function HasDoctorOnly()
 	int idxSliderSet = 0
 	While (idxSliderSet < SliderSetList.Length)
 		SliderSet sliderSet = SliderSetList[idxSliderSet]
-		If (sliderSet.IsUsed && sliderSet.OnlyDoctorCanReset)
+		If (sliderSet.IsUsed && (sliderSet.OnlyDoctorCanReset || sliderSet.UpdateType == EUpdateTypeOnSleep))
 			return true
 		EndIf
 		idxSliderSet += 1
