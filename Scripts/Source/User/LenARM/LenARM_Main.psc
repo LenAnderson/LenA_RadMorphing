@@ -38,9 +38,10 @@ EndGroup
 
 ;-----------------------------------------------------------------------------------------------------
 ; proxy scripts
-; Group Proxy
-	;TODO add proxy for devious devices
-; EndGroup
+Group Proxy
+	; proxy for devious devices
+	LenARM_Proxy_DeviousDevices Property DD Auto Const
+EndGroup
 
 
 ;-----------------------------------------------------------------------------------------------------
@@ -185,6 +186,7 @@ Event Actor.OnPlayerLoadGame(Actor akSender)
 	If (!PerformUpdateIfNecessary())
 		MCM_TriggerNames = new string[0]
 		SendCustomEvent("OnRequestTriggers", new Var[0])
+		DD.LoadDD()
 	EndIf
 EndEvent
 
@@ -300,6 +302,9 @@ Function Startup()
 
 		; load SliderSets
 		SliderSets.LoadSliderSets(NumberOfSliderSets, Player)
+
+		; start proxy for Devious Devices
+		DD.LoadDD()
 
 		; listen for item equip
 		RegisterForRemoteEvent(Player, "OnItemEquipped")
@@ -804,11 +809,20 @@ EndFunction
 ; Check whether the worn item can be unequipped or should be ignored.
 ;
 bool Function CheckIgnoreItem(Actor:WornItem item)
+	D.Log("    CheckIgnoreItem: " + item)
+	; don't try to unequip hands or pipboy
 	If (LL_Fourplay.StringSubstring(item.modelName, 0, 6) == "Actors" || LL_Fourplay.StringSubstring(item.modelName, 0, 6) == "Pipboy")
 		return true
 	EndIf
 
-	;TODO check DeviousDevices
+	; check DeviousDevices
+	bool isDD = DD.CheckItem(item.item)
+	If (isDD)
+		D.Log("      --> item is a DD device, do not unequip")
+		return true
+	Else
+		D.Log("      --> item not found in DD list, unequip")
+	EndIf
 
 	return false
 EndFunction
