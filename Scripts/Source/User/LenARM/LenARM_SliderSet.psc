@@ -793,10 +793,11 @@ EndFunction
 ;
 float Function GetMorphPercentage()
 	float morph = 0.0
-	int idxSliderSet = 0
-	While (idxSliderSet < SliderSetList.Length)
-		morph = Math.Max(morph, SliderSet_GetMorphPercentage(idxSliderSet))
-		idxSliderSet += 1
+	int idxTrigger = 0
+	While (idxTrigger < TriggerNameList.Length)
+		string triggerName = TriggerNameList[idxTrigger]
+		morph = Math.max(Math.Max(morph, GetMorphPercentageForTrigger(triggerName, false)), GetMorphPercentageForTrigger(triggerName, true))
+		idxTrigger += 1
 	EndWhile
 	return morph
 EndFunction
@@ -806,10 +807,11 @@ EndFunction
 ;
 float Function GetBaseMorphPercentage()
 	float morph = 0.0
-	int idxSliderSet = 0
-	While (idxSliderSet < SliderSetList.Length)
-		morph = Math.Max(morph, SliderSet_GetBaseMorphPercentage(idxSliderSet))
-		idxSliderSet += 1
+	int idxTrigger = 0
+	While (idxTrigger < TriggerNameList.Length)
+		string triggerName = TriggerNameList[idxTrigger]
+		morph = Math.max(Math.Max(morph, GetBaseMorphPercentageForTrigger(triggerName, false)), GetBaseMorphPercentageForTrigger(triggerName, true))
+		idxTrigger += 1
 	EndWhile
 	return morph
 EndFunction
