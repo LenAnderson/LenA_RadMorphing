@@ -85,7 +85,7 @@
 	},
 	{
 		"text": "Update type",
-		"help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+		"help": "Whether to update immediately, periodically, or after sleeping. Default: Immediately",
 		"type": "dropdown",
 		"id": "iUpdateType:Slider{{idx}}",
 		"valueOptions": {
