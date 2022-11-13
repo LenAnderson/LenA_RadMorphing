@@ -77,7 +77,7 @@
 			"type": "section"
 		},
 		{
-			"text": "Cost (in caps) to heal 1% of morphs",
+			"text": "Caps to heal 1% of morphs",
 			"help": "Cost to heal each percent of rads at a doctor. Default: 10 caps",
 			"type": "slider",
 			"id": "iHealCost:General",
