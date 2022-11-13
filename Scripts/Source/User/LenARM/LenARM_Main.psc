@@ -889,7 +889,7 @@ Function ShowEquippedClothes()
 	While (slot < 62)
 		Actor:WornItem item = Player.GetWornItem(slot)
 		If (item != None && item.item != None)
-			items.Add(slot + ": " + item.item.GetName())
+			items.Add(slot + ": " + item.item.GetName() + " (" + item.modelName + ")")
 			D.Log("  " + slot + ": " + item.item.GetName() + " (" + item.modelName + ")")
 		Else
 			D.Log("  Slot " + slot + " is empty")
