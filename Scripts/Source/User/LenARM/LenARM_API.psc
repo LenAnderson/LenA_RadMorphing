@@ -89,6 +89,8 @@ EndFunction
 ; Get the overall progress of morphs.
 ; Returns total morph percentage (0.0 - 1.0).
 ;
+; @returns float The current total morph progress across all slider sets.
+;
 float Function GetMorphProgress()
 	D.Log("API.GetMorphProgress")
 	return Main.GetMorphPercentage()
@@ -97,6 +99,10 @@ EndFunction
 ;
 ; Get the overall progress of morphs for a specific trigger.
 ; Returns total morph percentage (0.0 - 1.0).
+;
+; @param string triggerName Name of the trigger.
+; @param bool inverted Whether to check only for slider sets that invert the trigger value or only for slider sets that don't invert the trigger value.
+; @returns float The current total morph progress for that trigger, relative to the minimum lower threshold and maximum upper threshold for all relevant slider sets.
 ;
 float Function GetMorphProgressForTrigger(string triggerName, bool inverted)
 	D.Log("API.GetMorphProgressForTrigger: " + triggerName + ", inverted=" + inverted)
@@ -107,6 +113,9 @@ EndFunction
 ;
 ; Register a trigger name with RMR.
 ; Returns false if the name is already registered, otherwise true.
+;
+; @param string triggerName The name to be used.
+; @returns bool False if the name is already registered, otherwise true.
 ;
 bool Function RegisterTrigger(string triggerName)
 	D.Log("API.RegisterTrigger: " + triggerName)
@@ -122,6 +131,8 @@ EndFunction
 ;
 ; Unregister a trigger name from RMR.
 ;
+; @param triggerName string Name of the trigger.
+;
 Function UnregisterTrigger(string triggerName)
 	D.Log("API.UnregisterTrigger: " + triggerName)
 	Main.RemoveTriggerName(triggerName)
@@ -134,6 +145,9 @@ EndFunction
 
 ;
 ; Update the value of a morph trigger.
+;
+; @param triggerName Name of the trigger to update.
+; @param value New trigger value.
 ;
 Function UpdateTrigger(string triggerName, float value)
 	D.Log("API.UpdateTrigger: " + triggerName + " = " + value)
@@ -149,6 +163,8 @@ EndFunction
 ;
 ; Returns true if RMR is currently active / running.
 ;
+; @returns bool True if RMR is active, otherwise false.
+;
 bool Function IsRunning()
 	return Main.GetIsRunning()
 EndFunction
@@ -157,6 +173,8 @@ EndFunction
 ;
 ; Get the list of trigger names that are registered with RMR.
 ;
+; @returns string[] Array containing all the currently registered trigger names.
+;
 string[] Function GetRegisteredTriggerNames()
 	return Main.GetTriggerNames()
 EndFunction
@@ -164,6 +182,8 @@ EndFunction
 
 ;
 ; Get the list of trigger names that are used by SliderSets.
+;
+; @returns string[] Array containing all the trigger names currently used in at least one slider set.
 ;
 string[] Function GetUsedTriggerNames()
 	return Main.GetUsedTriggerNames()
