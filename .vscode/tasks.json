@@ -135,7 +135,7 @@
 
 		{
 			"label": "Build without DONE",
-			"detail": "Compile all Papyrus scripts",
+			"detail": "Compile all Papyrus scripts, don't print 'DONE' at the end",
 			"group": "none",
 			"dependsOrder": "sequence",
 			"dependsOn": ["Bak FPLib", "Compile", "Cleanup", "Unbak FPLib"]
