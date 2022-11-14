@@ -32,40 +32,43 @@ as `fallout4.ppj`.
 
 ```
 /
-├── .fomod/                                  contents for the final FOMOD file to be published
-├── .options/                                optional content for the FOMOD
-├── .vscode/                                 VS Code configuration
-├── F4SE/                                    F4SE DLLs (FourPlay library)
-├── MCM/                                     
-│   ├── config.json                          compiled MCM config
-│   ├── config.sliderSet.page.tpl.json       template for a slider set page
-│   ├── config.sliderSet.tpl.json            template for the slider set part of a slider set page
-│   ├── config.tpl.json                      root template for the MCM config
-│   └── settings.ini                         default MCM values
-├── Scripts/                                 
-│   ├── LenARM/                              compiled .pex files
-│   └── Source/                              
-│       ├── User/                            
-│       │   └── LenARM/                      
-│       │       ├── LenARM_API.psc           API script
-│       │       ├── LenARM_Debug.psc         debug functions (logging etc.)
-│       │       ├── LenARM_Main.psc          main script, entry point for this mod
-│       │       ├── LenARM_SliderSet.psc     slider set logic
-│       │       └── LenARM_Util.psc          utility functions (e.g. string splitting)
-│       ├── BodyGen.psc                      definition of BodyGen functions
-│       ├── fallout4.ppj.sample              Papyrus project file for Papyrus extension
-│       └── LL_FourPlay.psc                  definition FourPlay library functions
-├── .version                                 current version number
-├── bumpVersion.groovy                       script to change version number
-├── copyToFomod.groovy                       script to copy all content to .fomod folder
-├── createMCM.groovy                         script to build MCM config.json from template files
-├── LenA_RadMorphing.esp                     this mod's Bethesda Plugin
-├── LenARM.code-workspace                    VS Code workspace configuration
-└── README.MD                                this readme file
+├── .fomod/                                             contents for the final FOMOD file to be published
+├── .options/                                           optional content for the FOMOD
+├── .vscode/                                            VS Code configuration and build tasks
+├── F4SE/                                               F4SE DLLs (FourPlay library)
+├── MCM/                                                
+│   └── Config/                                         
+│       └── RadMorphingRedux/                           
+│           ├── config.json                             compiled MCM config
+│           ├── config.sliderSet.page.tpl.json          template for a slider set page
+│           ├── config.sliderSet.tpl.json               template for the slider set part of a slider set page
+│           ├── config.tpl.json                         root template for the MCM config
+│           └── settings.ini                            default MCM values
+├── Scripts/                                            
+│   ├── LenARM/                                         compiled .pex files
+│   └── Source/                                         
+│       ├── User/                                       
+│       │   └── LenARM/                                 
+│       │       ├── LenARM_API.psc                      API script
+│       │       ├── LenARM_Debug.psc                    debug functions (logging etc.)
+│       │       ├── LenARM_Main.psc                     main script, entry point for this mod
+│       │       ├── LenARM_Proxy_DeviousDevices.psc     proxy script to interact with the Devious Devices mod
+│       │       ├── LenARM_SliderSet.psc                slider set logic
+│       │       └── LenARM_Util.psc                     utility functions (e.g. string splitting)
+│       ├── BodyGen.psc                                 definition of BodyGen functions
+│       ├── fallout4.ppj.sample                         Papyrus project file for Papyrus extension
+│       └── LL_FourPlay.psc                             definition FourPlay library functions
+├── .version                                            current version number
+├── bumpVersion.groovy                                  script to change version number
+├── copyToFomod.groovy                                  script to copy all content to .fomod folder
+├── createMCM.groovy                                    script to build MCM config.json from template files
+├── LenA_RadMorphing.esp                                this mod's Bethesda Plugin
+├── LenARM.code-workspace                               VS Code workspace configuration
+└── README.MD                                           this readme file
 ```
 
-The ESP has a single quest `LenARM_Main` and a message `LenARM_HealMorphMessage`. All scripts 
-are attached to the quest.
+The ESP has a single quest `LenARM_Main`, a keyword `LenARM_Morph` for BodyGen morphs, and a message 
+`LenARM_HealMorphMessage`. All scripts are attached to the quest.
 
 
 ## Workflow
@@ -73,27 +76,17 @@ are attached to the quest.
 Launch Vortex, open the workspace in VS Code, and open the ESP in Creation Kit (set the ESP as 
 active file).
 
-Edit the scripts in VS Code and compile in Creation Kit.
+Edit the scripts in VS Code and compile with the `Build` task.
 
 Most of the time Vortex / the hardlinks seem to keep the psc files in sync, however, sometimes 
 you may have to manually deploy with Vortex. You will certainly have to manually deploy and 
 then resolve conflicts (check single files and keep changes / use deployed version) to get the 
-compiled pex files and updated esp back into your development directory.
+updated esp back into your development directory.
 
-After making changes to the MCM files (json templates, or settings.ini), run `createMCM.groovy`
+After making changes to the MCM files (json templates, or settings.ini), run the `createMCM` task
 to compile these into the files used by MCM. The values from region `[Slider0]` in settings.ini 
 will be used as default values (written to settings.ini) for all slider sets when compiling.
 
-To change the version number, run `bumpVersion.groovy` and enter the new version number in 
-the prompt that pops up. This will update the version number in all relevant places. Then 
-recompile the psc scripts, to make sure the return value of `GetVersion()` in `LenARM_Main.psc`
-is updated in the compiled pex files.
-
-
-## Releasing a new version
-
-1. Run `bumpVersion.groovy` to change the version number
-1. Recompile the papyrus scripts
-1. Run `copyToFomod.groovy` to copy all relevant files into the FOMOD directory
-1. Zip/7zip the contents of the `.fomod` folder as `LenA_RadMorphing_vXX.YY.ZZ.7zip` where 
-`XX.YY.ZZ` is the new version number
+To change the version number / create a new release, run `Release` task and enter the new version 
+number in the prompt that pops up. This will update the version number in all relevant places, 
+recompile the psc scripts, update the FOMOD folder, and create a new zip file ready for upload.
