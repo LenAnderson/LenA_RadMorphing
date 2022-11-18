@@ -196,9 +196,37 @@ Click this button to see a list of currently equipped items.
 
 ### How to restore your original body if you are stuck with a morphed body
 
-<!-- TODO restore body -->
-...
+If you are stuck with a morphed body you can follow the below steps to restore your original BodySlide preset.
 
+Requirements:
+
+- [Looksmenu](https://www.nexusmods.com/fallout4/mods/12631)
+- [BodySlide](https://www.nexusmods.com/fallout4/mods/25)
+- [BodyConvert](https://www.nexusmods.com/fallout4/mods/41781)
+
+1. Open the **console** and type `showlooksmenu 14` to open the player's **looksmenu**
+1. Select **PRESETS**
+1. Select **SAVE**
+1. Enter a name that is not already on the list
+1. Exit the looksmenu (I don't know if this is fully necessary but it can't hurt) by selecting **BACK** and then **DONE**
+1. **Alt-TAB** out of Fallout to your **desktop**.
+1. Find the **BodySlide** `.xml` file of the **preset** that you originally used for your player and now want to restore in `...\Data\tools\BodySlide\SliderPresets`
+1. Open that file with a **text editor** (e.g. Notepad, Notepad++, VS Code; *not MS Word* or other word processors!)
+1. **Copy** everything
+1. Open **BodyConvert**
+1. **Paste** the contents of the BodySlide file into the **BodySlide (XML)** section
+1. Click on **ToBodyGen**
+1. Click on **ToBodyMorph**
+1. **Copy** everything from the **BodyMorph (JSon)** section
+1. Find the `.json` file of the **looksmenu preset** that you just saved in `...\Data\F4SE\Plugins\F4EE\Presets`
+1. Open that file with a **text editor**
+1. Find the **BodyMorphs** part of the file. `"BodyMorphs": { lots of lines... }`,
+1. **Replace** that block with the content you copied from BodyConvert
+1. **Save** the file
+1. **Switch back** to Fallout 4
+1. Open the console and type `showlooksmenu 14` to open the player's **looksmenu**
+1. Go to **PRESETS**
+1. Select the **preset that you saved and edited earlier**, select **LOAD**, then **BACK**, and finally **DONE** to exit looksmenu
 
 
 
