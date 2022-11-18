@@ -204,8 +204,26 @@ Click this button to see a list of currently equipped items.
 
 ### Creating a new trigger
 
-<!-- TODO create trigger -->
-...
+Rad Morphing Redux provides an API for other mods (like triggers) to interact with RMR.
+
+- Get a reference to the API `Game.GetFormFromFile(0x4C50, "LenA_RadMorphing.esp") as LenARM:LenARM_API`
+- When first running your trigger mod, register your trigger name with RMR by calling `RegisterTrigger("YourTriggerName")`.
+- Call `UpdateTrigger("YourTriggerName", value)` with `value` as float between `0.0`(0%) and `1.0` (100%) to update the trigger value.
+- Register for the `OnStartup` and `OnShutdown` events to keep track of RMR's state and avoid wasting resources while RMR is inactive.
+- Register for the `OnRequestTriggers` event. Re-register your trigger name and provide the current value whenever this event is raised.
+
+For more details have a look at the Rads and SPECIAL triggers. The full source code is included in each mod and also available on GitHub.
+
+- Rads Trigger | [GitHub](https://github.com/LenAnderson/RMR-Trigger-Rads)
+- SPECIAL Trigger | [GitHub](https://github.com/LenAnderson/RMR-Trigger-SPECIAL)
+
+
+
+
+
+### Source Code
+
+All source code is included with the mod and also available on [GitHub](https://github.com/LenAnderson/LenA_RadMorphing).
 
 
 
