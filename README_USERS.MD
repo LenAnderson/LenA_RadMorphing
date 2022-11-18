@@ -103,12 +103,12 @@ Whether to display a warning message when you load a game with RMR disabled. Thi
 	Whether to restore morphed companion bodies to their original body when dismissing them.
 - **Healing (permanent morphing)**
 	- **Caps to heal 1% of morphs**  
-	Number of caps to heal morphs at a doctor. This only applies when permanent morphing (only doctors can reset morphs) is enabled.
+	Number of caps to heal 1% of morphs at a doctor. This only applies when permanent morphing (only doctors can reset morphs) is enabled.
 
 
 ### Global Overrides
 
-Settings made in this section will override all individual settings on the slider set pages. Descriptions for each setting can be found further below.
+Settings made in this section will override all individual settings on the slider set pages. Descriptions for each setting can be found further down.
 
 - **Permanent Morphs**
 	- **Only doctors can reset morphs**
