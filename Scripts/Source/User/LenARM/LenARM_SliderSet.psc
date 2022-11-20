@@ -959,22 +959,27 @@ EndFunction
 ; Get the list of slots that need to be unequipped due to morphs.
 ;
 UnequipSlot[] Function GetUnequipSlots()
+	D.Log("GetUnequipSlots " + UnequipSlotList)
 	UnequipSlot[] slots = new UnequipSlot[0]
 	int idxSliderSet = 0
 	While (idxSliderSet < SliderSetList.Length)
 		SliderSet sliderSet = SliderSetList[idxSliderSet]
+		D.Log("  (SliderSet " + idxSliderSet + ") " + sliderSet.FullMorph + " > " + sliderSet.ThresholdUnequip + "  ?")
 		If (sliderSet.FullMorph > sliderSet.ThresholdUnequip)
+			D.Log("    YES")
 			int offset = GetUnequipSlotOffset(idxSliderSet)
+			D.Log("    Offset: " + offset)
 			int idxSlot = 0
 			While (idxSlot < sliderSet.NumberOfUnequipSlots)
 				UnequipSlot slot = new UnequipSlot
-				slot.Slot = UnequipSlotList[idxSlot]
+				slot.Slot = UnequipSlotList[idxSlot + offset]
 				slot.ApplyPlayer = sliderSet.ApplyTo == EApplyToAll || sliderSet.ApplyTo == EApplyToPlayer
 				slot.ApplyCompanion = sliderSet.ApplyTo == EApplyToAll || sliderSet.ApplyTo == EApplyToCompanion
 				slot.ApplyFemale = sliderSet.Sex == EApplySexAll || sliderSet.Sex == EApplySexFemale
 				slot.ApplyMale = sliderSet.Sex == EApplySexAll || sliderSet.Sex == EApplySexMale
 				slots.Add(slot)
 				idxSlot += 1
+				D.Log(slot)
 			EndWhile
 		EndIf
 		idxSliderSet += 1
