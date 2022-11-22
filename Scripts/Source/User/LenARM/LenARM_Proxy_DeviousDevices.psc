@@ -51,13 +51,16 @@ EndFunction
 ;
 ; Check if the item is a devious device
 ;
-bool Function CheckItem(Form item)
+bool Function CheckItem(Armor item)
 	D.Log("DD.CheckItem: " + item)
 	If (DDL == None)
 		D.Log("DD not found or proxy not initialized")
 		return false
+	ElseIf (DD_kw_RenderedItem == None)
+		D.Log("DD_kw_RenderedItem not found")
+		return false
 	Else
-		D.Log("  " + item.GetKeywords())
+		D.Log("  Keywords:" + item.GetKeywords())
 		return item.HasKeyword(DD_kw_RenderedItem)
 	EndIf
 EndFunction

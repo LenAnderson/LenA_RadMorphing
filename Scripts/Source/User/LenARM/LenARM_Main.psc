@@ -834,12 +834,19 @@ bool Function CheckIgnoreItem(Actor:WornItem item)
 	EndIf
 
 	; check DeviousDevices
-	bool isDD = DD.CheckItem(item.item)
-	If (isDD)
-		D.Log("      --> item is a DD device, do not unequip")
+	Armor armorItem = item.item as Armor
+	If (armorItem == None)
+		; item is not an armor --> ignore
+		D.Log("      --> item is not an Armor, do not unequip")
 		return true
 	Else
-		D.Log("      --> item not found in DD list, unequip")
+		bool isDD = DD.CheckItem(armorItem)
+		If (isDD)
+			D.Log("      --> item is a DD device, do not unequip")
+			return true
+		Else
+			D.Log("      --> item not found in DD list, unequip")
+		EndIf
 	EndIf
 
 	return false
