@@ -91,7 +91,7 @@ Start or load a game, pause, open **MCM**, and select **Rad Morphing Redux**.
 
 ### General Settings
 
-- **Enable Rad Morphing**  
+- **Enable Rad Morphing Redux**  
 Enable or disable Rad Morphing Redux. On disabling RMR, the original body is restored.
 - **Display disabled warning**  
 Whether to display a warning message when you load a game with RMR disabled. This only really exists as a notice for first installs, since RMR is disabled by default.

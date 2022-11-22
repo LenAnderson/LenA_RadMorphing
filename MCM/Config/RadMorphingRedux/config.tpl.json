@@ -11,7 +11,7 @@
 			"type": "section"
 		},
 		{
-			"text": "Enable Rad Morphing",
+			"text": "Enable Rad Morphing Redux",
 			"help": "Enable or disable this mod. Default: OFF",
 			"type": "switcher",
 			"id": "bIsEnabled:General",
@@ -46,7 +46,7 @@
 		},
 
 		{
-			"text": "Morph updates",
+			"text": "Morph Updates",
 			"type": "section"
 		},
 		{
@@ -176,17 +176,6 @@
 					"id": "bIsLoggingEnabled:Debug",
 					"valueOptions": {
 						"sourceType": "ModSettingBool"
-					}
-				},
-				{
-					"text": "Reset mod state",
-					"type": "button",
-					"help": "Resets the mod to its initial state without restoring the original body. Does not change any settings.",
-					"action": {
-						"type": "CallFunction",
-						"form": "LenA_RadMorphing.esp|1000F99",
-						"function": "ForgetState",
-						"params": [true]
 					}
 				}
 			]
