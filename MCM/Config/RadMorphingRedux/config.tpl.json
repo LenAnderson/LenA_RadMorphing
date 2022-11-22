@@ -29,6 +29,18 @@
 			}
 		},
 		{
+			"text": "Reload MCM settings",
+			"type": "button",
+			"help": "Reloads all settings from MCM. Use this if you have modified the settings outside of the game or in another savegame.",
+			"action": {
+				"type": "CallFunction",
+				"form": "LenA_RadMorphing.esp|4C50",
+				"scriptName": "LenARM:LenARM_Main",
+				"function": "ReloadMCM",
+				"params": []
+			}
+		},
+		{
 			"text": "<br>",
 			"html": true
 		},

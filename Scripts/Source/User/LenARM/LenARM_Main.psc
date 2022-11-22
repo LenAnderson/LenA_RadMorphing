@@ -938,3 +938,11 @@ Function ShowEquippedClothes()
 
 	Debug.MessageBox(LL_FourPlay.StringJoin(items, "\n"))
 EndFunction
+
+
+;
+; Reload all MCM settings (restart RMR)
+;
+Function ReloadMCM()
+	Restart()
+EndFunction
