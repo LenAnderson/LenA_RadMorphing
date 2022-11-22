@@ -95,6 +95,8 @@ Start or load a game, pause, open **MCM**, and select **Rad Morphing Redux**.
 Enable or disable Rad Morphing Redux. On disabling RMR, the original body is restored.
 - **Display disabled warning**  
 Whether to display a warning message when you load a game with RMR disabled. This only really exists as a notice for first installs, since RMR is disabled by default.
+- **Reload MCM settings**  
+Reload all settings from MCM. Use this if you have modified the settings outside of the game (e.g., by using RMR Helper or directly editing the ini file) or made changes in another savegame.
 - **Morph Updates**
 	- **Update delay**  
 	Seconds between morph updates when *Update Type* is set to *Periodically*.
@@ -121,9 +123,6 @@ Settings made in this section will override all individual settings on the slide
 
 - **Enable logging**  
 If you experience any problems with RMR, please enable logging and provide your papyrus log when reporting your issue.
-- **Reset mod state**  
-Reset RMR to its initial state without restoring the original body.  
-This does not reset your MCM settings. It makes the mod "forget" everything that it remembers about your current game. This includes the original body shapes of the player character and companions.
 
 
 ### Slider Set *X*
