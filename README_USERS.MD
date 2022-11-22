@@ -46,7 +46,7 @@ Cover image on LoversLab graciously provided by @Narsdarknest
 ### Supported Mods
 
 - [Combat Strip Lite](https://www.loverslab.com/files/file/5275-combat-strip-lite-1262020/) or [Combat Strip Lite, Sound Replacer (Ripping Sounds)](https://www.loverslab.com/files/file/5388-combat-strip-lite-sound-replacer-ripping-sounds/)  
-Installing either of these mods (or both) allows Rad Morphing Redux to play a sound from that od when clothes are removed due to rads.
+Installing either of these mods (or both) allows Rad Morphing Redux to play a sound from that mod when clothes are removed due to rads.
 - Devious Devices will not be unequipped by this mod.
 
 
