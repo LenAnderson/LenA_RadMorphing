@@ -1,10 +1,10 @@
 {
-    "modName": "LenA_RadMorphing",
+    "modName": "RadMorphingRedux",
     "displayName": "Rad Morphing Redux",
     "minMcmVersion": 1,
     "content": [
         {
-            "text": "<font size='24'>Rad Morphing Redux</font> <font id='version' size='10'>v1.0.1</font>",
+            "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
             "type": "text",
             "html": true
         },
@@ -13,7 +13,7 @@
             "type": "section"
         },
         {
-            "text": "Enable Rad Morphing",
+            "text": "Enable Rad Morphing Redux",
             "help": "Enable or disable this mod. Default: OFF",
             "type": "switcher",
             "id": "bIsEnabled:General",
@@ -31,11 +31,25 @@
             }
         },
         {
+            "text": "Reload MCM settings",
+            "type": "button",
+            "help": "Reloads all settings from MCM. Use this if you have modified the settings outside of the game or in another savegame.",
+            "action": {
+                "type": "CallFunction",
+                "form": "LenA_RadMorphing.esp|4C50",
+                "scriptName": "LenARM:LenARM_Main",
+                "function": "ReloadMCM",
+                "params": [
+                    
+                ]
+            }
+        },
+        {
             "text": "<br>",
             "html": true
         },
         {
-            "text": "Morph updates",
+            "text": "Morph Updates",
             "type": "section"
         },
         {
@@ -66,12 +80,41 @@
             "valueOptions": {
                 "sourceType": "ModSettingBool"
             }
+        },
+        {
+            "text": "<br>",
+            "html": true
+        },
+        {
+            "text": "Healing (permanent morphing)",
+            "type": "section"
+        },
+        {
+            "text": "Caps to heal 1% of morphs",
+            "help": "Cost to heal each percent of rads at a doctor. Default: 10 caps",
+            "type": "slider",
+            "id": "iHealCost:General",
+            "valueOptions": {
+                "sourceType": "ModSettingInt",
+                "min": 0.0,
+                "max": 100.0,
+                "step": 1.0
+            }
         }
     ],
     "pages": [
         {
             "pageDisplayName": "Global Overrides",
             "content": [
+                {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Permanent Morphs",
+                    "type": "section"
+                },
                 {
                     "text": "Only doctors can reset morphs",
                     "help": "With this enabled only doctors can restore your base shape. Reducing rads with RadAway or other means will have no effect on the sliders.",
@@ -137,20 +180,21 @@
             "pageDisplayName": "Debug Tools",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "Debugging",
                     "type": "section"
                 },
                 {
-                    "text": "Reset mod state",
-                    "type": "button",
-                    "help": "Resets the mod to its initial state without restoring the original body. Does not change any settings.",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "LenA_RadMorphing.esp|1000F99",
-                        "function": "ForgetState",
-                        "params": [
-                            true
-                        ]
+                    "text": "Enable Logging",
+                    "help": "Enable this if you experience issues with this mod. Default: OFF",
+                    "type": "switcher",
+                    "id": "bIsLoggingEnabled:Debug",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
                     }
                 }
             ]
@@ -158,6 +202,11 @@
         {
             "pageDisplayName": "Slider Set 1",
             "content": [
+                {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
                 {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
@@ -175,6 +224,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -187,7 +237,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 1",
+                    "text": "<p align='center'><b>Slider Set 1</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -198,6 +253,52 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider0",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider0",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -224,7 +325,7 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "help": "Whether to update immediately, periodically, or after sleeping. Default: Immediately",
                     "type": "dropdown",
                     "id": "iUpdateType:Slider0",
                     "valueOptions": {
@@ -240,6 +341,15 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Size",
+                    "type": "section"
                 },
                 {
                     "text": "Target size increase",
@@ -283,6 +393,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -309,24 +423,8 @@
                     "html": true
                 },
                 {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider0",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -378,6 +476,11 @@
             "pageDisplayName": "Slider Set 2",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -394,6 +497,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -406,7 +510,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 2",
+                    "text": "<p align='center'><b>Slider Set 2</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -417,6 +526,52 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider1",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider1",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -443,7 +598,7 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "help": "Whether to update immediately, periodically, or after sleeping. Default: Immediately",
                     "type": "dropdown",
                     "id": "iUpdateType:Slider1",
                     "valueOptions": {
@@ -459,6 +614,15 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Size",
+                    "type": "section"
                 },
                 {
                     "text": "Target size increase",
@@ -502,6 +666,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -528,24 +696,8 @@
                     "html": true
                 },
                 {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider1",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -597,6 +749,11 @@
             "pageDisplayName": "Slider Set 3",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -613,6 +770,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -625,7 +783,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 3",
+                    "text": "<p align='center'><b>Slider Set 3</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -636,6 +799,52 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider2",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider2",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -662,7 +871,7 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "help": "Whether to update immediately, periodically, or after sleeping. Default: Immediately",
                     "type": "dropdown",
                     "id": "iUpdateType:Slider2",
                     "valueOptions": {
@@ -678,6 +887,15 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Size",
+                    "type": "section"
                 },
                 {
                     "text": "Target size increase",
@@ -721,6 +939,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -747,24 +969,8 @@
                     "html": true
                 },
                 {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider2",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -816,6 +1022,11 @@
             "pageDisplayName": "Slider Set 4",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -832,6 +1043,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -844,7 +1056,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 4",
+                    "text": "<p align='center'><b>Slider Set 4</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -855,6 +1072,52 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider3",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider3",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -881,7 +1144,7 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "help": "Whether to update immediately, periodically, or after sleeping. Default: Immediately",
                     "type": "dropdown",
                     "id": "iUpdateType:Slider3",
                     "valueOptions": {
@@ -897,6 +1160,15 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Size",
+                    "type": "section"
                 },
                 {
                     "text": "Target size increase",
@@ -940,6 +1212,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -966,24 +1242,8 @@
                     "html": true
                 },
                 {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider3",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -1035,6 +1295,11 @@
             "pageDisplayName": "Slider Set 5",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -1051,6 +1316,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -1063,7 +1329,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 5",
+                    "text": "<p align='center'><b>Slider Set 5</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -1074,6 +1345,52 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider4",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider4",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -1100,7 +1417,7 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "help": "Whether to update immediately, periodically, or after sleeping. Default: Immediately",
                     "type": "dropdown",
                     "id": "iUpdateType:Slider4",
                     "valueOptions": {
@@ -1116,6 +1433,15 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Size",
+                    "type": "section"
                 },
                 {
                     "text": "Target size increase",
@@ -1159,6 +1485,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -1185,24 +1515,8 @@
                     "html": true
                 },
                 {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider4",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -1254,6 +1568,11 @@
             "pageDisplayName": "Slider Set 6",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -1270,6 +1589,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -1282,7 +1602,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 6",
+                    "text": "<p align='center'><b>Slider Set 6</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -1293,6 +1618,52 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider5",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider5",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -1319,7 +1690,7 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "help": "Whether to update immediately, periodically, or after sleeping. Default: Immediately",
                     "type": "dropdown",
                     "id": "iUpdateType:Slider5",
                     "valueOptions": {
@@ -1335,6 +1706,15 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Size",
+                    "type": "section"
                 },
                 {
                     "text": "Target size increase",
@@ -1378,6 +1758,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -1404,24 +1788,8 @@
                     "html": true
                 },
                 {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider5",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -1473,6 +1841,11 @@
             "pageDisplayName": "Slider Set 7",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -1489,6 +1862,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -1501,7 +1875,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 7",
+                    "text": "<p align='center'><b>Slider Set 7</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -1512,6 +1891,52 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider6",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider6",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -1538,7 +1963,7 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "help": "Whether to update immediately, periodically, or after sleeping. Default: Immediately",
                     "type": "dropdown",
                     "id": "iUpdateType:Slider6",
                     "valueOptions": {
@@ -1554,6 +1979,15 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Size",
+                    "type": "section"
                 },
                 {
                     "text": "Target size increase",
@@ -1597,6 +2031,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -1623,24 +2061,8 @@
                     "html": true
                 },
                 {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider6",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -1692,6 +2114,11 @@
             "pageDisplayName": "Slider Set 8",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -1708,6 +2135,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -1720,7 +2148,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 8",
+                    "text": "<p align='center'><b>Slider Set 8</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -1731,6 +2164,52 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider7",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider7",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -1757,7 +2236,7 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "help": "Whether to update immediately, periodically, or after sleeping. Default: Immediately",
                     "type": "dropdown",
                     "id": "iUpdateType:Slider7",
                     "valueOptions": {
@@ -1773,6 +2252,15 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Size",
+                    "type": "section"
                 },
                 {
                     "text": "Target size increase",
@@ -1816,6 +2304,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -1842,24 +2334,8 @@
                     "html": true
                 },
                 {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider7",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -1911,6 +2387,11 @@
             "pageDisplayName": "Slider Set 9",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -1927,6 +2408,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -1939,7 +2421,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 9",
+                    "text": "<p align='center'><b>Slider Set 9</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -1950,6 +2437,52 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider8",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider8",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -1976,7 +2509,7 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "help": "Whether to update immediately, periodically, or after sleeping. Default: Immediately",
                     "type": "dropdown",
                     "id": "iUpdateType:Slider8",
                     "valueOptions": {
@@ -1992,6 +2525,15 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Size",
+                    "type": "section"
                 },
                 {
                     "text": "Target size increase",
@@ -2035,6 +2577,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -2061,24 +2607,8 @@
                     "html": true
                 },
                 {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider8",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
@@ -2130,6 +2660,11 @@
             "pageDisplayName": "Slider Set 10",
             "content": [
                 {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
@@ -2146,6 +2681,7 @@
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
+                        "scriptName": "LenARM:LenARM_Main",
                         "function": "ShowEquippedClothes",
                         "params": [
                             
@@ -2158,7 +2694,12 @@
                     "html": true
                 },
                 {
-                    "text": "Slider Set 10",
+                    "text": "<p align='center'><b>Slider Set 10</b></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Sliders",
                     "type": "section"
                 },
                 {
@@ -2169,6 +2710,52 @@
                     "valueOptions": {
                         "sourceType": "ModSettingString"
                     }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Targets",
+                    "type": "section"
+                },
+                {
+                    "text": "Apply to",
+                    "help": "Apply this slider set to the player, companions, or both.",
+                    "type": "dropdown",
+                    "id": "iApplyTo:Slider9",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Player only",
+                            "Companions only",
+                            "Player & Companions"
+                        ]
+                    }
+                },
+                {
+                    "text": "Sex",
+                    "help": "Apply this slider set only to actors (players and companions) of this sex.",
+                    "type": "dropdown",
+                    "id": "iSex:Slider9",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "All",
+                            "Female",
+                            "Male"
+                        ]
+                    }
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Trigger",
+                    "type": "section"
                 },
                 {
                     "text": "Trigger name",
@@ -2195,7 +2782,7 @@
                 },
                 {
                     "text": "Update type",
-                    "help": "Whether to update immediately, after sleeping, or periodically. Default: Immediately",
+                    "help": "Whether to update immediately, periodically, or after sleeping. Default: Immediately",
                     "type": "dropdown",
                     "id": "iUpdateType:Slider9",
                     "valueOptions": {
@@ -2211,6 +2798,15 @@
                     "type": "text",
                     "html": true,
                     "text": "<b>Immediately:</b> Changes morphs the moment a trigger value changes.<br><b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.<br><b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Size",
+                    "type": "section"
                 },
                 {
                     "text": "Target size increase",
@@ -2254,6 +2850,10 @@
                     "html": true
                 },
                 {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
                     "text": "Armor slots to unequip",
                     "help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
                     "type": "textinput",
@@ -2280,24 +2880,8 @@
                     "html": true
                 },
                 {
-                    "text": "Apply to companions",
-                    "help": "Applies this slider set to your companions (based on your rads).",
-                    "type": "dropdown",
-                    "id": "iApplyCompanion:Slider9",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "None",
-                            "Female",
-                            "Male",
-                            "All"
-                        ]
-                    }
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
+                    "text": "Permanent Morphs",
+                    "type": "section"
                 },
                 {
                     "text": "Only doctors can reset morphs",
