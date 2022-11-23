@@ -36,6 +36,7 @@ Cover image on LoversLab graciously provided by @Narsdarknest
 
 - [MCM](https://www.nexusmods.com/fallout4/mods/21497) to configure the mod
 - [LooksMenu](https://www.nexusmods.com/fallout4/mods/12631) to apply morphs
+- A BodySlide compatible body (any body that can be modified with BodySlide / LooksMenu will work)
 - All clothes must be built with morphs enabled in BodySlide
 - [F4SE](https://f4se.silverlock.org/) *0.6.23* for Fallout 4 *1.10.163*
 - At least one RMR trigger (e.g. RMR Rads Trigger)
@@ -43,7 +44,14 @@ Cover image on LoversLab graciously provided by @Narsdarknest
 
 
 
-### Supported Mods
+### Conflicts
+
+The mod comes with the [LL_FourPlay library](https://www.loverslab.com/files/file/4317-devtestbeta-ll-fourplay-community-f4se-plugin-v42-2021-09-13/) (LL_FourPlay.pex/psc/dll) that is also included in other mods (e.g., AAF). When your mod manager complains about a conflict I would suggest letting AAF overwrite this file.
+
+
+
+
+### Integration
 
 - [Combat Strip Lite](https://www.loverslab.com/files/file/5275-combat-strip-lite-1262020/) or [Combat Strip Lite, Sound Replacer (Ripping Sounds)](https://www.loverslab.com/files/file/5388-combat-strip-lite-sound-replacer-ripping-sounds/)  
 Installing either of these mods (or both) allows Rad Morphing Redux to play a sound from that mod when clothes are removed due to rads.
@@ -70,9 +78,12 @@ Before uninstalling, disable this mod in MCM to restore the original body. If yo
 
 
 
-### Conflicts
+### Triggers
 
-The mod comes with the [LL_FourPlay library](https://www.loverslab.com/files/file/4317-devtestbeta-ll-fourplay-community-f4se-plugin-v42-2021-09-13/) (LL_FourPlay.pex/psc/dll) that is also included in other mods (e.g., AAF). When your mod manager complains about a conflict I would suggest letting AAF overwrite this file.
+Rad Morphing Redux does nothing on its own. You must install a mod that provides a trigger for this mod to be able to do anything.
+
+- RMR Rads
+- RMR SPECIAL
 
 
 
@@ -130,7 +141,7 @@ If you experience any problems with RMR, please enable logging and provide your 
 Use the slider sets to configure how the body should be morphed when a trigger changes. A slider set is a group of sliders (or a single slider) that react the same way when their trigger value changes.
 
 - **Click to show worn clothes**  
-Click this button to see a list of currently equipped items.
+Click this button to see a list of currently equipped items and their slot numbers.
 - **Sliders**
 	- **Slider names**  
 	Enter the names of the sliders that should be affected. When entering multiple sliders, separate them with `|` (e.g., `Boobs Yuge|Bum Chubby`).  
