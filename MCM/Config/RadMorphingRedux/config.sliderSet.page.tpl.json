@@ -1,0 +1,36 @@
+{
+	"pageDisplayName": "Slider Set {{idxLbl}}",
+	"content": [
+		"{{TPL:HEADER}}",
+		
+		{
+			"text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
+			"type": "text",
+			"html": true
+		},
+		{
+			"text": "<br>",
+			"type": "text",
+			"html": true
+		},
+
+		
+		{
+			"text": "Click to show worn clothes",
+			"type": "button",
+			"help": "Show the worn clothing / armor items and their slots",
+			"action": {
+				"type": "CallFunction",
+				"form": "LenA_RadMorphing.esp|4C50",
+				"scriptName": "LenARM:LenARM_Main",
+				"function": "ShowEquippedClothes",
+				"params": []
+			}
+		},
+		{
+			"text": "<br>",
+			"type": "text",
+			"html": true
+		}
+	]
+}

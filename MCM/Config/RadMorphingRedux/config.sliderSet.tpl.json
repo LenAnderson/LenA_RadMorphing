@@ -1,0 +1,239 @@
+[
+	{
+		"text": "<p align='center'><b>Slider Set {{idxLbl}}</b></p>",
+		"type": "text",
+		"html": true
+	},
+
+	{
+		"text": "Sliders",
+		"type": "section"
+	},
+	{
+		"text": "Slider names",
+		"help": "Enter the slider names separated by \"|\" (e.g. Boobs|Butt|Nose). Make sure there is no leading or trailing space.",
+		"type": "textinput",
+		"id": "sSliderName:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingString"
+		}
+	},
+	{
+		"text": "<br>",
+		"type": "text",
+		"html": true
+	},
+	
+
+	{
+		"text": "Targets",
+		"type": "section"
+	},
+	{
+		"text": "Apply to",
+		"help": "Apply this slider set to the player, companions, or both.",
+		"type": "dropdown",
+		"id": "iApplyTo:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingInt",
+			"options": ["Player only", "Companions only", "Player & Companions"]
+		}
+	},
+	{
+		"text": "Sex",
+		"help": "Apply this slider set only to actors (players and companions) of this sex.",
+		"type": "dropdown",
+		"id": "iSex:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingInt",
+			"options": ["All", "Female", "Male"]
+		}
+	},
+	{
+		"text": "<br>",
+		"type": "text",
+		"html": true
+	},
+
+
+	{
+		"text": "Trigger",
+		"type": "section"
+	},
+	{
+		"text": "Trigger name",
+		"help": "Name of the trigger value that is used to determine morphing.",
+		"type": "dropdown",
+		"id": "iTriggerNameIndex:Slider{{idx}}",
+		"valueOptions": {
+			"listFromProperty": {
+				"form": "LenA_RadMorphing.esp|4C50",
+				"scriptName": "LenARM:LenARM_Main",
+				"propertyName": "MCM_TriggerNames"
+			},
+			"sourceType": "ModSettingInt"
+		}
+	},
+	{
+		"text": "Invert trigger",
+		"help": "Use 100% - trigger to calculate morphs. Example: With health as a trigger, morphing increases as health goes down.",
+		"type": "switcher",
+		"id": "bInvertTriggerValue:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingBool"
+		}
+	},
+	{
+		"text": "Update type",
+		"help": "Whether to update immediately, periodically, or after sleeping. Default: Immediately",
+		"type": "dropdown",
+		"id": "iUpdateType:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingInt",
+			"options": ["Immediately", "Periodically", "After sleeping"]
+		}
+	},
+	{
+		"text--join(<br>)": [
+			"<b>Immediately:</b> Changes morphs the moment a trigger value changes.",
+			"<b>Periodically:</b> Checks the trigger value every x seconds (update delay) and changes morphs according to current trigger value.",
+			"<b>After sleeping:</b> Every time you go to sleep you get additional morphs according to the current trigger value. In this update mode you can only restore your body by visiting a doctor."
+		],
+		"type": "text",
+		"html": true
+	},
+	{
+		"text": "<br>",
+		"type": "text",
+		"html": true
+	},
+	
+
+	{
+		"text": "Size",
+		"type": "section"
+	},
+	{
+		"text": "Target size increase",
+		"help": "At 100% the slider will be the initial value + 1 when you are fully irradiated.",
+		"type": "slider",
+		"id": "fTargetMorph:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingFloat",
+			"min": -600.0,
+			"max": 600.0,
+			"step": 10.0
+		}
+	},
+	{
+		"text": "Lower threshold",
+		"help": "Morphing starts when the trigger value reaches x%",
+		"type": "slider",
+		"id": "fThresholdMin:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingFloat",
+			"min": 0.0,
+			"max": 75.0,
+			"step": 5.0
+		}
+	},
+	{
+		"text": "Upper threshold",
+		"help": "Morphing reaches the target size increase when trigger value reaches x%",
+		"type": "slider",
+		"id": "fThresholdMax:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingFloat",
+			"min": 25.0,
+			"max": 100.0,
+			"step": 5.0
+		}
+	},
+	{
+		"text": "<br>",
+		"type": "text",
+		"html": true
+	},
+
+
+	{
+		"text": "Unequipping",
+		"type": "section"
+	},
+	{
+		"text": "Armor slots to unequip",
+		"help": "Enter slot numbers to unequip when the unequip threshold is reached. Separate multiple slots by \"|\" (e.g. 10|11|12). Make sure there is no leading or trailing space.",
+		"type": "textinput",
+		"id": "sUnequipSlot:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingString"
+		}
+	},
+	{
+		"text": "Unequip threshold",
+		"help": "When x% of your morphing target is reached armor from the selected slots will be unequipped.",
+		"type": "slider",
+		"id": "fThresholdUnequip:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingFloat",
+			"min": 1.0,
+			"max": 100.0,
+			"step": 1.0
+		}
+	},
+	{
+		"text": "<br>",
+		"type": "text",
+		"html": true
+	},
+	
+
+	{
+		"text": "Permanent Morphs",
+		"type": "section"
+	},
+	{
+		"text": "Only doctors can reset morphs",
+		"help": "With this enabled only doctors can restore your base shape. Reducing the trigger value by other means will have no effect on the sliders.",
+		"type": "switcher",
+		"id": "bOnlyDoctorCanReset:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingBool"
+		}
+	},
+	{
+		"text": "Additive morphing",
+		"help": "Enabled: reducing and then increasing the trigger value further increase morphs.",
+		"type": "switcher",
+		"id": "bIsAdditive:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingBool"
+		}
+	},
+	{
+		"text": "Limit additive morphing",
+		"help": "Disabled: Unlimited additive morphing. Use at own risk!",
+		"type": "switcher",
+		"id": "bHasAdditiveLimit:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingBool"
+		}
+	},
+	{
+		"text": "Additive morphing limit",
+		"help": "How far additive morphing can exceed the target size increase (% of target size increase). 0 = cannot exceed target; 100 = cannot exceed 2x target",
+		"type": "slider",
+		"id": "fAdditiveLimit:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingFloat",
+			"min": 0.0,
+			"max": 600.0,
+			"step": 10.0
+		}
+	},
+	{
+		"text": "<b>Warning!</b> Additive morphing without a limit can lead to insane morphs!",
+		"type": "text",
+		"html": true
+	}
+]
