@@ -11,10 +11,22 @@ Group Properties
 	Keyword Property kwMorph Auto Const
 	{keyword required for looksmenu morphing}
 
-	Scene Property DoctorGreetScene Auto Const
-	{first part of a doctor dialogue scene: greeting}
-	Scene Property DoctorMedicineScene02_Exam Auto Const
-	{examining part of a doctor dialogue scene}
+	Scene[] Property DoctorGreetScenes Auto Const
+	{first part of a doctor dialogue scene: greeting
+		- DoctorGreetScene
+		- DLC03DialogueFarHarbor_TeddyWright
+		- DialogueNucleusArchemist_GreetScene
+		- DLC03AcadiaDialogueAsterDoctorIntro
+		- DLC04SettlementDoctor_GreetScene
+	}
+	Scene[] Property DoctorExamScenes Auto Const
+	{second part of a doctor dialogue scene: exam
+		- DoctorMedicineScene02_Exam
+		- DLC03DialogueFarHarbor_TeddyExam
+		- DialogueNucleusArchemist_GreetScene02_Exam
+		- DLC03AcadiaDialogueAsterExamScene
+		- DLC04SettlementDoctor_ExamScene
+	}
 
 	FollowersScript Property Followers Auto Const
 	{script for handling follower and companion systems}
@@ -26,9 +38,10 @@ EndGroup
 
 ;-----------------------------------------------------------------------------------------------------
 ; proxy scripts
-; Group Proxy
-	;TODO add proxy for devious devices
-; EndGroup
+Group Proxy
+	; proxy for devious devices
+	LenARM_Proxy_DeviousDevices Property DD Auto Const
+EndGroup
 
 
 ;-----------------------------------------------------------------------------------------------------
@@ -36,6 +49,10 @@ EndGroup
 
 Group MessageBoxes
 	Message Property HealMorphMessage Auto Const
+EndGroup
+
+Group Sounds
+	Sound Property LenARM_DropClothesSound Auto Const
 EndGroup
 
 Group LenARM
@@ -47,6 +64,9 @@ EndGroup
 Group MCM
 	string[] Property MCM_TriggerNames Auto
 EndGroup
+string[] Function GetTriggerNames()
+	return MCM_TriggerNames
+EndFunction
 
 
 ;-----------------------------------------------------------------------------------------------------
@@ -76,7 +96,15 @@ EndGroup
 ; TRUE while the mod is stopping.
 bool IsShuttingDown = false
 
+; TRUE while the mod is starting up
+bool IsStartingUp = true
+
+; TRUE while the mod is active.
+bool IsRunning = false
+
 int RestartStackSize = 0
+
+int UnequipStackSize = 0
 
 ; how many slider sets are available
 int NumberOfSliderSets
@@ -94,12 +122,16 @@ float UpdateDelay
 ; MCM: whether to restore companions on dismiss
 bool RestoreCompanionsOnDismiss
 
+; MCM: cost to heal morphs
+int HealCost
+
 
 ;-----------------------------------------------------------------------------------------------------
 ; custom events
 
 CustomEvent OnStartup
 CustomEvent OnShutdown
+CustomEvent OnRequestTriggers
 CustomEvent OnMorphChange
 
 
@@ -119,7 +151,7 @@ EndFunction
 ; Get the current version of this mod.
 ;
 string Function GetVersion()
-	return "1.0.1"; Fri Apr 08 09:58:24 CEST 2022
+	return "2.0.0"; Wed Nov 23 15:59:00 CET 2022
 EndFunction
 
 
@@ -136,14 +168,14 @@ EndFunction
 
 Event OnQuestInit()
 	D.Log("OnQuestInit")
-	RegisterForExternalEvent("OnMCMSettingChange|LenA_RadMorphing", "OnMCMSettingChange")
+	RegisterForExternalEvent("OnMCMSettingChange|RadMorphingRedux", "OnMCMSettingChange")
 	RegisterForRemoteEvent(Player, "OnPlayerLoadGame")
 	Startup()
 EndEvent
 
 Event OnQuestShutdown()
 	D.Log("OnQuestShutdown")
-	UnregisterForExternalEvent("OnMCMSettingChange|LenA_RadMorphing")
+	UnregisterForExternalEvent("OnMCMSettingChange|RadMorphingRedux")
 	UnregisterForRemoteEvent(Player, "OnPlayerLoadGame")
 	Shutdown()
 EndEvent
@@ -151,7 +183,16 @@ EndEvent
 
 Event Actor.OnPlayerLoadGame(Actor akSender)
 	D.Log("Actor.OnPlayerLoadGame: " + akSender)
-	PerformUpdateIfNecessary()
+	If (!PerformUpdateIfNecessary())
+		MCM_TriggerNames = new string[0]
+		SendCustomEvent("OnRequestTriggers", new Var[0])
+		DD.LoadDD()
+	EndIf
+EndEvent
+
+Event Actor.OnItemEquipped(Actor akSender, Form akBaseObject, ObjectReference akReference)
+	D.Log("Actor.OnItemEquipped: akSender=" + akSender + "  akBaseObject=" + akBaseObject + "  akReference=" + akReference)
+	UnequipSlots()
 EndEvent
 
 Event OnPlayerSleepStop(bool abInterrupted, ObjectReference akBed)
@@ -160,12 +201,12 @@ Event OnPlayerSleepStop(bool abInterrupted, ObjectReference akBed)
 EndEvent
 
 
-Event Scene.OnBegin(Scene akSender)
-	D.Log("Scene.OnBegin: " + akSender)
-	If (akSender == DoctorGreetScene)
+Event Scene.OnBegin(Scene theScene)
+	D.Log("Scene.OnBegin: " + theScene)
+	If (DoctorGreetScenes.Find(theScene) > -1)
 		D.Log("  DoctorGreetScene --> setting HealMorphMessageShown to false")
 		HealMorphMessageShown = false
-	ElseIf (SliderSets.HasDoctorOnly() && !HealMorphMessageShown && akSender == DoctorMedicineScene02_Exam)
+	ElseIf (SliderSets.HasDoctorOnly() && !HealMorphMessageShown && DoctorExamScenes.Find(theScene) > -1)
 		D.Log("  DoctorMedicineScene02_Exam --> setting HealMorphMessageShown to true")
 		HealMorphMessageShown = true
 		ShowHealMorphDialog()
@@ -182,11 +223,13 @@ Event FollowersScript.CompanionChange(FollowersScript akSender, Var[] eventArgs)
 			CompanionList = new Actor[0]
 		EndIf
 		CompanionList.Add(companion)
+		RegisterForRemoteEvent(companion, "OnItemEquipped")
 		LenARM_SliderSet:MorphUpdate[] updates = SliderSets.GetFullMorphs()
 		ApplyMorphUpdates(updates)
 	Else
 		int idxCompanion = CompanionList.Find(companion)
 		CompanionList.Remove(idxCompanion)
+		UnregisterForRemoteEvent(companion, "OnItemEquipped")
 		If (RestoreCompanionsOnDismiss)
 			RestoreOriginalMorphs(companion)
 		EndIf
@@ -240,6 +283,7 @@ EndFunction
 ;
 Function Startup()
 	D.Log("Startup")
+	IsStartingUp = true
 	If (MCM.GetModSettingBool("RadMorphingRedux", "bIsEnabled:General"))
 		; mod is enabled in MCM: start setting everything up
 		D.Log("  is enabled")
@@ -253,14 +297,37 @@ Function Startup()
 		; get whether to restore companions on dismiss from MCM
 		RestoreCompanionsOnDismiss = MCM.GetModSettingBool("RadMorphingRedux", "bRestoreCompanionsOnDismiss:General")
 
+		; get heal cost from MCM
+		HealCost = MCM.GetModSettingInt("RadMorphingRedux", "iHealCost:General")
+
 		; load SliderSets
 		SliderSets.LoadSliderSets(NumberOfSliderSets, Player)
 
-		;TODO listen for item equip
+		; start proxy for Devious Devices
+		DD.LoadDD()
+
+		; listen for item equip
+		RegisterForRemoteEvent(Player, "OnItemEquipped")
+		int idxCompanion = 0
+		While (idxCompanion < CompanionList.Length)
+			Actor companion = CompanionList[idxCompanion]
+			RegisterForRemoteEvent(companion, "OnItemEquipped")
+			idxCompanion += 1
+		EndWhile
 
 		; listen for doctor scenes
-		RegisterForRemoteEvent(DoctorGreetScene, "OnBegin")
-		RegisterForRemoteEvent(DoctorMedicineScene02_Exam, "OnBegin")
+		int idxDoctorGreetScene = 0
+		While (idxDoctorGreetScene < DoctorGreetScenes.Length)
+			Scene greetScene = DoctorGreetScenes[idxDoctorGreetScene]
+			RegisterForRemoteEvent(greetScene, "OnBegin")
+			idxDoctorGreetScene += 1
+		EndWhile
+		int idxDoctorExamScene = 0
+		While (idxDoctorExamScene < DoctorExamScenes.Length)
+			Scene examScene = DoctorExamScenes[idxDoctorExamScene]
+			RegisterForRemoteEvent(examScene, "OnBegin")
+			idxDoctorExamScene += 1
+		EndWhile
 
 		; listen for companion changes
 		RegisterForCustomEvent(Followers, "CompanionChange")
@@ -281,17 +348,41 @@ Function Startup()
 			MCM.SetModSettingInt("RadMorphingRedux", "iTriggerNameIndex:Slider" + idxSliderSet, 0)
 			idxSliderSet += 1
 		EndWhile
+		SendCustomEvent("OnRequestTriggers", new Var[0])
+
+		; get debug setting from MCM
+		bool enableLogging = MCM.GetModSettingBool("RadMorphingRedux", "bIsLoggingEnabled:Debug")
+		D.SetIsLoggingEnabled(enableLogging)
 
 		; notify plugins that mod is running
+		IsRunning = true
 		SendCustomEvent("OnStartup")
-	ElseIf (MCM.GetModSettingBool("RadMorphingRedux", "bWarnDisabled:General"))
-		; mod is disabled in MCM, warning is enabled: let the player know that the mod is disabled
-		D.Log("  is disabled, with warning")
-		Debug.MessageBox("Rad Morphing is currently disabled. You can enable it in MCM > Rad Morphing > Enable Rad Morphing")
+
+		D.Log("Startup complete", true)
+		If (enableLogging)
+			D.Log("logging is enabled", true)
+		Else
+			D.Log("logging is disabled", true)
+		EndIf
 	Else
-		; mod is disabled in MCM, warning is disabled
-		D.Log("  is disabled, no warning")
+		If (MCM.GetModSettingBool("RadMorphingRedux", "bWarnDisabled:General"))
+			; mod is disabled in MCM, warning is enabled: let the player know that the mod is disabled
+			D.Log("  is disabled, with warning")
+			Debug.MessageBox("Rad Morphing is currently disabled. You can enable it in MCM > Rad Morphing > Enable Rad Morphing")
+		Else
+			; mod is disabled in MCM, warning is disabled
+			D.Log("  is disabled, no warning")
+		EndIf
+
+		; set up trigger names for MCM
+		If (MCM_TriggerNames == none)
+			MCM_TriggerNames = new string[0]
+			MCM_TriggerNames.Add("-- SELECT A TRIGGER --")
+			SendCustomEvent("OnRequestTriggers", new Var[0])
+		EndIf
 	EndIf
+
+	IsStartingUp = false
 EndFunction
 
 
@@ -300,10 +391,12 @@ EndFunction
 ;
 Function Shutdown(bool withRestoreMorphs=true)
 	If (!IsShuttingDown)
+		D.SetIsLoggingEnabled(true)
 		D.Log("Shutdown")
 		IsShuttingDown = true
 
 		; notify plugins that mod has stopped
+		IsRunning = false
 		SendCustomEvent("OnShutdown")
 
 		; stop listening for sleep events
@@ -312,11 +405,28 @@ Function Shutdown(bool withRestoreMorphs=true)
 		; stop timer
 		CancelTimer(ETimerMorph)
 
-		;TODO stop listening for equipping items
+		; stop listening for equipping items
+		UnregisterForRemoteEvent(Player, "OnItemEquipped")
+		int idxCompanion = 0
+		While (idxCompanion < CompanionList.Length)
+			Actor companion = CompanionList[idxCompanion]
+			UnregisterForRemoteEvent(companion, "OnItemEquipped")
+			idxCompanion += 1
+		EndWhile
 		
 		; stop listening for doctor scenes
-		UnregisterForRemoteEvent(DoctorGreetScene, "OnBegin")
-		UnregisterForRemoteEvent(DoctorMedicineScene02_Exam, "OnBegin")
+		int idxDoctorGreetScene = 0
+		While (idxDoctorGreetScene < DoctorGreetScenes.Length)
+			Scene greetScene = DoctorGreetScenes[idxDoctorGreetScene]
+			UnregisterForRemoteEvent(greetScene, "OnBegin")
+			idxDoctorGreetScene += 1
+		EndWhile
+		int idxDoctorExamScene = 0
+		While (idxDoctorExamScene < DoctorExamScenes.Length)
+			Scene examScene = DoctorExamScenes[idxDoctorExamScene]
+			UnregisterForRemoteEvent(examScene, "OnBegin")
+			idxDoctorExamScene += 1
+		EndWhile
 
 		; stop listening for companion changes
 		UnregisterForCustomEvent(Followers, "CompanionChange")
@@ -329,6 +439,9 @@ Function Shutdown(bool withRestoreMorphs=true)
 	EndIf
 EndFunction
 
+;
+; Continuation of Shutdown: restore morphs and then finalize shutdown.
+;
 Function ShutdownRestoreMorphs()
 	D.Log("ShutdownRestoreMorphs")
 	RestoreOriginalMorphs(Player)
@@ -353,10 +466,12 @@ EndFunction
 ; Restart the mod.
 ;
 Function Restart()
+	If (RestartStackSize == 0)
+		D.Note("Restarting Rad Morphing Redux")
+	EndIf
 	RestartStackSize += 1
 	Utility.Wait(1.0)
 	If (RestartStackSize <= 1)
-		D.Note("Restarting Rad Morphing Redux")
 		Shutdown()
 		While (IsShuttingDown)
 			Utility.Wait(1.0)
@@ -371,14 +486,18 @@ EndFunction
 
 
 ;
-; check if a new version has been installed and restart the mod if necessary
+; Check if a new version has been installed and restart the mod if necessary.
+; Returns true if an update was performed, otherwise false.
 ;
-Function PerformUpdateIfNecessary()
+bool Function PerformUpdateIfNecessary()
 	D.Log("PerformUpdateIfNecessary: " + Version + " != " + GetVersion() + " -> " + (Version != GetVersion()))
-	If (Version != GetVersion())
+	If (Version == "")
+		; mod has never run before
+		Version = GetVersion()
+	ElseIf (Version != GetVersion())
 		If (Util.StringStartsWith(Version, "1.") || Util.StringStartsWith(Version, "0."))
 			Debug.MessageBox("Rad Morphing Redux version " + Version + " is too old to update. Please load a save with the old version removed or start a new game.")
-			return
+			return false
 		EndIf
 		D.Log("  update")
 		D.Note("Updating Rad Morphing Redux from version " + Version + " to " + GetVersion())
@@ -389,9 +508,20 @@ Function PerformUpdateIfNecessary()
 		Startup()
 		Version = GetVersion()
 		D.Note("Rad Morphing Redux has been updated to version " + Version + ".")
+		return true
 	Else
 		D.Log("  no update")
+		return false
 	EndIf
+EndFunction
+
+
+;
+; Getter for IsRunning.
+; Returns true if the mod is running, false if not.
+;
+bool Function GetIsRunning()
+	return IsRunning
 EndFunction
 
 
@@ -408,6 +538,10 @@ EndFunction
 ;
 bool Function AddTriggerName(string triggerName)
 	D.Log("AddTriggerName: " + triggerName)
+	If (MCM_TriggerNames == None)
+		MCM_TriggerNames = new string[0]
+		MCM_TriggerNames.Add("-- SELECT A TRIGGER --")
+	EndIf
 	If (MCM_TriggerNames.Find(triggerName) < 0)
 		MCM_TriggerNames.Add(triggerName)
 		int triggerNameIndex = MCM_TriggerNames.Length - 1
@@ -423,6 +557,30 @@ bool Function AddTriggerName(string triggerName)
 	Else
 		D.Log("  trigger already exists")
 		return false
+	EndIf
+EndFunction
+
+;
+; Unregister a trigger name.
+;
+Function RemoveTriggerName(string triggerName)
+	D.Log("RemoveTriggerName: " + triggerName)
+	int idxTrigger = MCM_TriggerNames.Find(triggerName)
+	If (idxTrigger > -1)
+		MCM_TriggerNames.Remove(idxTrigger)
+		int idxSliderSet = 0
+		While (idxSliderSet < NumberOfSliderSets)
+			int index = MCM.GetModSettingInt("RadMorphingRedux", "iTriggerNameIndex:Slider" + idxSliderSet)
+			If (index == idxTrigger)
+				D.Log("  updating MCM for SliderSet " + idxSliderSet)
+				MCM.SetModSettingInt("RadMorphingRedux", "iTriggerNameIndex:Slider" + idxSliderSet, 0)
+			ElseIf (index > idxTrigger)
+				MCM.SetModSettingInt("RadMorphingRedux", "iTriggerNameIndex:Slider" + idxSliderSet, index - 1)
+			EndIf
+			idxSliderSet += 1
+		EndWhile
+	Else
+		D.Log("  trigger does not exist")
 	EndIf
 EndFunction
 
@@ -448,15 +606,42 @@ float Function GetBaseMorphPercentage()
 	return SliderSets.GetBaseMorphPercentage()
 EndFunction
 
+;
+; Get the total (max) percentage of morphs (base + current) for a specific trigger name.
+; Relative to the minimum lower threshold and maximum upper threshold across all relevant slider sets.
+;
+float Function GetMorphPercentageForTrigger(string triggerName, bool inverted)
+	D.Log("GetMorphPercentageForTrigger: " + triggerName  + ", inverted=" + inverted)
+	return SliderSets.GetMorphPercentageForTrigger(triggerName, inverted)
+EndFunction
+
+;
+; Get the total (max) percentage of base morphs (permanent morphs) for a specific trigger name.
+; Relative to the minimum lower threshold and maximum upper threshold across all relevant slider sets.
+;
+float Function GetBaseMorphPercentageForTrigger(string triggerName, bool inverted)
+	D.Log("GetBaseMorphPercentageForTrigger: " + triggerName  + ", inverted=" + inverted)
+	return SliderSets.GetBaseMorphPercentageForTrigger(triggerName, inverted)
+EndFunction
+
+;
+; Get the list of used (in SliderSets) trigger names.
+;
+string[] Function GetUsedTriggerNames()
+	return SliderSets.GetTriggerNames()
+EndFunction
+
 
 ;
 ; Update the value of a morph trigger.
+; Returns the value that is used on the trigger, clamped between 0.0 and 1.0
 ;
-Function SetTriggerValue(string triggerName, float value)
+float Function SetTriggerValue(string triggerName, float value)
 	float clampedValue = Util.Clamp(value, 0.0, 1.0)
 	D.Log("SetTriggerValue: " + triggerName + " = " + value + " --> " + clampedValue)
 	SliderSets.SetTriggerValue(triggerName, clampedValue)
 	ApplyImmediateMorphs()
+	return clampedValue
 EndFunction
 
 ;
@@ -510,22 +695,32 @@ Function ApplyMorphUpdates(LenARM_SliderSet:MorphUpdate[] updates)
 		LenARM_SliderSet:MorphUpdate[] maleUpdates = new LenARM_SliderSet:MorphUpdate[0]
 		int sex = Player.GetLeveledActorBase().GetSex()
 		int idxUpdate = 0
+		bool playerMorphed = false
 		While (idxUpdate < updates.Length)
 			LenARM_SliderSet:MorphUpdate update = updates[idxUpdate]
-			If (update.ApplyCompanion == SliderSets.EApplyCompanionFemale || update.ApplyCompanion == SliderSets.EApplyCompanionAll)
+			If (update.ApplyCompanion && update.ApplyFemale)
 				femaleUpdates.Add(update)
 			EndIf
-			If (update.ApplyCompanion == SliderSets.EApplyCompanionMale || update.ApplyCompanion == SliderSets.EApplyCompanionAll)
+			If (update.ApplyCompanion && update.ApplyMale)
 				maleUpdates.Add(update)
 			EndIf
-			BodyGen.SetMorph(Player, sex==ESexFemale, update.Name, kwMorph, update.Value)
+			If (update.ApplyPlayer)
+				If ((sex == ESexFemale && update.ApplyFemale) || (sex == ESexMale && update.ApplyMale))
+					BodyGen.SetMorph(Player, sex==ESexFemale, update.Name, kwMorph, update.Value)
+					playerMorphed = true
+				EndIf
+			EndIf
 			idxUpdate += 1
 		EndWhile
-		BodyGen.UpdateMorphs(Player)
+		If (playerMorphed)
+			BodyGen.UpdateMorphs(Player)
+		EndIf
 
 		ApplyMorphUpdatesToCompanions(femaleUpdates, maleUpdates)
 
-		var[] eventArgs = new var[1]
+		UnequipSlots()
+
+		Var[] eventArgs = new Var[1]
 		eventArgs[0] = GetMorphPercentage()
 		SendCustomEvent("OnMorphChange", eventArgs)
 	EndIf
@@ -581,13 +776,7 @@ EndFunction
 Function RestoreOriginalMorphs(Actor target)
 	D.Log("RestoreOriginalMorphs: " + target)
 	int sex = target.GetLeveledActorBase().GetSex()
-	string[] sliderNames = SliderSets.GetSliderNames()
-	int idxSlider = 0
-	While (idxSlider < sliderNames.Length)
-		string sliderName = sliderNames[idxSlider]
-		BodyGen.SetMorph(target, sex==ESexFemale, sliderName, kwMorph, 0)
-		idxSlider += 1
-	EndWhile
+	BodyGen.RemoveMorphsByKeyword(target, sex==ESexFemale, kwMorph)
 	BodyGen.UpdateMorphs(target)
 EndFunction
 
@@ -599,7 +788,7 @@ Function ShowHealMorphDialog()
 	float baseMorphs = GetBaseMorphPercentage() * 100.0
 	If (baseMorphs > 0.0)
 		float morphs = GetMorphPercentage() * 100.0
-		int cost = (baseMorphs * 10.0) as int
+		int cost = (baseMorphs * HealCost) as int
 		int capsCount = Player.GetItemCount(caps)
 		D.Log("    morphs:     " + morphs + "%")
 		D.Log("    baseMorphs: " + baseMorphs + "%")
@@ -637,6 +826,94 @@ Function HealBaseMorphs()
 EndFunction
 
 
+;
+; Check whether the worn item can be unequipped or should be ignored.
+;
+bool Function CheckIgnoreItem(Actor:WornItem item)
+	D.Log("    CheckIgnoreItem: " + item)
+	; don't try to unequip hands or pipboy
+	If (LL_Fourplay.StringSubstring(item.modelName, 0, 6) == "Actors" || LL_Fourplay.StringSubstring(item.modelName, 0, 6) == "Pipboy")
+		return true
+	EndIf
+
+	; check DeviousDevices
+	Armor armorItem = item.item as Armor
+	If (armorItem == None)
+		; item is not an armor --> ignore
+		D.Log("      --> item is not an Armor, do not unequip")
+		return true
+	Else
+		bool isDD = DD.CheckItem(armorItem)
+		If (isDD)
+			D.Log("      --> item is a DD device, do not unequip")
+			return true
+		Else
+			D.Log("      --> item not found in DD list, unequip")
+		EndIf
+	EndIf
+
+	return false
+EndFunction
+
+;
+; Unequip a list of slots on the target actor.
+;
+Function UnequipActorSlots(Actor target, LenARM_SliderSet:UnequipSlot[] slots)
+	If (!target.IsInPowerArmor())
+		D.Log("UnequipActorSlots: target=" + target.GetLeveledActorBase().GetName() + " (" + target + ")  slots=" + slots)
+		int sex = target.GetLeveledActorBase().GetSex()
+		bool playedSound = false
+		int idxSlot = 0
+		While (idxSlot < slots.Length)
+			LenARM_SliderSet:UnequipSlot slot = slots[idxSlot]
+			If ((target == Player && slot.ApplyPlayer) || (target != Player && slot.ApplyCompanion))
+				If ((sex == ESexFemale && slot.ApplyFemale) || (sex == ESexMale && slot.ApplyMale))
+					D.Log("  checking slot " + slot)
+					Actor:WornItem item = target.GetWornItem(slot.slot)
+					D.Log("    -->  " + item)
+					If (item && item.item)
+						bool ignoreItem = CheckIgnoreItem(item)
+						D.Log("    ignoreItem: " + ignoreItem)
+						If (!ignoreItem)
+							D.Log("    unequipping slot " + slot + " (" + item.item.GetName() + " / " + item.modelName + ")")
+							target.UnequipItem(item.item)
+							If (!playedSound && !target.IsEquipped(item.item))
+								D.Log("    playing sound")
+								LenARM_DropClothesSound.PlayAndWait(target)
+								playedSound = true
+							EndIf
+						EndIf
+					EndIf
+				EndIf
+			EndIf
+			idxSlot += 1
+		EndWhile
+	EndIf
+EndFunction
+
+;
+; Check any slots need to be unequipped due to morphs and unequip them.
+;
+Function UnequipSlots()
+	UnequipStackSize += 1
+	Utility.Wait(1.0)
+	If (UnequipStackSize <= 1 && !Player.IsInPowerArmor())
+		D.Log("UnequipSlots")
+		LenARM_SliderSet:UnequipSlot[] slots = SliderSets.GetUnequipSlots()
+		UnequipActorSlots(Player, slots)
+		int idxCompanion = 0
+		While (idxCompanion < CompanionList.Length)
+			Actor companion = CompanionList[idxCompanion]
+			UnequipActorSlots(companion, slots)
+			idxCompanion += 1
+		EndWhile
+	Else
+		D.Log("UnequipStackSize: " + UnequipStackSize)
+	EndIf
+	UnequipStackSize -= 1
+EndFunction
+
+
 
 
 ;-----------------------------------------------------------------------------------------------------
@@ -654,7 +931,7 @@ Function ShowEquippedClothes()
 	While (slot < 62)
 		Actor:WornItem item = Player.GetWornItem(slot)
 		If (item != None && item.item != None)
-			items.Add(slot + ": " + item.item.GetName())
+			items.Add(slot + ": " + item.item.GetName() + " (" + item.modelName + ")")
 			D.Log("  " + slot + ": " + item.item.GetName() + " (" + item.modelName + ")")
 		Else
 			D.Log("  Slot " + slot + " is empty")
@@ -663,4 +940,12 @@ Function ShowEquippedClothes()
 	EndWhile
 
 	Debug.MessageBox(LL_FourPlay.StringJoin(items, "\n"))
+EndFunction
+
+
+;
+; Reload all MCM settings (restart RMR)
+;
+Function ReloadMCM()
+	Restart()
 EndFunction
