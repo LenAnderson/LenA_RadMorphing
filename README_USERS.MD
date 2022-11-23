@@ -82,8 +82,8 @@ Before uninstalling, disable this mod in MCM to restore the original body. If yo
 
 Rad Morphing Redux does nothing on its own. You must install a mod that provides a trigger for this mod to be able to do anything.
 
-- RMR Rads
-- RMR SPECIAL
+- [RMR Rads](https://www.loverslab.com/files/file/24642-rad-morphing-redux-trigger-rads/)
+- [RMR SPECIAL](https://www.loverslab.com/files/file/24643-rad-morphing-redux-trigger-special/)
 
 
 
@@ -162,11 +162,11 @@ Click this button to see a list of currently equipped items and their slot numbe
 	This would allow for example to apply morphs as the player's HP goes down (i.e., no morphs at 100% HP, full morphs at 0% HP).
 	- **Update type**  
 	Whether to update immediately when the trigger sends an update, periodically every X seconds (see *Update delay* in *General Settings*), or after you sleep.  
-	When this is set to *After sleeping*, morphs will according by the current trigger value everytime you go to sleep; i.e., after sleeping four times with a trigger value of 25% morphs will reach 100%. This way, only doctors will be able to reset your morphs, as a 0% trigger only means that no additional morphs will be added.
+	When this is set to *After sleeping*, morphs will according by the current trigger value every time you go to sleep; i.e., after sleeping four times with a trigger value of 25% morphs will reach 100%. This way, only doctors will be able to reset your morphs, as a 0% trigger only means that no additional morphs will be added.
 - **Size**
 	- **Target size increase**  
 	How much the slider will change when the trigger value reaches its maximum.  
-	These are absolute perentage points, not percentage of the current slider value. If the slider on your onmorphed body is at 50% and target size increase is set to 100% the slider will end up at 150% when fully morphed. When set to -100% it will end up at -50% when fully morphed.
+	These are absolute percentage points, not percentage of the current slider value. If the slider on your unmorphed body is at 50% and target size increase is set to 100% the slider will end up at 150% when fully morphed. When set to -100% it will end up at -50% when fully morphed.
 	- **Lower threshold**  
 	Percentage of the trigger value at which morphing should start. While the trigger value is lower than this, no morphs will be applied.
 	- **Upper threshold**  
@@ -179,7 +179,7 @@ Click this button to see a list of currently equipped items and their slot numbe
 	When x% of the morphing target is reached, the above slots will be unequipped. This is a percentage value that refers to the target size increase.
 - **Permanent morphs**
 	- **Only doctors can reset morphs**  
-	With this option enabled, the body will not restore its original shape on its own when the trigger values goes down again. You will have to visit a doctor to restore your mody.
+	With this option enabled, the body will not restore its original shape on its own when the trigger values goes down again. You will have to visit a doctor to restore your body.
 	- **Additive morphing**  
 	If enabled, morphs are added every time the trigger value increases, even if the trigger value decreases in between. This can lead to reaching a fully morphed body without a 100% trigger value, or even morphing beyond the target size increase.  
 	Example with rads as trigger: You take 50% radiation and get morphed to 50% of your target size increase. You reduce rads to 20% (no morph change due to permanent morphs / only doctors can reset). You take some more rads and are now back up to 30% and morph a further 10% to 60% of the target size increase.
@@ -240,6 +240,11 @@ Requirements:
 
 
 
+
+## Development
+
+
+
 ### Creating a new trigger
 
 Rad Morphing Redux provides an API for other mods (like triggers) to interact with RMR.
@@ -254,8 +259,6 @@ For more details have a look at the Rads and SPECIAL triggers. The full source c
 
 - Rads Trigger | [GitHub](https://github.com/LenAnderson/RMR-Trigger-Rads)
 - SPECIAL Trigger | [GitHub](https://github.com/LenAnderson/RMR-Trigger-SPECIAL)
-
-
 
 
 
