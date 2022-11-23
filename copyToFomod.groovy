@@ -6,7 +6,12 @@ def black = [
 	~/^.+\.groovy$/,
 	~/^.+\.py$/,
 	~/^.+\.ppj$/,
-	~/^.+\.tpl\.json$/
+	~/^.+\.tpl\.json$/,
+	~/^.+\.sample$/,
+	~/^.+\.7z$/,
+	~/^BodyGen\.psc$/,
+	~/^LL_FourPlay\.psc$/,
+	~/^README.MD$/,
 ]
 
 

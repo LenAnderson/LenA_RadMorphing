@@ -1,0 +1,184 @@
+{
+	"modName": "RadMorphingRedux",
+	"displayName": "Rad Morphing Redux",
+	"minMcmVersion": 1,
+	"content": [
+		"{{TPL:HEADER}}",
+
+
+		{
+			"text": "General Settings",
+			"type": "section"
+		},
+		{
+			"text": "Enable Rad Morphing Redux",
+			"help": "Enable or disable this mod. Default: OFF",
+			"type": "switcher",
+			"id": "bIsEnabled:General",
+			"valueOptions": {
+				"sourceType": "ModSettingBool"
+			}
+		},
+		{
+			"text": "Display disabled warning",
+			"help": "Displays a warning at the start of a game when this mod is disabled. Default: ON",
+			"type": "switcher",
+			"id": "bWarnDisabled:General",
+			"valueOptions": {
+				"sourceType": "ModSettingBool"
+			}
+		},
+		{
+			"text": "Reload MCM settings",
+			"type": "button",
+			"help": "Reloads all settings from MCM. Use this if you have modified the settings outside of the game or in another savegame.",
+			"action": {
+				"type": "CallFunction",
+				"form": "LenA_RadMorphing.esp|4C50",
+				"scriptName": "LenARM:LenARM_Main",
+				"function": "ReloadMCM",
+				"params": []
+			}
+		},
+		{
+			"text": "<br>",
+			"html": true
+		},
+
+		{
+			"text": "Morph Updates",
+			"type": "section"
+		},
+		{
+			"text": "Update delay",
+			"help": "Seconds to wait between updating morphs. Only applies to periodic updates. Default: 1s",
+			"type": "slider",
+			"id": "fUpdateDelay:General",
+			"valueOptions": {
+				"sourceType": "ModSettingFloat",
+				"min": 0.5,
+				"max": 60.0,
+				"step": 0.5
+			}
+		},
+		{
+			"text": "<br>",
+			"html": true
+		},
+
+		{
+			"text": "Companions",
+			"type": "section"
+		},
+		{
+			"text": "Restore companion morphs when dismissed",
+			"help": "Restore the original companion body when they are dismissed. Default: ON",
+			"type": "switcher",
+			"id": "bRestoreCompanionsOnDismiss:General",
+			"valueOptions": {
+				"sourceType": "ModSettingBool"
+			}
+		},
+		{
+			"text": "<br>",
+			"html": true
+		},
+
+		{
+			"text": "Healing (permanent morphing)",
+			"type": "section"
+		},
+		{
+			"text": "Caps to heal 1% of morphs",
+			"help": "Cost to heal each percent of rads at a doctor. Default: 10 caps",
+			"type": "slider",
+			"id": "iHealCost:General",
+			"valueOptions": {
+				"sourceType": "ModSettingInt",
+				"min": 0.0,
+				"max": 100.0,
+				"step": 1.0
+			}
+		}
+	],
+	"pages": [
+		{
+			"pageDisplayName": "Global Overrides",
+			"content": [
+				"{{TPL:HEADER}}",
+
+				{
+					"text": "Permanent Morphs",
+					"type": "section"
+				},
+				{
+					"text": "Only doctors can reset morphs",
+					"help": "With this enabled only doctors can restore your base shape. Reducing rads with RadAway or other means will have no effect on the sliders.",
+					"type": "dropdown",
+					"id": "iOnlyDoctorCanReset:Override",
+					"valueOptions": {
+						"sourceType": "ModSettingInt",
+						"options": ["No Override", "Enabled", "Disabled"]
+					}
+				},
+				{
+					"text": "Additive morphing",
+					"help": "Enabled: rads gained after taking RadAway further increase morphs. Disabled: rads gained after taking RadAway only increase morphs if irradiation is higher than before taking RadAway.",
+					"type": "dropdown",
+					"id": "iIsAdditive:Override",
+					"valueOptions": {
+						"sourceType": "ModSettingInt",
+						"options": ["No Override", "Enabled", "Disabled"]
+					}
+				},
+				{
+					"text": "Limit additive morphing",
+					"help": "Disabled: Unlimited additive morphing. Use at own risk!",
+					"type": "dropdown",
+					"id": "iHasAdditiveLimit:Override",
+					"valueOptions": {
+						"sourceType": "ModSettingInt",
+						"options": ["No Override", "Enabled", "Disabled"]
+					}
+				},
+				{
+					"text": "Additive morphing limit",
+					"help": "How far additive morphing can exceed the target size increase (% of target size increase). 0 = cannot exceed target; 100 = cannot exceed 2x target",
+					"type": "slider",
+					"id": "fAdditiveLimit:Override",
+					"valueOptions": {
+						"sourceType": "ModSettingFloat",
+						"min": 0.0,
+						"max": 600.0,
+						"step": 10.0
+					}
+				},
+				{
+					"text": "<b>Warning!</b> Additive morphing without a limit can lead to insane morphs!",
+					"type": "text",
+					"html": true
+				}
+			]
+		},
+		{
+			"pageDisplayName": "Debug Tools",
+			"content": [
+				"{{TPL:HEADER}}",
+				
+				{
+					"text": "Debugging",
+					"type": "section"
+				},
+				{
+					"text": "Enable Logging",
+					"help": "Enable this if you experience issues with this mod. Default: OFF",
+					"type": "switcher",
+					"id": "bIsLoggingEnabled:Debug",
+					"valueOptions": {
+						"sourceType": "ModSettingBool"
+					}
+				}
+			]
+		}
+	]
+}
