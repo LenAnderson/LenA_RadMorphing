@@ -17,7 +17,7 @@ if (newVersion) {
 	File quest = new File("Scripts/Source/User/LenARM/LenARM_Main.psc")
 	quest.text = quest.text.replaceAll(~/(?s)(string Function GetVersion\(\)[\r\n\t]+return ")[^"]*(")(\s*;[^\r\n]*)?/, "\$1${newVersion}\$2; ${new Date()}")
 
-	File mcm = new File("MCM/Config/RadMorphingRedux/config.tpl.json")
+	File mcm = new File("MCM/Config/RadMorphingRedux/config.header.tpl.json")
 	mcm.text = mcm.text.replaceAll(~/(?s)(<font[^>]+id='version'[^>]*>)[^<]*(<)/, "\$1v${newVersion}\$2")
 
 	File fomod = new File(".fomod/fomod/info.xml")
