@@ -125,6 +125,9 @@ bool RestoreCompanionsOnDismiss
 ; MCM: cost to heal morphs
 int HealCost
 
+; last time the MCM settings were read
+string SettingsTimeStamp
+
 
 ;-----------------------------------------------------------------------------------------------------
 ; custom events
@@ -184,9 +187,18 @@ EndEvent
 Event Actor.OnPlayerLoadGame(Actor akSender)
 	D.Log("Actor.OnPlayerLoadGame: " + akSender)
 	If (!PerformUpdateIfNecessary())
-		MCM_TriggerNames = new string[0]
-		SendCustomEvent("OnRequestTriggers", new Var[0])
-		DD.LoadDD()
+		string timeStamp = MCM.GetModSettingString("RadMorphingRedux", "sModified:Internal")
+		D.Log("timestamp in MCM:   " + timeStamp)
+		D.Log("timestamp savegame: " + SettingsTimeStamp)
+		If (timeStamp != SettingsTimeStamp)
+			D.Log("MCM settings have been changed --> restart")
+			D.Note("Reloading MCM settings")
+			Restart()
+		Else
+			MCM_TriggerNames = new string[0]
+			SendCustomEvent("OnRequestTriggers", new Var[0])
+			DD.LoadDD()
+		EndIf
 	EndIf
 EndEvent
 
@@ -267,6 +279,7 @@ Function OnMCMSettingChange(string modName, string id)
 		MCM.SetModSettingString("RadMorphingRedux", "sTriggerName:" + sliderName, triggerName)
 		D.Log("    check MCM: " + MCM.GetModSettingString("RadMorphingRedux", "sTriggerName:" + sliderName))
 	EndIf
+	MCM.SetModSettingString("RadMorphingRedux", "sModified:Internal", SUP_F4SE.GetUserTimeStamp())
 	Restart()
 EndFunction
 
@@ -299,6 +312,9 @@ Function Startup()
 
 		; get heal cost from MCM
 		HealCost = MCM.GetModSettingInt("RadMorphingRedux", "iHealCost:General")
+
+		; get timestamp from MCM
+		SettingsTimeStamp = MCM.GetModSettingString("RadMorphingRedux", "sModified:Internal")
 
 		; load SliderSets
 		SliderSets.LoadSliderSets(NumberOfSliderSets, Player)
