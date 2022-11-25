@@ -823,7 +823,7 @@ EndFunction
 ;
 ; @param triggerName - the trigger's name
 ; @param inverted
-;    - true: only check slider sets that invert the trigger value;
+;    - true: only check slider sets that invert the trigger value
 ;    - false: only check slider sets that don't invert the trigger value
 ;
 float Function GetMorphPercentageForTrigger(string triggerName, bool inverted)
@@ -867,7 +867,7 @@ EndFunction
 ;
 ; @param triggerName - the trigger's name
 ; @param inverted
-;    - true: only check slider sets that invert the trigger value;
+;    - true: only check slider sets that invert the trigger value
 ;    - false: only check slider sets that don't invert the trigger value
 ;
 float Function GetBaseMorphPercentageForTrigger(string triggerName, bool inverted)
@@ -915,6 +915,105 @@ Function ClearBaseMorphs()
 		SliderSet_ClearBaseMorph(idxSliderSet)
 		idxSliderSet += 1
 	EndWhile
+EndFunction
+
+
+;
+; Reduce all base morphs to a percentage (0.0-1.0) relative to the total range of each trigger.
+;
+; @param float targetBaseMorph - target base morph percentage (0.0-1.0) relative to the total range of each trigger.
+; @returns MorphUpdate[] - list of morph updates to apply the new base morphs.
+;
+MorphUpdate[] Function ReduceBaseMorphs(float targetBaseMorph)
+	D.Log("SliderSet.ReduceBaseMorphs: " + targetBaseMorph)
+	int idxTrigger = 0
+	MorphUpdate[] updates = new MorphUpdate[0]
+	While (idxTrigger < TriggerNameList.Length)
+		string triggerName = TriggerNameList[idxTrigger]
+		MorphUpdate[] triggerUpdates = ReduceBaseMorphsForTrigger(triggerName, false, targetBaseMorph)
+		int idxUpdate = 0
+		While (idxUpdate < triggerUpdates.Length)
+			MorphUpdate update = triggerUpdates[idxUpdate]
+			updates.Add(update)
+			idxUpdate += 1
+		EndWhile
+		triggerUpdates = ReduceBaseMorphsForTrigger(triggerName, true, targetBaseMorph)
+		idxUpdate = 0
+		While (idxUpdate < triggerUpdates.Length)
+			MorphUpdate update = triggerUpdates[idxUpdate]
+			updates.Add(update)
+			idxUpdate += 1
+		EndWhile
+		idxTrigger += 1
+	EndWhile
+
+	return updates
+EndFunction
+
+;
+; Reduce all base morphs for this trigger to a percentage (0.0-1.0) relative to the total range of each trigger.
+;
+; @param string triggerName - the trigger's name
+; @param bool inverted
+;    - true: only check slider sets that invert the trigger value
+;    - false: only check slider sets that don't invert the trigger value
+; @param float targetBaseMorph - target base morph percentage (0.0-1.0) relative to the total range of each trigger.
+; @returns MorphUpdate[] - list of morph updates to apply the new base morphs.
+;
+MorphUpdate[] Function ReduceBaseMorphsForTrigger(string triggerName, bool inverted, float targetBaseMorph)
+	D.Log("ReduceBaseMorphsForTrigger: " + triggerName + ", " + inverted + ", " + targetBaseMorph)
+	float thresholdMin = 1.0
+	float thresholdMax = 0.0
+	MorphUpdate[] updates = new MorphUpdate[0]
+
+	; determine the range for this trigger
+	int idxSliderSet = 0
+	While (idxSliderSet < SliderSetList.Length)
+		SliderSet item = SliderSetList[idxSliderSet]
+		If (item.TriggerName == triggerName && item.InvertTriggerValue == inverted)
+			thresholdMin = Math.Min(thresholdMin, item.ThresholdMin)
+			thresholdMax = Math.Max(thresholdMax, item.ThresholdMax)
+		EndIf
+		idxSliderSet += 1
+	EndWhile
+
+	D.Log("thresholdMin: " + thresholdMin)
+	D.Log("thresholdMax: " + thresholdMax)
+
+	; reduce base morphs
+	If (thresholdMin < thresholdMax)
+		idxSliderSet = 0
+		While (idxSliderSet < SliderSetList.Length)
+			SliderSet sliderSet = SliderSetList[idxSliderSet]
+			D.Log("sliderSet " + idxSliderSet)
+			If (sliderSet.TriggerName == triggerName && sliderSet.InvertTriggerValue == inverted && sliderSet.FullMorph > 0)
+				float lowerOffset = sliderSet.ThresholdMin - thresholdMin
+				float upperOffset = thresholdMax - sliderSet.ThresholdMax
+				float range = 1.0 - lowerOffset - upperOffset
+				float value = sliderSet.BaseMorph * range + lowerOffset
+				D.Log("  lowerOffset: " + lowerOffset)
+				D.Log("  upperOffset: " + upperOffset)
+				D.Log("  range:       " + range)
+				D.Log("  value:       " + value)
+				If (value > targetBaseMorph)
+					float newBaseMorph = (targetBaseMorph - lowerOffset) / range
+					D.Log("  baseMorph: " + sliderSet.BaseMorph + "  ->  " + newBaseMorph)
+					sliderSet.BaseMorph = newBaseMorph
+					MorphUpdate[] sliderSetUpdates = SliderSet_CalculateFullMorphs(idxSliderSet)
+					D.Log("  updates: " + sliderSetUpdates)
+					int idxUpdate = 0
+					While (idxUpdate < sliderSetUpdates.Length)
+						MorphUpdate update = sliderSetUpdates[idxUpdate]
+						updates.Add(update)
+						idxUpdate += 1
+					EndWhile
+				EndIf
+			EndIf
+			idxSliderSet += 1
+		EndWhile
+	EndIf
+
+	return updates
 EndFunction
 
 

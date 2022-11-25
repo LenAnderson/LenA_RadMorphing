@@ -790,18 +790,25 @@ Function ShowHealMorphDialog()
 		float morphs = GetMorphPercentage() * 100.0
 		int cost = (baseMorphs * HealCost) as int
 		int capsCount = Player.GetItemCount(caps)
-		D.Log("    morphs:     " + morphs + "%")
-		D.Log("    baseMorphs: " + baseMorphs + "%")
-		D.Log("    cost:       " + cost + " caps")
-		int choice = HealMorphMessage.Show(morphs, baseMorphs, cost, capsCount)
+		float canAfford = Math.Min(baseMorphs, Math.Floor(capsCount / HealCost))
+		float resultingBaseMorphs = baseMorphs - canAfford
+		int canAffordCost = (canAfford * HealCost) as int
+		D.Log("    morphs:              " + morphs + "%")
+		D.Log("    baseMorphs:          " + baseMorphs + "%")
+		D.Log("    cost:                " + cost + " caps")
+		D.Log("    caps:                " + capsCount + " caps")
+		D.Log("    canAfford:           " + canAfford + "%")
+		D.Log("    canAffordCost:       " + canAffordCost + " caps")
+		D.Log("    resultingBaseMorphs: " + resultingBaseMorphs + "%")
+		int choice = HealMorphMessage.Show(morphs, baseMorphs, cost, capsCount, canAfford, canAffordCost)
 		D.Log("    choice: " + choice)
 		If (choice == EHealMorphChoiceYes)
 			D.Log("      -> heal morphs")
-			If (capsCount >= cost)
+			If (canAfford > 0)
 				D.Log("        -> healing")
-				HealBaseMorphs()
-				D.Log("        -> removing " + cost + " caps")
-				Player.RemoveItem(caps, cost)
+				HealBaseMorphs(resultingBaseMorphs / 100.0)
+				D.Log("        -> removing " + canAffordCost + " caps")
+				Player.RemoveItem(caps, canAffordCost)
 			Else
 				D.Log("        -> not enough caps (" + capsCount + " < " + cost + ")")
 				Debug.MessageBox("You don't have enough caps.")
@@ -817,11 +824,15 @@ EndFunction
 ;
 ; Remove the base morphs (permanent morphs) through BodyGen.
 ;
-Function HealBaseMorphs()
-	D.Log("HealBaseMorphs")
-	int sex = Player.GetLeveledActorBase().GetSex()
-	SliderSets.ClearBaseMorphs()
-	LenARM_SliderSet:MorphUpdate[] fullMorphs = SliderSets.CalculateFullMorphs()
+Function HealBaseMorphs(float targetBaseMorph)
+	D.Log("HealBaseMorphs: " + targetBaseMorph)
+	LenARM_SliderSet:MorphUpdate[] fullMorphs = None
+	If (targetBaseMorph > 0.0)
+		fullMorphs = SliderSets.ReduceBaseMorphs(targetBaseMorph)
+	Else
+		SliderSets.ClearBaseMorphs()
+		fullMorphs = SliderSets.CalculateFullMorphs()
+	EndIf
 	ApplyMorphUpdates(fullMorphs)
 EndFunction
 
