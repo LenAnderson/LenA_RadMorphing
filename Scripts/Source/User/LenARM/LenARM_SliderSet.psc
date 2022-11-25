@@ -27,10 +27,30 @@ Group EnumApplySex
 	int Property EApplySexMale = 2 Auto Const
 EndGroup
 
+Group EnumUnequipAction
+	int Property EUnequipActionUnequip = 0 Auto Const
+	{unequip item and store in inventory}
+	int Property EUnequipActionDrop = 1 Auto Const
+	{unequip item and drop to ground}
+	int Property EUnequipActionDestroy = 2 Auto Const
+	{unequip item and destroy / remove}
+EndGroup
+
 Group EnumOverrideBool
 	int Property EOverrideBoolNoOverride = 0 Auto Const
 	int Property EOverrideBoolTrue = 1 Auto Const
 	int Property EOverrideBoolFalse = 2 Auto Const
+EndGroup
+
+Group EnumOverrideUnequipAction
+	int Property EOverrideUnequipActionNoOverride = 0 Auto Const
+	{don't override the unequip action}
+	int Property EOverrideUnequipActionUnequip = 1 Auto Const
+	{unequip item and store in inventory}
+	int Property EOverrideUnequipActionDrop = 2 Auto Const
+	{unequip item and drop to ground}
+	int Property EOverrideUnequipActionDestroy = 3 Auto Const
+	{unequip item and destroy / remove}
 EndGroup
 
 
@@ -81,6 +101,8 @@ Struct SliderSet
 	{IDs of the slots to unequip, multiple slots are separated by "|"}
 	float ThresholdUnequip
 	{% of TargetMorph when to unequip items, between 0.01 and 1.0, 1.0 = 100%}
+	int UnequipAction
+	{whether to unequip and store in inventory, drop to ground, or destroy the unequipped items}
 
 	bool OnlyDoctorCanReset
 	{whether only doctors can reset morphs}
@@ -150,6 +172,10 @@ Struct UnequipSlot
 	{whether to unequip female companions}
 	bool ApplyMale
 	{whether to unequip male companions}
+	bool Drop
+	{whether to drop the unequipped item}
+	bool Destroy
+	{whether to destroy the unequipped item}
 EndStruct
 
 
@@ -282,6 +308,7 @@ SliderSet Function SliderSet_Constructor(int idxSliderSet)
 		this.ThresholdMax = MCM.GetModSettingFloat("RadMorphingRedux", "fThresholdMax:Slider" + idxSliderSet) / 100.0
 		this.UnequipSlot = MCM.GetModSettingString("RadMorphingRedux", "sUnequipSlot:Slider" + idxSliderSet)
 		this.ThresholdUnequip = MCM.GetModSettingFloat("RadMorphingRedux", "fThresholdUnequip:Slider" + idxSliderSet) / 100.0
+		this.UnequipAction = MCM.GetModSettingInt("RadMorphingRedux", "iUnequipAction:Slider" + idxSliderSet)
 		this.OnlyDoctorCanReset = MCM.GetModSettingBool("RadMorphingRedux", "bOnlyDoctorCanReset:Slider" + idxSliderSet)
 		this.IsAdditive = MCM.GetModSettingBool("RadMorphingRedux", "bIsAdditive:Slider" + idxSliderSet)
 		this.HasAdditiveLimit = MCM.GetModSettingBool("RadMorphingRedux", "bHasAdditiveLimit:Slider" + idxSliderSet)
@@ -642,6 +669,7 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	int overrideIsAdditive = MCM.GetModSettingInt("RadMorphingRedux", "iIsAdditive:Override")
 	int overrideHasAdditiveLimit = MCM.GetModSettingInt("RadMorphingRedux", "iHasAdditiveLimit:Override")
 	float overrideAdditiveLimit = MCM.GetModSettingFloat("RadMorphingRedux", "fAdditiveLimit:Override") / 100.0
+	int overrideUnequipAction = MCM.GetModSettingInt("RadMorphingRedux", "iUnequipAction:Override")
 
 	; create empty arrays
 	If (!SliderSetList)
@@ -688,6 +716,15 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 		If (overrideHasAdditiveLimit != EOverrideBoolNoOverride)
 			newSet.HasAdditiveLimit = overrideHasAdditiveLimit == EOverrideBoolTrue
 			newSet.AdditiveLimit = overrideAdditiveLimit
+		EndIf
+		If (overrideUnequipAction != EOverrideUnequipActionNoOverride)
+			If (overrideUnequipAction == EOverrideUnequipActionUnequip)
+				newSet.UnequipAction = EUnequipActionUnequip
+			ElseIf (overrideUnequipAction == EOverrideUnequipActionDrop)
+				newSet.UnequipAction = EUnequipActionDrop
+			ElseIf (overrideUnequipAction == EOverrideUnequipActionDestroy)
+				newSet.UnequipAction = EUnequipActionDestroy
+			EndIf
 		EndIf
 
 		; populate flattened arrays
@@ -1076,6 +1113,8 @@ UnequipSlot[] Function GetUnequipSlots()
 				slot.ApplyCompanion = sliderSet.ApplyTo == EApplyToAll || sliderSet.ApplyTo == EApplyToCompanion
 				slot.ApplyFemale = sliderSet.Sex == EApplySexAll || sliderSet.Sex == EApplySexFemale
 				slot.ApplyMale = sliderSet.Sex == EApplySexAll || sliderSet.Sex == EApplySexMale
+				slot.Drop = sliderSet.UnequipAction == EUnequipActionDrop
+				slot.Destroy = sliderSet.UnequipAction == EUnequipActionDestroy
 				slots.Add(slot)
 				idxSlot += 1
 				D.Log(slot)

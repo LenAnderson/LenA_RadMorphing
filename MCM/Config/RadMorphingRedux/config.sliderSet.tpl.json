@@ -182,6 +182,16 @@
 		}
 	},
 	{
+		"text": "Unequip action",
+		"help": "What to do with unequipped items. Whether to simply unequip (store in inventory), drop to ground, or completely destroy the items.",
+		"type": "dropdown",
+		"id": "iUnequipAction:Slider{{idx}}",
+		"valueOptions": {
+			"sourceType": "ModSettingInt",
+			"options": ["Unequip", "Drop", "Destroy"]
+		}
+	},
+	{
 		"text": "<br>",
 		"type": "text",
 		"html": true

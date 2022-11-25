@@ -888,10 +888,17 @@ Function UnequipActorSlots(Actor target, LenARM_SliderSet:UnequipSlot[] slots)
 						If (!ignoreItem)
 							D.Log("    unequipping slot " + slot + " (" + item.item.GetName() + " / " + item.modelName + ")")
 							target.UnequipItem(item.item)
-							If (!playedSound && !target.IsEquipped(item.item))
-								D.Log("    playing sound")
-								LenARM_DropClothesSound.PlayAndWait(target)
-								playedSound = true
+							If (!target.IsEquipped(item.item))
+								If (slot.Drop)
+									target.DropObject(item.item)
+								ElseIf (slot.Destroy)
+									target.RemoveItem(item.item)
+								EndIf
+								If (!playedSound)
+									D.Log("    playing sound")
+									LenARM_DropClothesSound.PlayAndWait(target)
+									playedSound = true
+								EndIf
 							EndIf
 						EndIf
 					EndIf
