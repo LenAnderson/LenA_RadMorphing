@@ -4,7 +4,7 @@
     "minMcmVersion": 1,
     "content": [
         {
-            "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+            "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
             "type": "text",
             "html": true
         },
@@ -107,7 +107,7 @@
             "pageDisplayName": "Global Overrides",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -173,6 +173,30 @@
                     "text": "<b>Warning!</b> Additive morphing without a limit can lead to insane morphs!",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "<br>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
+                    "text": "Unequip action",
+                    "help": "What to do with unequipped items. Whether to simply unequip (store in inventory), drop to ground, or completely destroy the items.",
+                    "type": "dropdown",
+                    "id": "iUnequipAction:Override",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "No Override",
+                            "Unequip",
+                            "Drop",
+                            "Destroy"
+                        ]
+                    }
                 }
             ]
         },
@@ -180,7 +204,7 @@
             "pageDisplayName": "Debug Tools",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -203,7 +227,7 @@
             "pageDisplayName": "Slider Set 1",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -418,6 +442,20 @@
                     }
                 },
                 {
+                    "text": "Unequip action",
+                    "help": "What to do with unequipped items. Whether to simply unequip (store in inventory), drop to ground, or completely destroy the items.",
+                    "type": "dropdown",
+                    "id": "iUnequipAction:Slider0",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Unequip",
+                            "Drop",
+                            "Destroy"
+                        ]
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -476,7 +514,7 @@
             "pageDisplayName": "Slider Set 2",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -691,6 +729,20 @@
                     }
                 },
                 {
+                    "text": "Unequip action",
+                    "help": "What to do with unequipped items. Whether to simply unequip (store in inventory), drop to ground, or completely destroy the items.",
+                    "type": "dropdown",
+                    "id": "iUnequipAction:Slider1",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Unequip",
+                            "Drop",
+                            "Destroy"
+                        ]
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -749,7 +801,7 @@
             "pageDisplayName": "Slider Set 3",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -964,6 +1016,20 @@
                     }
                 },
                 {
+                    "text": "Unequip action",
+                    "help": "What to do with unequipped items. Whether to simply unequip (store in inventory), drop to ground, or completely destroy the items.",
+                    "type": "dropdown",
+                    "id": "iUnequipAction:Slider2",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Unequip",
+                            "Drop",
+                            "Destroy"
+                        ]
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -1022,7 +1088,7 @@
             "pageDisplayName": "Slider Set 4",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -1237,6 +1303,20 @@
                     }
                 },
                 {
+                    "text": "Unequip action",
+                    "help": "What to do with unequipped items. Whether to simply unequip (store in inventory), drop to ground, or completely destroy the items.",
+                    "type": "dropdown",
+                    "id": "iUnequipAction:Slider3",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Unequip",
+                            "Drop",
+                            "Destroy"
+                        ]
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -1295,7 +1375,7 @@
             "pageDisplayName": "Slider Set 5",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -1510,6 +1590,20 @@
                     }
                 },
                 {
+                    "text": "Unequip action",
+                    "help": "What to do with unequipped items. Whether to simply unequip (store in inventory), drop to ground, or completely destroy the items.",
+                    "type": "dropdown",
+                    "id": "iUnequipAction:Slider4",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Unequip",
+                            "Drop",
+                            "Destroy"
+                        ]
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -1568,7 +1662,7 @@
             "pageDisplayName": "Slider Set 6",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -1783,6 +1877,20 @@
                     }
                 },
                 {
+                    "text": "Unequip action",
+                    "help": "What to do with unequipped items. Whether to simply unequip (store in inventory), drop to ground, or completely destroy the items.",
+                    "type": "dropdown",
+                    "id": "iUnequipAction:Slider5",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Unequip",
+                            "Drop",
+                            "Destroy"
+                        ]
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -1841,7 +1949,7 @@
             "pageDisplayName": "Slider Set 7",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -2056,6 +2164,20 @@
                     }
                 },
                 {
+                    "text": "Unequip action",
+                    "help": "What to do with unequipped items. Whether to simply unequip (store in inventory), drop to ground, or completely destroy the items.",
+                    "type": "dropdown",
+                    "id": "iUnequipAction:Slider6",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Unequip",
+                            "Drop",
+                            "Destroy"
+                        ]
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -2114,7 +2236,7 @@
             "pageDisplayName": "Slider Set 8",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -2329,6 +2451,20 @@
                     }
                 },
                 {
+                    "text": "Unequip action",
+                    "help": "What to do with unequipped items. Whether to simply unequip (store in inventory), drop to ground, or completely destroy the items.",
+                    "type": "dropdown",
+                    "id": "iUnequipAction:Slider7",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Unequip",
+                            "Drop",
+                            "Destroy"
+                        ]
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -2387,7 +2523,7 @@
             "pageDisplayName": "Slider Set 9",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -2602,6 +2738,20 @@
                     }
                 },
                 {
+                    "text": "Unequip action",
+                    "help": "What to do with unequipped items. Whether to simply unequip (store in inventory), drop to ground, or completely destroy the items.",
+                    "type": "dropdown",
+                    "id": "iUnequipAction:Slider8",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Unequip",
+                            "Drop",
+                            "Destroy"
+                        ]
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -2660,7 +2810,7 @@
             "pageDisplayName": "Slider Set 10",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v1.0.1</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -2872,6 +3022,20 @@
                         "min": 1.0,
                         "max": 100.0,
                         "step": 1.0
+                    }
+                },
+                {
+                    "text": "Unequip action",
+                    "help": "What to do with unequipped items. Whether to simply unequip (store in inventory), drop to ground, or completely destroy the items.",
+                    "type": "dropdown",
+                    "id": "iUnequipAction:Slider9",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "Unequip",
+                            "Drop",
+                            "Destroy"
+                        ]
                     }
                 },
                 {
