@@ -125,6 +125,9 @@ bool RestoreCompanionsOnDismiss
 ; MCM: cost to heal morphs
 int HealCost
 
+; last time the MCM settings were read
+string SettingsTimeStamp
+
 
 ;-----------------------------------------------------------------------------------------------------
 ; custom events
@@ -151,7 +154,7 @@ EndFunction
 ; Get the current version of this mod.
 ;
 string Function GetVersion()
-	return "2.0.0"; Wed Nov 23 15:59:00 CET 2022
+	return "2.1.0"; Mon Nov 28 08:37:27 CET 2022
 EndFunction
 
 
@@ -184,9 +187,18 @@ EndEvent
 Event Actor.OnPlayerLoadGame(Actor akSender)
 	D.Log("Actor.OnPlayerLoadGame: " + akSender)
 	If (!PerformUpdateIfNecessary())
-		MCM_TriggerNames = new string[0]
-		SendCustomEvent("OnRequestTriggers", new Var[0])
-		DD.LoadDD()
+		string timeStamp = MCM.GetModSettingString("RadMorphingRedux", "sModified:Internal")
+		D.Log("timestamp in MCM:   " + timeStamp)
+		D.Log("timestamp savegame: " + SettingsTimeStamp)
+		If (timeStamp != SettingsTimeStamp)
+			D.Log("MCM settings have been changed --> restart")
+			D.Note("Reloading MCM settings")
+			Restart()
+		Else
+			MCM_TriggerNames = new string[0]
+			SendCustomEvent("OnRequestTriggers", new Var[0])
+			DD.LoadDD()
+		EndIf
 	EndIf
 EndEvent
 
@@ -267,6 +279,7 @@ Function OnMCMSettingChange(string modName, string id)
 		MCM.SetModSettingString("RadMorphingRedux", "sTriggerName:" + sliderName, triggerName)
 		D.Log("    check MCM: " + MCM.GetModSettingString("RadMorphingRedux", "sTriggerName:" + sliderName))
 	EndIf
+	MCM.SetModSettingString("RadMorphingRedux", "sModified:Internal", SUP_F4SE.GetUserTimeStamp())
 	Restart()
 EndFunction
 
@@ -299,6 +312,9 @@ Function Startup()
 
 		; get heal cost from MCM
 		HealCost = MCM.GetModSettingInt("RadMorphingRedux", "iHealCost:General")
+
+		; get timestamp from MCM
+		SettingsTimeStamp = MCM.GetModSettingString("RadMorphingRedux", "sModified:Internal")
 
 		; load SliderSets
 		SliderSets.LoadSliderSets(NumberOfSliderSets, Player)
@@ -790,18 +806,25 @@ Function ShowHealMorphDialog()
 		float morphs = GetMorphPercentage() * 100.0
 		int cost = (baseMorphs * HealCost) as int
 		int capsCount = Player.GetItemCount(caps)
-		D.Log("    morphs:     " + morphs + "%")
-		D.Log("    baseMorphs: " + baseMorphs + "%")
-		D.Log("    cost:       " + cost + " caps")
-		int choice = HealMorphMessage.Show(morphs, baseMorphs, cost, capsCount)
+		float canAfford = Math.Min(baseMorphs, Math.Floor(capsCount / HealCost))
+		float resultingBaseMorphs = baseMorphs - canAfford
+		int canAffordCost = (canAfford * HealCost) as int
+		D.Log("    morphs:              " + morphs + "%")
+		D.Log("    baseMorphs:          " + baseMorphs + "%")
+		D.Log("    cost:                " + cost + " caps")
+		D.Log("    caps:                " + capsCount + " caps")
+		D.Log("    canAfford:           " + canAfford + "%")
+		D.Log("    canAffordCost:       " + canAffordCost + " caps")
+		D.Log("    resultingBaseMorphs: " + resultingBaseMorphs + "%")
+		int choice = HealMorphMessage.Show(morphs, baseMorphs, cost, capsCount, canAfford, canAffordCost)
 		D.Log("    choice: " + choice)
 		If (choice == EHealMorphChoiceYes)
 			D.Log("      -> heal morphs")
-			If (capsCount >= cost)
+			If (canAfford > 0)
 				D.Log("        -> healing")
-				HealBaseMorphs()
-				D.Log("        -> removing " + cost + " caps")
-				Player.RemoveItem(caps, cost)
+				HealBaseMorphs(resultingBaseMorphs / 100.0)
+				D.Log("        -> removing " + canAffordCost + " caps")
+				Player.RemoveItem(caps, canAffordCost)
 			Else
 				D.Log("        -> not enough caps (" + capsCount + " < " + cost + ")")
 				Debug.MessageBox("You don't have enough caps.")
@@ -817,11 +840,15 @@ EndFunction
 ;
 ; Remove the base morphs (permanent morphs) through BodyGen.
 ;
-Function HealBaseMorphs()
-	D.Log("HealBaseMorphs")
-	int sex = Player.GetLeveledActorBase().GetSex()
-	SliderSets.ClearBaseMorphs()
-	LenARM_SliderSet:MorphUpdate[] fullMorphs = SliderSets.CalculateFullMorphs()
+Function HealBaseMorphs(float targetBaseMorph)
+	D.Log("HealBaseMorphs: " + targetBaseMorph)
+	LenARM_SliderSet:MorphUpdate[] fullMorphs = None
+	If (targetBaseMorph > 0.0)
+		fullMorphs = SliderSets.ReduceBaseMorphs(targetBaseMorph)
+	Else
+		SliderSets.ClearBaseMorphs()
+		fullMorphs = SliderSets.CalculateFullMorphs()
+	EndIf
 	ApplyMorphUpdates(fullMorphs)
 EndFunction
 
@@ -877,10 +904,19 @@ Function UnequipActorSlots(Actor target, LenARM_SliderSet:UnequipSlot[] slots)
 						If (!ignoreItem)
 							D.Log("    unequipping slot " + slot + " (" + item.item.GetName() + " / " + item.modelName + ")")
 							target.UnequipItem(item.item)
-							If (!playedSound && !target.IsEquipped(item.item))
-								D.Log("    playing sound")
-								LenARM_DropClothesSound.PlayAndWait(target)
-								playedSound = true
+							If (!target.IsEquipped(item.item))
+								If (slot.Drop)
+									D.Log("    dropping item")
+									target.DropObject(item.item)
+								ElseIf (slot.Destroy)
+									D.Log("    removing item")
+									target.RemoveItem(item.item)
+								EndIf
+								If (!playedSound)
+									D.Log("    playing sound")
+									LenARM_DropClothesSound.PlayAndWait(target)
+									playedSound = true
+								EndIf
 							EndIf
 						EndIf
 					EndIf
