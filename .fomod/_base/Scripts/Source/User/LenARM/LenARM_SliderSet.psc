@@ -27,10 +27,30 @@ Group EnumApplySex
 	int Property EApplySexMale = 2 Auto Const
 EndGroup
 
+Group EnumUnequipAction
+	int Property EUnequipActionUnequip = 0 Auto Const
+	{unequip item and store in inventory}
+	int Property EUnequipActionDrop = 1 Auto Const
+	{unequip item and drop to ground}
+	int Property EUnequipActionDestroy = 2 Auto Const
+	{unequip item and destroy / remove}
+EndGroup
+
 Group EnumOverrideBool
 	int Property EOverrideBoolNoOverride = 0 Auto Const
 	int Property EOverrideBoolTrue = 1 Auto Const
 	int Property EOverrideBoolFalse = 2 Auto Const
+EndGroup
+
+Group EnumOverrideUnequipAction
+	int Property EOverrideUnequipActionNoOverride = 0 Auto Const
+	{don't override the unequip action}
+	int Property EOverrideUnequipActionUnequip = 1 Auto Const
+	{unequip item and store in inventory}
+	int Property EOverrideUnequipActionDrop = 2 Auto Const
+	{unequip item and drop to ground}
+	int Property EOverrideUnequipActionDestroy = 3 Auto Const
+	{unequip item and destroy / remove}
 EndGroup
 
 
@@ -81,6 +101,8 @@ Struct SliderSet
 	{IDs of the slots to unequip, multiple slots are separated by "|"}
 	float ThresholdUnequip
 	{% of TargetMorph when to unequip items, between 0.01 and 1.0, 1.0 = 100%}
+	int UnequipAction
+	{whether to unequip and store in inventory, drop to ground, or destroy the unequipped items}
 
 	bool OnlyDoctorCanReset
 	{whether only doctors can reset morphs}
@@ -150,6 +172,10 @@ Struct UnequipSlot
 	{whether to unequip female companions}
 	bool ApplyMale
 	{whether to unequip male companions}
+	bool Drop
+	{whether to drop the unequipped item}
+	bool Destroy
+	{whether to destroy the unequipped item}
 EndStruct
 
 
@@ -282,6 +308,7 @@ SliderSet Function SliderSet_Constructor(int idxSliderSet)
 		this.ThresholdMax = MCM.GetModSettingFloat("RadMorphingRedux", "fThresholdMax:Slider" + idxSliderSet) / 100.0
 		this.UnequipSlot = MCM.GetModSettingString("RadMorphingRedux", "sUnequipSlot:Slider" + idxSliderSet)
 		this.ThresholdUnequip = MCM.GetModSettingFloat("RadMorphingRedux", "fThresholdUnequip:Slider" + idxSliderSet) / 100.0
+		this.UnequipAction = MCM.GetModSettingInt("RadMorphingRedux", "iUnequipAction:Slider" + idxSliderSet)
 		this.OnlyDoctorCanReset = MCM.GetModSettingBool("RadMorphingRedux", "bOnlyDoctorCanReset:Slider" + idxSliderSet)
 		this.IsAdditive = MCM.GetModSettingBool("RadMorphingRedux", "bIsAdditive:Slider" + idxSliderSet)
 		this.HasAdditiveLimit = MCM.GetModSettingBool("RadMorphingRedux", "bHasAdditiveLimit:Slider" + idxSliderSet)
@@ -579,6 +606,7 @@ Function SliderSet_Print(int idxSliderSet)
 	D.Log("  ThresholdMin: " + this.ThresholdMin)
 	D.Log("  ThresholdMax: " + this.ThresholdMax)
 	D.Log("  UnequipSlot: " + this.UnequipSlot)
+	D.Log("  UnequipAction: " + this.UnequipAction)
 	D.Log("  ThresholdUnequip: " + this.ThresholdUnequip)
 	D.Log("  OnlyDoctorCanReset: " + this.OnlyDoctorCanReset)
 	D.Log("  IsAdditive: " + this.IsAdditive)
@@ -642,6 +670,7 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	int overrideIsAdditive = MCM.GetModSettingInt("RadMorphingRedux", "iIsAdditive:Override")
 	int overrideHasAdditiveLimit = MCM.GetModSettingInt("RadMorphingRedux", "iHasAdditiveLimit:Override")
 	float overrideAdditiveLimit = MCM.GetModSettingFloat("RadMorphingRedux", "fAdditiveLimit:Override") / 100.0
+	int overrideUnequipAction = MCM.GetModSettingInt("RadMorphingRedux", "iUnequipAction:Override")
 
 	; create empty arrays
 	If (!SliderSetList)
@@ -688,6 +717,15 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 		If (overrideHasAdditiveLimit != EOverrideBoolNoOverride)
 			newSet.HasAdditiveLimit = overrideHasAdditiveLimit == EOverrideBoolTrue
 			newSet.AdditiveLimit = overrideAdditiveLimit
+		EndIf
+		If (overrideUnequipAction != EOverrideUnequipActionNoOverride)
+			If (overrideUnequipAction == EOverrideUnequipActionUnequip)
+				newSet.UnequipAction = EUnequipActionUnequip
+			ElseIf (overrideUnequipAction == EOverrideUnequipActionDrop)
+				newSet.UnequipAction = EUnequipActionDrop
+			ElseIf (overrideUnequipAction == EOverrideUnequipActionDestroy)
+				newSet.UnequipAction = EUnequipActionDestroy
+			EndIf
 		EndIf
 
 		; populate flattened arrays
@@ -823,7 +861,7 @@ EndFunction
 ;
 ; @param triggerName - the trigger's name
 ; @param inverted
-;    - true: only check slider sets that invert the trigger value;
+;    - true: only check slider sets that invert the trigger value
 ;    - false: only check slider sets that don't invert the trigger value
 ;
 float Function GetMorphPercentageForTrigger(string triggerName, bool inverted)
@@ -867,7 +905,7 @@ EndFunction
 ;
 ; @param triggerName - the trigger's name
 ; @param inverted
-;    - true: only check slider sets that invert the trigger value;
+;    - true: only check slider sets that invert the trigger value
 ;    - false: only check slider sets that don't invert the trigger value
 ;
 float Function GetBaseMorphPercentageForTrigger(string triggerName, bool inverted)
@@ -915,6 +953,105 @@ Function ClearBaseMorphs()
 		SliderSet_ClearBaseMorph(idxSliderSet)
 		idxSliderSet += 1
 	EndWhile
+EndFunction
+
+
+;
+; Reduce all base morphs to a percentage (0.0-1.0) relative to the total range of each trigger.
+;
+; @param float targetBaseMorph - target base morph percentage (0.0-1.0) relative to the total range of each trigger.
+; @returns MorphUpdate[] - list of morph updates to apply the new base morphs.
+;
+MorphUpdate[] Function ReduceBaseMorphs(float targetBaseMorph)
+	D.Log("SliderSet.ReduceBaseMorphs: " + targetBaseMorph)
+	int idxTrigger = 0
+	MorphUpdate[] updates = new MorphUpdate[0]
+	While (idxTrigger < TriggerNameList.Length)
+		string triggerName = TriggerNameList[idxTrigger]
+		MorphUpdate[] triggerUpdates = ReduceBaseMorphsForTrigger(triggerName, false, targetBaseMorph)
+		int idxUpdate = 0
+		While (idxUpdate < triggerUpdates.Length)
+			MorphUpdate update = triggerUpdates[idxUpdate]
+			updates.Add(update)
+			idxUpdate += 1
+		EndWhile
+		triggerUpdates = ReduceBaseMorphsForTrigger(triggerName, true, targetBaseMorph)
+		idxUpdate = 0
+		While (idxUpdate < triggerUpdates.Length)
+			MorphUpdate update = triggerUpdates[idxUpdate]
+			updates.Add(update)
+			idxUpdate += 1
+		EndWhile
+		idxTrigger += 1
+	EndWhile
+
+	return updates
+EndFunction
+
+;
+; Reduce all base morphs for this trigger to a percentage (0.0-1.0) relative to the total range of each trigger.
+;
+; @param string triggerName - the trigger's name
+; @param bool inverted
+;    - true: only check slider sets that invert the trigger value
+;    - false: only check slider sets that don't invert the trigger value
+; @param float targetBaseMorph - target base morph percentage (0.0-1.0) relative to the total range of each trigger.
+; @returns MorphUpdate[] - list of morph updates to apply the new base morphs.
+;
+MorphUpdate[] Function ReduceBaseMorphsForTrigger(string triggerName, bool inverted, float targetBaseMorph)
+	D.Log("ReduceBaseMorphsForTrigger: " + triggerName + ", " + inverted + ", " + targetBaseMorph)
+	float thresholdMin = 1.0
+	float thresholdMax = 0.0
+	MorphUpdate[] updates = new MorphUpdate[0]
+
+	; determine the range for this trigger
+	int idxSliderSet = 0
+	While (idxSliderSet < SliderSetList.Length)
+		SliderSet item = SliderSetList[idxSliderSet]
+		If (item.TriggerName == triggerName && item.InvertTriggerValue == inverted)
+			thresholdMin = Math.Min(thresholdMin, item.ThresholdMin)
+			thresholdMax = Math.Max(thresholdMax, item.ThresholdMax)
+		EndIf
+		idxSliderSet += 1
+	EndWhile
+
+	D.Log("thresholdMin: " + thresholdMin)
+	D.Log("thresholdMax: " + thresholdMax)
+
+	; reduce base morphs
+	If (thresholdMin < thresholdMax)
+		idxSliderSet = 0
+		While (idxSliderSet < SliderSetList.Length)
+			SliderSet sliderSet = SliderSetList[idxSliderSet]
+			D.Log("sliderSet " + idxSliderSet)
+			If (sliderSet.TriggerName == triggerName && sliderSet.InvertTriggerValue == inverted && sliderSet.FullMorph > 0)
+				float lowerOffset = sliderSet.ThresholdMin - thresholdMin
+				float upperOffset = thresholdMax - sliderSet.ThresholdMax
+				float range = 1.0 - lowerOffset - upperOffset
+				float value = sliderSet.BaseMorph * range + lowerOffset
+				D.Log("  lowerOffset: " + lowerOffset)
+				D.Log("  upperOffset: " + upperOffset)
+				D.Log("  range:       " + range)
+				D.Log("  value:       " + value)
+				If (value > targetBaseMorph)
+					float newBaseMorph = (targetBaseMorph - lowerOffset) / range
+					D.Log("  baseMorph: " + sliderSet.BaseMorph + "  ->  " + newBaseMorph)
+					sliderSet.BaseMorph = newBaseMorph
+					MorphUpdate[] sliderSetUpdates = SliderSet_CalculateFullMorphs(idxSliderSet)
+					D.Log("  updates: " + sliderSetUpdates)
+					int idxUpdate = 0
+					While (idxUpdate < sliderSetUpdates.Length)
+						MorphUpdate update = sliderSetUpdates[idxUpdate]
+						updates.Add(update)
+						idxUpdate += 1
+					EndWhile
+				EndIf
+			EndIf
+			idxSliderSet += 1
+		EndWhile
+	EndIf
+
+	return updates
 EndFunction
 
 
@@ -977,6 +1114,8 @@ UnequipSlot[] Function GetUnequipSlots()
 				slot.ApplyCompanion = sliderSet.ApplyTo == EApplyToAll || sliderSet.ApplyTo == EApplyToCompanion
 				slot.ApplyFemale = sliderSet.Sex == EApplySexAll || sliderSet.Sex == EApplySexFemale
 				slot.ApplyMale = sliderSet.Sex == EApplySexAll || sliderSet.Sex == EApplySexMale
+				slot.Drop = sliderSet.UnequipAction == EUnequipActionDrop
+				slot.Destroy = sliderSet.UnequipAction == EUnequipActionDestroy
 				slots.Add(slot)
 				idxSlot += 1
 				D.Log(slot)
