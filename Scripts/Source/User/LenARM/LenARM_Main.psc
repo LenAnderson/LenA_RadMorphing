@@ -906,11 +906,21 @@ Function UnequipActorSlots(Actor target, LenARM_SliderSet:UnequipSlot[] slots)
 							target.UnequipItem(item.item)
 							If (!target.IsEquipped(item.item))
 								If (slot.Drop)
-									D.Log("    dropping item")
-									target.DropObject(item.item)
+									D.Log("    chance to drop item: " + slot.DropChance)
+									If (slot.DropChance <= Utility.RandomFloat())
+										D.Log("      -> dropping item")
+										target.DropObject(item.item)
+									Else
+										D.Log("      -> not dropping item")
+									EndIf
 								ElseIf (slot.Destroy)
-									D.Log("    removing item")
-									target.RemoveItem(item.item)
+									D.Log("    chance to destroy item: " + slot.DropChance)
+									If (slot.DropChance <= Utility.RandomFloat())
+										D.Log("      -> destroying item")
+										target.RemoveItem(item.item)
+									Else
+										D.Log("      -> not destroying item")
+									EndIf
 								EndIf
 								If (!playedSound)
 									D.Log("    playing sound")

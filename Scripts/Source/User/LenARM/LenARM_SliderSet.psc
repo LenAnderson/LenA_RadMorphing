@@ -103,6 +103,8 @@ Struct SliderSet
 	{% of TargetMorph when to unequip items, between 0.01 and 1.0, 1.0 = 100%}
 	int UnequipAction
 	{whether to unequip and store in inventory, drop to ground, or destroy the unequipped items}
+	float UnequipDropChance
+	{chance to drop / destroy unequipped items if the respective unequip action is selected, between 0.0 and 1.0}
 
 	bool OnlyDoctorCanReset
 	{whether only doctors can reset morphs}
@@ -176,6 +178,8 @@ Struct UnequipSlot
 	{whether to drop the unequipped item}
 	bool Destroy
 	{whether to destroy the unequipped item}
+	float DropChance
+	{chance to drop / unequip the item}
 EndStruct
 
 
@@ -594,32 +598,33 @@ EndFunction
 Function SliderSet_Print(int idxSliderSet)
 	D.Log("SliderSet.SliderSet_Print: " + idxSliderSet)
 	SliderSet this = SliderSetList[idxSliderSet]
-	D.Log("  Index: " + this.Index)
-	D.Log("  IsUsed: " + this.IsUsed)
-	D.Log("  SliderName: " + this.SliderName)
-	D.Log("  ApplyTo: " + this.ApplyTo)
-	D.Log("  Sex: " + this.Sex)
-	D.Log("  TriggerName: " + this.TriggerName)
-	D.Log("  InvertTriggerValue: " + this.InvertTriggerValue)
-	D.Log("  UpdateType: " + this.UpdateType)
-	D.Log("  TargetMorph: " + this.TargetMorph)
-	D.Log("  ThresholdMin: " + this.ThresholdMin)
-	D.Log("  ThresholdMax: " + this.ThresholdMax)
-	D.Log("  UnequipSlot: " + this.UnequipSlot)
-	D.Log("  UnequipAction: " + this.UnequipAction)
-	D.Log("  ThresholdUnequip: " + this.ThresholdUnequip)
-	D.Log("  OnlyDoctorCanReset: " + this.OnlyDoctorCanReset)
-	D.Log("  IsAdditive: " + this.IsAdditive)
-	D.Log("  HasAdditiveLimit: " + this.HasAdditiveLimit)
-	D.Log("  AdditiveLimit: " + this.AdditiveLimit)
-	D.Log("  NumberOfSliderNames: " + this.NumberOfSliderNames)
+	D.Log("  Index:                " + this.Index)
+	D.Log("  IsUsed:               " + this.IsUsed)
+	D.Log("  SliderName:           " + this.SliderName)
+	D.Log("  ApplyTo:              " + this.ApplyTo)
+	D.Log("  Sex:                  " + this.Sex)
+	D.Log("  TriggerName:          " + this.TriggerName)
+	D.Log("  InvertTriggerValue:   " + this.InvertTriggerValue)
+	D.Log("  UpdateType:           " + this.UpdateType)
+	D.Log("  TargetMorph:          " + this.TargetMorph)
+	D.Log("  ThresholdMin:         " + this.ThresholdMin)
+	D.Log("  ThresholdMax:         " + this.ThresholdMax)
+	D.Log("  UnequipSlot:          " + this.UnequipSlot)
+	D.Log("  UnequipAction:        " + this.UnequipAction)
+	D.Log("  UnequipDropChance:    " + this.UnequipDropChance)
+	D.Log("  ThresholdUnequip:     " + this.ThresholdUnequip)
+	D.Log("  OnlyDoctorCanReset:   " + this.OnlyDoctorCanReset)
+	D.Log("  IsAdditive:           " + this.IsAdditive)
+	D.Log("  HasAdditiveLimit:     " + this.HasAdditiveLimit)
+	D.Log("  AdditiveLimit:        " + this.AdditiveLimit)
+	D.Log("  NumberOfSliderNames:  " + this.NumberOfSliderNames)
 	D.Log("  NumberOfUnequipSlots: " + this.NumberOfUnequipSlots)
-	D.Log("  BaseMorph: " + this.BaseMorph)
-	D.Log("  CurrentMorph: " + this.CurrentMorph)
-	D.Log("  FullMorph: " + this.FullMorph)
-	D.Log("  CurrentTriggerValue: " + this.CurrentTriggerValue)
-	D.Log("  NewTriggerValue: " + this.NewTriggerValue)
-	D.Log("  HasNewTriggerValue: " + this.HasNewTriggerValue)
+	D.Log("  BaseMorph:            " + this.BaseMorph)
+	D.Log("  CurrentMorph:         " + this.CurrentMorph)
+	D.Log("  FullMorph:            " + this.FullMorph)
+	D.Log("  CurrentTriggerValue:  " + this.CurrentTriggerValue)
+	D.Log("  NewTriggerValue:      " + this.NewTriggerValue)
+	D.Log("  HasNewTriggerValue:   " + this.HasNewTriggerValue)
 EndFunction
 
 
@@ -671,6 +676,8 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	int overrideHasAdditiveLimit = MCM.GetModSettingInt("RadMorphingRedux", "iHasAdditiveLimit:Override")
 	float overrideAdditiveLimit = MCM.GetModSettingFloat("RadMorphingRedux", "fAdditiveLimit:Override") / 100.0
 	int overrideUnequipAction = MCM.GetModSettingInt("RadMorphingRedux", "iUnequipAction:Override")
+	bool overrideUnequipDropChance = MCM.GetModSettingInt("RadMorphingRedux", "bOverrideUnequipDropChance:Override")
+	float overrideUnequipDropChanceValue = MCM.GetModSettingFloat("RadMorphingRedux", "fUnequipDropChance:Override") / 100.0
 
 	; create empty arrays
 	If (!SliderSetList)
@@ -726,6 +733,9 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 			ElseIf (overrideUnequipAction == EOverrideUnequipActionDestroy)
 				newSet.UnequipAction = EUnequipActionDestroy
 			EndIf
+		EndIf
+		If (overrideUnequipDropChance)
+			newSet.UnequipDropChance = overrideUnequipDropChanceValue
 		EndIf
 
 		; populate flattened arrays
@@ -1116,6 +1126,7 @@ UnequipSlot[] Function GetUnequipSlots()
 				slot.ApplyMale = sliderSet.Sex == EApplySexAll || sliderSet.Sex == EApplySexMale
 				slot.Drop = sliderSet.UnequipAction == EUnequipActionDrop
 				slot.Destroy = sliderSet.UnequipAction == EUnequipActionDestroy
+				slot.DropChance = sliderSet.UnequipDropChance
 				slots.Add(slot)
 				idxSlot += 1
 				D.Log(slot)

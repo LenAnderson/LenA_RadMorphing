@@ -197,6 +197,27 @@
 						"sourceType": "ModSettingInt",
 						"options": ["No Override", "Unequip", "Drop", "Destroy"]
 					}
+				},
+				{
+					"text": "Override chance to drop / destroy",
+					"help": "Whether to override the chance to drop / destroy unequipped items.",
+					"type": "switcher",
+					"id": "bOverrideUnequipDropChance:Override",
+					"valueOptions": {
+						"sourceType": "ModSettingBool"
+					}
+				},
+				{
+					"text": "Chance to drop / destroy",
+					"help": "Chance that the unequipped item id dropped / destroyed if the respective unequip action is selected.",
+					"type": "slider",
+					"id": "fUnequipDropChance:Override",
+					"valueOptions": {
+						"sourceType": "ModSettingFloat",
+						"min": 1.0,
+						"max": 100.0,
+						"step": 1.0
+					}
 				}
 			]
 		},
