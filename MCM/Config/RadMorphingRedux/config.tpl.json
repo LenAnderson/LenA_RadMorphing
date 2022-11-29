@@ -103,6 +103,26 @@
 	],
 	"pages": [
 		{
+			"pageDisplayName": "Debug Tools",
+			"content": [
+				"{{TPL:HEADER}}",
+				
+				{
+					"text": "Debugging",
+					"type": "section"
+				},
+				{
+					"text": "Enable Logging",
+					"help": "Enable this if you experience issues with this mod. Default: OFF",
+					"type": "switcher",
+					"id": "bIsLoggingEnabled:Debug",
+					"valueOptions": {
+						"sourceType": "ModSettingBool"
+					}
+				}
+			]
+		},
+		{
 			"pageDisplayName": "Global Overrides",
 			"content": [
 				"{{TPL:HEADER}}",
@@ -176,26 +196,6 @@
 					"valueOptions": {
 						"sourceType": "ModSettingInt",
 						"options": ["No Override", "Unequip", "Drop", "Destroy"]
-					}
-				}
-			]
-		},
-		{
-			"pageDisplayName": "Debug Tools",
-			"content": [
-				"{{TPL:HEADER}}",
-				
-				{
-					"text": "Debugging",
-					"type": "section"
-				},
-				{
-					"text": "Enable Logging",
-					"help": "Enable this if you experience issues with this mod. Default: OFF",
-					"type": "switcher",
-					"id": "bIsLoggingEnabled:Debug",
-					"valueOptions": {
-						"sourceType": "ModSettingBool"
 					}
 				}
 			]
