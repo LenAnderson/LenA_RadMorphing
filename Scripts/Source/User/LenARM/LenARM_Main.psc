@@ -236,7 +236,7 @@ Event FollowersScript.CompanionChange(FollowersScript akSender, Var[] eventArgs)
 		EndIf
 		CompanionList.Add(companion)
 		RegisterForRemoteEvent(companion, "OnItemEquipped")
-		LenARM_SliderSet:MorphUpdate[] updates = SliderSets.GetFullMorphs()
+		LenARM_SliderSet:CumulativeMorphUpdate[] updates = SliderSets.GetFullMorphs()
 		ApplyMorphUpdates(updates)
 	Else
 		int idxCompanion = CompanionList.Find(companion)
@@ -666,7 +666,7 @@ EndFunction
 ;
 Function ApplyImmediateMorphs()
 	D.Log("ApplyImmediateMorphs")
-	LenARM_SliderSet:MorphUpdate[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypeImmediate)
+	LenARM_SliderSet:CumulativeMorphUpdate[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypeImmediate)
 	D.Log("  updates: " + updates)
 
 	ApplyMorphUpdates(updates)
@@ -677,7 +677,7 @@ EndFunction
 ; This is used when UpdateType is set to EUpdateTypePeriodic.
 ;
 Function ApplyPeriodicMorphs()
-	LenARM_SliderSet:MorphUpdate[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypePeriodic)
+	LenARM_SliderSet:CumulativeMorphUpdate[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypePeriodic)
 	
 	ApplyMorphUpdates(updates)
 
@@ -694,7 +694,7 @@ EndFunction
 ;
 Function ApplySleepMorphs()
 	D.Log("ApplySleepMorphs")
-	LenARM_SliderSet:MorphUpdate[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypeOnSleep)
+	LenARM_SliderSet:CumulativeMorphUpdate[] updates = SliderSets.CalculateMorphUpdates(SliderSets.EUpdateTypeOnSleep)
 	D.Log(" updates: " + updates)
 
 	ApplyMorphUpdates(updates)
@@ -704,27 +704,32 @@ EndFunction
 ;
 ; Apply a list of morph updates (sliderName:newValue) through BodyGen.
 ;
-Function ApplyMorphUpdates(LenARM_SliderSet:MorphUpdate[] updates)
+Function ApplyMorphUpdates(LenARM_SliderSet:CumulativeMorphUpdate[] updates)
 	If (updates.Length > 0)
 		D.Log("ApplyMorphUpdates: " + updates)
-		LenARM_SliderSet:MorphUpdate[] femaleUpdates = new LenARM_SliderSet:MorphUpdate[0]
-		LenARM_SliderSet:MorphUpdate[] maleUpdates = new LenARM_SliderSet:MorphUpdate[0]
+		LenARM_SliderSet:CumulativeMorphUpdate[] femaleUpdates = new LenARM_SliderSet:CumulativeMorphUpdate[0]
+		LenARM_SliderSet:CumulativeMorphUpdate[] maleUpdates = new LenARM_SliderSet:CumulativeMorphUpdate[0]
 		int sex = Player.GetLeveledActorBase().GetSex()
 		int idxUpdate = 0
 		bool playerMorphed = false
 		While (idxUpdate < updates.Length)
-			LenARM_SliderSet:MorphUpdate update = updates[idxUpdate]
-			If (update.ApplyCompanion && update.ApplyFemale)
+			LenARM_SliderSet:CumulativeMorphUpdate update = updates[idxUpdate]
+			If (update.ApplyCompanionFemale)
 				femaleUpdates.Add(update)
 			EndIf
-			If (update.ApplyCompanion && update.ApplyMale)
+			If (update.ApplyCompanionMale)
 				maleUpdates.Add(update)
 			EndIf
-			If (update.ApplyPlayer)
-				If ((sex == ESexFemale && update.ApplyFemale) || (sex == ESexMale && update.ApplyMale))
-					BodyGen.SetMorph(Player, sex==ESexFemale, update.Name, kwMorph, update.Value)
-					playerMorphed = true
+			If ((sex == ESexFemale && update.ApplyPlayerFemale) || (sex == ESexMale && update.ApplyPlayerMale))
+				float value = 0.0
+				If (sex == ESexFemale)
+					value = update.PlayerFemaleValue
+				ElseIf (sex == ESexMale)
+					value = update.PlayerMaleValue
 				EndIf
+				D.Log("  player morph: " + update.Name + "=" + value)
+				BodyGen.SetMorph(Player, sex==ESexFemale, update.Name, kwMorph, value)
+				playerMorphed = true
 			EndIf
 			idxUpdate += 1
 		EndWhile
@@ -745,14 +750,14 @@ EndFunction
 ;
 ; Apply a list of morph updates (sliderName:newValue) through BodyGen on all companions.
 ;
-Function ApplyMorphUpdatesToCompanions(LenARM_SliderSet:MorphUpdate[] femaleUpdates, LenARM_SliderSet:MorphUpdate[] maleUpdates)
+Function ApplyMorphUpdatesToCompanions(LenARM_SliderSet:CumulativeMorphUpdate[] femaleUpdates, LenARM_SliderSet:CumulativeMorphUpdate[] maleUpdates)
 	If (CompanionList.Length > 0 && (femaleUpdates.Length > 0 || maleUpdates.Length > 0))
 		D.Log("ApplyMorphUpdatesToCompanions: female=" + femaleUpdates + "  male=" + maleUpdates)
 		int idxCompanion = 0
 		While (idxCompanion < CompanionList.Length)
 			Actor companion = CompanionList[idxCompanion]
 			D.Log("  " + companion.GetLeveledActorBase().GetName() + " (" + companion + ")")
-			LenARM_SliderSet:MorphUpdate[] updates = new LenARM_SliderSet:MorphUpdate[0]
+			LenARM_SliderSet:CumulativeMorphUpdate[] updates = new LenARM_SliderSet:CumulativeMorphUpdate[0]
 			int sex = companion.GetLeveledActorBase().GetSex()
 			If (sex == ESexFemale)
 				updates = femaleUpdates
@@ -763,8 +768,15 @@ Function ApplyMorphUpdatesToCompanions(LenARM_SliderSet:MorphUpdate[] femaleUpda
 			If (updates.Length > 0)
 				int idxUpdate = 0
 				While (idxUpdate < updates.Length)
-					LenARM_SliderSet:MorphUpdate update = updates[idxUpdate]
-					BodyGen.SetMorph(companion, sex==ESexFemale, update.Name, kwMorph, update.Value)
+					LenARM_SliderSet:CumulativeMorphUpdate update = updates[idxUpdate]
+					float value = 0.0
+					If (sex == ESexFemale)
+						value = update.CompanionFemaleValue
+					ElseIf (sex == ESexMale)
+						value = update.CompanionMaleValue
+					EndIf
+					D.Log("  companion morph (" + companion + "): " + update.Name + "=" + value)
+					BodyGen.SetMorph(companion, sex==ESexFemale, update.Name, kwMorph, value)
 					idxUpdate += 1
 				EndWhile
 				BodyGen.UpdateMorphs(companion)
@@ -781,7 +793,7 @@ EndFunction
 Function ApplyBaseMorphs()
 	D.Log("ApplyBaseMorphs")
 	int sex = Player.GetLeveledActorBase().GetSex()
-	LenARM_SliderSet:MorphUpdate[] baseMorphs = SliderSets.GetBaseMorphs()
+	LenARM_SliderSet:CumulativeMorphUpdate[] baseMorphs = SliderSets.GetBaseMorphs()
 	ApplyMorphUpdates(baseMorphs)
 EndFunction
 
@@ -842,7 +854,7 @@ EndFunction
 ;
 Function HealBaseMorphs(float targetBaseMorph)
 	D.Log("HealBaseMorphs: " + targetBaseMorph)
-	LenARM_SliderSet:MorphUpdate[] fullMorphs = None
+	LenARM_SliderSet:CumulativeMorphUpdate[] fullMorphs = None
 	If (targetBaseMorph > 0.0)
 		fullMorphs = SliderSets.ReduceBaseMorphs(targetBaseMorph)
 	Else
