@@ -12,25 +12,6 @@
 			"text": "<br>",
 			"type": "text",
 			"html": true
-		},
-
-		
-		{
-			"text": "Click to show worn clothes",
-			"type": "button",
-			"help": "Show the worn clothing / armor items and their slots",
-			"action": {
-				"type": "CallFunction",
-				"form": "LenA_RadMorphing.esp|4C50",
-				"scriptName": "LenARM:LenARM_Main",
-				"function": "ShowEquippedClothes",
-				"params": []
-			}
-		},
-		{
-			"text": "<br>",
-			"type": "text",
-			"html": true
 		}
 	]
 }

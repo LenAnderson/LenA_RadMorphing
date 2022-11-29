@@ -199,6 +199,41 @@
 					}
 				}
 			]
+		},
+		{
+			"pageDisplayName": "Equipped Items",
+			"content": [
+				"{{TPL:HEADER}}",
+
+				{
+					"text": "List of currently equipped items and their slot numbers for use in the unequip settings.",
+					"type": "text",
+					"html": true
+				},
+				{
+					"text": "<br>",
+					"type": "text",
+					"html": true
+				},
+
+				{
+					"text": "Refresh",
+					"type": "button",
+					"action": {
+						"type": "CallFunction",
+						"form": "LenA_RadMorphing.esp|4C50",
+						"scriptName": "LenARM:LenARM_Main",
+						"function": "RefreshEquippedClothes",
+						"params": []
+					}
+				},
+
+				{
+					"text": "Equipped Items",
+					"type": "section"
+				},
+				"{{TPL:EQUIPPED_ITEMS}}"
+			]
 		}
 	]
 }

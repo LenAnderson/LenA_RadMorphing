@@ -958,24 +958,40 @@ EndFunction
 ; helpers / MCM
 
 ;
-; Show a message box with all the currently equipped items and their slots.
+; Refresh the MCM page with all the currently equipped items and their slots.
 ;
-Function ShowEquippedClothes()
-	D.Log("ShowEquippedClothes")
-	string[] items = new string[0]
+Function RefreshEquippedClothes()
+	D.Log("RefreshEquippedClothes")
+	int idxMcm = 0
+
+	MCM.SetModSettingString("RadMorphingRedux", "sSlot" + idxMcm + ":EquippedItems", "Loading...")
+	idxMcm += 1
+	While (idxMcm < 62)
+		MCM.SetModSettingString("RadMorphingRedux", "sSlot" + idxMcm + ":EquippedItems", "")
+		idxMcm += 1
+	EndWhile
+	MCM.RefreshMenu()
+
+	idxMcm = 0
 	int slot = 0
 	While (slot < 62)
 		Actor:WornItem item = Player.GetWornItem(slot)
 		If (item != None && item.item != None)
-			items.Add(slot + ": " + item.item.GetName() + " (" + item.modelName + ")")
 			D.Log("  " + slot + ": " + item.item.GetName() + " (" + item.modelName + ")")
+			MCM.SetModSettingString("RadMorphingRedux", "sSlot" + idxMcm + ":EquippedItems", slot + ": " + item.item.GetName() + " (" + item.modelName + ")")
+			idxMcm += 1
 		Else
 			D.Log("  Slot " + slot + " is empty")
 		EndIf
 		slot += 1
 	EndWhile
 
-	Debug.MessageBox(LL_FourPlay.StringJoin(items, "\n"))
+	While (idxMcm < 62)
+		MCM.SetModSettingString("RadMorphingRedux", "sSlot" + idxMcm + ":EquippedItems", "")
+		idxMcm += 1
+	EndWhile
+
+	MCM.RefreshMenu()
 EndFunction
 
 
