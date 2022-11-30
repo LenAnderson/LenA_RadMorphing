@@ -4,7 +4,7 @@
     "minMcmVersion": 1,
     "content": [
         {
-            "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
+            "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.2.0</font></p>",
             "type": "text",
             "html": true
         },
@@ -104,10 +104,33 @@
     ],
     "pages": [
         {
+            "pageDisplayName": "Debug Tools",
+            "content": [
+                {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.2.0</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "Debugging",
+                    "type": "section"
+                },
+                {
+                    "text": "Enable Logging",
+                    "help": "Enable this if you experience issues with this mod. Default: OFF",
+                    "type": "switcher",
+                    "id": "bIsLoggingEnabled:Debug",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
+                    }
+                }
+            ]
+        },
+        {
             "pageDisplayName": "Global Overrides",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.2.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -197,42 +220,40 @@
                             "Destroy"
                         ]
                     }
-                }
-            ]
-        },
-        {
-            "pageDisplayName": "Debug Tools",
-            "content": [
-                {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
-                    "type": "text",
-                    "html": true
                 },
                 {
-                    "text": "Debugging",
-                    "type": "section"
-                },
-                {
-                    "text": "Enable Logging",
-                    "help": "Enable this if you experience issues with this mod. Default: OFF",
+                    "text": "Override chance to drop / destroy",
+                    "help": "Whether to override the chance to drop / destroy unequipped items.",
                     "type": "switcher",
-                    "id": "bIsLoggingEnabled:Debug",
+                    "id": "bOverrideUnequipDropChance:Override",
                     "valueOptions": {
                         "sourceType": "ModSettingBool"
+                    }
+                },
+                {
+                    "text": "Chance to drop / destroy",
+                    "help": "Chance that the unequipped item id dropped / destroyed if the respective unequip action is selected.",
+                    "type": "slider",
+                    "id": "fUnequipDropChance:Override",
+                    "valueOptions": {
+                        "sourceType": "ModSettingFloat",
+                        "min": 1.0,
+                        "max": 100.0,
+                        "step": 1.0
                     }
                 }
             ]
         },
         {
-            "pageDisplayName": "Slider Set 1",
+            "pageDisplayName": "Equipped Items",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.2.0</font></p>",
                     "type": "text",
                     "html": true
                 },
                 {
-                    "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
+                    "text": "List of currently equipped items and their slot numbers for use in the unequip settings.",
                     "type": "text",
                     "html": true
                 },
@@ -242,18 +263,532 @@
                     "html": true
                 },
                 {
-                    "text": "Click to show worn clothes",
+                    "text": "Refresh",
                     "type": "button",
-                    "help": "Show the worn clothing / armor items and their slots",
                     "action": {
                         "type": "CallFunction",
                         "form": "LenA_RadMorphing.esp|4C50",
                         "scriptName": "LenARM:LenARM_Main",
-                        "function": "ShowEquippedClothes",
+                        "function": "RefreshEquippedClothes",
                         "params": [
                             
                         ]
                     }
+                },
+                {
+                    "text": "Equipped Items",
+                    "type": "section"
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot0:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot1:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot2:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot3:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot4:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot5:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot6:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot7:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot8:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot9:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot10:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot11:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot12:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot13:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot14:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot15:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot16:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot17:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot18:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot19:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot20:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot21:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot22:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot23:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot24:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot25:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot26:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot27:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot28:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot29:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot30:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot31:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot32:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot33:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot34:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot35:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot36:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot37:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot38:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot39:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot40:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot41:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot42:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot43:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot44:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot45:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot46:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot47:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot48:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot49:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot50:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot51:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot52:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot53:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot54:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot55:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot56:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot57:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot58:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot59:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot60:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                },
+                {
+                    "text": "",
+                    "type": "textinput",
+                    "id": "sSlot61:EquippedItems",
+                    "valueOptions": {
+                        "sourceType": "ModSettingString"
+                    }
+                }
+            ]
+        },
+        {
+            "pageDisplayName": "Slider Set 1",
+            "content": [
+                {
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.2.0</font></p>",
+                    "type": "text",
+                    "html": true
+                },
+                {
+                    "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
+                    "type": "text",
+                    "html": true
                 },
                 {
                     "text": "<br>",
@@ -456,6 +991,18 @@
                     }
                 },
                 {
+                    "text": "Chance to drop / destroy",
+                    "help": "Chance that the unequipped item id dropped / destroyed if the respective unequip action is selected.",
+                    "type": "slider",
+                    "id": "fUnequipDropChance:Slider0",
+                    "valueOptions": {
+                        "sourceType": "ModSettingFloat",
+                        "min": 1.0,
+                        "max": 100.0,
+                        "step": 1.0
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -514,7 +1061,7 @@
             "pageDisplayName": "Slider Set 2",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.2.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -522,25 +1069,6 @@
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Click to show worn clothes",
-                    "type": "button",
-                    "help": "Show the worn clothing / armor items and their slots",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptName": "LenARM:LenARM_Main",
-                        "function": "ShowEquippedClothes",
-                        "params": [
-                            
-                        ]
-                    }
                 },
                 {
                     "text": "<br>",
@@ -743,6 +1271,18 @@
                     }
                 },
                 {
+                    "text": "Chance to drop / destroy",
+                    "help": "Chance that the unequipped item id dropped / destroyed if the respective unequip action is selected.",
+                    "type": "slider",
+                    "id": "fUnequipDropChance:Slider1",
+                    "valueOptions": {
+                        "sourceType": "ModSettingFloat",
+                        "min": 1.0,
+                        "max": 100.0,
+                        "step": 1.0
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -801,7 +1341,7 @@
             "pageDisplayName": "Slider Set 3",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.2.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -809,25 +1349,6 @@
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Click to show worn clothes",
-                    "type": "button",
-                    "help": "Show the worn clothing / armor items and their slots",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptName": "LenARM:LenARM_Main",
-                        "function": "ShowEquippedClothes",
-                        "params": [
-                            
-                        ]
-                    }
                 },
                 {
                     "text": "<br>",
@@ -1030,6 +1551,18 @@
                     }
                 },
                 {
+                    "text": "Chance to drop / destroy",
+                    "help": "Chance that the unequipped item id dropped / destroyed if the respective unequip action is selected.",
+                    "type": "slider",
+                    "id": "fUnequipDropChance:Slider2",
+                    "valueOptions": {
+                        "sourceType": "ModSettingFloat",
+                        "min": 1.0,
+                        "max": 100.0,
+                        "step": 1.0
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -1088,7 +1621,7 @@
             "pageDisplayName": "Slider Set 4",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.2.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -1096,25 +1629,6 @@
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Click to show worn clothes",
-                    "type": "button",
-                    "help": "Show the worn clothing / armor items and their slots",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptName": "LenARM:LenARM_Main",
-                        "function": "ShowEquippedClothes",
-                        "params": [
-                            
-                        ]
-                    }
                 },
                 {
                     "text": "<br>",
@@ -1317,6 +1831,18 @@
                     }
                 },
                 {
+                    "text": "Chance to drop / destroy",
+                    "help": "Chance that the unequipped item id dropped / destroyed if the respective unequip action is selected.",
+                    "type": "slider",
+                    "id": "fUnequipDropChance:Slider3",
+                    "valueOptions": {
+                        "sourceType": "ModSettingFloat",
+                        "min": 1.0,
+                        "max": 100.0,
+                        "step": 1.0
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -1375,7 +1901,7 @@
             "pageDisplayName": "Slider Set 5",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.2.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -1383,25 +1909,6 @@
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Click to show worn clothes",
-                    "type": "button",
-                    "help": "Show the worn clothing / armor items and their slots",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptName": "LenARM:LenARM_Main",
-                        "function": "ShowEquippedClothes",
-                        "params": [
-                            
-                        ]
-                    }
                 },
                 {
                     "text": "<br>",
@@ -1604,6 +2111,18 @@
                     }
                 },
                 {
+                    "text": "Chance to drop / destroy",
+                    "help": "Chance that the unequipped item id dropped / destroyed if the respective unequip action is selected.",
+                    "type": "slider",
+                    "id": "fUnequipDropChance:Slider4",
+                    "valueOptions": {
+                        "sourceType": "ModSettingFloat",
+                        "min": 1.0,
+                        "max": 100.0,
+                        "step": 1.0
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -1662,7 +2181,7 @@
             "pageDisplayName": "Slider Set 6",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.2.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -1670,25 +2189,6 @@
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Click to show worn clothes",
-                    "type": "button",
-                    "help": "Show the worn clothing / armor items and their slots",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptName": "LenARM:LenARM_Main",
-                        "function": "ShowEquippedClothes",
-                        "params": [
-                            
-                        ]
-                    }
                 },
                 {
                     "text": "<br>",
@@ -1891,6 +2391,18 @@
                     }
                 },
                 {
+                    "text": "Chance to drop / destroy",
+                    "help": "Chance that the unequipped item id dropped / destroyed if the respective unequip action is selected.",
+                    "type": "slider",
+                    "id": "fUnequipDropChance:Slider5",
+                    "valueOptions": {
+                        "sourceType": "ModSettingFloat",
+                        "min": 1.0,
+                        "max": 100.0,
+                        "step": 1.0
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -1949,7 +2461,7 @@
             "pageDisplayName": "Slider Set 7",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.2.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -1957,25 +2469,6 @@
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Click to show worn clothes",
-                    "type": "button",
-                    "help": "Show the worn clothing / armor items and their slots",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptName": "LenARM:LenARM_Main",
-                        "function": "ShowEquippedClothes",
-                        "params": [
-                            
-                        ]
-                    }
                 },
                 {
                     "text": "<br>",
@@ -2178,6 +2671,18 @@
                     }
                 },
                 {
+                    "text": "Chance to drop / destroy",
+                    "help": "Chance that the unequipped item id dropped / destroyed if the respective unequip action is selected.",
+                    "type": "slider",
+                    "id": "fUnequipDropChance:Slider6",
+                    "valueOptions": {
+                        "sourceType": "ModSettingFloat",
+                        "min": 1.0,
+                        "max": 100.0,
+                        "step": 1.0
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -2236,7 +2741,7 @@
             "pageDisplayName": "Slider Set 8",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.2.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -2244,25 +2749,6 @@
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Click to show worn clothes",
-                    "type": "button",
-                    "help": "Show the worn clothing / armor items and their slots",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptName": "LenARM:LenARM_Main",
-                        "function": "ShowEquippedClothes",
-                        "params": [
-                            
-                        ]
-                    }
                 },
                 {
                     "text": "<br>",
@@ -2465,6 +2951,18 @@
                     }
                 },
                 {
+                    "text": "Chance to drop / destroy",
+                    "help": "Chance that the unequipped item id dropped / destroyed if the respective unequip action is selected.",
+                    "type": "slider",
+                    "id": "fUnequipDropChance:Slider7",
+                    "valueOptions": {
+                        "sourceType": "ModSettingFloat",
+                        "min": 1.0,
+                        "max": 100.0,
+                        "step": 1.0
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -2523,7 +3021,7 @@
             "pageDisplayName": "Slider Set 9",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.2.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -2531,25 +3029,6 @@
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Click to show worn clothes",
-                    "type": "button",
-                    "help": "Show the worn clothing / armor items and their slots",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptName": "LenARM:LenARM_Main",
-                        "function": "ShowEquippedClothes",
-                        "params": [
-                            
-                        ]
-                    }
                 },
                 {
                     "text": "<br>",
@@ -2752,6 +3231,18 @@
                     }
                 },
                 {
+                    "text": "Chance to drop / destroy",
+                    "help": "Chance that the unequipped item id dropped / destroyed if the respective unequip action is selected.",
+                    "type": "slider",
+                    "id": "fUnequipDropChance:Slider8",
+                    "valueOptions": {
+                        "sourceType": "ModSettingFloat",
+                        "min": 1.0,
+                        "max": 100.0,
+                        "step": 1.0
+                    }
+                },
+                {
                     "text": "<br>",
                     "type": "text",
                     "html": true
@@ -2810,7 +3301,7 @@
             "pageDisplayName": "Slider Set 10",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.1.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.2.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -2818,25 +3309,6 @@
                     "text": "To find the correct slider names open the XML file relevant to the body you are using in Bodyslide's \"SliderCategories\" folder.<br>The attribute \"displayname\" is what you see in BodySlide, but here you need to enter the value of the <b>\"name\"</b> attribute.",
                     "type": "text",
                     "html": true
-                },
-                {
-                    "text": "<br>",
-                    "type": "text",
-                    "html": true
-                },
-                {
-                    "text": "Click to show worn clothes",
-                    "type": "button",
-                    "help": "Show the worn clothing / armor items and their slots",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "LenA_RadMorphing.esp|4C50",
-                        "scriptName": "LenARM:LenARM_Main",
-                        "function": "ShowEquippedClothes",
-                        "params": [
-                            
-                        ]
-                    }
                 },
                 {
                     "text": "<br>",
@@ -3036,6 +3508,18 @@
                             "Drop",
                             "Destroy"
                         ]
+                    }
+                },
+                {
+                    "text": "Chance to drop / destroy",
+                    "help": "Chance that the unequipped item id dropped / destroyed if the respective unequip action is selected.",
+                    "type": "slider",
+                    "id": "fUnequipDropChance:Slider9",
+                    "valueOptions": {
+                        "sourceType": "ModSettingFloat",
+                        "min": 1.0,
+                        "max": 100.0,
+                        "step": 1.0
                     }
                 },
                 {
