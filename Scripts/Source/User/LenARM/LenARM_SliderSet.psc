@@ -743,9 +743,8 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 		EndIf
 
 		If (oldSet)
-			; keep BaseMorph and CurrentMorph from existing SliderSet
+			; keep BaseMorph from existing SliderSet
 			newSet.BaseMorph = oldSet.BaseMorph
-			newset.CurrentMorph = oldSet.CurrentMorph
 		EndIf
 
 		; apply overrides
