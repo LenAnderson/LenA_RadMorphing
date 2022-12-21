@@ -412,6 +412,7 @@ MorphUpdate[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 			D.Log("  sleep morphing -> only doctors (base morphs), additive, always add current value")
 			; don't change current morph, increase base morph, apply
 			D.Log("  don't change current morph, increase base morph, apply")
+			this.CurrentMorph = 0
 			this.BaseMorph += newMorph
 			updateFullMorph = true
 		ElseIf (this.OnlyDoctorCanReset)
@@ -743,9 +744,8 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 		EndIf
 
 		If (oldSet)
-			; keep BaseMorph and CurrentMorph from existing SliderSet
+			; keep BaseMorph from existing SliderSet
 			newSet.BaseMorph = oldSet.BaseMorph
-			newset.CurrentMorph = oldSet.CurrentMorph
 		EndIf
 
 		; apply overrides
