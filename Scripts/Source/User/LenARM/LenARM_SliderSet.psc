@@ -485,9 +485,7 @@ MorphUpdate[] Function SliderSet_CalculateMorphUpdates(int idxSliderSet)
 			EndIf
 		EndIf
 
-		If (updateFullMorph)
-			updates = SliderSet_CalculateFullMorphs(this.Index)
-		EndIf
+		updates = SliderSet_CalculateFullMorphs(this.Index, updateFullMorph)
 
 		baseMorphUpdate += this.BaseMorph
 		currentMorphUpdate += this.CurrentMorph
@@ -508,7 +506,7 @@ EndFunction
 ;
 ; Get the list of full morphs based on a CurrentMorph and BaseMorph
 ;
-MorphUpdate[] Function SliderSet_CalculateFullMorphs(int idxSliderSet)
+MorphUpdate[] Function SliderSet_CalculateFullMorphs(int idxSliderSet, bool calculateUpdates=true)
 	D.Log("SliderSet.SliderSet_CalculateFullMorphs: " + idxSliderSet)
 	SliderSet this = SliderSetList[idxSliderSet]
 	MorphUpdate[] updates = new MorphUpdate[0]
@@ -525,22 +523,24 @@ MorphUpdate[] Function SliderSet_CalculateFullMorphs(int idxSliderSet)
 
 	If (this.FullMorph != fullMorph)
 		this.FullMorph = fullMorph
-		int sliderNameOffset = GetSliderNameOffset(this.Index)
-		int idxSlider = 0
-		float fullMorphValue = fullMorph * this.TargetMorph
-		D.Log("  sliders:        " + this.SliderName)
-		While (idxSlider < this.NumberOfSliderNames)
-			MorphUpdate update = new MorphUpdate
-			update.SliderSetIndex = idxSliderSet
-			update.Name = SliderNameList[sliderNameOffset + idxSlider]
-			update.Value = fullMorphValue
-			update.ApplyPlayer = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToPlayer
-			update.ApplyCompanion = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToCompanion
-			update.ApplyFemale = this.Sex == EApplySexAll || this.Sex == EApplySexFemale
-			update.ApplyMale = this.Sex == EApplySexAll || this.Sex == EApplySexMale
-			updates.Add(update)
-			idxSlider += 1
-		EndWhile
+		If (calculateUpdates)
+			int sliderNameOffset = GetSliderNameOffset(this.Index)
+			int idxSlider = 0
+			float fullMorphValue = fullMorph * this.TargetMorph
+			D.Log("  sliders:        " + this.SliderName)
+			While (idxSlider < this.NumberOfSliderNames)
+				MorphUpdate update = new MorphUpdate
+				update.SliderSetIndex = idxSliderSet
+				update.Name = SliderNameList[sliderNameOffset + idxSlider]
+				update.Value = fullMorphValue
+				update.ApplyPlayer = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToPlayer
+				update.ApplyCompanion = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToCompanion
+				update.ApplyFemale = this.Sex == EApplySexAll || this.Sex == EApplySexFemale
+				update.ApplyMale = this.Sex == EApplySexAll || this.Sex == EApplySexMale
+				updates.Add(update)
+				idxSlider += 1
+			EndWhile
+		EndIf
 	EndIf
 	return updates
 EndFunction
