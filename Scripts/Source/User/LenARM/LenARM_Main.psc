@@ -237,6 +237,7 @@ Event FollowersScript.CompanionChange(FollowersScript akSender, Var[] eventArgs)
 		CompanionList.Add(companion)
 		RegisterForRemoteEvent(companion, "OnItemEquipped")
 		LenARM_SliderSet:CumulativeMorphUpdate[] updates = SliderSets.GetFullMorphs()
+		RestoreOriginalMorphs(companion)
 		ApplyMorphUpdates(updates)
 	Else
 		int idxCompanion = CompanionList.Find(companion)
