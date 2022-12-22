@@ -817,7 +817,7 @@ EndFunction
 Function ShowHealMorphDialog()
 	float baseMorphs = GetBaseMorphPercentage() * 100.0
 	If (baseMorphs > 0.0)
-		float morphs = GetMorphPercentage() * 100.0
+		float morphs = GetMorphPercentage(true) * 100.0
 		int cost = (baseMorphs * HealCost) as int
 		int capsCount = Player.GetItemCount(caps)
 		float canAfford = Math.Min(baseMorphs, Math.Floor(capsCount / HealCost))
