@@ -873,12 +873,14 @@ EndFunction
 ; When SliderSet.TargetMorph has been reached, morph percentage is 100% (=1.0).
 ; With additive morphing the value may go above 100%.
 ;
-float Function GetMorphPercentage()
+; @param onlyPermanent - only include slider sets with permanent / only doctor morphs
+;
+float Function GetMorphPercentage(bool onlyPermanent=false)
 	float morph = 0.0
 	int idxTrigger = 0
 	While (idxTrigger < TriggerNameList.Length)
 		string triggerName = TriggerNameList[idxTrigger]
-		morph = Math.max(Math.Max(morph, GetMorphPercentageForTrigger(triggerName, false)), GetMorphPercentageForTrigger(triggerName, true))
+		morph = Math.max(Math.Max(morph, GetMorphPercentageForTrigger(triggerName, false, onlyPermanent)), GetMorphPercentageForTrigger(triggerName, true, onlyPermanent))
 		idxTrigger += 1
 	EndWhile
 	return morph
@@ -907,8 +909,9 @@ EndFunction
 ; @param inverted
 ;    - true: only check slider sets that invert the trigger value
 ;    - false: only check slider sets that don't invert the trigger value
+; @param onlyPermanent - only include slider sets with permanent / only doctor morphs
 ;
-float Function GetMorphPercentageForTrigger(string triggerName, bool inverted)
+float Function GetMorphPercentageForTrigger(string triggerName, bool inverted, bool onlyPermanent=false)
 	float thresholdMin = 1.0
 	float thresholdMax = 0.0
 	float morph = 0.0
@@ -917,7 +920,7 @@ float Function GetMorphPercentageForTrigger(string triggerName, bool inverted)
 	int idxSliderSet = 0
 	While (idxSliderSet < SliderSetList.Length)
 		SliderSet item = SliderSetList[idxSliderSet]
-		If (item.TriggerName == triggerName && item.InvertTriggerValue == inverted)
+		If ((!onlyPermanent || item.OnlyDoctorCanReset) && item.TriggerName == triggerName && item.InvertTriggerValue == inverted)
 			thresholdMin = Math.Min(thresholdMin, item.ThresholdMin)
 			thresholdMax = Math.Max(thresholdMax, item.ThresholdMax)
 		EndIf

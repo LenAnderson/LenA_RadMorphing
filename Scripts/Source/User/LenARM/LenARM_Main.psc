@@ -608,9 +608,11 @@ EndFunction
 ; When SliderSet.TargetMorph has been reached, morph percentage is 100% (=1.0).
 ; With additive morphing the value may go above 100%.
 ;
-float Function GetMorphPercentage()
+; @param onlyPermanent - only include slider sets with permanent / only doctor morphs
+;
+float Function GetMorphPercentage(bool onlyPermanent=false)
 	D.Log("GetMorphPercentage")
-	return SliderSets.GetMorphPercentage()
+	return SliderSets.GetMorphPercentage(onlyPermanent)
 EndFunction
 
 ;
