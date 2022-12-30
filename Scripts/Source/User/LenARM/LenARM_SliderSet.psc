@@ -103,6 +103,8 @@ Struct SliderSet
 	{% of TargetMorph when to unequip items, between 0.01 and 1.0, 1.0 = 100%}
 	int UnequipAction
 	{whether to unequip and store in inventory, drop to ground, or destroy the unequipped items}
+	float UnequipDropChance
+	{chance to drop / destroy unequipped items if the respective unequip action is selected, between 0.0 and 1.0}
 
 	bool OnlyDoctorCanReset
 	{whether only doctors can reset morphs}
@@ -147,6 +149,8 @@ EndStruct
 ; Other struct definitions
 
 Struct MorphUpdate
+	int SliderSetIndex
+	{index of the slider set that this update is coming from}
 	string Name
 	{name of the LooksMenu slider}
 	float Value
@@ -159,6 +163,35 @@ Struct MorphUpdate
 	{whether to apply to female actors}
 	bool ApplyMale
 	{whether to apply to male actors}
+EndStruct
+
+Struct CumulativeMorphUpdate
+	string Name
+	{name of the LooksMenu slider}
+	float PlayerFemaleValue
+	{value of the LooksMenu slider for female player}
+	float PlayerMaleValue
+	{value of the LooksMenu slider for male player}
+	float CompanionFemaleValue
+	{value of the LooksMenu slider for female companion}
+	float CompanionMaleValue
+	{value of the LooksMenu slider for male companion}
+	bool ApplyPlayerFemale
+	{whether to apply to female player}
+	bool ApplyPlayerMale
+	{whether to apply to male player}
+	bool ApplyCompanionFemale
+	{whether to apply to female companion}
+	bool ApplyCompanionMale
+	{whether to apply to male companion}
+	bool ChangedPlayerFemale
+	{whether changes have been made to female player}
+	bool ChangedPlayerMale
+	{whether changes have been made to male player}
+	bool ChangedCompanionFemale
+	{whether changes have been made to female companion}
+	bool ChangedCompanionMale
+	{whether changes have been made to male companion}
 EndStruct
 
 Struct UnequipSlot
@@ -176,6 +209,8 @@ Struct UnequipSlot
 	{whether to drop the unequipped item}
 	bool Destroy
 	{whether to destroy the unequipped item}
+	float DropChance
+	{chance to drop / unequip the item}
 EndStruct
 
 
@@ -234,7 +269,7 @@ EndFunction
 ;
 ; Get the list of base morphs (permanent morphs from additive SliderSetList)
 ;
-MorphUpdate[] Function GetBaseMorphs()
+CumulativeMorphUpdate[] Function GetBaseMorphs()
 	D.Log("SliderSet.GetBaseMorphs")
 	MorphUpdate[] baseMorphs = new MorphUpdate[0]
 	int idxSliderSet = 0
@@ -249,13 +284,13 @@ MorphUpdate[] Function GetBaseMorphs()
 		EndIf
 		idxSliderSet += 1
 	EndWhile
-	return baseMorphs
+	return CalculateCumulativeMorphs(baseMorphs)
 EndFunction
 
 ;
 ; Get the list of full morphs without recalculating
 ;
-MorphUpdate[] Function GetFullMorphs()
+CumulativeMorphUpdate[] Function GetFullMorphs()
 	D.Log("SliderSet.GetFullMorphs")
 	MorphUpdate[] fullMorphs = new MorphUpdate[0]
 	int idxSliderSet = 0
@@ -270,7 +305,7 @@ MorphUpdate[] Function GetFullMorphs()
 		EndIf
 		idxSliderSet += 1
 	EndWhile
-	return fullMorphs
+	return CalculateCumulativeMorphs(fullMorphs)
 EndFunction
 
 ;
@@ -495,6 +530,7 @@ MorphUpdate[] Function SliderSet_CalculateFullMorphs(int idxSliderSet)
 		D.Log("  sliders:        " + this.SliderName)
 		While (idxSlider < this.NumberOfSliderNames)
 			MorphUpdate update = new MorphUpdate
+			update.SliderSetIndex = idxSliderSet
 			update.Name = SliderNameList[sliderNameOffset + idxSlider]
 			update.Value = fullMorphValue
 			update.ApplyPlayer = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToPlayer
@@ -542,6 +578,7 @@ MorphUpdate[] Function SliderSet_GetBaseMorphs(int idxSliderSet)
 		int idxSlider = 0
 		While (idxSlider < this.NumberOfSliderNames)
 			MorphUpdate baseMorph = new MorphUpdate
+			baseMorph.SliderSetIndex = idxSliderSet
 			baseMorph.Name = SliderNameList[sliderNameOffset + idxSlider]
 			baseMorph.Value = this.BaseMorph * this.TargetMorph
 			baseMorph.ApplyPlayer = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToPlayer
@@ -566,6 +603,7 @@ MorphUpdate[] Function SliderSet_GetFullMorphs(int idxSliderSet)
 	int idxSlider = 0
 	While (idxSlider < this.NumberOfSliderNames)
 		MorphUpdate fullMorph = new MorphUpdate
+		fullMorph.SliderSetIndex = idxSliderSet
 		fullMorph.Name = SliderNameList[sliderNameOffset + idxSlider]
 		fullMorph.Value = this.FullMorph * this.TargetMorph
 		fullMorph.ApplyPlayer = this.ApplyTo == EApplyToAll || this.ApplyTo == EApplyToPlayer
@@ -594,32 +632,33 @@ EndFunction
 Function SliderSet_Print(int idxSliderSet)
 	D.Log("SliderSet.SliderSet_Print: " + idxSliderSet)
 	SliderSet this = SliderSetList[idxSliderSet]
-	D.Log("  Index: " + this.Index)
-	D.Log("  IsUsed: " + this.IsUsed)
-	D.Log("  SliderName: " + this.SliderName)
-	D.Log("  ApplyTo: " + this.ApplyTo)
-	D.Log("  Sex: " + this.Sex)
-	D.Log("  TriggerName: " + this.TriggerName)
-	D.Log("  InvertTriggerValue: " + this.InvertTriggerValue)
-	D.Log("  UpdateType: " + this.UpdateType)
-	D.Log("  TargetMorph: " + this.TargetMorph)
-	D.Log("  ThresholdMin: " + this.ThresholdMin)
-	D.Log("  ThresholdMax: " + this.ThresholdMax)
-	D.Log("  UnequipSlot: " + this.UnequipSlot)
-	D.Log("  UnequipAction: " + this.UnequipAction)
-	D.Log("  ThresholdUnequip: " + this.ThresholdUnequip)
-	D.Log("  OnlyDoctorCanReset: " + this.OnlyDoctorCanReset)
-	D.Log("  IsAdditive: " + this.IsAdditive)
-	D.Log("  HasAdditiveLimit: " + this.HasAdditiveLimit)
-	D.Log("  AdditiveLimit: " + this.AdditiveLimit)
-	D.Log("  NumberOfSliderNames: " + this.NumberOfSliderNames)
+	D.Log("  Index:                " + this.Index)
+	D.Log("  IsUsed:               " + this.IsUsed)
+	D.Log("  SliderName:           " + this.SliderName)
+	D.Log("  ApplyTo:              " + this.ApplyTo)
+	D.Log("  Sex:                  " + this.Sex)
+	D.Log("  TriggerName:          " + this.TriggerName)
+	D.Log("  InvertTriggerValue:   " + this.InvertTriggerValue)
+	D.Log("  UpdateType:           " + this.UpdateType)
+	D.Log("  TargetMorph:          " + this.TargetMorph)
+	D.Log("  ThresholdMin:         " + this.ThresholdMin)
+	D.Log("  ThresholdMax:         " + this.ThresholdMax)
+	D.Log("  UnequipSlot:          " + this.UnequipSlot)
+	D.Log("  UnequipAction:        " + this.UnequipAction)
+	D.Log("  UnequipDropChance:    " + this.UnequipDropChance)
+	D.Log("  ThresholdUnequip:     " + this.ThresholdUnequip)
+	D.Log("  OnlyDoctorCanReset:   " + this.OnlyDoctorCanReset)
+	D.Log("  IsAdditive:           " + this.IsAdditive)
+	D.Log("  HasAdditiveLimit:     " + this.HasAdditiveLimit)
+	D.Log("  AdditiveLimit:        " + this.AdditiveLimit)
+	D.Log("  NumberOfSliderNames:  " + this.NumberOfSliderNames)
 	D.Log("  NumberOfUnequipSlots: " + this.NumberOfUnequipSlots)
-	D.Log("  BaseMorph: " + this.BaseMorph)
-	D.Log("  CurrentMorph: " + this.CurrentMorph)
-	D.Log("  FullMorph: " + this.FullMorph)
-	D.Log("  CurrentTriggerValue: " + this.CurrentTriggerValue)
-	D.Log("  NewTriggerValue: " + this.NewTriggerValue)
-	D.Log("  HasNewTriggerValue: " + this.HasNewTriggerValue)
+	D.Log("  BaseMorph:            " + this.BaseMorph)
+	D.Log("  CurrentMorph:         " + this.CurrentMorph)
+	D.Log("  FullMorph:            " + this.FullMorph)
+	D.Log("  CurrentTriggerValue:  " + this.CurrentTriggerValue)
+	D.Log("  NewTriggerValue:      " + this.NewTriggerValue)
+	D.Log("  HasNewTriggerValue:   " + this.HasNewTriggerValue)
 EndFunction
 
 
@@ -671,6 +710,8 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 	int overrideHasAdditiveLimit = MCM.GetModSettingInt("RadMorphingRedux", "iHasAdditiveLimit:Override")
 	float overrideAdditiveLimit = MCM.GetModSettingFloat("RadMorphingRedux", "fAdditiveLimit:Override") / 100.0
 	int overrideUnequipAction = MCM.GetModSettingInt("RadMorphingRedux", "iUnequipAction:Override")
+	bool overrideUnequipDropChance = MCM.GetModSettingInt("RadMorphingRedux", "bOverrideUnequipDropChance:Override")
+	float overrideUnequipDropChanceValue = MCM.GetModSettingFloat("RadMorphingRedux", "fUnequipDropChance:Override") / 100.0
 
 	; create empty arrays
 	If (!SliderSetList)
@@ -726,6 +767,9 @@ Function LoadSliderSets(int numberOfSliderSets, Actor player)
 			ElseIf (overrideUnequipAction == EOverrideUnequipActionDestroy)
 				newSet.UnequipAction = EUnequipActionDestroy
 			EndIf
+		EndIf
+		If (overrideUnequipDropChance)
+			newSet.UnequipDropChance = overrideUnequipDropChanceValue
 		EndIf
 
 		; populate flattened arrays
@@ -801,7 +845,7 @@ EndFunction
 ;
 ; Get the list of morph updates (sliderName:newValue) for all SliderSetList with @updateType.
 ;
-MorphUpdate[] Function CalculateMorphUpdates(int updateType)
+CumulativeMorphUpdate[] Function CalculateMorphUpdates(int updateType)
 	MorphUpdate[] updates = new MorphUpdate[0]
 	int idxSliderSet = 0
 	While (idxSliderSet < SliderSetList.Length)
@@ -818,7 +862,7 @@ MorphUpdate[] Function CalculateMorphUpdates(int updateType)
 		idxSliderSet += 1
 	EndWhile
 
-	return updates
+	return CalculateCumulativeMorphs(updates)
 EndFunction
 
 
@@ -962,7 +1006,7 @@ EndFunction
 ; @param float targetBaseMorph - target base morph percentage (0.0-1.0) relative to the total range of each trigger.
 ; @returns MorphUpdate[] - list of morph updates to apply the new base morphs.
 ;
-MorphUpdate[] Function ReduceBaseMorphs(float targetBaseMorph)
+CumulativeMorphUpdate[] Function ReduceBaseMorphs(float targetBaseMorph)
 	D.Log("SliderSet.ReduceBaseMorphs: " + targetBaseMorph)
 	int idxTrigger = 0
 	MorphUpdate[] updates = new MorphUpdate[0]
@@ -985,7 +1029,7 @@ MorphUpdate[] Function ReduceBaseMorphs(float targetBaseMorph)
 		idxTrigger += 1
 	EndWhile
 
-	return updates
+	return CalculateCumulativeMorphs(updates)
 EndFunction
 
 ;
@@ -1055,10 +1099,129 @@ MorphUpdate[] Function ReduceBaseMorphsForTrigger(string triggerName, bool inver
 EndFunction
 
 
+CumulativeMorphUpdate[] Function CalculateCumulativeMorphs(MorphUpdate[] updates)
+	D.Log("SliderSet.CalculateCumulativeMorphs: " + updates)
+
+	; the final list of cumulative updates to be returned
+	CumulativeMorphUpdate[] cumUpdates = new CumulativeMorphUpdate[0]
+
+	If (updates.Length == 0)
+		D.Log("  no updates")
+		return cumUpdates
+	EndIf
+
+	; keep track of which slider sets are included in the update list
+	bool[] sliderSetChecked = new bool[SliderSetList.Length]
+	; keep track of the slider names already in the list of cumulative updates
+	string[] sliderNames = new string[0]
+
+	; first loop through the provided update list and populate the list of cumulative updates based only on those
+	D.Log("  checking updates")
+	int idxUpdate = 0
+	While (idxUpdate < updates.Length)
+		MorphUpdate update = updates[idxUpdate]
+		D.Log("    " + update)
+		D.Log("    " + sliderNames)
+		CumulativeMorphUpdate cumUpdate = None
+		; mark slider set as checked
+		sliderSetChecked[update.SliderSetIndex] = true
+		; check if the affected slider is already in the list of cumulative updates
+		int idxSlider = sliderNames.Find(update.Name)
+		If (idxSlider >= 0)
+			; if in the list, use the existing cumulative update
+			cumUpdate = cumUpdates[idxSlider]
+			D.Log("      found cumUpdate (" + idxSlider + "): " + cumUpdate)
+		Else
+			; if not in the list, create a new cumulative update
+			D.Log("      new cumUpdate")
+			sliderNames.Add(update.Name)
+			cumUpdate = new CumulativeMorphUpdate
+			cumUpdate.Name = update.Name
+			cumUpdate.ApplyPlayerFemale = false
+			cumUpdate.ApplyPlayerMale = false
+			cumUpdate.ApplyCompanionFemale = false
+			cumUpdate.ApplyCompanionMale = false
+			cumUpdate.PlayerFemaleValue = 0.0
+			cumUpdate.PlayerMaleValue = 0.0
+			cumUpdate.CompanionFemaleValue = 0.0
+			cumUpdate.CompanionMaleValue = 0.0
+			cumUpdates.Add(cumUpdate)
+		EndIf
+		; update who it applies to and the values
+		If (update.ApplyPlayer && update.ApplyFemale)
+			cumUpdate.ApplyPlayerFemale = true
+			cumUpdate.PlayerFemaleValue += update.Value
+		EndIf
+		If (update.ApplyPlayer && update.ApplyMale)
+			cumUpdate.ApplyPlayerMale = true
+			cumUpdate.PlayerMaleValue += update.Value
+		EndIf
+		If (update.ApplyCompanion && update.ApplyFemale)
+			cumUpdate.ApplyCompanionFemale = true
+			cumUpdate.CompanionFemaleValue += update.Value
+		EndIf
+		If (update.ApplyCompanion && update.ApplyMale)
+			cumUpdate.ApplyCompanionMale = true
+			cumUpdate.CompanionMaleValue += update.Value
+		EndIf
+		D.Log("        -> " + cumUpdate)
+		idxUpdate += 1
+	EndWhile
+	D.Log("    -> " + cumUpdates)
+
+	D.Log("  checking other slider sets")
+	; after going through the provided update list, check the remaining slider sets
+	int idxSliderSet = 0
+	While (idxSliderSet < SliderSetList.Length)
+		; check that the slider set was not already in the list of updates
+		If (!sliderSetChecked[idxSliderSet])
+			If (SliderSetList[idxSliderSet].IsUsed)
+				D.Log("    SliderSet " + idxSliderSet + ": checking now")
+				; loop through that slider set's morphs
+				MorphUpdate[] sliderSetMorphs = SliderSet_GetFullMorphs(idxSliderSet)
+				int idxSliderSetMorph = 0
+				While (idxSliderSetMorph < sliderSetMorphs.Length)
+					MorphUpdate sliderSetMorph = sliderSetMorphs[idxSliderSetMorph]
+					D.Log("      " + sliderSetMorph)
+					; check if the slider is affected by the update
+					int idxSlider = sliderNames.Find(sliderSetMorph.Name)
+					If (idxSlider >= 0)
+						CumulativeMorphUpdate cumUpdate = cumUpdates[idxSlider]
+						D.Log("        add to cumUpdate: " + cumUpdate)
+						; update the values
+						If (cumUpdate.ApplyPlayerFemale && sliderSetMorph.ApplyPlayer && sliderSetMorph.ApplyFemale)
+							cumUpdate.PlayerFemaleValue += sliderSetMorph.Value
+						EndIf
+						If (cumUpdate.ApplyPlayerMale && sliderSetMorph.ApplyPlayer && sliderSetMorph.ApplyMale)
+							cumUpdate.PlayerMaleValue += sliderSetMorph.Value
+						EndIf
+						If (cumUpdate.ApplyCompanionFemale && sliderSetMorph.ApplyCompanion && sliderSetMorph.ApplyFemale)
+							cumUpdate.CompanionFemaleValue += sliderSetMorph.Value
+						EndIf
+						If (cumUpdate.ApplyCompanionMale && sliderSetMorph.ApplyCompanion && sliderSetMorph.ApplyMale)
+							cumUpdate.CompanionMaleValue += sliderSetMorph.Value
+						EndIf
+						D.Log("         -> " + cumUpdate)
+					Else
+						D.Log("        slider not affected by update: " + sliderSetMorph.Name)
+					EndIf
+					idxSliderSetMorph += 1
+				EndWhile
+			EndIf
+		Else
+			D.Log("    SliderSet " + idxSliderSet + ": already checked")
+		EndIf
+		idxSliderSet += 1
+	EndWhile
+	D.Log("  -> " + cumUpdates)
+	return cumUpdates
+EndFunction
+
+
 ;
 ; Get the list of full morphs based on a CurrentMorph and BaseMorph for all slider sets.
 ;
-MorphUpdate[] Function CalculateFullMorphs()
+CumulativeMorphUpdate[] Function CalculateFullMorphs()
 	MorphUpdate[] updates = new MorphUpdate[0]
 	int idxSliderSet = 0
 	While (idxSliderSet < SliderSetList.Length)
@@ -1072,7 +1235,7 @@ MorphUpdate[] Function CalculateFullMorphs()
 		idxSliderSet += 1
 	EndWhile
 
-	return updates
+	return CalculateCumulativeMorphs(updates)
 EndFunction
 
 
@@ -1116,6 +1279,7 @@ UnequipSlot[] Function GetUnequipSlots()
 				slot.ApplyMale = sliderSet.Sex == EApplySexAll || sliderSet.Sex == EApplySexMale
 				slot.Drop = sliderSet.UnequipAction == EUnequipActionDrop
 				slot.Destroy = sliderSet.UnequipAction == EUnequipActionDestroy
+				slot.DropChance = sliderSet.UnequipDropChance
 				slots.Add(slot)
 				idxSlot += 1
 				D.Log(slot)

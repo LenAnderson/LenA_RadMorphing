@@ -103,6 +103,26 @@
 	],
 	"pages": [
 		{
+			"pageDisplayName": "Debug Tools",
+			"content": [
+				"{{TPL:HEADER}}",
+				
+				{
+					"text": "Debugging",
+					"type": "section"
+				},
+				{
+					"text": "Enable Logging",
+					"help": "Enable this if you experience issues with this mod. Default: OFF",
+					"type": "switcher",
+					"id": "bIsLoggingEnabled:Debug",
+					"valueOptions": {
+						"sourceType": "ModSettingBool"
+					}
+				}
+			]
+		},
+		{
 			"pageDisplayName": "Global Overrides",
 			"content": [
 				"{{TPL:HEADER}}",
@@ -177,27 +197,63 @@
 						"sourceType": "ModSettingInt",
 						"options": ["No Override", "Unequip", "Drop", "Destroy"]
 					}
+				},
+				{
+					"text": "Override chance to drop / destroy",
+					"help": "Whether to override the chance to drop / destroy unequipped items.",
+					"type": "switcher",
+					"id": "bOverrideUnequipDropChance:Override",
+					"valueOptions": {
+						"sourceType": "ModSettingBool"
+					}
+				},
+				{
+					"text": "Chance to drop / destroy",
+					"help": "Chance that the unequipped item id dropped / destroyed if the respective unequip action is selected.",
+					"type": "slider",
+					"id": "fUnequipDropChance:Override",
+					"valueOptions": {
+						"sourceType": "ModSettingFloat",
+						"min": 1.0,
+						"max": 100.0,
+						"step": 1.0
+					}
 				}
 			]
 		},
 		{
-			"pageDisplayName": "Debug Tools",
+			"pageDisplayName": "Equipped Items",
 			"content": [
 				"{{TPL:HEADER}}",
-				
+
 				{
-					"text": "Debugging",
-					"type": "section"
+					"text": "List of currently equipped items and their slot numbers for use in the unequip settings.",
+					"type": "text",
+					"html": true
 				},
 				{
-					"text": "Enable Logging",
-					"help": "Enable this if you experience issues with this mod. Default: OFF",
-					"type": "switcher",
-					"id": "bIsLoggingEnabled:Debug",
-					"valueOptions": {
-						"sourceType": "ModSettingBool"
+					"text": "<br>",
+					"type": "text",
+					"html": true
+				},
+
+				{
+					"text": "Refresh",
+					"type": "button",
+					"action": {
+						"type": "CallFunction",
+						"form": "LenA_RadMorphing.esp|4C50",
+						"scriptName": "LenARM:LenARM_Main",
+						"function": "RefreshEquippedClothes",
+						"params": []
 					}
-				}
+				},
+
+				{
+					"text": "Equipped Items",
+					"type": "section"
+				},
+				"{{TPL:EQUIPPED_ITEMS}}"
 			]
 		}
 	]

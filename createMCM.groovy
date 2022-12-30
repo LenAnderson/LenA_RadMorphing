@@ -27,6 +27,20 @@ def tplText = new File("MCM/config/RadMorphingRedux/config.tpl.json").text.repla
 def tplSliderPageText = new File("MCM/config/RadMorphingRedux/config.sliderSet.page.tpl.json").text.replaceAll(~/"\{\{TPL:HEADER\}\}"/, headerText)
 def tplSliderText = new File("MCM/config/RadMorphingRedux/config.sliderSet.tpl.json").text.replaceAll(~/"\{\{TPL:HEADER\}\}"/, headerText)
 
+
+def equippedText = (0..61).collect{idx->
+	"""
+				{
+					"text": "",
+					"type": "textinput",
+					"id": "sSlot${idx}:EquippedItems",
+					"valueOptions": {
+						"sourceType": "ModSettingString"
+					}
+				}"""
+}.join(',')
+tplText = tplText.replaceAll(~/"\{\{TPL:EQUIPPED_ITEMS\}\}"/, equippedText)
+
 // old ini
 def oldVarsMatched = new File("MCM/config/RadMorphingRedux/settings.ini").text =~ /(?:\[([^\]\r\n]+)\])|(?:([^;=\r\n]+?)=([^;\r\n]*?)(?:\s*[;\r\n]))/
 def oldVars = [:]
