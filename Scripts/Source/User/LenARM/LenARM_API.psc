@@ -1,5 +1,51 @@
 Scriptname LenARM:LenARM_API extends Quest
-{API script for other mods to communicate with Rad Morphing Redux}
+{
+	API script for other mods to communicate with Rad Morphing Redux
+
+	
+	== Events ==
+
+	OnStartup
+		This event fires when RMR has finished running its startup procedures.
+		ARGS: None
+
+	OnShutdown
+		This event fires when RMR shuts down.
+		You should stop running code that is only needed for RMR and stop sending updates to RMR to avoid wasting resources.
+		ARGS: None
+
+	OnRequestTriggers
+		This event fires whenever RMR clears its list of trigger names.
+		Respond by calling RegisterTrigger(), followed by UpdateTrigger()
+		ARGS: None
+
+	OnMorphChange
+		This event fires whenever RMR updates morphs.
+		ARGS:
+			[0]  Total percentage of current morphs (same as calling GetMorphPercentage())
+
+	OnTriggerAdd
+		This event fires whenever a new trigger name is registered.
+		ARGS:
+			[0]  Name of the new trigger
+
+	OnTriggerRemove
+		This event fires whenever a trigger unregisters itself.
+		ARGS:
+			[0]  Name of the unregistered trigger
+
+	OnTriggerUpdate
+		This event fires whenever a trigger updates its value.
+		ARGS:
+			[0]  Name of the updated trigger
+			[1]  Value of the trigger as used by RMR. May be subject to clamping.
+
+	OnAAFBodyDouble
+		This event fires whenever an AAF scene involving the player starts and the AAF body double is detected.
+		ARGS:
+			[0]  Actor instance of the body double
+
+}
 
 
 ;-----------------------------------------------------------------------------------------------------
