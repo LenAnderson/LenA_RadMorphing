@@ -8,6 +8,7 @@ Group LenARM
 	LenARM_Debug Property D Auto Const
 	LenARM_Util Property Util Auto Const
 	LenARM_Main Property Main Auto Const
+	LenARM_Proxy_AAF Property AAF Auto Const
 EndGroup
 
 
@@ -21,6 +22,7 @@ CustomEvent OnMorphChange
 CustomEvent OnTriggerAdd
 CustomEvent OnTriggerRemove
 CustomEvent OnTriggerUpdate
+CustomEvent OnAAFBodyDouble
 
 
 
@@ -53,11 +55,11 @@ EndEvent
 ; this mod's events
 
 Event LenARM:LenARM_Main.OnStartup(LenARM:LenARM_Main sender, Var[] args)
-	SendCustomEvent("OnStartup")
+	Startup()
 EndEvent
 
 Event LenARM:LenARM_Main.OnShutdown(LenARM:LenARM_Main sender, Var[] args)
-	SendCustomEvent("OnShutdown")
+	Shutdown()
 EndEvent
 
 Event LenARM:LenARM_Main.OnRequestTriggers(LenARM:LenARM_Main akSender, Var[] akArgs)
@@ -69,6 +71,30 @@ Event LenARM:LenARM_Main.OnMorphChange(LenARM:LenARM_Main sender, Var[] args)
 	D.Log("API.OnMorphChange: " + args)
 	SendCustomEvent("OnMorphChange", args)
 EndEvent
+
+
+Event LenARM:LenARM_Proxy_AAF.OnBodyDouble(LenARM:LenARM_Proxy_AAF akSender, Var[] args)
+	D.Log("API.OnBodyDouble: " + args)
+	SendCustomEvent("OnAAFBodyDouble", args)
+EndEvent
+
+
+
+
+;-----------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------
+; startup and shutdown
+
+Function Startup()
+	SendCustomEvent("OnStartup")
+	RegisterForCustomEvent(AAF, "OnBodyDouble")
+EndFunction
+
+Function Shutdown()
+	SendCustomEvent("OnShutdown")
+	UnregisterForCustomEvent(AAF, "OnBodyDouble")
+EndFunction
 
 
 

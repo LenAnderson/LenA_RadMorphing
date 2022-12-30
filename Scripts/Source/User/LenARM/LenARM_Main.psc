@@ -39,8 +39,11 @@ EndGroup
 ;-----------------------------------------------------------------------------------------------------
 ; proxy scripts
 Group Proxy
-	; proxy for devious devices
 	LenARM_Proxy_DeviousDevices Property DD Auto Const
+	{proxy for devious devices}
+
+	LenARM_Proxy_AAF Property AAF Auto Const
+	{proxy for AAF}
 EndGroup
 
 
@@ -154,7 +157,7 @@ EndFunction
 ; Get the current version of this mod.
 ;
 string Function GetVersion()
-	return "2.2.1"; Wed Dec 21 14:55:38 CET 2022
+	return "2.3.0-a"; Fri Dec 30 18:55:17 CET 2022
 EndFunction
 
 
@@ -323,6 +326,9 @@ Function Startup()
 		; start proxy for Devious Devices
 		DD.LoadDD()
 
+		; start proxy for AAF
+		AAF.LoadAAF()
+
 		; listen for item equip
 		RegisterForRemoteEvent(Player, "OnItemEquipped")
 		int idxCompanion = 0
@@ -447,6 +453,9 @@ Function Shutdown(bool withRestoreMorphs=true)
 
 		; stop listening for companion changes
 		UnregisterForCustomEvent(Followers, "CompanionChange")
+
+		; shutdown AAF proxy
+		AAF.UnloadAAF()
 
 		If (withRestoreMorphs)
 			StartTimer(Math.Max(UpdateDelay + 0.5, 2.0), ETimerShutdownRestoreMorphs)
@@ -713,6 +722,7 @@ Function ApplyMorphUpdates(LenARM_SliderSet:CumulativeMorphUpdate[] updates)
 		LenARM_SliderSet:CumulativeMorphUpdate[] femaleUpdates = new LenARM_SliderSet:CumulativeMorphUpdate[0]
 		LenARM_SliderSet:CumulativeMorphUpdate[] maleUpdates = new LenARM_SliderSet:CumulativeMorphUpdate[0]
 		int sex = Player.GetLeveledActorBase().GetSex()
+		Actor bodyDouble = AAF.GetBodyDouble()
 		int idxUpdate = 0
 		bool playerMorphed = false
 		While (idxUpdate < updates.Length)
@@ -732,12 +742,19 @@ Function ApplyMorphUpdates(LenARM_SliderSet:CumulativeMorphUpdate[] updates)
 				EndIf
 				D.Log("  player morph: " + update.Name + "=" + value)
 				BodyGen.SetMorph(Player, sex==ESexFemale, update.Name, kwMorph, value)
+				If (bodyDouble)
+					D.Log(  "morphing AAF body double: " + bodyDouble)
+					BodyGen.SetMorph(bodyDouble, sex==ESexFemale, update.Name, kwMorph, value)
+				EndIf
 				playerMorphed = true
 			EndIf
 			idxUpdate += 1
 		EndWhile
 		If (playerMorphed)
 			BodyGen.UpdateMorphs(Player)
+			If (bodyDouble)
+				BodyGen.UpdateMorphs(bodyDouble)
+			EndIf
 		EndIf
 
 		ApplyMorphUpdatesToCompanions(femaleUpdates, maleUpdates)
