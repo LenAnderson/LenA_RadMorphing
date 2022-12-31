@@ -1,5 +1,51 @@
 Scriptname LenARM:LenARM_API extends Quest
-{API script for other mods to communicate with Rad Morphing Redux}
+{
+	API script for other mods to communicate with Rad Morphing Redux
+
+	
+	== Events ==
+
+	OnStartup
+		This event fires when RMR has finished running its startup procedures.
+		ARGS: None
+
+	OnShutdown
+		This event fires when RMR shuts down.
+		You should stop running code that is only needed for RMR and stop sending updates to RMR to avoid wasting resources.
+		ARGS: None
+
+	OnRequestTriggers
+		This event fires whenever RMR clears its list of trigger names.
+		Respond by calling RegisterTrigger(), followed by UpdateTrigger()
+		ARGS: None
+
+	OnMorphChange
+		This event fires whenever RMR updates morphs.
+		ARGS:
+			[0]  Total percentage of current morphs (same as calling GetMorphPercentage())
+
+	OnTriggerAdd
+		This event fires whenever a new trigger name is registered.
+		ARGS:
+			[0]  Name of the new trigger
+
+	OnTriggerRemove
+		This event fires whenever a trigger unregisters itself.
+		ARGS:
+			[0]  Name of the unregistered trigger
+
+	OnTriggerUpdate
+		This event fires whenever a trigger updates its value.
+		ARGS:
+			[0]  Name of the updated trigger
+			[1]  Value of the trigger as used by RMR. May be subject to clamping.
+
+	OnAAFBodyDouble
+		This event fires whenever an AAF scene involving the player starts and the AAF body double is detected.
+		ARGS:
+			[0]  Actor instance of the body double
+
+}
 
 
 ;-----------------------------------------------------------------------------------------------------
@@ -8,6 +54,7 @@ Group LenARM
 	LenARM_Debug Property D Auto Const
 	LenARM_Util Property Util Auto Const
 	LenARM_Main Property Main Auto Const
+	LenARM_Proxy_AAF Property AAF Auto Const
 EndGroup
 
 
@@ -21,6 +68,7 @@ CustomEvent OnMorphChange
 CustomEvent OnTriggerAdd
 CustomEvent OnTriggerRemove
 CustomEvent OnTriggerUpdate
+CustomEvent OnAAFBodyDouble
 
 
 
@@ -53,11 +101,11 @@ EndEvent
 ; this mod's events
 
 Event LenARM:LenARM_Main.OnStartup(LenARM:LenARM_Main sender, Var[] args)
-	SendCustomEvent("OnStartup")
+	Startup()
 EndEvent
 
 Event LenARM:LenARM_Main.OnShutdown(LenARM:LenARM_Main sender, Var[] args)
-	SendCustomEvent("OnShutdown")
+	Shutdown()
 EndEvent
 
 Event LenARM:LenARM_Main.OnRequestTriggers(LenARM:LenARM_Main akSender, Var[] akArgs)
@@ -69,6 +117,30 @@ Event LenARM:LenARM_Main.OnMorphChange(LenARM:LenARM_Main sender, Var[] args)
 	D.Log("API.OnMorphChange: " + args)
 	SendCustomEvent("OnMorphChange", args)
 EndEvent
+
+
+Event LenARM:LenARM_Proxy_AAF.OnBodyDouble(LenARM:LenARM_Proxy_AAF akSender, Var[] args)
+	D.Log("API.OnBodyDouble: " + args)
+	SendCustomEvent("OnAAFBodyDouble", args)
+EndEvent
+
+
+
+
+;-----------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------
+; startup and shutdown
+
+Function Startup()
+	SendCustomEvent("OnStartup")
+	RegisterForCustomEvent(AAF, "OnBodyDouble")
+EndFunction
+
+Function Shutdown()
+	SendCustomEvent("OnShutdown")
+	UnregisterForCustomEvent(AAF, "OnBodyDouble")
+EndFunction
 
 
 

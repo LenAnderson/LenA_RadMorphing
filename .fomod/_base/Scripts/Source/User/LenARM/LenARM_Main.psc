@@ -39,8 +39,11 @@ EndGroup
 ;-----------------------------------------------------------------------------------------------------
 ; proxy scripts
 Group Proxy
-	; proxy for devious devices
 	LenARM_Proxy_DeviousDevices Property DD Auto Const
+	{proxy for devious devices}
+
+	LenARM_Proxy_AAF Property AAF Auto Const
+	{proxy for AAF}
 EndGroup
 
 
@@ -154,7 +157,7 @@ EndFunction
 ; Get the current version of this mod.
 ;
 string Function GetVersion()
-	return "2.2.1"; Wed Dec 21 14:55:38 CET 2022
+	return "2.3.0"; Sat Dec 31 04:32:55 CET 2022
 EndFunction
 
 
@@ -237,6 +240,7 @@ Event FollowersScript.CompanionChange(FollowersScript akSender, Var[] eventArgs)
 		CompanionList.Add(companion)
 		RegisterForRemoteEvent(companion, "OnItemEquipped")
 		LenARM_SliderSet:CumulativeMorphUpdate[] updates = SliderSets.GetFullMorphs()
+		RestoreOriginalMorphs(companion)
 		ApplyMorphUpdates(updates)
 	Else
 		int idxCompanion = CompanionList.Find(companion)
@@ -321,6 +325,9 @@ Function Startup()
 
 		; start proxy for Devious Devices
 		DD.LoadDD()
+
+		; start proxy for AAF
+		AAF.LoadAAF()
 
 		; listen for item equip
 		RegisterForRemoteEvent(Player, "OnItemEquipped")
@@ -446,6 +453,9 @@ Function Shutdown(bool withRestoreMorphs=true)
 
 		; stop listening for companion changes
 		UnregisterForCustomEvent(Followers, "CompanionChange")
+
+		; shutdown AAF proxy
+		AAF.UnloadAAF()
 
 		If (withRestoreMorphs)
 			StartTimer(Math.Max(UpdateDelay + 0.5, 2.0), ETimerShutdownRestoreMorphs)
@@ -608,9 +618,11 @@ EndFunction
 ; When SliderSet.TargetMorph has been reached, morph percentage is 100% (=1.0).
 ; With additive morphing the value may go above 100%.
 ;
-float Function GetMorphPercentage()
+; @param onlyPermanent - only include slider sets with permanent / only doctor morphs
+;
+float Function GetMorphPercentage(bool onlyPermanent=false)
 	D.Log("GetMorphPercentage")
-	return SliderSets.GetMorphPercentage()
+	return SliderSets.GetMorphPercentage(onlyPermanent)
 EndFunction
 
 ;
@@ -710,6 +722,7 @@ Function ApplyMorphUpdates(LenARM_SliderSet:CumulativeMorphUpdate[] updates)
 		LenARM_SliderSet:CumulativeMorphUpdate[] femaleUpdates = new LenARM_SliderSet:CumulativeMorphUpdate[0]
 		LenARM_SliderSet:CumulativeMorphUpdate[] maleUpdates = new LenARM_SliderSet:CumulativeMorphUpdate[0]
 		int sex = Player.GetLeveledActorBase().GetSex()
+		Actor bodyDouble = AAF.GetBodyDouble()
 		int idxUpdate = 0
 		bool playerMorphed = false
 		While (idxUpdate < updates.Length)
@@ -729,12 +742,19 @@ Function ApplyMorphUpdates(LenARM_SliderSet:CumulativeMorphUpdate[] updates)
 				EndIf
 				D.Log("  player morph: " + update.Name + "=" + value)
 				BodyGen.SetMorph(Player, sex==ESexFemale, update.Name, kwMorph, value)
+				If (bodyDouble)
+					D.Log(  "morphing AAF body double: " + bodyDouble)
+					BodyGen.SetMorph(bodyDouble, sex==ESexFemale, update.Name, kwMorph, value)
+				EndIf
 				playerMorphed = true
 			EndIf
 			idxUpdate += 1
 		EndWhile
 		If (playerMorphed)
 			BodyGen.UpdateMorphs(Player)
+			If (bodyDouble)
+				BodyGen.UpdateMorphs(bodyDouble)
+			EndIf
 		EndIf
 
 		ApplyMorphUpdatesToCompanions(femaleUpdates, maleUpdates)
@@ -815,7 +835,7 @@ EndFunction
 Function ShowHealMorphDialog()
 	float baseMorphs = GetBaseMorphPercentage() * 100.0
 	If (baseMorphs > 0.0)
-		float morphs = GetMorphPercentage() * 100.0
+		float morphs = GetMorphPercentage(true) * 100.0
 		int cost = (baseMorphs * HealCost) as int
 		int capsCount = Player.GetItemCount(caps)
 		float canAfford = Math.Min(baseMorphs, Math.Floor(capsCount / HealCost))

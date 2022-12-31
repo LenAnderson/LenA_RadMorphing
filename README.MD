@@ -52,6 +52,7 @@ as `fallout4.ppj`.
 │       │       ├── LenARM_API.psc                      API script
 │       │       ├── LenARM_Debug.psc                    debug functions (logging etc.)
 │       │       ├── LenARM_Main.psc                     main script, entry point for this mod
+│       │       ├── LenARM_Proxy_AAF.psc                proxy script to interact with the AAF mod
 │       │       ├── LenARM_Proxy_DeviousDevices.psc     proxy script to interact with the Devious Devices mod
 │       │       ├── LenARM_SliderSet.psc                slider set logic
 │       │       └── LenARM_Util.psc                     utility functions (e.g. string splitting)
