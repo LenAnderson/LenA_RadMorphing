@@ -157,7 +157,7 @@ EndFunction
 ; Get the current version of this mod.
 ;
 string Function GetVersion()
-	return "2.3.0-a"; Fri Dec 30 18:55:17 CET 2022
+	return "2.3.0"; Sat Dec 31 04:32:55 CET 2022
 EndFunction
 
 
