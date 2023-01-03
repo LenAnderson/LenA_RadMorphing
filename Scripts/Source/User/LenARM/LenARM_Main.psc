@@ -66,9 +66,13 @@ EndGroup
 
 Group MCM
 	string[] Property MCM_TriggerNames Auto
+	string[] Property MCM_EquippedItemsActors Auto
 EndGroup
 string[] Function GetTriggerNames()
 	return MCM_TriggerNames
+EndFunction
+string[] Function GetEquippedItemsActors()
+	return MCM_EquippedItemsActors
 EndFunction
 
 
@@ -238,6 +242,7 @@ Event FollowersScript.CompanionChange(FollowersScript akSender, Var[] eventArgs)
 			CompanionList = new Actor[0]
 		EndIf
 		CompanionList.Add(companion)
+		MCM_EquippedItemsActors.Add(companion.GetDisplayName())
 		RegisterForRemoteEvent(companion, "OnItemEquipped")
 		LenARM_SliderSet:CumulativeMorphUpdate[] updates = SliderSets.GetFullMorphs()
 		RestoreOriginalMorphs(companion)
@@ -245,6 +250,8 @@ Event FollowersScript.CompanionChange(FollowersScript akSender, Var[] eventArgs)
 	Else
 		int idxCompanion = CompanionList.Find(companion)
 		CompanionList.Remove(idxCompanion)
+		idxCompanion = MCM_EquippedItemsActors.Find(companion.GetDisplayName())
+		MCM_EquippedItemsActors.Remove(idxCompanion)
 		UnregisterForRemoteEvent(companion, "OnItemEquipped")
 		If (RestoreCompanionsOnDismiss)
 			RestoreOriginalMorphs(companion)
@@ -267,14 +274,14 @@ EndEvent
 
 Function OnMCMSettingChange(string modName, string id)
 	D.Log("OnMCMSettingChange: " + modName + "; " + id)
+	bool needsRestart = true
 	If (LL_Fourplay.StringSubstring(id, 0, 1) == "s")
 		string value = MCM.GetModSettingString(modName, id)
 		If (LL_Fourplay.StringSubstring(value, 0, 1) == " ")
 			string msg = "The value you have just changed has leading whitespace:\n\n'" + value + "'"
 			Debug.MessageBox(msg)
 		EndIf
-	EndIf
-	If (Util.StringStartsWith(id, "iTriggerNameIndex:Slider"))
+	ElseIf (Util.StringStartsWith(id, "iTriggerNameIndex:Slider"))
 		string sliderName = Util.StringSplit(id, ":")[1]
 		int idxTriggerName = MCM.GetModSettingInt("RadMorphingRedux", id)
 		string triggerName = MCM_TriggerNames[idxTriggerName]
@@ -282,9 +289,14 @@ Function OnMCMSettingChange(string modName, string id)
 		D.Log("  setting MCM: " + "sTriggerName:" + sliderName + " -> " + triggerName)
 		MCM.SetModSettingString("RadMorphingRedux", "sTriggerName:" + sliderName, triggerName)
 		D.Log("    check MCM: " + MCM.GetModSettingString("RadMorphingRedux", "sTriggerName:" + sliderName))
+	ElseIf (id == "iActorIndex:EquippedItems")
+		needsRestart = false
 	EndIf
-	MCM.SetModSettingString("RadMorphingRedux", "sModified:Internal", SUP_F4SE.GetUserTimeStamp())
-	Restart()
+
+	If (needsRestart)
+		MCM.SetModSettingString("RadMorphingRedux", "sModified:Internal", SUP_F4SE.GetUserTimeStamp())
+		Restart()
+	EndIf
 EndFunction
 
 
@@ -372,6 +384,17 @@ Function Startup()
 			idxSliderSet += 1
 		EndWhile
 		SendCustomEvent("OnRequestTriggers", new Var[0])
+
+		; set up actor list for equipped items in MCM
+		MCM_EquippedItemsActors = new string[0]
+		MCM_EquippedItemsActors.Add("Player")
+		idxCompanion = 0
+		While (idxCompanion < CompanionList.Length)
+			Actor companion = CompanionList[idxCompanion]
+			MCM_EquippedItemsActors.Add(companion.GetDisplayName())
+			idxCompanion += 1
+		EndWhile
+		MCM.SetModSettingInt("RadMorphingRedux", "iActorIndex:EquippedItems", 0)
 
 		; get debug setting from MCM
 		bool enableLogging = MCM.GetModSettingBool("RadMorphingRedux", "bIsLoggingEnabled:Debug")
@@ -1014,10 +1037,28 @@ Function RefreshEquippedClothes()
 	EndWhile
 	MCM.RefreshMenu()
 
+	Actor target
+	int idxActor = MCM.GetModSettingInt("RadMorphingRedux", "iActorIndex:EquippedItems")
+	If (idxActor == 0)
+		target = Player
+	Else
+		string actorName = MCM_EquippedItemsActors[idxActor]
+		int idxCompanion = 0
+		While (idxCompanion < CompanionList.Length)
+			Actor companion = CompanionList[idxCompanion]
+			If (companion.GetDisplayName() == actorName)
+				target = companion
+				idxCompanion = CompanionList.Length
+			EndIf
+			idxCompanion += 1
+		EndWhile
+	EndIf
+
+
 	idxMcm = 0
 	int slot = 0
 	While (slot < 62)
-		Actor:WornItem item = Player.GetWornItem(slot)
+		Actor:WornItem item = target.GetWornItem(slot)
 		If (item != None && item.item != None)
 			D.Log("  " + slot + ": " + item.item.GetName() + " (" + item.modelName + ")")
 			MCM.SetModSettingString("RadMorphingRedux", "sSlot" + idxMcm + ":EquippedItems", slot + ": " + item.item.GetName() + " (" + item.modelName + ")")
