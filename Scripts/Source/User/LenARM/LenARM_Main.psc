@@ -341,9 +341,22 @@ Function Startup()
 		; start proxy for AAF
 		AAF.LoadAAF()
 
+		; clean up companion list
+		D.Log("  cleaning up companion list")
+		int idxCompanion = CompanionList.Length - 1
+		While (idxCompanion >= 0)
+			Actor companion = CompanionList[idxCompanion]
+			D.Log("    checking " + companion.GetDisplayName() + "  " + companion)
+			If (!Followers.IsCompanion(companion))
+				D.Log("      -> remove")
+				CompanionList.Remove(idxCompanion)
+			EndIf
+			idxCompanion -= 1
+		EndWhile
+
 		; listen for item equip
 		RegisterForRemoteEvent(Player, "OnItemEquipped")
-		int idxCompanion = 0
+		idxCompanion = 0
 		While (idxCompanion < CompanionList.Length)
 			Actor companion = CompanionList[idxCompanion]
 			RegisterForRemoteEvent(companion, "OnItemEquipped")
