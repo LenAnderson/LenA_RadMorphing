@@ -238,6 +238,19 @@
 				},
 
 				{
+					"text": "Actor",
+					"type": "dropdown",
+					"id": "iActorIndex:EquippedItems",
+					"valueOptions": {
+						"listFromProperty": {
+							"form": "LenA_RadMorphing.esp|4C50",
+							"scriptName": "LenARM:LenARM_Main",
+							"propertyName": "MCM_EquippedItemsActors"
+						},
+						"sourceType": "ModSettingInt"
+					}
+				},
+				{
 					"text": "Refresh",
 					"type": "button",
 					"action": {
