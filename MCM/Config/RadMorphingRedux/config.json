@@ -4,7 +4,7 @@
     "minMcmVersion": 1,
     "content": [
         {
-            "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.4.0</font></p>",
+            "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.5.0</font></p>",
             "type": "text",
             "html": true
         },
@@ -51,6 +51,20 @@
         {
             "text": "Morph Updates",
             "type": "section"
+        },
+        {
+            "text": "Morph calculation",
+            "help": "How to calculate the morph value.",
+            "type": "dropdown",
+            "id": "iMorphCalculation:General",
+            "valueOptions": {
+                "sourceType": "ModSettingInt",
+                "options": [
+                    "RMR",
+                    "RMR + LooksMenu",
+                    "RMR + Highest Morph"
+                ]
+            }
         },
         {
             "text": "Update delay",
@@ -107,7 +121,7 @@
             "pageDisplayName": "Debug Tools",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.4.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.5.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -130,9 +144,49 @@
             "pageDisplayName": "Global Overrides",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.4.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.5.0</font></p>",
                     "type": "text",
                     "html": true
+                },
+                {
+                    "text": "Unequipping",
+                    "type": "section"
+                },
+                {
+                    "text": "Unequip action",
+                    "help": "What to do with unequipped items. Whether to simply unequip (store in inventory), drop to ground, or completely destroy the items.",
+                    "type": "dropdown",
+                    "id": "iUnequipAction:Override",
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt",
+                        "options": [
+                            "No Override",
+                            "Unequip",
+                            "Drop",
+                            "Destroy"
+                        ]
+                    }
+                },
+                {
+                    "text": "Override chance to drop / destroy",
+                    "help": "Whether to override the chance to drop / destroy unequipped items.",
+                    "type": "switcher",
+                    "id": "bOverrideUnequipDropChance:Override",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool"
+                    }
+                },
+                {
+                    "text": "Chance to drop / destroy",
+                    "help": "Chance that the unequipped item id dropped / destroyed if the respective unequip action is selected.",
+                    "type": "slider",
+                    "id": "fUnequipDropChance:Override",
+                    "valueOptions": {
+                        "sourceType": "ModSettingFloat",
+                        "min": 1.0,
+                        "max": 100.0,
+                        "step": 1.0
+                    }
                 },
                 {
                     "text": "Permanent Morphs",
@@ -201,46 +255,6 @@
                     "text": "<br>",
                     "type": "text",
                     "html": true
-                },
-                {
-                    "text": "Unequipping",
-                    "type": "section"
-                },
-                {
-                    "text": "Unequip action",
-                    "help": "What to do with unequipped items. Whether to simply unequip (store in inventory), drop to ground, or completely destroy the items.",
-                    "type": "dropdown",
-                    "id": "iUnequipAction:Override",
-                    "valueOptions": {
-                        "sourceType": "ModSettingInt",
-                        "options": [
-                            "No Override",
-                            "Unequip",
-                            "Drop",
-                            "Destroy"
-                        ]
-                    }
-                },
-                {
-                    "text": "Override chance to drop / destroy",
-                    "help": "Whether to override the chance to drop / destroy unequipped items.",
-                    "type": "switcher",
-                    "id": "bOverrideUnequipDropChance:Override",
-                    "valueOptions": {
-                        "sourceType": "ModSettingBool"
-                    }
-                },
-                {
-                    "text": "Chance to drop / destroy",
-                    "help": "Chance that the unequipped item id dropped / destroyed if the respective unequip action is selected.",
-                    "type": "slider",
-                    "id": "fUnequipDropChance:Override",
-                    "valueOptions": {
-                        "sourceType": "ModSettingFloat",
-                        "min": 1.0,
-                        "max": 100.0,
-                        "step": 1.0
-                    }
                 }
             ]
         },
@@ -248,7 +262,7 @@
             "pageDisplayName": "Equipped Items",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.4.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.5.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -794,7 +808,7 @@
             "pageDisplayName": "Slider Set 1",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.4.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.5.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -1074,7 +1088,7 @@
             "pageDisplayName": "Slider Set 2",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.4.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.5.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -1354,7 +1368,7 @@
             "pageDisplayName": "Slider Set 3",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.4.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.5.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -1634,7 +1648,7 @@
             "pageDisplayName": "Slider Set 4",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.4.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.5.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -1914,7 +1928,7 @@
             "pageDisplayName": "Slider Set 5",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.4.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.5.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -2194,7 +2208,7 @@
             "pageDisplayName": "Slider Set 6",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.4.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.5.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -2474,7 +2488,7 @@
             "pageDisplayName": "Slider Set 7",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.4.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.5.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -2754,7 +2768,7 @@
             "pageDisplayName": "Slider Set 8",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.4.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.5.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -3034,7 +3048,7 @@
             "pageDisplayName": "Slider Set 9",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.4.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.5.0</font></p>",
                     "type": "text",
                     "html": true
                 },
@@ -3314,7 +3328,7 @@
             "pageDisplayName": "Slider Set 10",
             "content": [
                 {
-                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.4.0</font></p>",
+                    "text": "<p align='center'><font size='28'>Rad Morphing Redux</font><br><font id='version' size='10'>v2.5.0</font></p>",
                     "type": "text",
                     "html": true
                 },
