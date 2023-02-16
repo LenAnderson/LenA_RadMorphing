@@ -50,6 +50,16 @@
 			"type": "section"
 		},
 		{
+			"text": "Morph calculation",
+			"help": "How to calculate the morph value.",
+			"type": "dropdown",
+			"id": "iMorphCalculation:General",
+			"valueOptions": {
+				"sourceType": "ModSettingInt",
+				"options": ["RMR", "RMR + LooksMenu", "RMR + Highest Morph"]
+			}
+		},
+		{
 			"text": "Update delay",
 			"help": "Seconds to wait between updating morphs. Only applies to periodic updates. Default: 1s",
 			"type": "slider",

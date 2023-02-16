@@ -96,6 +96,15 @@ Group EnumHealMorphChoice
 	int Property EHealMorphChoiceNo = 1 Auto Const
 EndGroup
 
+Group EnumMorphCalculation
+	int Property EMorphCalculationRmr = 0 Auto Const
+	{RMR}
+	int Property EMorphCalculationLm = 1 Auto Const
+	{RMR + LooksMenu}
+	int Property EMorphCalculationMax = 2 Auto Const
+	{RMR + highest morph}
+EndGroup
+
 
 ;-----------------------------------------------------------------------------------------------------
 ; variables
@@ -122,6 +131,8 @@ bool HealMorphMessageShown = false
 ; list of current companions
 Actor[] CompanionList
 
+; MCM: how to calculate morph values
+int MorphCalculation
 
 ; MCM: seconds between applying morphs
 float UpdateDelay
@@ -319,6 +330,9 @@ Function Startup()
 		
 		; get number of available SliderSets
 		NumberOfSliderSets = MCM.GetModSettingInt("RadMorphingRedux", "iNumberOfSliderSets:Static")
+
+		; get morph calculation from MCM
+		MorphCalculation = MCM.GetModSettingInt("RadMorphingRedux", "iMorphCalculation:General")
 		
 		; get update delay from MCM
 		UpdateDelay = MCM.GetModSettingFloat("RadMorphingRedux", "fUpdateDelay:General")
@@ -777,6 +791,30 @@ Function ApplyMorphUpdates(LenARM_SliderSet:CumulativeMorphUpdate[] updates)
 					value = update.PlayerMaleValue
 				EndIf
 				D.Log("  player morph: " + update.Name + "=" + value)
+				If (MorphCalculation == EMorphCalculationMax)
+					float originalMorph = 0.0
+					Keyword[] keywords = BodyGen.GetKeywords(Player, sex==ESexFemale, update.Name)
+					D.Log("    keywords: " + keywords)
+					int idxKeyword = 0
+					While (idxKeyword < keywords.Length)
+						Keyword kw = keywords[idxKeyword]
+						If (kw != kwMorph)
+							float morph = BodyGen.GetMorph(Player, sex==ESexFemale, update.Name, kw)
+							D.Log("    original morph (" + kw + "): " + morph)
+							If (morph > originalMorph)
+								originalMorph = morph
+							EndIf
+						EndIf
+						idxKeyword += 1
+					EndWhile
+					value += originalMorph
+				ElseIf (MorphCalculation == EMorphCalculationLm)
+					float originalMorph = 0.0
+					float morph = BodyGen.GetMorph(Player, sex==ESexFemale, update.Name, None)
+					D.Log("    original morph (LooksMenu Morph): " + morph)
+					value += morph
+				EndIf
+				D.Log("  -> morph: " + value)
 				BodyGen.SetMorph(Player, sex==ESexFemale, update.Name, kwMorph, value)
 				If (bodyDouble)
 					D.Log(  "morphing AAF body double: " + bodyDouble)
@@ -832,6 +870,30 @@ Function ApplyMorphUpdatesToCompanions(LenARM_SliderSet:CumulativeMorphUpdate[] 
 						value = update.CompanionMaleValue
 					EndIf
 					D.Log("  companion morph (" + companion + "): " + update.Name + "=" + value)
+					If (MorphCalculation == EMorphCalculationMax)
+						float originalMorph = 0.0
+						Keyword[] keywords = BodyGen.GetKeywords(companion, sex==ESexFemale, update.Name)
+						D.Log("    keywords: " + keywords)
+						int idxKeyword = 0
+						While (idxKeyword < keywords.Length)
+							Keyword kw = keywords[idxKeyword]
+							If (kw != kwMorph)
+								float morph = BodyGen.GetMorph(companion, sex==ESexFemale, update.Name, kw)
+								D.Log("    original morph (" + kw + "): " + morph)
+								If (morph > originalMorph)
+									originalMorph = morph
+								EndIf
+							EndIf
+							idxKeyword += 1
+						EndWhile
+						value += originalMorph
+					ElseIf (MorphCalculation == EMorphCalculationLm)
+						float originalMorph = 0.0
+						float morph = BodyGen.GetMorph(companion, sex==ESexFemale, update.Name, None)
+						D.Log("    original morph (LooksMenu Morph): " + morph)
+						value += morph
+					EndIf
+					D.Log("  -> morph: " + value)
 					BodyGen.SetMorph(companion, sex==ESexFemale, update.Name, kwMorph, value)
 					idxUpdate += 1
 				EndWhile
